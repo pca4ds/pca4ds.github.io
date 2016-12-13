@@ -12,4 +12,4 @@ by Tomàs Aluja-Banet and Alain Morineau (1999).
 by Alain Morineau and Tomàs Aluja-Banet (1997).
 
 
-Authors: Tomàs Aluja, Alain Morineau, and Gaston Sanchez.
+Authors: Tomàs Aluja-Banet, Alain Morineau, and Gaston Sanchez.
