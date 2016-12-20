@@ -1,0 +1,7 @@
+rmd_files: [
+  "index.rmd",
+  "00-glossary.Rmd",
+  "01-introduction.Rmd"
+]
+
+before_chapter_script: "_common.R"
