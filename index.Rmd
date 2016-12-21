@@ -1,0 +1,22 @@
+--- 
+title: "Principal Component Analysis for Data Science"
+author: "Tomas Aluja, Alain Morineau, and Gaston Sanchez"
+description: "This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression."
+date: "`r Sys.Date()`"
+github-repo: gastonstat/pca4ds
+site: bookdown::bookdown_site
+bibliography: [book.bib]
+biblio-style: apalike
+link-citations: yes
+always_allow_html: yes
+documentclass: book
+output: bookdown::gitbook
+---
+
+# Preface {-}
+
+
+This book aims to provide an introduction to Principal Component Analysis for
+Data Science.
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
