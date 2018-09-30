@@ -1,0 +1,79 @@
+# How Does PCA Work? {#mechanics}
+
+At its heart, performing a Principal Component Analysis involves taking a data table that contains the information about a certain phenomenon, in order to transform such data into a set of visual representations in some optimal sense. During the transformation process part of the information is "lost". However, PCA seeks to minimize this loss of information. There is a tradeoff between the amount of information that is lost, in exchange of gaining understanding and insight. We go from a raw data table to a set of graphical representations that should be easier to understand. In order to be able to _read_ the results and graphics obtained from a PCA, we need to discuss the mechanics of this technique and its underlying rationale.
+
+
+
+## Principal Components
+
+Let's consider the cloud of row-points, also known as the cloud of individuals. As we've mentioned, we are interested in decomposing the inertia (i.e. the spread) of this cloud in terms of a series of orthogonal directions.
+
+The first step consists of looking for the most basic type of subspace, namely, a line. Geometrically, a line can be defined by a vector $mathbf{u}$ of unit norm. Based on the discusion from the previous chapter, we will attempt to define $\mathbf{u}$ in such a way that the projected points on this direction have maximum inertia (see figure \@ref(fig:fig-2-1)). In other words, $\mathbf{u}$ will be defined such that the distances between pairs of projected points are as close as possible to the original distances.
+
+
+```{r fig-2-1, echo = FALSE, out.width = '75%', fig.cap='Projection of a row-point on the direction defined by a unit vector'}
+knitr::include_graphics("images/figure-2-1.png")
+```
+
+
+The projection (or coordinate) of a row-point on the direction defined by $\mathbf{u}$ is given by:
+
+\begin{equation}
+\psi_i = \sum_{j=1}^{p} (x_{ij} - \bar{x}_j) u_j
+(\#eq:2-1)
+\end{equation}
+
+
+The inertia (or variance) of all the projected points on $\mathbf{u}$ is then:
+
+\begin{equation}
+\sum_{i=1}^{n} = p_i \hspace{1mm} \psi_{i}^{2} = \lambda
+(\#eq:2-2)
+\end{equation}
+
+The goal is to look for a line $\mathbf{u}$ that maximizes the value $\lambda$.
+
+Let $\mathbf{X}$ be the mean-centered data matrix. Obtaining $\mathbf{u}$ implies diagonalizing the cross-product matrix $\mathbf{X^\mathsf{T} X}$. This matrix is the correlation matrix in a normalized PCA, whereas in a non-normalized PCA this matrix becomes teh covariance matrix.
+
+It turns out that the unit vector $\mathbf{u}$ is the eigenvector associated to the largest eigenvalue from diagonalizing $\mathbf{X^\mathsf{T} X}$.
+
+Analogously, the orthogonal direction to $\mathbf{u}$ that maximizes the projected inertia in this new direction corresponds to the eigenvector associated to the second largest eigenvalue from diagonalizing $\mathbf{X^\mathsf{T} X}$. This maximized inertia is equal to the second eigenvalue, so on and so forth.
+
+The eigenvalues provide the projected inertias on each of the desired directions. Moreover, the sum of the eigenvalues is the sum of the inertias on the orthogonal directions, and this sum is equal to the global inertia of the cloud of points.
+
+| Eigenvalues | Eigenvectors   |
+|:-----------:|:--------------:|
+| $\lambda_1$ | $\mathbf{u_1}$ |
+| $\lambda_2$ | $\mathbf{u_2}$ |
+|   $\dots$   |   $\dots$      |
+| $\lambda_p$ | $\mathbf{u_p}$ |
+
+
+\begin{equation}
+I_T = \lambda_1 + \lambda_2 + \dots + \lambda_p = \begin{cases}
+  0 & \text{in normalized PCA} \\
+  \sum_{j=1}^{p} var(j) & \text{in non-normalized PCA}
+\end{cases}
+(\#eq:2-3)
+\end{equation}
+
+The eigenvectors give the directions of maximum inertia y we call them factorial axes.
+
+On these directions we project the individuals, obtaining what is called the __principal components__ (see formula \@ref(eq:2-3)). As we can tell, each component is obtained as a linear combination of the original variables:
+
+$$
+\boldsymbol{\psi}_{\alpha} = u_1 \mathbf{x_1} + \dots + u_p \mathbf{x_p}
+$$
+
+Likewise, each component has a variance equal to its associated eigenvalue:
+
+$$
+var(\boldsymbol{\psi}_{\alpha}) = \lambda_\alpha
+$$
+
+In summary, a Principal Component Analysis can be seen as a technique in which we go from $p$ original variables $\mathbf{x_j}$, each having an importance given by its variance, into $p$ new variables $\boldsymbol{\psi}_{\alpha}$. These new variables are linear combination of the original variables, and have an importance given by their variance which turns out to be their eigenvalues (see figure \@ref(fig:fig-2-2)).
+
+```{r fig-2-2, echo = FALSE, out.width = '75%', fig.cap='Change of basis and dimension reduction'}
+knitr::include_graphics("images/figure-2-2.png")
+```
+
