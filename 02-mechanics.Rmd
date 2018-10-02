@@ -77,3 +77,49 @@ In summary, a Principal Component Analysis can be seen as a technique in which w
 knitr::include_graphics("images/figure-2-2.png")
 ```
 
+
+
+### Interpreting the Inertia Proportions
+
+In our working examples with the data about the cities, we obtain the following 12 eigenvalues:
+
+```{r table-2-1, echo = FALSE}
+# table of eigenvalues
+eigs <- read.csv('data/eigenvalues.csv', row.names = 1)
+
+knitr::kable(
+  eigs,
+  booktabs = TRUE,
+  caption = 'Distribution of eigenvalues.'
+)
+```
+
+Notice that we obtain a first principal component that stands out from the rest. 
+
+The column `eigenvalue` provides the explained inertia for each direction. The sum of all of the inertias corresponds to the global inertia of the cloud of cities. Observe that this global inertia is equal to 12, which is the number of variables. Recall that this is property from a normalized PCA.
+
+The column `percentage`, in tuerns, expresses the porpotion of the explained inertia by each axis. As we can tell from the table, the first direction explains about 85% of the global inertia, which is contained in a 12-dimensional space. Because of the very large value of this principal component, one could be tempted to neglect the rest of the components. However, we'll see that such an attitude is not excempt of risks. This does not imply that the rest of the components are useless or uninteresting. Quite the opposite, they may help reveal systematic patterns of variation in the data.
+
+The last column of table \@ref(tab:table-2-1) provides the cumulative percentage of inertia. With the first three factorial axes we summarize about 95% of the inertia (or spread) of the cloud of points.
+
+
+
+### How many axes to retain?
+
+From the previous results, we've seen that with the first principal components, we get to recover or capture most of the spread in the cloud of points. A natural question arises: How many axes should we keep?
+
+This is actually not an easy question, and the truth is that there is no definitive answer. In order to attempt answering this question, we have to consider another inquiry: What will the axes be used for? Let's see some examples.
+
+__Example 1.__ One possibility involves using the axes to obtain a simple graphic representation of the data. In this case, the conventional number of axes to retain is 2, which are used to graph a scatter diagram: say we call these axes $F_1$ and $F_2$. With a third axis, we could even try to get a three-dimensional representation ($F_1$, $F_2$, and $F_3$). Beyond three dimensions, we can't get any visual representations.
+
+Optionally, we could try to look at partial displays of the $p$-dimensional space. For instance, we can get a scatterplot with $F_2$ and $F_3$, and then another scatterplot with $F_1$ and $F_4$. Keep in mind that all these partial views require a considerable "intelectual" effort. Why? Because of the fact that in any of these partial configurations, the distances between points come from compressed spaces in which some directions have dissapeared. If the goal is to simply obtain a two-dimensional visualization, it usually suffices with looking at the first factorial plane ($F_1$ and $F_2$). To look "beyond" this plane, we will use outputs from clustering methods.
+
+__Example 2.__ If the purpose is to keep the factorial axes as an intermediate stage of a clustering procedure, then this changes things drastically. In this situation, we want to retain several axes (so that we get to keep as much of the spread of the original variables). Usually we would discard those directions associated to the smallest eigenvalues. The reason to do this is because such directions typically reflect random fluctuations---"noise"---and not really a signal in the data.
+
+__Example 3.__ If the goal is to use the factorial axes as explanatory variables in a regression model or in a classification model, we will try to keep a reduced number of axes, although not necessarily the first ones. It is certainly possible to find discriminant directions among axes that are not in the first positions.
+
+As you can tell, deciding on the number of axes to retain is not that simple. This is a decision that is also linked to the stability of results.
+
+We recommend not to blindly trust in automatic rules of thumb for deciding the number of directions to be kept. Our experience tells us that it is possible to find stable factorial axes with relatively small eigenvalue.
+
+_Note:_ To decrease the percentage of inertia of each axis, one can add new uncorrelated variables to the data table (i.e. white noise). Doing so should not have an effect on the first factorial axes, which should still be able to capture most of the summarized "information".
