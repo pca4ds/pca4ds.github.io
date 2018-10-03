@@ -123,3 +123,23 @@ As you can tell, deciding on the number of axes to retain is not that simple. Th
 We recommend not to blindly trust in automatic rules of thumb for deciding the number of directions to be kept. Our experience tells us that it is possible to find stable factorial axes with relatively small eigenvalue.
 
 _Note:_ To decrease the percentage of inertia of each axis, one can add new uncorrelated variables to the data table (i.e. white noise). Doing so should not have an effect on the first factorial axes, which should still be able to capture most of the summarized "information".
+
+
+
+### Coordinates of row-points
+
+The table below contains the results about the cities with respect to the first three factorial axes:
+
+```{r echo = FALSE, comment = ''}
+load('data/table-2-2.RData')
+pca_inds
+```
+
+The column `wgt` indicates the weight of each city, which in this case is a uniform weight of 100 / 51 = 1.96.
+
+The column `disto` provides the squared distance of each city to the center of gravity. This column allows us to find which cities are the _typical_ cities (i.e. the closest ones to the center of gravity), such as Helsinki. Likewise, it allows us to identify the _unusual_ or _unique_ cities (i.e. those that have a large distance to the center of gravity) like Zurich or Tokyo. In general, the distance to the center of gravity is a criterion of the _singularity_ of each city.
+
+The third and fourth columns correspond to the coordinates obtained from projecting the cities onto the first two factorial axes. The representation on the first factorial plane is obtained with these coordinateas ($F_1$ and $F_2$), given in figure \@ref(fig:fig-1-9).
+
+It is important to mention that the orientation of a factorial axis is arbitrary: the important trait is the direction. We could change the orientation of an axis by changing the sign of the coordinates on this axis. Graphically, this means that all symmetries are possible. The user has to make the decision of which orientation is the most convenient.
+
