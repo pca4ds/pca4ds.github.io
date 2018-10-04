@@ -143,3 +143,49 @@ The third and fourth columns correspond to the coordinates obtained from project
 
 It is important to mention that the orientation of a factorial axis is arbitrary: the important trait is the direction. We could change the orientation of an axis by changing the sign of the coordinates on this axis. Graphically, this means that all symmetries are possible. The user has to make the decision of which orientation is the most convenient.
 
+
+
+### Interpretation Tools
+
+#### Contributions {-}
+
+The next two columns, `contr1` and `contr2`, provide the _contributions_ (in percentages) of the cities to the explained inertia by each axis. The inertia of an axis is obtained via formula \@ref(eq:2-2). Thus, we can measure the part of an axis' inertia that is due to a given row-point by means of the quotient:
+
+\begin{equation}
+CTR(i, \alpha) = \frac{p_i \psi^{2}_{i \alpha}}{\lambda_{\alpha}} \times 100
+(\#eq:2-4)
+\end{equation}
+
+
+The above quotient is the contribution of a point $i$ to the construction of axis $\alpha$.
+
+We can use the contributions to identify the cities that contribute the most to the construction of the factorial axes.
+
+If all cities had the same contribution, this would have a value of about 2% (100/51). Consequently, all those cities with contributions greater than 2% can be considered to have influence above the average.
+
+_When is a contribution considered to be "high"?_
+
+The answer to this question is not straightforward. A contribution will be considered "high" when, compared to the rest of contributions, it has an unusual large value.
+
+For example, the city that contributes the most to the second axis is Abu Dhabi (48%). Almost half of the inertia of this axis is due to this city alone. Abu Dhabi is clearly very influent in the construction of this axis. We can actually ask about the stability of this axis, meaning, how much the result would change if Abu Dhabi were to be eliminated?
+
+The next figure (__FIGURE 2.3__) shows the cities with a size proportional to their contributions on the first factorial plane (sum of the contributions of the first two axes).
+
+All the active points play a role in the construction of an axis. We can check that the sum of all the contributions in an axis add up to 100.
+
+$$
+\sum_{i=1}^{n} CTR(i, \alpha) = 100
+$$
+
+__INSERT FIGURE 2.3__
+
+
+
+#### Squared Cosines {-}
+
+The last columns of the table of results, `cosqr1` and `cosqr2`, contain the values of the __squared cosines__. These are used to assess the quality of the obtained factorial configuration when compared to the original configuration of the row-points.
+
+Because the obtained representations are an approximation of the real distances between points, it is expected that some distances between pairs of points will be better represented whereas other distances will not reliably reflect the real distance between two points.
+
+The goal is to have a good idea of how close is a point with respect to the factorial plane. If two points are close to the factorial plane, then the projected distance will be a good approximation to the actual distance in the original space. However, if at least one point is further away from the projection plane, then the real distance can be very different from that represented in the factorial plane.
+
