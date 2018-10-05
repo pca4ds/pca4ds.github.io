@@ -169,15 +169,18 @@ The answer to this question is not straightforward. A contribution will be consi
 
 For example, the city that contributes the most to the second axis is Abu Dhabi (48%). Almost half of the inertia of this axis is due to this city alone. Abu Dhabi is clearly very influent in the construction of this axis. We can actually ask about the stability of this axis, meaning, how much the result would change if Abu Dhabi were to be eliminated?
 
-The next figure (__FIGURE 2.3__) shows the cities with a size proportional to their contributions on the first factorial plane (sum of the contributions of the first two axes).
+The next figure \@ref(fig:fig-2-3) shows the cities with a size proportional to their contributions on the first factorial plane (sum of the contributions of the first two axes).
+
+```{r fig-2-3, echo = FALSE, out.width = '80%', fig.cap='Contributions of the cities in the first factorial plane'}
+knitr::include_graphics("images/figure-2-3.png")
+```
 
 All the active points play a role in the construction of an axis. We can check that the sum of all the contributions in an axis add up to 100.
 
-$$
+\begin{equation}
 \sum_{i=1}^{n} CTR(i, \alpha) = 100
-$$
-
-__INSERT FIGURE 2.3__
+(\#eq:2-5)
+\end{equation}
 
 
 
@@ -189,3 +192,39 @@ Because the obtained representations are an approximation of the real distances 
 
 The goal is to have a good idea of how close is a point with respect to the factorial plane. If two points are close to the factorial plane, then the projected distance will be a good approximation to the actual distance in the original space. However, if at least one point is further away from the projection plane, then the real distance can be very different from that represented in the factorial plane.
 
+This proximity to the factorial plane is measured with the squared cosine of each point to the factorial axes. 
+
+```{r fig-2-4, echo = FALSE, out.width = '60%', fig.cap='The squared cosine as a measure of proximity'}
+knitr::include_graphics("images/figure-2-4.png")
+```
+
+The figure \@ref(fig:fig-2-4) illustrates the definition given in equation \@ref(eq:2-6)
+
+\begin{equation}
+COS^2(i, \alpha) = \frac{\psi^{2}_{i \alpha}}{d^2(i, G)}
+(\#eq:2-6)
+\end{equation}
+
+
+A squared cosine of 1means that the city is on the factorial axis (i.e. the angle $\omega$ is zero), whereas a squared cosine of 0 indicates that the city is on an orthogonal direction to the axis.
+
+Notice that the sum of the squared cosines over all $p$ factorial axes is equal to 1. This has to do with fact that all axes are needed in order to have the exact position of a point in the entire space.
+
+\begin{equation}
+\sum_{\alpha = 1}^{p} COS^2(i, \alpha) = 1
+(\#eq:2-7)
+\end{equation}
+
+Interestingly, the sum of the squared cosines of a given point over the first axes provides, in percentage, the "quality" of representation of the point in the subspace defined by these axes.
+
+_What value of a squared cosine indicates that a point is "well represented" on a factorial plane?_
+
+Similar to the contributions, the answer to the above question is not straightforward. A squared cosine (or the sum on the first two axes of the factorial plane) has to be compared with the rest of the squared cosines in order to determine if it is large or small.
+
+In our working example, the cities are in general well represented on the first factorial plane. The sum of the squared cosines over the first two axes is close to 1. However, cities such as Dublin, Madrid, Sidney or Milan, which are close to the center, are not well represented. In contrast, Mumbai or Caracas are perfectly represented. Figure \@ref(fig:fig-2-5) shows the cities with a size proportional to their squared cosine on the first factorial plane.
+
+```{r fig-2-5, echo = FALSE, out.width = '80%', fig.cap='Squared cosines of the cities on the first factorial plane'}
+knitr::include_graphics("images/figure-2-5.png")
+```
+
+The cities that are deficiently represented in this plane are the "average" cities. We can only interpret the proximity between cities if they are well represented on the factorial plane.
