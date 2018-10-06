@@ -228,3 +228,60 @@ knitr::include_graphics("images/figure-2-5.png")
 ```
 
 The cities that are deficiently represented in this plane are the "average" cities. We can only interpret the proximity between cities if they are well represented on the factorial plane.
+
+
+
+## Projections of Variables
+
+Just like row-points can be represented on a low-dimensional factorial space that preserves as much as possible the original distances, we can do the same with the column-points (i.e. the variables).
+
+Mathematically, working with the column-points implies diagonalizing the cross-product matrix $\mathbf{X X^\mathsf{T}}$.
+
+```{r fig-2-6, echo = FALSE, out.width = '75%', fig.cap='Matrices to be diagonalized depending on the type of points'}
+knitr::include_graphics("images/figure-2-6.png")
+```
+
+Analogously to the row-points, we can obtain the decomposition of the inertia depending on the directions defined by the eigenvalues of the matrix $\mathbf{X X^\mathsf{T}}$. The projected inertia on each direction is equal to its associated eigenvalue.
+
+```{r fig-2-7, echo = FALSE, out.width = '70%', fig.cap='Cloud of variables and factorial axes in the space of individuals'}
+knitr::include_graphics("images/figure-2-7.png")
+```
+
+The line of maximum inertia is given by the eigenvector $\mathbf{v}$ (defining the direction $F_1$), associated to the largest eigenvalue. The plane of maximum inertia is formed by adding the line that defines the direction $F_2$. This second direction corresponds to the eigenvector associated to the second largest eigenvalue, and so on.
+
+The representation of the variables on an axis is obtained by projecting the variable-points onto a unit vector $\mathbf{v}$ that defines the direction of the axis.
+
+Let $\varphi_{j \alpha}$ be the coordinate of the $j$ variable on the axis $\alpha$
+
+\begin{equation}
+\varphi_{j \alpha} = \sum_{i=1}^{n} \frac{x_{ij} - \bar{x}_j}{s_j} \hspace{1mm} v_{i \alpha}
+(\#eq:2-8)
+\end{equation}
+
+where $\bar{x}_j$ is the mean of the $j$-th variable.
+
+__INSERT FIGURE 2.8__ Projection of the variables on the first factorial plane.
+
+The inertia on an axis is given by the sum of the inertias of each variable-point projected onto the axis. In PCA there is not an explicit  weight for the variable-points. However, each variable can play a role more or less important by changing the unit of measurement, which in turn will increase (or decrease) its variance in a non-normalized PCA.
+
+\begin{equation}
+\sum_{j=1}^{p} \varphi^{2}_{j \alpha} = \lambda_{\alpha}
+(\#eq:2-9)
+\end{equation}
+
+Notice that the inertia of the variable-points that are projected onto an axis is the same as the inertia of the row-points projected on the axis of same rank.
+
+Among the factorial axes of both clouds of points, the factorial axes in one space are related to the factorial axes in the other space. Thiese relationships allow us to obtain the directions of one space taking into account the directions of the other space. Such relationships are known as _transition relationships_.
+
+By using the transition relationships, we just need to perform a PCA on one of the spaces (e.g. the rows), and then use these results to derive the results of the other space (e.g. the columns), without having to diagonalize two different cross-products.
+
+In general, we perform the analysis on the cross-product with the smaller dimensions. Usually, this involves working with the matrix $\mathbf{X^\mathsf{T} X}$, assuming that the data matrix has more rows than columns: $n > p$. In this scenario, we obtain the projection of the row-points given in equation \@ref(eq:2-1). The projection of the variables is then calculated from the directions $\mathbf{u}$, which define the factorial axes of the cloud of row-points.
+
+\begin{equation}
+\varphi_{j \alpha} = \sqrt{\lambda_{\alpha}} \hspace{1mm} u_{j \alpha}
+(\#eq:2-10)
+\end{equation}
+
+The above formula alows us to interpret the simultaneous representation of both the cities and the profesions.
+
+
