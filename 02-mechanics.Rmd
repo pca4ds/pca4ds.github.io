@@ -132,6 +132,7 @@ The table below contains the results about the cities with respect to the first 
 
 ```{r echo = FALSE, comment = ''}
 load('data/table-2-2.RData')
+cat('Table 2.2: Resutls of the individuals\n')
 pca_inds
 ```
 
@@ -260,7 +261,9 @@ Let $\varphi_{j \alpha}$ be the coordinate of the $j$ variable on the axis $\alp
 
 where $\bar{x}_j$ is the mean of the $j$-th variable.
 
-__INSERT FIGURE 2.8__ Projection of the variables on the first factorial plane.
+```{r fig-2-8, echo = FALSE, out.width = '85%', fig.cap='Projection of the variables on the first factorial plane'}
+knitr::include_graphics("images/figure-2-8.png")
+```
 
 The inertia on an axis is given by the sum of the inertias of each variable-point projected onto the axis. In PCA there is not an explicit  weight for the variable-points. However, each variable can play a role more or less important by changing the unit of measurement, which in turn will increase (or decrease) its variance in a non-normalized PCA.
 
@@ -282,6 +285,27 @@ In general, we perform the analysis on the cross-product with the smaller dimens
 (\#eq:2-10)
 \end{equation}
 
-The above formula alows us to interpret the simultaneous representation of both the cities and the profesions.
+The above formula allows us to interpret the simultaneous representation of both the cities and the profesions.
+
+In our working example, the results about the cities are displayed in table 2.3
+
+```{r echo = FALSE, comment = ''}
+load('data/table-2-3.RData')
+cat('Table 2.3: Resutls of the variables\n')
+pca_vars
+```
+
+The coordinates of all the variables in the first axis have the same sign, which indicates that the cloud of points is not centered.
+
+Notice also that, in the case of normalized analysis, the coordinate coincides with the correlation of a variable and the principal component (projection of the points onto the factorial axis of same rank):
+
+\begin{equation}
+\varphi_{j \alpha} = cor(\mathbf{x_j}, \boldsymbol{\psi_{\alpha}})
+(\#eq:2-11)
+\end{equation}
+
+This formula plays an important role in the interpretation of the results because it connects the representation of the row-points with the representation of the column-points.
+
+A high correlation implies that the configuration of the individuals on a factorial axis resembles the positions of the individuals on that variable (a unit correlation would indicate that the principal component is a linear function of the variable). A correlation close to zero indicates that there is no _linear_ association between the principal component and the variable.
 
 
