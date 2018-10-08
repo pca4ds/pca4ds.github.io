@@ -285,7 +285,7 @@ In general, we perform the analysis on the cross-product with the smaller dimens
 (\#eq:2-10)
 \end{equation}
 
-The above formula allows us to interpret the simultaneous representation of both the cities and the profesions.
+The above formula allows us to interpret the simultaneous representation of both the cities and the professions.
 
 In our working example, the results about the cities are displayed in table 2.3
 
@@ -307,5 +307,120 @@ Notice also that, in the case of normalized analysis, the coordinate coincides w
 This formula plays an important role in the interpretation of the results because it connects the representation of the row-points with the representation of the column-points.
 
 A high correlation implies that the configuration of the individuals on a factorial axis resembles the positions of the individuals on that variable (a unit correlation would indicate that the principal component is a linear function of the variable). A correlation close to zero indicates that there is no _linear_ association between the principal component and the variable.
+
+
+
+### Size Effect
+
+As we've described it, the first principal component arises from the high correlation that exists among all the variables, which geometrically forms a very homogeneous array of vectors. This first component approximately corresponds to the bisector of this array of vectors, and will therefore be highly correlated to the original variables.
+
+How can we interpret this phenomenon? Broadly speaking, for any city, if a salary is high in a given profession, then this is also true for the set of professions in that city. This general phenomenon is actually present in the entire data table as a structural pattern, which generates the first factor. And it is for this reason that we call the first component the __size factor__ or __size effect__.
+
+```{r echo = FALSE, comment = ''}
+load('data/table-2-4.RData')
+cat('Table 2.4: Correlation matrix ordered based on the size factor\n\n')
+print(var_corrs, na.print = "", print.gap = 2)
+```
+
+Having a first principal component that captures the _size effect_ is a common phenomenon in PCA. A distinctive trait is that the matrix of correlations between the variables can be arranged based on the correlations with the first principal component. As we can tell from table 2.4, there are high correlations close to the diagonal, and then they decrease as one moves away from this diagonal.
+
+
+#### Interpretation of the Axes {-}
+
+To better interpret a factorial axis we should take into account the variables that have a relative high correlation with the axis.
+
+We have seen that the first axis is interpreted as a factor of size: differentiating cities according to their overall salary levels. The subsequent principal components comprise factors that are orthogonal to the first one.
+
+The first principal component (projection of the cities onto the first direction of the cloud of row-points) provides an ordination of the cities depending on their salary levels. This first component opposes Swiss cities (Zurich and Geneva) and Tokyo to cities like Mumbai, Manila and Nairobi.
+
+The second factorial axis, showing lower correlations with the original variables, opposes the professions `factory_manager`, `engineer`, `bank_clerk`, and `cook_chef` to `textile_worker`, `construction_worker`, `mechanic`, and `metalworker`. In other words, the second axis has to do with the fact that, independently from the salaries of a city, certain professions have a higher salaries than others.
+
+The projection obto the second axis allows to distinguish cities with similar overall level of salaries: certain cities tend to value the _managerial_ jobs, whereas other cities tend to value the professions less socially appreciated.
+
+
+### Interpretation tools for Variable Interpretation
+
+#### Cosine Squares {-}
+
+In a similar fashion to the analysis of the individuals (i.e. the cities), we can also define a set of coefficients, squared cosines, and contributions, that will help us in the interpretation of results in the analysis of the variables.
+
+The squared cosines are defined as the quotient between the projected squared distance on an axis and the squared distance to the origin.
+
+We know that the squared distance of a variable to the origin is equal to its variance:
+
+\begin{equation}
+COS^2(j, \alpha) = \frac{\varphi^{2}_{j \alpha}}{var(j)}
+(\#eq:2-12)
+\end{equation}
+
+
+The sum of the squared cosines over all the axes is always equal to one:
+
+\begin{equation}
+\sum_{\alpha = 1}^{p} COS^2(j, \alpha) = 1
+(\#eq:2-13)
+\end{equation}
+
+In the normalized PCA, the variances are equal to one; thus the squared cosines will be squared of the coordinates of the variables:
+
+$$
+COS^2(j, \alpha) = \varphi_{j \alpha}^{2} \qquad \text{in normalized PCA}
+$$
+
+In general, we have that:
+
+$$
+COS^2(j, \alpha) = CORR^2(\text{variable}, \text{factor})
+$$
+
+
+#### Contributions {-}
+
+The contribution of each variable to the inertia of an axis is the part of the inertia accounted for the variable. The inertia of an axis (see eq \@ref(eq:2-9)) is expressed as:
+
+$$
+\lambda_{\alpha} = \sum_{j=1}^{p} \varphi_{j \alpha}^{2}
+$$
+
+The contribution of a variable to the construction of an axis is:
+
+\begin{equation}
+CTR(j, \alpha) = \frac{\varphi_{j \alpha}^{2}}{\lambda_{\alpha}} = \frac{(\sqrt{\lambda_{\alpha}} \hspace{1mm} u_{j \alpha})^2}{\lambda_{\alpha}} = u_{j \alpha}^{2}
+(\#eq:2-14)
+\end{equation}
+
+where $u_{j \alpha}^{2}$ is the coordinate of the former unit axis associated to the variable $j$, projected on the axis $\alpha$.
+
+We have the following result:
+
+$$
+CTR(j, \alpha) = (\text{former unit axis})^2
+$$
+
+To find how much a variable contributes to the construction of an axis, it suffices to square each component of the vector $\mathbf{u}$. These contributions indicate which variables are responsible for the construction of each axis. The sum of all the contributions to an axis is equal to 1 (or 100 in percentage).
+
+\begin{equation}
+\sum_{j=1}^{p} CTR(j, \alpha) = 100
+(\#eq:2-15)
+\end{equation}
+
+The elements of $\mathbf{u}$ define the linear combinations of the original variables, orthogonal among each other, and of maximum variance (i.e. the principal components). For example, the linear combination of the first component is:
+
+$$
+\boldsymbol{\psi_1} = 0.30 \texttt{ teacher} + 0.30 \texttt{ bus_driver} + 0.29 \texttt{ mechanic} \\
++ 0.28 \texttt{ construction_worker} + 0.30 \texttt{ metalworker} + 0.27 \texttt{ cook_chef} + \\
++0.26 \texttt{ factory_manager} + 0.28 \texttt{ engineer} + 0.28 \texttt{ bank_clerk} + \\
++ 0.31 \texttt{ executive_secretary} + 0.30 \texttt{ salesperson} + 0.29 \texttt{ textile_worker}
+$$
+
+where each variable has been mena-centered and standardized (because we have performed a normalized PCA).
+
+The first component is therefore defined by a set of coefficients, very similar to each other. In this particular case, the first component is not that different from the average of all the profession salaries.
+
+The set of components $u_{j \alpha}$ also define the projection of the former unit axes onto the new factorial axes.
+
+
+
+
 
 
