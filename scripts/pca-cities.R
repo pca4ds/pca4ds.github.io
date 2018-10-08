@@ -115,3 +115,31 @@ fig_2_5 <- ggplot(data = pca_inds, aes(x = coord1, y = coord2)) +
 
 ggsave(filename = 'images/figure-2-5.png', plot = fig_2_5, 
        width = 7, height = 5)
+
+
+# table 2.3: results for variables
+pca_vars <- data.frame(
+  coord1 = round(pca$var$coord[,1], 2),
+  coord2 = round(pca$var$coord[,2], 2),
+  coord3 = round(pca$var$coord[,3], 2),
+  cor1 = round(pca$var$cor[,1], 2),
+  cor2 = round(pca$var$cor[,2], 2),
+  cor3 = round(pca$var$cor[,3], 2)
+)
+
+save(pca_vars, file = 'data/table-2-3.RData')
+
+
+# table 2.4: correlations of all variables
+var_labels <- c(
+  'tea', 'bus', 'mec', 'con', 'met', 'coo', 'dep',
+  'eng', 'ban', 'exe', 'sal', 'tex'
+)
+
+aux <- order(pca$var$cor[ ,1], decreasing = TRUE)
+var_corrs <- round(cor(dat[, active])[aux, aux], 2)
+var_corrs[upper.tri(var_corrs, diag = TRUE)] <- NA
+rownames(var_corrs) <- var_labels[aux]
+colnames(var_corrs) <- var_labels[aux]
+
+save(var_corrs, file = 'data/table-2-4.RData')
