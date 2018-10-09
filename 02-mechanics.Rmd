@@ -421,6 +421,27 @@ The set of components $u_{j \alpha}$ also define the projection of the former un
 
 
 
+## Beyond the First Factor
+
+The most striking fact from the results discussed so far is the so-called _size factor_ (or size effect) which is extremely dominant in our working example. This size factor, reflected in the first principal component, exclusively shows the salary inequality among the cities. The rest of the factors are somewhat "squeezed" by the strength of this phenomenon in the data table.
+
+When a size factor dominates the analysis, it is interesting to approach the Principal Component Analysis in a _controlled_ fashion. This involves taking into account the previous knowledge about the salaries in the cities in order to go beyond their salary inequality.
+
+A simple way to achieve this consists of dividing the salaries of each profession by the mean salary in each city, thus eliminating the aforementioned effect of salary inequality.
+
+At the same time, this creates two new artificial cities. One indicates the "salary inequality" of each city: as the difference between its higher salary and its lower salary, with respect to mean salary of the city:
+
+$$
+\text{salary inequality} = \frac{\text{salary}_{max} - \text{salary}_{min}}{\text{mean salary of the city}}
+$$
+
+Another variable about the salary of the manual jobs with a certain qualification, is obtained as the mean salary of `mechanic` and `metalworker`:
+
+$$
+\text{qualified manual jobs} = \frac{\texttt{mechanic} + \texttt{metalworker}}{2 \times \text{mean salary of the city}}
+$$
+
+The new table contains 12 new variables of salaries (quotient between the salary of a profession relative to the mean salary of the city). We can then perform a Principal Component Analysis on this new table. The table 2.5 contains the summary statistics of these new 12 active variables:
 
 
 
