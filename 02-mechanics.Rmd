@@ -130,11 +130,20 @@ _Note:_ To decrease the percentage of inertia of each axis, one can add new unco
 
 The table below contains the results about the cities with respect to the first three factorial axes:
 
-```{r echo = FALSE, comment = ''}
+```{r table-2-2, echo = FALSE, comment = ''}
 load('data/table-2-2.RData')
-cat('Table 2.2: Resutls of the individuals\n')
-pca_inds
+#cat('Table 2.2: Resutls of the individuals\n')
+#pca_inds
+
+# print table with kable
+knitr::kable(
+  pca_inds,
+  
+  booktabs = TRUE,
+  caption = 'Resutls of the individuals'
+)
 ```
+
 
 The column `wgt` indicates the weight of each city, which in this case is a uniform weight of 100 / 51 = 1.96.
 
@@ -289,11 +298,20 @@ The above formula allows us to interpret the simultaneous representation of both
 
 In our working example, the results about the cities are displayed in table 2.3
 
-```{r echo = FALSE, comment = ''}
+```{r table-2-3, echo = FALSE, comment = ''}
 load('data/table-2-3.RData')
-cat('Table 2.3: Resutls of the variables\n')
-pca_vars
+#cat('Table 2.3: Resutls of the variables\n')
+#pca_vars
+
+# print table with kable
+knitr::kable(
+  pca_vars,
+  
+  booktabs = TRUE,
+  caption = 'Resutls of the variables'
+)
 ```
+
 
 The coordinates of all the variables in the first axis have the same sign, which indicates that the cloud of points is not centered.
 
@@ -316,11 +334,23 @@ As we've described it, the first principal component arises from the high correl
 
 How can we interpret this phenomenon? Broadly speaking, for any city, if a salary is high in a given profession, then this is also true for the set of professions in that city. This general phenomenon is actually present in the entire data table as a structural pattern, which generates the first factor. And it is for this reason that we call the first component the __size factor__ or __size effect__.
 
-```{r echo = FALSE, comment = ''}
+```{r table-2-4, echo = FALSE, comment = ''}
 load('data/table-2-4.RData')
-cat('Table 2.4: Correlation matrix ordered based on the size factor\n\n')
-print(var_corrs, na.print = "", print.gap = 2)
+options(knitr.kable.NA = '')
+
+# print results without kable
+#cat('Table 2.4: Correlation matrix ordered based on the size factor\n\n')
+#print(var_corrs, na.print = "", print.gap = 2)
+
+# print table with kable
+knitr::kable(
+  var_corrs,
+  
+  booktabs = TRUE,
+  caption = 'Correlation matrix ordered based on the size factor'
+)
 ```
+
 
 Having a first principal component that captures the _size effect_ is a common phenomenon in PCA. A distinctive trait is that the matrix of correlations between the variables can be arranged based on the correlations with the first principal component. As we can tell from table 2.4, there are high correlations close to the diagonal, and then they decrease as one moves away from this diagonal.
 
@@ -425,11 +455,11 @@ The set of components $u_{j \alpha}$ also define the projection of the former un
 
 The most striking fact from the results discussed so far is the so-called _size factor_ (or size effect) which is extremely dominant in our working example. This size factor, reflected in the first principal component, exclusively shows the salary inequality among the cities. The rest of the factors are somewhat "squeezed" by the strength of this phenomenon in the data table.
 
-When a size factor dominates the analysis, it is interesting to approach the Principal Component Analysis in a _controlled_ fashion. This involves taking into account the previous knowledge about the salaries in the cities in order to go beyond their salary inequality.
+When a size factor dominates the analysis, it is interesting to rerun a Principal Component Analysis but controlling (eliminating) for the size effect. This involves taking into account the previous knowledge about the salaries in the cities in order to go beyond their salary inequality.
 
-A simple way to achieve this consists of dividing the salaries of each profession by the mean salary in each city, thus eliminating the aforementioned effect of salary inequality.
+A simple way to achieve this consists of dividing the salaries of each profession by the mean salary in each city, thus eliminating the aforementioned effect of salary inequality. The mean salary of a city can be obtained as the average of the salaries in that city. However, we have decided to obtain the mean salaries of cities in a slightly different form: as the product of the _net hourly salary_ times the _number of hours worked per year_ (i.e. the product of columns `net_hourly_salary` and `work_hours_year`).
 
-At the same time, this creates two new artificial cities. One indicates the "salary inequality" of each city: as the difference between its higher salary and its lower salary, with respect to mean salary of the city:
+At the same time, we have decided to create two new artificial cities. One indicates the "salary inequality" of each city: as the difference between its higher salary and its lower salary, with respect to mean salary of the city:
 
 $$
 \text{salary inequality} = \frac{\text{salary}_{max} - \text{salary}_{min}}{\text{mean salary of the city}}
@@ -441,7 +471,65 @@ $$
 \text{qualified manual jobs} = \frac{\texttt{mechanic} + \texttt{metalworker}}{2 \times \text{mean salary of the city}}
 $$
 
-The new table contains 12 new variables of salaries (quotient between the salary of a profession relative to the mean salary of the city). We can then perform a Principal Component Analysis on this new table. The table 2.5 contains the summary statistics of these new 12 active variables:
+The new data table contains 12 new variables of salaries (quotient between the salary of a profession relative to the mean salary of the city). We can then perform a Principal Component Analysis on this new table. The table 2.5 contains the summary statistics of these new 12 active variables:
 
+```{r table-2-5, echo = FALSE}
+# table of summary statistics
+table_2_5 <- load('data/table-2-5.RData')
 
+knitr::kable(
+  trans_vars_statistics,
+  booktabs = TRUE,
+  caption = 'Summary Statistics of the second analysis'
+)
+```
 
+We can see that the best paid profession is `factory_manager` which, in average, is two and half times above the mean salary. In contrast, the worst paid profession if `textile_worker` with a salary of 2/3 the mean salary.
+
+When looking at the matrix of correlations (see table \@ref(tab:table-2-6)) we now have values that are very different from table \@ref(tab:table-1-3). These new correlations are actually partial correlations, because we have removed the effect that is due to the salary level per city.
+
+```{r table-2-6, echo = FALSE}
+# table of summary statistics
+table_2_6 <- load('data/table-2-6.RData')
+options(knitr.kable.NA = '')
+
+knitr::kable(
+  var_trans_corrs,
+  
+  booktabs = TRUE,
+  caption = 'Correlations'
+)
+```
+
+Observe that we now have negative correlations, indicating that when a profession is well paid in a given city, it is detrimental to other profession (values below 0.28 in absolute value, indicate correlations non-significantly different from zero).
+
+The diagonalization of the correlation matrix provides the eigenvalues displayed in table \@ref(tab:table-2-7):
+
+```{r table-2-7, echo = FALSE}
+# table of eigenvalues
+eigs2 <- read.csv('data/table-2-7.csv', row.names = 1)
+
+knitr::kable(
+  eigs2,
+  booktabs = TRUE,
+  caption = 'Distribution of eigenvalues.'
+)
+```
+
+```{r echo = FALSE, fig.align='center', fig.cap='Distribution of eigenvalues'}
+barplot(eigs2[,2], border = NA, las = 1, 
+        ylim = c(0, 5), names.arg = eigs2[,1])
+```
+
+The projection of the new (transformed) variables on the three axes obtained in the second analysis, are contained in the table \@ref(tab:table-2-8) shown below 
+
+```{r table-2-8, echo = FALSE}
+# table of eigenvalues
+load('data/table-2-8.RData')
+
+knitr::kable(
+  pca2_vars,
+  booktabs = TRUE,
+  caption = 'Results for the variables in the second analysis'
+)
+```
