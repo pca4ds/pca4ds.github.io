@@ -533,3 +533,38 @@ knitr::kable(
   caption = 'Results for the variables in the second analysis'
 )
 ```
+
+The first component shows the opposition of `executive_secretary`, `factory_manager`, `engineer`, `cook_chef`, and `bank_clerk` against the rest of the professions, and in particular with `construction_worker`. 
+
+The second axis is formed by the professions `mechanic`, and `metal_worker`, opposed to `teacher`, `bus_driver`, and `textile_worker`.
+
+Having eliminated the size factor in this second analysis, we can say that the first factorial plane provides the structure of association among the professions with a constant global salary, with respect to all the cities (see figure \@ref(fig:fig-2-9)).
+
+```{r fig-2-9, echo = FALSE, out.width = '70%', fig.cap='Circle of correlations on the first factorial plane of the second analysis'}
+knitr::include_graphics("images/figure-2-9.png")
+```
+
+The results regarding the cities are shown in table \@ref(tab:table-2-9)
+
+```{r table-2-9, echo = FALSE}
+# table of eigenvalues
+pca2_inds <- read.csv('data/table-2-9.csv', row.names = 1)
+
+knitr::kable(
+  pca2_inds,
+  booktabs = TRUE,
+  caption = 'Results for the cities in the second analysis'
+)
+```
+
+There are few cities farther apart from the center of gravity: Abu Dhabi, Nairobi, and Buenos Aires. Figure \@ref(fig:fig-2-10) shows the factorial plane. On the left side we find the cities with salaries of "managerial" professions _relatively_ higher. To the right of the graph we find cities that could be labeled as more "egalitarian" (in terms of their salaries).
+
+```{r fig-2-10, echo = FALSE, out.width = '80%', fig.cap='Projection of the individuals in the first factorial plane'}
+knitr::include_graphics("images/figure-2-10.png")
+```
+
+In the lower half of the graph we find cities that provide more value to the qualified manual jobs, whereas the upper half of the graph contains cities that tend to provide more value to the managerial and services types of jobs.
+
+All these results suggest that the salaries can be explained from the level of salaries of each city (first factor from first analysis), the degree of "egalitarianism" between professions and the orientation of the types of jobs (manual jobs versus service jobs).
+
+
