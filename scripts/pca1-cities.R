@@ -1,16 +1,22 @@
+# PCA of dataset cities94.csv
+# Results for sections 2.1 and 2.2
 
+# packages
 library(FactoMineR)
 library(ggplot2)
 
 # working directory is the top-level directory
 cities <- read.csv('data/cities94.csv', stringsAsFactors = FALSE)
 
+# names of active variables
 active <- c(
   "teacher", "bus_driver", "mechanic", "construction_worker",
   "metalworker", "cook_chef", "factory_manager", "engineer",
   "bank_clerk", "executive_secretary", "salesperson", "textile_worker")
 
+# removing missing values
 dat <- na.omit(cities[ ,c('city', active)])
+
 
 # table 1.4: summary statistics
 summary(dat)
@@ -59,7 +65,7 @@ ggsave(filename = 'images/figure-1-9.png', plot = fig_1_9,
        width = 7, height = 5)
 
 
-# circle of correlations
+# figure 1.11 (circle of correlations)
 png("../images/figure-1-11.png", 
     height = 1000, width = 1000, res = 200)
 plot(pca, choix = 'var', las = 1, title = '')
@@ -83,9 +89,7 @@ pca_inds <- data.frame(
   cosqr2 = round(pca$ind$cos2[,2], 2)
 )
 
-sink('data/table-2-2.txt')
-pca_inds
-sink()
+save(pca_inds, file = 'data/table-2-2.RData')
 
 
 # figure 2.3 (factorial plane, size of cities with contributions)
@@ -143,3 +147,6 @@ rownames(var_corrs) <- var_labels[aux]
 colnames(var_corrs) <- var_labels[aux]
 
 save(var_corrs, file = 'data/table-2-4.RData')
+
+
+
