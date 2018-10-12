@@ -282,7 +282,7 @@ the space where each axis corresponds to a variable. The following figure
 depicts this idea when we have only three variables.
 
 ```{r fig-1-5, echo = FALSE, out.width = '90%', fig.cap='Cloud of row-points in first factorial plane'}
-knitr::include_graphics("images/cloud-rows-in-factorial-plane.png")
+knitr::include_graphics("images/figure-1-5.png")
 ```
 
 The problem consists of finding the factorial plane such that the set of
