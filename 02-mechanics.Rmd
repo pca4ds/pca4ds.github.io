@@ -568,3 +568,49 @@ In the lower half of the graph we find cities that provide more value to the qua
 All these results suggest that the salaries can be explained from the level of salaries of each city (first factor from first analysis), the degree of "egalitarianism" between professions and the orientation of the types of jobs (manual jobs versus service jobs).
 
 
+
+## Using Supplementary Elements
+
+In section 1.1 we described the data set containing 51 cities on which 40 economic variables have been measured. Until now we have performed a couple of Principal Component Analysis using only the so-called active variables (i.e. the variables about the salaries of 12 professions). However, the data table contains additional variables that can be taken into account in order to enrich our analysis.
+
+
+### Continuous Supplementary Variables
+
+The continuous supplementary variables can be positioned in the factorial spcaes using the same formulas applied to the active variables.
+
+Within a normalized PCA, we use the correlation of a supplementary variable $\mathbf{x^{+}_{j}}$ with the principal components $\boldsymbol{\psi_{\alpha}}$
+
+\begin{equation}
+\phi^{+}_{j \alpha} = cor(\mathbf{x^{+}_{j}}, \boldsymbol{\psi_{\alpha}})
+(\#eq:2-16)
+\end{equation}
+
+(the superindex + indicates that this is a supplementary variable)
+
+With a non-normalized PCA, we just need to multiply the correlation by the standard deviation of the supplementary variable:
+
+\begin{equation}
+\phi^{+}_{j \alpha} = s_j \hspace{1mm} cor(\mathbf{x^{+}_{j}}, \boldsymbol{\psi_{\alpha}})
+(\#eq:2-17)
+\end{equation}
+
+The position of the ssupplementary variables with respect to the factorial axes is interpreted in the same way as with the active variables.
+
+_The position of a supplementary varibale in a factorial plane allows us to visualize the relationship of the variable with the set of active variables via the factorial axes._
+
+Notice that we have not defined a distance between two supplementary variables. The relative positions between two supplementary variables does not imply any correlation between them. However, as long as the supplementary variables are well represented on the first factorial plane, and close to each other, we can expect that the similarity of their correlations with the axes (similarity of their coordinates) is a consequence of a strong correlation between them.
+
+
+#### Visualized Regression {-}
+
+The position of a continuous supplementary variable in a factorial plane resembles that of a "visual regression". On one hand, the supplementary variable plays the role of response variable. On the other hand, the projection subspace (first factorial planes) play the role of explanatory variables. This analogy is depicted in figure \@ref(fig:fig-2-11)
+
+```{r fig-2-11, echo = FALSE, out.width = '80%', fig.cap='Equivalence between a regression and the supplementary projection'}
+knitr::include_graphics("images/figure-2-11.png")
+```
+
+In a regression, we are mostly interested in the value of the coefficients, and we care about whether the explanatory variables allows us to predict the response variable $\mathbf{y}$.
+
+In a PCA, there is usually a considerable number of variables of type $\mathbf{y}$. Their projections onto the first factorial plane indicate, in a quick way, which are well (or not) related with the set of active variables. On the other hand, their positions with respect the axes provide what we call interpretation elements of the axes.
+
+
