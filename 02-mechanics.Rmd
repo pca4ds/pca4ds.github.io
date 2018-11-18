@@ -605,7 +605,7 @@ Notice that we have not defined a distance between two supplementary variables. 
 
 The position of a continuous supplementary variable in a factorial plane resembles that of a "visual regression". On one hand, the supplementary variable plays the role of response variable. On the other hand, the projection subspace (first factorial planes) play the role of explanatory variables. This analogy is depicted in figure \@ref(fig:fig-2-11)
 
-```{r fig-2-11, echo = FALSE, out.width = '80%', fig.cap='Equivalence between a regression and the supplementary projection'}
+```{r fig-2-11, echo = FALSE, out.width = '80%', fig.cap='Equivalence between a regression and the projection of supplementary'}
 knitr::include_graphics("images/figure-2-11.png")
 ```
 
@@ -613,4 +613,28 @@ In a regression, we are mostly interested in the value of the coefficients, and 
 
 In a PCA, there is usually a considerable number of variables of type $\mathbf{y}$. Their projections onto the first factorial plane indicate, in a quick way, which are well (or not) related with the set of active variables. On the other hand, their positions with respect the axes provide what we call interpretation elements of the axes.
 
+
+#### Quality of Representation for Supplementary Variables {-}
+
+To compute the quality of representation for the supplementary variables we calculate the squared cosines of each supplementary variable with the different factorial axes. Keep in mind that the overall sum of the squared cosines on the $p$ axes will (in general) be less than one.
+
+$$
+COS^2 (j^{+}, \alpha) = cor^2 (\text{variable}^{+}, \text{factor})
+$$
+
+To get the location of a supplementary variable in the original space, we need to know its $n$ elements (its values of the $n$ individuals). This is analogous to an active variable, except that the set of active variables is found in a subset of dimension $p$ (the rank of $\mathbf{X}$, or the rank of $\mathbf{X^\mathsf{T} X}$). The coordinates on the $p$ factorial axes allow to locate any active variable. This property is not present for supplementary variables.
+
+It doesn't make sense to calculate the contributions of the supplementary variables to the inertia of the axes, because these variables have not intervened in its construction.
+
+In the second analysis of the cities, we treat the rest of continuous variables as supplementary variables. _etc, etc, etc_
+
+__INSERT TABLE 2.10__
+
+From the above table, we see that the salaries of the 12 professions, as well as most of the expenses, are negatively correlated with the first axis. This indicates that the cities with higher salaries tend to remunerate (relatively) less the managerial professions.
+
+Also, the correlations with the variables `price_index_no_rent` and `price_index_with_rent` are a bit smaller than the correlations with the variables `gross_salaries` and `net_salaries`. This has to do with the most expensive cities which have a higher buying capacity, and elevated taxes and social services.
+
+The first axis opposes cities with low salaries that pay relatively well to `factory_manager`, `engineer` and `executive_secretary`, to the cities with higher salaries that pay relatively better those professions that are less socially well considered. This axis can thus be labeled as a _salary inequality_. In fact, the derived variable `salary_inequality` is the most correlated to this axis.
+
+This first axis is correlated to the first axis of the first PCA analysis (i.e. the so-called _size effect_). In other words, the first axis of salary inequality is correlated to the salary level: the higher the level of salary, the less the salary inequality. However, notice that the largest correlation occurs with the second axis from the first analysis. This indicates a rotation: the first axis from the analysis on the ratios corresponds to the second axis from the analysis on the raw data. This is a common phenomenon that occurs in an analysis in which we eliminate the size effect.
 
