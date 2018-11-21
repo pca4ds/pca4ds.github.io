@@ -132,7 +132,7 @@ The table below contains the results about the cities with respect to the first 
 
 ```{r table-2-2, echo = FALSE, comment = ''}
 load('data/table-2-2.RData')
-#cat('Table 2.2: Resutls of the individuals\n')
+#cat('Table 2.2: Results of the individuals\n')
 #pca_inds
 
 # print table with kable
@@ -140,7 +140,7 @@ knitr::kable(
   pca_inds,
   
   booktabs = TRUE,
-  caption = 'Resutls of the individuals'
+  caption = 'Results of the individuals'
 )
 ```
 
@@ -300,7 +300,7 @@ In our working example, the results about the cities are displayed in table 2.3
 
 ```{r table-2-3, echo = FALSE, comment = ''}
 load('data/table-2-3.RData')
-#cat('Table 2.3: Resutls of the variables\n')
+#cat('Table 2.3: Results of the variables\n')
 #pca_vars
 
 # print table with kable
@@ -308,7 +308,7 @@ knitr::kable(
   pca_vars,
   
   booktabs = TRUE,
-  caption = 'Resutls of the variables'
+  caption = 'Results of the variables'
 )
 ```
 
@@ -595,16 +595,16 @@ With a non-normalized PCA, we just need to multiply the correlation by the stand
 (\#eq:2-17)
 \end{equation}
 
-The position of the ssupplementary variables with respect to the factorial axes is interpreted in the same way as with the active variables.
+The position of the supplementary variables with respect to the factorial axes is interpreted in the same way as with the active variables.
 
-_The position of a supplementary varibale in a factorial plane allows us to visualize the relationship of the variable with the set of active variables via the factorial axes._
+_The position of a supplementary variable in a factorial plane allows us to visualize the relationship of the variable with the set of active variables via the factorial axes._
 
 Notice that we have not defined a distance between two supplementary variables. The relative positions between two supplementary variables does not imply any correlation between them. However, as long as the supplementary variables are well represented on the first factorial plane, and close to each other, we can expect that the similarity of their correlations with the axes (similarity of their coordinates) is a consequence of a strong correlation between them.
 
 
 #### Visualized Regression {-}
 
-The position of a continuous supplementary variable in a factorial plane resembles that of a "visual regression". On one hand, the supplementary variable plays the role of response variable. On the other hand, the projection subspace (first factorial planes) play the role of explanatory variables. This analogy is depicted in figure \@ref(fig:fig-2-11)
+The position of a continuous supplementary variable in a factorial plane resembles that of a "visual regression". From this point of view, the supplementary variable plays the role of response variable. In turn, the projection subspace (first factorial planes) play the role of explanatory variables. This analogy is depicted in figure \@ref(fig:fig-2-11)
 
 ```{r fig-2-11, echo = FALSE, out.width = '80%', fig.cap='Equivalence between a regression and the projection of supplementary'}
 knitr::include_graphics("images/figure-2-11.png")
@@ -623,15 +623,29 @@ $$
 COS^2 (j^{+}, \alpha) = cor^2 (\text{variable}^{+}, \text{factor})
 $$
 
-To get the location of a supplementary variable in the original space, we need to know its $n$ elements (its values of the $n$ individuals). This is analogous to an active variable, except that the set of active variables is found in a subset of dimension $p$ (the rank of $\mathbf{X}$, or the rank of $\mathbf{X^\mathsf{T} X}$). The coordinates on the $p$ factorial axes allow to locate any active variable. This property is not present for supplementary variables.
+To get the location of a supplementary variable in the original space, we need to know its $n$ elements (its values for the $n$ individuals). This is analogous to an active variable, except that the set of active variables is found in a subset of dimension $p$ (the rank of $\mathbf{X}$, or the rank of $\mathbf{X^\mathsf{T} X}$). The coordinates on the $p$ factorial axes allow to locate any active variable. This property is not present for supplementary variables.
 
 It doesn't make sense to calculate the contributions of the supplementary variables to the inertia of the axes, because these variables have not intervened in its construction.
 
-In the second analysis of the cities, we treat the rest of continuous variables as supplementary variables. _etc, etc, etc_
+In the second analysis of the cities, we have decided to treat the following variables as supplementary variables: the 12 active variables used in the first PCA, the rest of the 16 continuous variables, as well as the variables derived in the 2nd analysis, namely, `salary_inequality` and `manual_qualified`. In addition, we have also decided to consider the five axes obtained in the first analysis as supplementary variables; we do this to study the relationship of both PCA analyses.
 
-__INSERT TABLE 2.10__
+```{r table-2-10, echo = FALSE, comment = ''}
+load('data/table-2-10.RData')
+#cat('Table 2.10: Results of the continuous supplementary variables\n')
+#quant_supp_table
 
-From the above table, we see that the salaries of the 12 professions, as well as most of the expenses, are negatively correlated with the first axis. This indicates that the cities with higher salaries tend to remunerate (relatively) less the managerial professions.
+# print table with kable
+knitr::kable(
+  quant_supp_table,
+  
+  booktabs = TRUE,
+  caption = 'Results of the continuous supplementary variables'
+)
+```
+
+<br>
+
+From the above table, we see that the salaries of the 12 professions, as well as most of the expenses, are negatively correlated with the first dimension. This indicates that the cities with higher salaries tend to remunerate (relatively) less the managerial professions.
 
 Also, the correlations with the variables `price_index_no_rent` and `price_index_with_rent` are a bit smaller than the correlations with the variables `gross_salaries` and `net_salaries`. This has to do with the most expensive cities which have a higher buying capacity, and elevated taxes and social services.
 
