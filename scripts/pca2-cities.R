@@ -30,9 +30,9 @@ dat2 <- na.omit(
 mean_salary <- dat2[ ,2] * dat2[ ,3]
 
 
-# min_salary <- apply(dat[ ,-1], 1, min)
-# max_salary <- apply(dat[ ,-1], 1, max)
-# mean_salary <- rowMeans(dat[ ,-1])
+# min_salary <- apply(dat2[ ,-1], 1, min)
+# max_salary <- apply(dat2[ ,-1], 1, max)
+# mean_salary <- rowMeans(dat2[ ,-1])
 # 
 # # adding salary inequality of cities
 # rdat$salary_ineq <- (max_salary - min_salary) / mean_salary
@@ -75,6 +75,7 @@ save(var_trans_corrs, file = 'data/table-2-6.RData')
 
 # PCA of Transformed Data
 pca2 <- PCA(dat_trans, graph = FALSE)
+save(pca2, file = "data/pca2.RData")
 
 
 # eigenvalues (table 2.7) of 2nd analysis
@@ -142,4 +143,5 @@ fig_2_10 <- ggplot(data = pca2_ind, aes(x = Dim.1, y = Dim.2)) +
 
 ggsave(filename = 'images/figure-2-10.png', plot = fig_2_10, 
        width = 7, height = 5)
+
 

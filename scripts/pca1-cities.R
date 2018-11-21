@@ -34,6 +34,7 @@ active_vars_statistics
 
 # PCA
 pca <- PCA(dat[ ,active], graph = FALSE)
+save(pca, file = "data/pca1.RData")
 
 
 # eigenvalues (table 2.1)
