@@ -484,6 +484,8 @@ knitr::kable(
 )
 ```
 
+<br>
+
 We can see that the best paid profession is `factory_manager` which, in average, is two and half times above the mean salary. In contrast, the worst paid profession if `textile_worker` with a salary of 2/3 the mean salary.
 
 When looking at the matrix of correlations (see table \@ref(tab:table-2-6)) we now have values that are very different from table \@ref(tab:table-1-3). These new correlations are actually partial correlations, because we have removed the effect that is due to the salary level per city.
@@ -500,6 +502,8 @@ knitr::kable(
   caption = 'Correlations'
 )
 ```
+
+<br>
 
 Observe that we now have negative correlations, indicating that when a profession is well paid in a given city, it is detrimental to other profession (values below 0.28 in absolute value, indicate correlations non-significantly different from zero).
 
@@ -535,6 +539,8 @@ knitr::kable(
 )
 ```
 
+<br>
+
 The first component shows the opposition of `executive_secretary`, `factory_manager`, `engineer`, `cook_chef`, and `bank_clerk` against the rest of the professions, and in particular with `construction_worker`. 
 
 The second axis is formed by the professions `mechanic`, and `metal_worker`, opposed to `teacher`, `bus_driver`, and `textile_worker`.
@@ -557,6 +563,8 @@ knitr::kable(
   caption = 'Results for the cities in the second analysis'
 )
 ```
+
+<br>
 
 There are few cities farther apart from the center of gravity: Abu Dhabi, Nairobi, and Buenos Aires. Figure \@ref(fig:fig-2-10) shows the factorial plane. On the left side we find the cities with salaries of "managerial" professions _relatively_ higher. To the right of the graph we find cities that could be labeled as more "egalitarian" (in terms of their salaries).
 
