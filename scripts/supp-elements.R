@@ -7,6 +7,7 @@
 # packages
 library(FactoMineR)
 library(ggplot2)
+library(dplyr)
 
 # omit cities 10 and 23 (due to NAs)
 cities <- read.csv('data/cities94.csv', stringsAsFactors = FALSE)
@@ -64,11 +65,10 @@ quant_supp_table <- rbind(
   cor(salary_inequality, pca2[ ,1:3]),
   cor(manual_jobs, pca2[ ,1:3])
 )
-  
 
 
 # fix correlation with public transportation
-# (has a missing )
+# (has a missing value)
 public_trans <- as.vector(
   cor(cities2$public_transportation[-1], pca2[-1,1:3], use = 'na.or.complete')
 )
@@ -81,8 +81,34 @@ rownames(quant_supp_table) <- c(
 
 quant_supp_table <- round(quant_supp_table, 2)
 
+# export table 2-10
 save(quant_supp_table, file = 'data/table-2-10.RData')
 
 
+# ========================================================
+# Figure 2.13: 
+# ========================================================
+# "World regions" as nominal supplementary variable
 
 
+pca2_region <- cbind.data.frame(
+  pca2,
+  region = cities$region[-c(10,23)]
+)
+
+pca2_region %>% 
+  group_by(region) %>%
+  summarise(
+    dim1 = mean(Dim.1),
+    dim2 = mean(Dim.2)
+  )
+
+fig_2_13 <- ggplot() + 
+  geom_point(data = as.data.frame(pca2), aes(x = Dim.1, y = Dim.2),
+             color = 'white') + 
+  geom_vline(xintercept = 0, color = 'gray60') +
+  geom_hline(yintercept = 0, color = 'gray60') +
+  theme_minimal()
+
+ggsave(filename = 'images/figure-2-13.png', plot = fig_2_10, 
+       width = 7, height = 5)
