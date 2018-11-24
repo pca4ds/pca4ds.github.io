@@ -675,16 +675,15 @@ knitr::include_graphics("images/figure-2-12.png")
 
 The projection of a supplementary categorical variable is the projection of the centroids onto the space of row-points. We obtain as many projected points as categories of the nominal variable.
 
-In our working example, we use the variable `region` as the supplmentary categorical variable. In this case we obtain the following representation in the first factorial plane (see figure \@ref(fig:fig-2-13)). Each category groups the cities of a given `region` of the world.
+In our working example, we use the variable `region` as the supplementary categorical variable. In this case we obtain the following representation in the first factorial plane (see figure \@ref(fig:fig-2-13)). Each category groups the cities of a given `region` of the world.
 
-```{r fig-2-13, echo = FALSE, fig.cap = 'Regions of the world as supplementary categories (second PCA analysis)'}
-plot(1:5, 1:5, type = 'n')
-text(3, 3, labels = "INSERT FIGURE 2.13", cex = 2)
+```{r fig-2-13, echo = FALSE, out.width = '80%', fig.cap = 'Regions of the world as supplementary categories (second PCA analysis)'}
+knitr::include_graphics("images/figure-2-13.png")
 ```
 
-This plot provides a simplified visualization of the cloud of row-points according to the chosen supplementary categorical variable---in this case `region`. The configuration of the category-points allows us to assess certain areas of the graph. This could suggest some eements useful in the interpretation of the factorial directions. For example, the opposition of Europ and North America against the rest of the world.
+This plot provides a simplified visualization of the cloud of row-points according to the chosen supplementary categorical variable---in this case `region`. The configuration of the category-points allows us to assess certain areas of the graph. This could suggest some elements useful in the interpretation of the factorial directions. For example, the opposition of Europe and North America against the rest of the world regions.
 
 
 #### Supplementary Category and Supplementary Individual {-}
 
-A supplementary category is positioned as the average point (i.e. centroid) of the individuals that form such category. Consequently, the definition of a nominal variable with three categories is equivalent to defining three supplementary individuals equal to the center of gravity of the active variables for each category. The supplementary individuals are located in the same factorial plane as the active individuals, with the same rules of interpretation.
+In summary, a supplementary category is positioned as the average point (i.e. centroid) of the individuals that form such category. Consequently, the definition of a nominal variable with three categories is equivalent to defining three supplementary individuals equal to the center of gravity of the active variables for each category. The supplementary individuals are located in the same factorial plane as the active individuals, with the same rules of interpretation.
