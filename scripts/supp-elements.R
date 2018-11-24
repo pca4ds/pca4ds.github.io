@@ -93,10 +93,10 @@ save(quant_supp_table, file = 'data/table-2-10.RData')
 
 pca2_region <- cbind.data.frame(
   pca2,
-  region = cities$region[-c(10,23)]
+  region = sub(" ", "\n", cities$region[-c(10,23)])
 )
 
-pca2_region %>% 
+centroids_region <- pca2_region %>% 
   group_by(region) %>%
   summarise(
     dim1 = mean(Dim.1),
@@ -104,11 +104,14 @@ pca2_region %>%
   )
 
 fig_2_13 <- ggplot() + 
-  geom_point(data = as.data.frame(pca2), aes(x = Dim.1, y = Dim.2),
-             color = 'white') + 
+  xlim(-2.5, 3.5) +
   geom_vline(xintercept = 0, color = 'gray60') +
   geom_hline(yintercept = 0, color = 'gray60') +
+  geom_point(data = centroids_region, aes(x = dim1, y = dim2)) + 
+  geom_text(data = centroids_region,
+            aes(x = dim1, y = dim2, label = region)) + 
   theme_minimal()
 
-ggsave(filename = 'images/figure-2-13.png', plot = fig_2_10, 
+
+ggsave(filename = 'images/figure-2-13.png', plot = fig_2_13, 
        width = 7, height = 5)
