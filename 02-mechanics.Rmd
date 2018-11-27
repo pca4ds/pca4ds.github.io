@@ -687,3 +687,79 @@ This plot provides a simplified visualization of the cloud of row-points accordi
 #### Supplementary Category and Supplementary Individual {-}
 
 In summary, a supplementary category is positioned as the average point (i.e. centroid) of the individuals that form such category. Consequently, the definition of a nominal variable with three categories is equivalent to defining three supplementary individuals equal to the center of gravity of the active variables for each category. The supplementary individuals are located in the same factorial plane as the active individuals, with the same rules of interpretation.
+
+
+
+### Profiling with V-test
+
+The projection of a category is interpreted as the position of the average individual of the group defined by such category---the centroid. This position can be close to the center of gravity of all the individuals (i.e. the origin of the factorial coordinates).
+
+The proximity to the overall center of gravity suggests that there is little difference between the individuals that have such category and the set of all the individuals.
+
+In contrast, when the projected category is clearly separated from the overall centroid, this indicates that there is a relationship between the active variables and the given category.
+
+It would be interesting to assess what category (i.e group of individuals) seems to indicate an relevant area in the factorial plane.
+
+We can regard the overall center of gravity to be the _center of atraction_ of al the average points of all groups randomly selected. By doing this, we can highlight those centroids that differ "significantly" from the overall centroid. The individuals that form such group will have a high degree of resemblance among them, and therefore will be sufficiently unique to differentiate themselves from the center of gravity.
+
+Suppose that we randomly select a group of $n_j$ individuals from the total of $n$ individuals. The graph of these individuals over the first factorial plane will be a a random scatter plot over this plane.
+
+The average point of these $n_j$ individuals will differ only by the random fluctuations from the overall average represented by the origin of the coordinates (see figure \@ref(fig:fig-2-14)).
+
+```{r fig-2-14, echo = FALSE, out.width = '75%', fig.cap='Random selection of a group of individuals'}
+knitr::include_graphics("images/figure-2-14.png")
+```
+
+Suppose that we repeat the random selection of $n_j$ individuals a large number of times. For each repetition we calculate the average point of the selected individuals. We should expect the center of all these groups to coincide with the overall center of gravity.
+
+Now, suppose that a set of $n_k$ individuals having the same category, non-randomly selected, are located in a certain region of the factorial plane (see figure \@ref(fig:fig-2-15)). 
+
+```{r fig-2-15, echo = FALSE, out.width = '75%', fig.cap='Group of individuals defined by a certain category'}
+knitr::include_graphics("images/figure-2-15.png")
+```
+
+We can calculate the average point of these individuals. Furthermore, we can compute the distance between this average point and the overall centroid. Is the position of this average point compatible with the hypothesis that the individuals have been randomly selected? The more the evidence againts this hypothesis, the more interesting this category will be to profile the region of the factorial plane that it occupies.
+
+
+#### Interpreting results with the V-test {-}
+
+The idea behind the so-called V-test involves performing a hypothesis test. The null hypothesis $H_0$ consists in the assumption that a set of $_k$ individuals are randomly selected, without replacement, from the total of $n$ individuals.
+
+Under the null hypothesis, we calculate the probability of observing a configuration as the one obtained, or more extreme. This is the critical probability associated to $H_0$. The smaller this probability, the less likely is the hypothesis of individuals being randomly selected.
+
+In order to classify the elements in terms of importance, we rank them based on their critical probability. The elements that are most characteristic are those with a smaller critical probability.
+
+
+The more significant is the difference between the average of the coordinates in group $k$ and the overall centroid, the more interesting the position will be of this group in the factorial plane.
+
+Let $m$ be the average of the coordinates and $s^2$ the empirical variance calculated from the $n$ observations, which will be equal to the eigenvalue of the corresponding axis. Let $m_k$ be the average of the $n_k$ observations in group $k$. We call $M_k$ to the random variable "average of the $k$ extractions." Under the null hypothesis of random selection without replacement from a _finite populatoin_, we have that:
+
+\begin{align*}
+E_{H_0} [M_k] &= 0 \\
+Var_{H_0} [M_k] &= \frac{n - n_k}{n - 1} \times \frac{\lambda_{\alpha}}{n_k} = s^{2}_{k}
+\end{align*}
+
+The average $M_k$ coincides with the average of the coordinates ($\sum_i \psi_{i\alpha} = 0$) and its variance is equal to the variance of the coordinates of the axis $\alpha$ ($\lambda_{\alpha}$) divided by the number of observations from group $k$ and scaled by the factor $(n - n_k) / (n-1)$.
+
+If $n$ and $n_k$ are not very small, the central limit theorem si applicable (even though the extractions are not indipendent) and in this case the variable:
+
+$$
+U = \frac{M_k - m}{s_k}
+$$
+
+approximately follows a standard normal distribution.
+
+The critical probability associated to this variable is the probability of a normal distribution of observing a value greater than $u$ calculated on the $n_k$ individuals for the random variable $U$.
+
+We obtain the most characterizing probabilities of an axis, selecting the categories with the smaller critical probabilities. This is equivalent to selecting the categories that have the larger values:
+
+\begin{equation}
+u = \frac{m_k - m}{s_k}
+(\#eq:2-18)
+\end{equation}
+
+The statistic $u$ is what we call the __v-test__. This value expresses, in number of standard deviations, the difference between the average $m_k$ of group $k$, and the overall average $m$.
+
+We interpret this value as follows: the probability of having a difference between both averages is the probability of exceeding this number of standard deviations in a normal distribution.
+
+What we are doing is evaluating some sort of distance between the overall average and the average of a group, measured in terms of standard deviations from a normal distribution. By standardizing these values, we have a common unit that allows us to compare different categories, and rank them according to their importance. In this way, we assess thelikelihood of the null hypothesis: that individuals from category $k$ have been randomly selected.
