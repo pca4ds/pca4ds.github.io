@@ -763,3 +763,31 @@ The statistic $u$ is what we call the __v-test__. This value expresses, in numbe
 We interpret this value as follows: the probability of having a difference between both averages is the probability of exceeding this number of standard deviations in a normal distribution.
 
 What we are doing is evaluating some sort of distance between the overall average and the average of a group, measured in terms of standard deviations from a normal distribution. By standardizing these values, we have a common unit that allows us to compare different categories, and rank them according to their importance. In this way, we assess thelikelihood of the null hypothesis: that individuals from category $k$ have been randomly selected.
+
+The larger this p-value (in absolute value), the more this indicates that the group of individuals occupies a significant position, and characterizes the region of the factorial plane where they are.
+
+```{r fig-2-16, echo = FALSE, out.width = '55%', fig.cap='V-test associated to a critical probability'}
+knitr::include_graphics("images/figure-2-16.png")
+```
+
+In practice, we often use the threshold of 2 standard deviations in order to determine if the variable is significant.
+
+Values larger than 2 indicate less likely value under the null hypothesis of random selection. We can think that these individuals have some kind of relationship with the set of active variables, which makes them have an excentric position in the cloud of individuals.
+
+However, we should take into account the total number of individuals. One could double the data table indefinitly to make the v-test as large as desired.
+
+We must say that the v-test is used as a tool to arrange the categories according to their association with the factorial axes. We don't really use the v-test to formally test a null hypothesis.
+
+In our working examples of the cities, we have a nominal categorical variable: the region of the world in which a city is located. This variable allows us to obtain a simplified representation of the cloud of cities. The results obtained with the first three axes are displayed in __TABLE 2.11__.
+
+__INSERT TABLE 2.1__
+
+_Caption: V-test of the variable `world region`, used in the second PCA._
+
+The first column, names `EFF`, provides the effective of each category (total number of cities of each category). The second column, named `PABS` provides the weight (sum of the weights of all the cities in a given category). When we have uniform weights, the weight and the effective are the same. The first category is formed by six cities of Northern Europe.
+
+The v-test controlled, for each axis, the  hypothesis of random distribution for these 6 cities among the 51 cities. In the first axis, for example, we see a significant opposition of North America with respect to South America and Middle East.
+
+The second axis separates with significant v-tests the cities of Central Europe with the cities in Africa.
+
+
