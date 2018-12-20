@@ -1,0 +1,11 @@
+label,scale,type,coord,weight,mean,stdev,number
+teacher2,continuous,active,-0.69,51,1.19,0.37,1
+mechanic2,continuous,active,0.72,51,0.96,0.24,12
+bank_clerk2,continuous,supplementary,-0.54,51,18749.02,13413.83,1
+factory_manager,continuous,supplementary,-0.52,51,30933.34,21250.57,2
+engineer,continuous,supplementary,-0.51,51,24664.71,14019.08,3
+teacher,continuous,supplementary,-0.50,51,16801.96,13243.42,4
+burger_work_time,continuous,supplementary,0.33,51,66.71,97.82,42
+Axis3,continuous,supplementary,0.37,51,0.00,0.57,44
+Axis1,continuous,supplementary,0.43,51,0.00,3.18,45
+manual_qualified,continuous,supplementary,0.68,51,1.06,0.17,46
