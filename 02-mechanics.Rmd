@@ -778,16 +778,94 @@ However, we should take into account the total number of individuals. One could 
 
 We must say that the v-test is used as a tool to arrange the categories according to their association with the factorial axes. We don't really use the v-test to formally test a null hypothesis.
 
-In our working examples of the cities, we have a nominal categorical variable: the region of the world in which a city is located. This variable allows us to obtain a simplified representation of the cloud of cities. The results obtained with the first three axes are displayed in __TABLE 2.11__.
+In our working examples of the cities, we have a nominal categorical variable: the region of the world in which a city is located. This variable allows us to obtain a simplified representation of the cloud of cities. The results obtained with the first three axes are displayed in \@ref(tab:table-2-11).
 
-__INSERT TABLE 2.1__
+```{r table-2-11, echo = FALSE}
+# table of v-test values
+vtests <- read.csv('data/table-2-11.csv', row.names = 1)
 
-_Caption: V-test of the variable `world region`, used in the second PCA._
+knitr::kable(
+  vtests,
+  booktabs = TRUE,
+  caption = 'V-test of the variable `world region`, used in the second PCA.'
+)
+```
 
-The first column, names `EFF`, provides the effective of each category (total number of cities of each category). The second column, named `PABS` provides the weight (sum of the weights of all the cities in a given category). When we have uniform weights, the weight and the effective are the same. The first category is formed by six cities of Northern Europe.
+The first column, named `EFF`, provides the effective of each category (total number of cities of each category). The second column, named `PABS` provides the weight (sum of the weights of all the cities in a given category). When we have uniform weights, the weight and the effective are the same. The first category is formed by six cities of Northern Europe.
 
 The v-test controlled, for each axis, the  hypothesis of random distribution for these 6 cities among the 51 cities. In the first axis, for example, we see a significant opposition of North America with respect to South America and Middle East.
 
 The second axis separates with significant v-tests the cities of Central Europe with the cities in Africa.
 
+
+
+### Axes Characterization using Continuous Variables
+
+We've seen that on each axis we have the projection of the active continuous variables, of the supplementary continuous variables, of the individuals, as well as the categories of supplementary qualitative variables.
+
+In order to interpret the axes we should pay attention to the projected elements in their extremes. A first quick approximation to characterize the axes involves listing the projected elements on their more extreme positions (with coordinates further from the origin). To sort the categories we can use the larger v-tests on each axis.
+
+With our working example about the international cities, the continuous variables---both active and supplementary---are arranged based on their correlation displayed in table \@ref(tab:table-2-12).
+
+```{r table-2-12, echo = FALSE}
+# table of v-test values
+characterize_axis1 <- read.csv('data/table-2-12.csv', row.names = 1)
+
+knitr::kable(
+  characterize_axis1,
+  booktabs = TRUE,
+  caption = 'Characterization of the first axis from second PCA.'
+)
+```
+
+
+We can easily identify the variables that are more correlated with the first axis. The second axis opposes the `mechanic` with the rest of the professions, especially `teacher` (see table \@ref(tab:table-2-13)).
+
+```{r table-2-13, echo = FALSE}
+# table of v-test values
+characterize_axis2 <- read.csv('data/table-2-13.csv', row.names = 1)
+
+knitr::kable(
+  characterize_axis2,
+  booktabs = TRUE,
+  caption = 'Characterization of the second axis from second PCA.'
+)
+```
+
+
+
+### V-test and Data Science
+
+The v-test values are a quick and fast tool for data science (e.g. automatic exploration of significant associations) for the raw data, as well as for the results from dimension reduction techniques (e.g. PCA) and cluster analysis. When dealing with _large_ data tables, to read complex multidimensional analysis, sorting the elements according to the v-test in decreasing order, will allow us to highlight the relevant features. This enables us to see where are the systemic patterns, which in turn will accumulate progressive knowledge about the data under analyisis.
+
+All the available information in a data table can be ordered according to the v-tests over a fatorial plane. For example, when analyzing survey data, we could include information such as "hour of the interview", or the interaction between sex-age of the pair interviewer-interviewee, etc. These attributes, located on the factorial planes, and associated with their most significant v-test, form an interesting validation tool of the survey results.
+
+Figure \@ref(fig:fig-2-17) shows the position of the _time of interview_ and the _age of interviewer_. The "interview in the afternoon", for instance, is the center of gravity of all the interviewed persons in the afternoon.
+
+```{r fig-2-17, echo = FALSE, out.width = '75%', fig.cap='Position of additional information.'}
+knitr::include_graphics("images/figure-2-17.png")
+```
+
+The v-test allows us to characterize all the significant associations, although we don't take into account the redundancies nor the dependencies between elements. This fact causes multiple redundancies, and consequently, improves our knowledge about the analyzed data.
+
+As another example, we can consider the trajectory, on a factorial plane, of the categories of _age of interviewer_, from 1 to 4. Let's suppose that these categories follow the direction of the first factorial axis, as shown in figure \@ref(fig:fig-2-18). The form of this trajectory comes from the set of associations between the active elements in the analysis.
+
+```{r fig-2-18, echo = FALSE, out.width = '75%', fig.cap='Pattern of a trajectory.'}
+knitr::include_graphics("images/figure-2-18.png")
+```
+
+It is possible that the v-test associated to the extreme categories 1 and 4 are high. However, the central categories 2 and 3 will very likely have small v-test values that won't be significantly different from the origin. Does this mean that we should ignore these "non significant" categories, even though their alignment on the trajetory shows a coherent pattern?
+
+We see that the notion of a "coherent pattern" is implied in the associations among variables. Some elements may have weak v-test values, but these does not imply that they are useless.
+
+
+#### Note {-}
+
+The proximity between two categories _A_ and _B_ from two different variables, can be the result from two distinct effects. On one hand, it is possible that both categories share most of the individuals in common, which results in the proximity between their average points. On the other hand, it is possible that the individuals the form each category are different, although they are located in the same region of the plane (see \@ref(fig:fig-2-19)). In both cases, the proximity between categories _A_ and _B_ can be interpreted in term of the similarity with respect to the active variables amng the individuals forming such categories.
+
+```{r fig-2-19, echo = FALSE, out.width = '75%', fig.cap='Proximity between two categories.'}
+knitr::include_graphics("images/figure-2-19.png")
+```
+
+For example, two age categories may be close to each other, although they are formed by different individuals. Likewise, the individuals that have a certain voting behavior will be in the same region of the plane as those individuals that consume a certain product; this can be explained because they have the socio-cultural profile without being the same individuals.
 
