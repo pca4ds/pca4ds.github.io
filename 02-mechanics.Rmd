@@ -861,9 +861,9 @@ We see that the notion of a "coherent pattern" is implied in the associations am
 
 #### Note {-}
 
-The proximity between two categories _A_ and _B_ from two different variables, can be the result from two distinct effects. On one hand, it is possible that both categories share most of the individuals in common, which results in the proximity between their average points. On the other hand, it is possible that the individuals the form each category are different, although they are located in the same region of the plane (see \@ref(fig:fig-2-19)). In both cases, the proximity between categories _A_ and _B_ can be interpreted in term of the similarity with respect to the active variables amng the individuals forming such categories.
+The proximity between two categories _A_ and _B_ from two different variables, can be the result from two distinct effects. On one hand, it is possible that both categories share most of the individuals in common, which results in the proximity between their average points. On the other hand, it is possible that the individuals the form each category are different, although they are located in the same region of the plane (see \@ref(fig:fig-2-19)). In both cases, the proximity between categories _A_ and _B_ can be interpreted in terms of the similarity with respect to the active variables among the individuals forming such categories.
 
-```{r fig-2-19, echo = FALSE, out.width = '75%', fig.cap='Proximity between two categories.'}
+```{r fig-2-19, echo = FALSE, out.width = '80%', fig.cap='Proximity between two categories.'}
 knitr::include_graphics("images/figure-2-19.png")
 ```
 
