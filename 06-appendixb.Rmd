@@ -1,0 +1,565 @@
+# Appendix B: PCA Formulae {#appendixb}
+
+In this appendix we present in a synthetic way the matrix notation of the expressions and formulae used in PCA.
+
+
+## General Analysis
+
+Notation:
+
+$\mathbf{X}$: matrix of $n$ rows (corresponding to the individuals), and $p$ columns (corresponding to the variables). We assume mean-centered variables.
+
+$\mathbf{N}$: diagonal matrix of dimension $n \times n$, with $n_{ii} \geq 0$
+
+$\mathbf{M}$: matrix of dimension $p \times p$, positive definite ($\mathbf{a^\mathsf{T} M a} > \mathbf{0}$ for all $\mathbf{a}$).
+
+
+#### Cloud of Points {-}
+
+In $\mathbb{R}^p$ we assume $n$ points weighted by $\mathbf{N}$, and with metric $\mathbf{M}.$
+
+In $\mathbb{R}^n$ we assume $p$ points weighted by $\mathbf{M}$, and with metric $\mathbf{N}.$
+
+
+#### Fit in n-dimensions {-}
+
+Let $\dot{\mathbf{u}}$ be a unit vector (e.g. $\dot{\mathbf{u}}^\mathsf{T} \mathbf{Mu} = \mathbf{1}$), defining a direction in $\mathbb{R}^p$. In this direction we want to maximize the inertia of the projection of the individuals.
+
+Projection of individuals: $\mathbf{\Psi} = \mathbf{XM} \dot{\mathbf{u}}$
+
+Inertia of projection: $\mathbf{\Psi^\mathsf{T} N \Psi} = (\mathbf{XM}\dot{\mathbf{u}})^\mathsf{T} \mathbf{N} (\mathbf{XM}\dot{\mathbf{u}})$
+
+The maximum projected inertia can be obtained by maximizing: $\dot{\mathbf{u}}^\mathsf{T} (\mathbf{MX^\mathsf{T}NXM}) \dot{\mathbf{u}}$, with the condition $\dot{\mathbf{u}}^\mathsf{T} \mathbf{M} \dot{\mathbf{u}} = 1$.
+
+The vector $\dot{\mathbf{u}}$ that maximizes the previous expression is the eigenvector associated to the eigenvalue of:
+
+$$
+\mathbf{M}^{-1} (\mathbf{M X^\mathsf{T} NXM}) \dot{\mathbf{u}} = \lambda \dot{\mathbf{u}}
+$$
+
+Simplifying we get:
+
+$$
+\mathbf{X^\mathsf{T} NXM} \dot{\mathbf{u}} = \lambda \dot{\mathbf{u}}
+$$
+
+The maximum is obtained by:
+
+$$
+(\dot{\mathbf{u}} \mathbf{M})(\mathbf{X^\mathsf{T}NXM}) \dot{\mathbf{u}} = \lambda (\dot{\mathbf{u}}^\mathsf{T} \mathbf{M} \dot{\mathbf{u}}) = \lambda
+$$
+
+The image of $\dot{\mathbf{u}}$ by the metric $\mathbf{M}$ is called _factor_: $\hat{\mathbf{u}} = \mathbf{M} \dot{\mathbf{u}} = \mathbf{M}^{1/2} \mathbf{u}$
+
+Then:
+
+$$
+\mathbf{M}(\mathbf{X^\mathsf{T}NX}) \hat{\mathbf{u}} = \lambda \hat{\mathbf{u}}
+$$
+
+where $\hat{\mathbf{u}}$ is normalized by $\mathbf{M}^{-1}$:
+
+$$
+\dot{\mathbf{u}}^\mathsf{T} \mathbf{M} \dot{\mathbf{u}} = \hat{\mathbf{u}}^\mathsf{T} \mathbf{M}^{-1} \hat{\mathbf{u}} = 1
+$$
+
+
+#### Diagonalizable Matrix {-}
+
+In practice, the matrix that is diagonalized is:
+
+$$
+\mathbf{M}^{1/2} \mathbf{X^\mathsf{T}NXM}^{1/2} \mathbf{u} = \lambda \mathbf{u} 
+$$
+
+being $\mathbf{u} = \mathbf{M}^{1/2} \dot{\mathbf{u}}$, and consequently, $\mathbf{u^\mathsf{T}u} = 1$
+
+Let $\mathbf{Y} = \mathbf{N}^{1/2} \mathbf{XM}^{1/2}$, we can express the previous relation as:
+
+$$
+\mathbf{Y^\mathsf{T}Yu} = \lambda \mathbf{u}
+$$
+
+
+#### Fit in n-dimensions {-}
+
+Let $\dot{\mathbf{v}}$ a unit vector in $\mathbb{R}^n$, with $\dot{\mathbf{v}}^\mathsf{T} \mathbf{N} \dot{\mathbf{v}} = \mathbf{1}$.
+
+The maximum projected inertia is obtained by maximizing:
+
+$$
+\dot{\mathbf{v}}^\mathsf{T} (\mathbf{NXMX^\mathsf{T}N}) \dot{\mathbf{v}}
+$$
+
+We find the maximum by diagonalizing the matrix:
+
+$$
+(\mathbf{XMX^\mathsf{T}N}) \dot{\mathbf{v}} = \lambda \dot{\mathbf{v}}
+$$
+
+The eigenvector $\dot{\mathbf{v}}$ associated to the largest eigenvalue defines the direction of $\mathbb{R}^n$ with maximum inertia.
+
+We call _factor_ to the vector in $\mathbb{R}^n$: $\hat{\mathbf{v}} = \mathbf{N} \dot{\mathbf{v}}$
+
+This factor verifies the relationship: $(\mathbf{NXMX^\mathsf{T}}) \hat{\mathbf{v}} = \lambda \hat{\mathbf{v}}$, with $\hat{\mathbf{v}}^\mathsf{T} \mathbf{N}^{-1} \hat{\mathbf{v}} = 1$
+
+
+#### Symmetric Matrix {-}
+
+Introducing the metric in the coordinates: $\mathbf{v} = \mathbf{N}^{1/2} \dot{\mathbf{v}}$
+
+$$
+\mathbf{N}^{1/2} \mathbf{XMX^\mathsf{T}N}^{1/2}\mathbf{v} = \lambda \mathbf{v} \quad \text{with} \quad \mathbf{v^\mathsf{T}v} = 1
+$$
+
+Utilizing the matrix $\mathbf{Y}$ we have:
+
+$$
+\mathbf{Y^\mathsf{T}Yv} = \lambda \mathbf{v}
+$$
+
+
+#### Transition Relations {-}
+
+Fit in $\mathbb{R}^p$: $(\mathbf{X^\mathsf{T}NXM}) \dot{\mathbf{u}} = \lambda \dot{\mathbf{u}}$
+
+Fit in $\mathbb{R}^n$: $(\mathbf{XMX^\mathsf{T}N}) \dot{\mathbf{v}} = \lambda \dot{\mathbf{v}}$
+
+$$
+\mathbf{XMX^\mathsf{T}N} (\mathbf{XM} \dot{\mathbf{u}}) = \lambda (\mathbf{XM} \dot{\mathbf{u}})
+$$
+
+$$
+\mathbf{X^\mathsf{T}NXM} (\mathbf{X^\mathsf{T}N} \dot{\mathbf{v}}) = \lambda (\mathbf{X^\mathsf{T}N} \dot{\mathbf{v}})
+$$
+
+Comparing the previous two relations, and imposing a normalizing restriction on the eigenvectors we have:
+
+$$
+(\mathbf{XM}\dot{\mathbf{u}})^\mathsf{T} \mathbf{N} (\mathbf{XM}\dot{\mathbf{u}}) = \lambda
+$$
+
+and
+
+$$
+(\mathbf{X^\mathsf{T}N}\dot{\mathbf{v}})^\mathsf{T} \mathbf{M} (\mathbf{X^\mathsf{T}N}\dot{\mathbf{v}}) = \lambda
+$$
+
+We deduct the so-called _transition relations_:
+
+$$
+\dot{\mathbf{v}} = \frac{1}{\sqrt{\lambda}} \mathbf{XM} \dot{\mathbf{u}}
+$$
+
+and
+
+$$
+\dot{\mathbf{u}} = \frac{1}{\sqrt{\lambda}} \mathbf{X^\mathsf{T}N} \dot{\mathbf{v}}
+$$
+
+In practice, we operate with symmetric matrices and thus the _transition relations_ become:
+
+$$
+\mathbf{v} = \frac{1}{\sqrt{\lambda}} \mathbf{N}^{1/2} \mathbf{XM}^{1/2}\mathbf{u}
+$$
+
+and
+
+$$
+\mathbf{u} = \frac{1}{\sqrt{\lambda}} \mathbf{M}^{1/2} \mathbf{X^\mathsf{T}N}^{1/2}\mathbf{v}
+$$
+
+
+## Formulas for PCA
+
+From a matrix standpoint, PCA consists of studying a data matrix $\mathbf{Z}$, endowed with a metric matrix $\mathbf{I}_p$ defined in $\mathbb{R}^p$, and another metric $\mathbf{N}$ defined in $\mathbb{R}^n$ (generally $\mathbf{N} = (1/n) \mathbf{I}_n$).
+
+The matrix $\mathbf{Z}$ comes defined in the following way:
+
+- under a normalized PCA: $\mathbf{Z} = \mathbf{XS}^{-1}$, where $\mathbf{S}$ is the diagonal matrix of standard deviations.
+
+- under a non-normalized PCA: $\mathbf{Z} = \mathbf{X}$
+
+The fit in $\mathbb{R}^p$ has to do with: $\mathbf{Z^\mathsf{T}NZu} = \lambda \mathbf{u}$, with $\mathbf{u^\mathsf{T}u} = 1$.
+
+The fit in $\mathbb{R}^n$ has to do with: $\mathbf{N}^{1/2} \mathbf{ZZ^\mathsf{T}N}^{1/2} \mathbf{v} = \lambda \mathbf{v}$, with $\mathbf{v^\mathsf{T}v} = 1$.
+
+The transition relations can be written as:
+
+\begin{align*}
+\mathbf{u} &= \frac{1}{\sqrt{\lambda}} \mathbf{Z^\mathsf{T}N}^{1/2} \mathbf{v} \\
+& \\
+\mathbf{v} &= \frac{1}{\sqrt{\lambda}} \mathbf{N}^{1/2} \mathbf{Z} \mathbf{u}
+\end{align*}
+
+The symmetric matrix to be diagonalized is $\mathbf{Z^\mathsf{T}NZ}$. This matrix coincides with the matrix of correlations in the case of a normalized PCA; or with a covariance matrix in the case of a non-normalized PCA.
+
+
+#### Coordinates of Individuals {-}
+
+Regardless of whether we aera analyzing active individuals or supplementary ones, the coordinates of individuals are calculated by orthogonally projecting the rows of the data matrix $\mathbf{Z}$ onto the directions of the eigenvectors $\mathbf{u}_{\alpha}$.
+
+$$
+\boldsymbol{\psi}_{\alpha} = \mathbf{Zu}_{\alpha} = 
+\begin{cases}
+\mathbf{XS}^{-1}\mathbf{u}_{\alpha} & \text{(normalized PCA)} \\
+\\
+\mathbf{Xu}_{\alpha} & \text{(non-normalized PCA)}
+\end{cases}
+$$
+
+with $i$-th element:
+
+$$
+\psi_{i \alpha} = 
+\begin{cases}
+\sum_{j=1}^{p} \frac{x_{ij}}{s_j} u_{j\alpha} & \text{(normalized PCA)} \\
+\\
+\sum_{j=1}^{p} x_{ij} u_{j\alpha} & \text{(non-normalized PCA)}
+\end{cases}
+$$
+
+
+#### Coordinates of Active Variables {-}
+
+The coordinates of the active variables are obtained by the orthogonal projection of the columns of $\mathbf{Z}$ onto the directions defined by $\dot{\mathbf{v}}_{\alpha}$ with the metric $\mathbf{N}$.
+
+The projection of the active variables on an axis $\alpha$ aer given by:
+
+$$
+\mathbf{\Phi}_{\alpha} = \mathbf{Z^\mathsf{T}N}^{1/2} \mathbf{v}_{\alpha} = \frac{1}{\sqrt{\lambda_{\alpha}}} \mathbf{Z^\mathsf{T}NZu}_{\alpha} = \sqrt{\lambda_{\alpha}} \hspace{1mm} \mathbf{u}_{\alpha}
+$$
+
+with the $j$-th element:
+
+$$
+\phi_{j \alpha} = \sqrt{\lambda_{\alpha}} \hspace{1mm} u_{j \alpha}
+$$
+
+
+#### Correlation between Variables and PCs {-}
+
+The correlation bewtween a variable $\mathbf{x_j}$ and a principal component $\boldsymbol{\psi}_{\alpha}$ is given by:
+
+$$
+cor(\alpha, j) = \sum_{i=1}^{n} p_i \left (\frac{x_{ij}}{s_j} \right ) \left  (\frac{\psi_{i \alpha}}{\sqrt{\lambda_{\alpha}}} \right )
+$$
+
+Using matrix notation we have:
+
+$$
+\mathbf{cor}_{\alpha} = \frac{1}{\sqrt{\lambda_{\alpha}}} (\mathbf{XS}^{-1})^\mathsf{T} \mathbf{N} (\mathbf{Zu}_{\alpha}) = (\mathbf{XS}^{-1})^\mathsf{T} \mathbf{N}^{1/2} \mathbf{v}_{\alpha}
+$$
+
+$$
+\mathbf{cor}_{\alpha} = 
+\begin{cases}
+\mathbf{Z^\mathsf{T}N}^{1/2} \mathbf{v}_{\alpha} = \mathbf{\Phi}_{\alpha} & \text{(normalized PCA)} \\
+\\
+\mathbf{S}^{-1} \mathbf{Z^\mathsf{T}N}^{1/2}\mathbf{v}_{\alpha} = \mathbf{S}^{-1} \mathbf{\Phi}_{\alpha} & \text{(non-normalized PCA)}
+\end{cases}
+$$
+
+
+$$
+cor(j, \alpha) = 
+\begin{cases}
+\phi_{j \alpha} & \text{(normalized PCA)} \\
+\\
+\phi_{j \alpha} / s_j & \text{(non-normalized PCA)}
+\end{cases}
+$$
+
+
+#### Coordinates of Supplementary Variables {-}
+
+The supplementary variables are located by using the previous rule about the the computation of the coordinates. Let $\mathbf{Z}_{+}$ the data matrix containing the supplementary variables. Taking into account the transition relations we have that:
+
+$$
+\mathbf{\Phi}_{\alpha}^{+} = \mathbf{Z^\mathsf{T}N}^{1/2} \mathbf{v}_{\alpha} = \mathbf{Z_{+}^{\mathsf{T}} N} \left (\frac{\mathbf{Zu}_{\alpha}}{\sqrt{\lambda_{\alpha}}} \right )
+$$
+
+The projection of the supplementary variables is computed from this relation between the coordinate of a variable and the projection of the individuals. In a normalized PCA, this projection is equal to the correlation between the variables and the principal component.
+
+$$
+\phi_{j \alpha}^{+} =
+\begin{cases}
+\sum_{i} p_i \frac{x_{ij}}{s_j} \frac{\psi_{i \alpha}}{\sqrt{\lambda_{\alpha}}} & \text{(normalized PCA)}
+\\
+\sum_{i} p_i x_{ij} \frac{\psi_{i\alpha}}{\sqrt{\lambda_{\alpha}}} & \text{(non-normalized PCA)}
+\end{cases}
+$$
+
+
+
+#### Old Unit-Vectors in $R^p$
+
+Let $\mathbf{e_j}$ be a unit vector of the original basis in $\mathbb{R}^p$. The projection of this vector onto the new basis is:
+
+$$
+\mathbf{e_j}^\mathsf{T} \mathbf{u}_{\alpha} = u_{j\alpha}
+$$
+
+The elements of vectors $\mathbf{u}_{\alpha}$ directly provide the projection of the original axes of $\mathbb{R}^{p}$. Eaach axis of the original basis indicates the direction of growth of a variable. These directions can be jointly represented with the projection of the individual-points.
+
+
+
+#### Distance of Individuals to the Origin {-}
+
+The squared distance of an individual to the origin is the sum of the squares of the values in each row of $\mathbf{Z}$ (assuming centered data):
+
+$$
+d^2(i,G) = \sum_{j=1}^{p} z_{ij}^{2} =
+\begin{cases}
+\sum_{j} \left (\frac{x_{ij}}{s_j} \right )^2 & \text{(normalized PCA)}
+\\
+\sum_{j} x_{ij}^{2} & \text{(non-normalized PCA)}
+\end{cases}
+$$
+
+This formula works for both active and supplementary individuals.
+
+
+#### Distance of Variables to the Origin {-}
+
+The distance of a variable to the origin is the sum of the squares of the values in the columns of $\mathbf{Z}$, taking into account the metric $\mathbf{N}$:
+
+$$
+d^2(j,O) = \sum_{i=1}^{n} p_i \hspace{1mm} z_{ij}^{2} =
+\begin{cases}
+\frac{\sum_{p_i x_{ij}^{2}}}{s_{j}^{2}} = 1 & \text{(normalized PCA)}
+\\
+\sum_{i} p_i x_{ij}^{2} = s{_j}^{2} & \text{(non-normalized PCA)}
+\end{cases}
+$$
+
+
+#### Contribution of Individuals to an Axis' Inertia
+
+The prjected inertia on an axis is: $\sum_{i=1}^{n} p_i \psi_{i \alpha}^{2} = \lambda_{\alpha}$.
+
+The part of the inertia due to an individual is:
+
+$$
+CTR(i, \alpha) = \frac{p_i \psi_{i \alpha}^{2}}{\lambda_{\alpha}} \times 100
+$$
+
+this applies to boeth a normalized and a non-normalized PCA.
+
+
+
+#### Squared Cosines of Individuals {-}
+
+The squared cosine of an individual is the projection of an individual onto an axis, divided by the squared of its distance to the origin:
+
+$$
+cos^2(i, \alpha) = \frac{\psi_{i \alpha}^{2}}{d^2(i,G)}
+$$
+
+
+
+#### Contributions of Variables to the Inertia {-}
+
+The projected inertia onto an axis in $\mathbb{R}^{n}$ is: $\lambda_{\alpha} = \sum_{j}^{p} \varphi_{j\alpha}^{2}$.
+
+The contribution of a variable to the inertia of the axis is:
+
+$$
+CTR(j, \alpha) = \frac{\varphi_{j\alpha}^{2}}{\lambda_{\alpha}} \times 100
+$$
+
+Taking into account the formula to compute the coordinates of the variables:
+
+$$
+CTR(j, \alpha) = u_{j\alpha}^{2} \times 100
+$$
+
+
+#### Squared Cosines of Variables {-}
+
+$$
+cos^2(j, \alpha) = \frac{\phi_{j\alpha}^{2}}{d^2(j,O)}
+$$
+
+The distance of a variable to the origin coincides with the standard deviation of the variable under a non-normalized PCA. In turn, when performing a normalized-PCA, the distance is equal to 1.
+
+$$
+cos^2 (j, \alpha) = cor^2(j, \alpha)
+$$
+
+
+
+#### Coordinates of Categories of Nominal Variables {-}
+
+A category point is the center of gravity of the individuals that have such category:
+
+$$
+\bar{\psi}_{k \alpha} = \frac{\sum_{i \in k} p_i \psi_{i \alpha}}{\sum_{i \in k} p_i}
+$$
+
+
+#### Distance of Categories to the Origin {-}
+
+$$
+d^2(k,O) = \sum_{\alpha = 1}^{p} \bar{\psi}_{k \alpha}^{2}
+$$
+
+
+#### V-test of Categories {-}
+
+In a v-test we are interested in calculating the critical probability corresponding to the following hypothesis:
+
+\begin{align*}
+H_0: & \bar{\psi}_{k \alpha} = 0 \\
+H_1: & \bar{\psi}_{k \alpha} > 0 \quad \text{or} \quad \bar{\psi}_{k \alpha} < 0
+\end{align*}
+
+Under the assumption of random election of individuals with category $k$, we have:
+
+\begin{align*}
+E(\bar{\psi}_{k \alpha}) &= 0 \\
+var(\bar{\psi}_{k \alpha}) &= \frac{n - n_k}{n_k - 1} \frac{\lambda_{\alpha}}{n_k}
+\end{align*}
+
+By the central limit theorem, the variable $\bar{\psi}_{k \alpha}$ will (approximately) follow a normal distribution.
+
+The v-test is the value of the standardized variable $v_{k\alpha}$ with the same elvel of significance:
+
+$$
+v_{k \alpha} = \frac{\bar{\psi}_{k \alpha}}{\sqrt{\frac{n-n_k}{n_k - 1}} \frac{\lambda_{\alpha}}{n_k}}
+$$
+
+
+#### V-test of Continuous Variables {-}
+
+Let $\bar{x}_{kj}$ be the mean of the variable $j$ in the group $k$. We are interested in calculating the critical probability of the following hypothesis test:
+
+\begin{align*}
+H_0: & \mu_{k j} = \bar{x}_{j} \\
+H_1: & \mu_{k j} > \bar{x}_{j}  \quad \text{or} \quad \mu_{kj} < \bar{x}_{j}
+\end{align*}
+
+Under the null hypothesis, we assume that individuals with category $k$ are randomly selected:
+
+\begin{align*}
+E(\bar{x}_{kj}) &= \bar{x}_{j} \\
+var(\bar{x}_{kj}) &= \frac{n - n_k}{n_k - 1} \frac{s_{j}^{2}}{n_k} = s_{kj}^{2}
+\end{align*}
+
+By the cental limit theorem, the variable $\bar{x}_{kj}$ follows (approximately) a normmal distribution.
+
+The v-test is the value of the standardized variable with the same level of significance.
+
+$$
+v_{k\alpha} = \frac{\bar{x}_{k\alpha} - \bar{x}_{j}}{\sqrt{\frac{n - n_k}{n_k - 1} \frac{s_{j}^{2}}{n_k}}}
+$$
+
+
+
+## Biplot and PCA
+
+The so-called _biplot_ is a general method for simultaneously representing the rows and columns of a data table. This graphing method consists of approximating the data table by a matrix product of dimension 2. The goal is to obtain a plane of the rows and columns. The techniques behind a biplot involves an eigendecomposition, such as the one performed in PCA. Usually, the biplot is carried out with mean-centered and scaled data.
+
+Recall that PCA provides three types of graphics to visualize the active elements:
+
+1. The "circle of correlations" where we represent the continuous variables (the cosine of the angle between two variables is the same as the correlation between variables).
+
+2. The configuration of the individuals in the factorial plane; the utilized distance is the classic euclidean distance.
+
+3. The simultaneous representation---in the orthonormed basis---of the original variables in the center of gravity of the cloud of points of individuals.
+
+We should keep in mind that the aim of a biplot is to get a projection of the individuals on the directions of the original variables that respects as much as possible the distribution of the initial data.
+
+In a biplot, we overlap in the same graphic both the rows and the columns, according to three types of simultaneous  representations:
+
+1. In the space of variables: the cosine of the angle between two variables approximates the correlation between these two variables; likewise, the distance between two individuals approximates the Mahalanbis distance (not the typical euclidean distance in PCA).
+
+2. In the space of individuals: the distance between individuals approximates the euclidean distance, but the distance between variables is not directly interpretable.
+
+3. In an intermediate space: the distances, between individuals and variables, are not directly interpretable, but we obtain a "balanced" plot.
+
+Every matrix $\mathbf{Y}$ can be decomposed into the following product:
+
+$$
+\mathbf{Y} = \mathbf{AB^\mathsf{T}}
+$$
+
+with dimensions: $(n,p) = (n,k) \times (k,p)$, where $k$ is the rank of $\mathbf{Y}$.
+
+In a biplot, like in PCA, we graphically represent the individuals as points and the variables as vectors (i.e. arrows). The biplot involves approximating $\mathbf{Y}$ by the product:
+
+$$
+\mathbf{Y} \approx \mathbf{AB^\mathsf{T}}
+$$
+
+with dimensions: $(n,p) = (n,2) \times (2,p)$. The rows of the matrix $\mathbf{A}$ repreent the individuals, and the rows of $\mathbf{B}$ represent the variables. In order to achieve this decomposition, we use the same decomposition in a PCA, that is, the eigendecomposition of $\mathbf{Y}$:
+
+$$
+\mathbf{Y} = \mathbf{V \Lambda U^\mathsf{T}}
+$$
+
+where $\mathbf{U}$ contains the eigenvectors of $\mathbf{Y^\mathsf{T} Y}$, and $\mathbf{\Lambda}$ is the diagonal matrix of singular values (i.e. square root of the eigenvalues of $\mathbf{Y^\mathsf{T}Y}$). We have that:
+
+$$
+\mathbf{V} = \mathbf{YU\Lambda}^{-1}
+$$
+
+Retaining only the first two eigenvalues, we obtain the rank-2 approximation of $\mathbf{Y}$ by:
+
+$$
+\mathbf{Y} \approx \hat{\mathbf{Y}} = \underset{(n,2)}{\mathbf{V}} \mathbf{\Lambda} \underset{(2,p)}{\mathbf{U}}
+$$
+
+We can define three decompositions of $\mathbf{Y}$ in therms of $\mathbf{AB^\mathsf{T}}$ based on thr form in which we assign the singular values between individuals ($\mathbf{V}$) or between variables ($\mathbf{U}$).
+
+| Representation | $\mathbf{A}$ | $\mathbf{B^\mathsf{T}}$ |
+|:----------------|:-------------|:------------------------|
+| Space of variables | $\mathbf{V}$ | $\mathbf{\Lambda U^\mathsf{T}}$ |
+| Balanced | $\mathbf{V\Lambda}^{1/2}$ | $\mathbf{\Lambda}^{1/2} \mathbf{U^\mathsf{T}}$ |
+| Space of individuals | $\mathbf{V\Lambda}$ | $\mathbf{U^\mathsf{T}}$ |
+
+
+Consider the expression $y_{ij} \approx \mathbf{a_i}^{\mathsf{T}} \mathbf{b_j}$
+
+This scalar product shows that the projections of the points $\mathbf{a_i}$ on the directions defined by $\mathbf{b_j}$ apprixmates the distribution of the initial data of variable $\mathbf{y_j}$, regardless of the performed decomposition.
+
+
+
+#### Simultaneous Representation in the Variables Space {-}
+
+$$
+\mathbf{Y} \approx \mathbf{AB^\mathsf{T}} = (\mathbf{V})(\mathbf{\Lambda U^\mathsf{T}})
+$$
+
+The cosine of the angle formed by the vectors $\mathbf{b_j}$ and $\mathbf{b_l}$ corresponds to the correlation between variables $\mathbf{y_j}$ and $\mathbf{y_l}$. Like in PCA, this property also holds for the active variables. With respect to the supplementary variables, this property is holds only through the axes.
+
+The euclidean distance between the individuals $\mathbf{a_i}$ and $\mathbf{a_h}$ is proportional to the Mahalanobis distance between the individuals $\mathbf{y_i}$ and $\mathbf{y_h}$ of the partitioned table.
+
+The Mahalanobis distance is a distance that takes into account the correlations between the variables. This distance transforms the cloud of row points, usually in an elliptical shape, into a circular shape. The Mahalnobis distance is given by:
+
+$$
+\delta^2 (i, h) = (\mathbf{y_i} - \mathbf{y_h})^\mathsf{T} \mathbf{W}^{-1} (\mathbf{y_i} - \mathbf{y_h})
+$$
+
+where $\mathbf{W}$ is the covariance-variance matrix.
+
+
+
+#### Simultaneous Representation in the Individuals Space {-}
+
+$$
+\mathbf{Y} \approx \mathbf{AB^\mathsf{T}} = (\mathbf{V \Lambda})(\mathbf{U})
+$$
+
+The euclidean distance between two individuals $\mathbf{a_i}$ and $\mathbf{a_h}$ approximates the euclidean distance between the individuals $\mathbf{y_i}$ and $\mathbf{y_h}$ of the partitioned data table. In this case there are no special properties relative to the proximity between variables: the distances are not directly interpretable.
+
+
+#### Simultaneous Balanced Representation {-}
+
+$$
+\mathbf{Y} \approx \mathbf{AB^\mathsf{T}} = (\mathbf{V \Lambda}^{1/2})(\mathbf{\Lambda}^{1/2} \mathbf{U^\mathsf{T}})
+$$
+
+This option tensd to balance the representation between the rows and the columns in the sense that, for each axis, the sum of the squared of the distances to the axis is the same for the cloud of individuals as for the cloud of variables.
+
+We obtain a "balanced" graphic. Except by the common property of all the decompositions (i.e. the projection of individuals onto the variables approximates the data table), there are no specific properties for the interpretation of the proximities between individuals, ad neither for the proximities between variables.
