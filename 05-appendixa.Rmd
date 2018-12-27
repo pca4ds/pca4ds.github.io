@@ -154,4 +154,4 @@ E_{H_0} (r) &= 0 \\
 var_{H_0} (r) &= \frac{1}{n-1}
 \end{align*}
 
-When we are close to a value of 0, we have symmetry in the distribution of the coefficient of correlation. Therefore, under the null hypothesis we assume that distribution of the correlation is approximately normal. We reject the null hypothesis, at the 5% significance level, if the correlation coefficient is larger than $\pm 2 / \sqrt{n-1}$.
+When we are close to a value of 0, we have symmetry in the distribution of the coefficient of correlation. Therefore, under the null hypothesis we assume that the distribution of the correlation is approximately normal. We reject the null hypothesis, at the 5% significance level, if the correlation coefficient is larger than $\pm 2 / \sqrt{n-1}$.
