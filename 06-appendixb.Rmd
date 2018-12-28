@@ -554,7 +554,7 @@ $$
 The euclidean distance between two individuals $\mathbf{a_i}$ and $\mathbf{a_h}$ approximates the euclidean distance between the individuals $\mathbf{y_i}$ and $\mathbf{y_h}$ of the partitioned data table. In this case there are no special properties relative to the proximity between variables: the distances are not directly interpretable.
 
 
-#### Simultaneous Balanced Representation {-}
+#### Balanced Simultaneous Representation {-}
 
 $$
 \mathbf{Y} \approx \mathbf{AB^\mathsf{T}} = (\mathbf{V \Lambda}^{1/2})(\mathbf{\Lambda}^{1/2} \mathbf{U^\mathsf{T}})
