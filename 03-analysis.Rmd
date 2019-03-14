@@ -1,0 +1,41 @@
+# Analysis {#analysis}
+
+Carrying out a comprehensive Principal Component Analysis is both an art and a science. The analyst must have some degree of analytical experience as well as a reasonable familiarity with the analyzed data. A rushed PCA analysis tends to lead to confusing results, and frustating endeavors. A well applied PCA involves a certain strategy to analyze the data, enforced with common sense, and taking certain precautions.
+
+In this chapter, we present a methodology to carry out a Principal Component Analysis that goes above and beyond what is typically discussed in other texts about PCA. We try to stay away from the narrow perspective of using PCA within with the sole purpose of wroking with few variables that are compatible with a statistical model. Instead, we strongly advocate for analyses that take into account as many variables as possible. This will make the analysis richer, more _holistic_, and with more coherent interpretations.
+
+
+## Themescope
+
+We are assuming that the data you are working with comes from a context of great _data diversity_. For example, data from surveys or questionnaires, or from a database of clients, in which there is an abundance of different types of variables.
+
+In these cases with a rich variety of variables, we can group those variables in __themes__. Each theme defining a point of view or _multivariate reality_. For instance, when we have a group of socio-economic variables, or when a set of variables have to do with preferences about a set of products. By refer to this approach as __themescope__, that is, a multidimensional description by themes.
+
+The analysis strategy that we propose is to analyze individuals by themes. This involves selecting a particular theme in which the variables associated to it become the active variables. Having a group of active variables, we study the resemblances of the individuals according to this point of view. And then we add all the available information that has not been utilized, but that can shed some light in better understanding the relationship between individuals and variables, by using the projection of supplementary elements.
+
+```{r fig-3-1, echo = FALSE, out.width = '85%', fig.cap='Projection of categorical supplementary variables'}
+knitr::include_graphics("images/figure-3-1.png")
+```
+
+
+####{-} Various Perspectives, Diverse Analyses
+
+When selecting a particular active theme, this does not stop us from selecting another theme that can then become active in itself. By changing active themes, we have a different perspective of the analyzed data, in analogous way to taking photos of the same subject from different angles.
+
+
+
+## Conditions of Application
+
+### Linearity and Symmetry
+
+We have seen the importance of the correlation coefficient (or covariance) in PCA. We can actually present PCA as a visualization technique of a correlation matrix (or coavraince matrix). The technique will excel when the correlation coefficient is a _good_ measure of the association between variables. The ideal conditions to apply PCA are when the association among avriables are linear and their distributions are symmetric (i.e. closer to the normal distribution).
+
+Consequently, we need to be cautious when the distributions are extremely asymmetric or when the associations among variables are not linear.
+
+A common case that can limit the applicability of PCA is when analyzing variables that are seemingly continuous, but that in reality are a hybrid of continuous and nominal scale. For example, this is the case of variables like _payed work time_ of women: this is null for a woman that is a housewife, while the distribution is continuous for women that have a payed job.
+
+Nonlinearity associations can also limit the applicability of PCA. This is illustrated with the relation betwen age and income: overall, income tends to increase with age during active working years, but when a person retires the income tend to decrease.
+
+Phenomena of lack of symmetry and lack of linearity will affect the results of a PCA. If these issues are not indentify, they can lead to wrong interpretations and conclusions. However, the presence of these phenomena will become apparent for the well trained eyes of an experienced analyst.
+
+We should say that techniques such as Multiple Correspondence Analysis (MCA) can always be used after having encoded (categorized) the continuous variables. Compared to PCA, MCA has the advantage of being inherently non-linear, and thus can be used in situations when PCA is limited.
