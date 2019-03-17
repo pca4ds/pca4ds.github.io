@@ -80,3 +80,91 @@ For example, a PCA can be a preliminary stage before performing a discriminant a
 
 If the goal is to classify individuals, it makes sense to retain only the axes expressing real directions of spread, in order to preserve the stable characteristics of the individuals, while excluding those directions that are mainly capturing random noise.
 
+
+#### Elbow's rule (Cattell's rule, 1966) {-}
+
+One of the most prevalent questions in PCA is "how many principal components (or factorial axes) to retain?" Unfortunately, there is no simple answer to this question.
+
+If we assume that the $n$ values taken by the $p$ variables come from a random process that uniformly fills up the space, without privileging any direction, then the $p$ eigenvalues of the PCA will slowly decrease in a regular form.
+
+If a PCA provides a histogram of the eigenvalues showing one or more staircase steps, we can think that there are sufficiently strong associations between the variables. These associations would be responsible for the appearance of directions or subspaces where most of the dispersion is concentrated.
+
+Such pragmatic considerations, can be used to determine---in a more or less subjective way---a minimum and a maximum number of axes to retain in the analysis. The main way to do this is through visual inspection of the histogram of eigenvalues following the so-called _scree test_ or _elbow criteria_ proposed by Raymond Cattell (1966). This criteria, which is the simplest and oldest one, involves graphing a line plot of the eigenvalues, ordered from largest to smallest, and then look for the "elbow" of the graph where the eigenvalues seem to level off. 
+
+In the example of the cities (first PCA), we obtained the following eigenvalues:
+
+```{r table-3-1, echo = FALSE}
+# table of eigenvalues
+eigs <- read.csv('data/eigenvalues.csv', row.names = 1)
+
+knitr::kable(
+  eigs,
+  booktabs = TRUE,
+  caption = 'Distribution of eigenvalues in 1st PCA.'
+)
+```
+
+<br>
+
+We can then plot a histogram of the eigenvales, and add a line connecting the heights of the bars to better see the way in which the sizes of the eigenvalues decrease:
+
+```{r echo = FALSE}
+load("data/pca1.RData")
+scree1 <- barplot(
+  pca$eig[,1], col = 'gray80', border = NA, las = 1, 
+  names.arg = 1:nrow(pca$eig), xlab = "eigenvalues",
+  main = "Scree plot (PCA 1, table 2.1)")
+lines(scree1[,1], pca$eig[,1], lwd = 2.5, col = "#4286f4")
+```
+
+
+In the second PCA of the salaries divided by the mean salary of a city, we obtained the following eigenvalues:
+
+```{r table-3-2, echo = FALSE}
+# table of eigenvalues
+eigs2 <- read.csv('data/table-2-7.csv', row.names = 1)
+
+knitr::kable(
+  eigs2,
+  booktabs = TRUE,
+  caption = 'Distribution of eigenvalues in 2nd PCA.'
+)
+```
+
+<br>
+
+Graphing the scree plot we obtain the following display:
+
+```{r echo = FALSE}
+scree2 <- barplot(
+  eigs2[,2], col = 'gray80', border = NA, las = 1, 
+  names.arg = 1:nrow(eigs2), xlab = "eigenvalues",
+  main = "Scree plot (PCA 2, table 2.7)")
+lines(scree2[,1], eigs2[,2], lwd = 2.5, col = "#4286f4")
+```
+
+
+More formally, Cattell's criteria consist of sorting the lagged differences of second order between eigenvalues, as follows:
+
+\begin{equation}
+d(\alpha) = (\lambda_{\alpha + 1} - \lambda_{\alpha}) - (\lambda_{\alpha} - \lambda_{\alpha - 1})
+(\#eq:32)
+\end{equation}
+
+
+The reason why is called _scree test_ has to do with the metaphor of a mountain scree. According to [wikipedia](https://en.wikipedia.org/wiki/Scree), a "scree is a collection of broken rock fragments at the base of crags, mountain cliffs, volcanoes or valley shoulders that has accumulated through periodic rockfall from adjacent cliff faces."
+
+```{r echo = FALSE, out.width = '50%'}
+knitr::include_graphics("images/scree-mountain.png")
+```
+
+
+
+
+
+#### Note {-}
+
+We have seen that when there is a _size effect_ in the first axis, the subsequent eigenvalues are affected and reduced. However, it is possible that subsequent eigenvalues reflect structural oppositions. This is the case of of the second PCA on raw data, which corresponds approximately, to the first axis of the analysis on the ratio data, when the size effect is eliminated.
+
+On the other hands, it is risky to interpret the percentage of inertia as a measure of the information contained in an axis. This percentage can be made as small as possible, just by adding independent random variables to the data of active variables. The overall inertia will increase, while the "information" contained in the first axes will remain the same and, consequently, the percentage of inertia in each axis will decrease.
+
