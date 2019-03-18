@@ -81,7 +81,7 @@ For example, a PCA can be a preliminary stage before performing a discriminant a
 If the goal is to classify individuals, it makes sense to retain only the axes expressing real directions of spread, in order to preserve the stable characteristics of the individuals, while excluding those directions that are mainly capturing random noise.
 
 
-#### Elbow's rule (Cattell's rule, 1966) {-}
+#### Scree Test (Cattell's rule, 1966) {-}
 
 One of the most prevalent questions in PCA is "how many principal components (or factorial axes) to retain?" Unfortunately, there is no simple answer to this question.
 
@@ -160,11 +160,44 @@ knitr::include_graphics("images/scree-mountain.png")
 
 
 
-
-
 #### Note {-}
 
 We have seen that when there is a _size effect_ in the first axis, the subsequent eigenvalues are affected and reduced. However, it is possible that subsequent eigenvalues reflect structural oppositions. This is the case of of the second PCA on raw data, which corresponds approximately, to the first axis of the analysis on the ratio data, when the size effect is eliminated.
 
 On the other hands, it is risky to interpret the percentage of inertia as a measure of the information contained in an axis. This percentage can be made as small as possible, just by adding independent random variables to the data of active variables. The overall inertia will increase, while the "information" contained in the first axes will remain the same and, consequently, the percentage of inertia in each axis will decrease.
+
+
+__INSERT TABLE 3.3 (see page 88)__
+
+
+### Simulations, random effects on individuals
+
+One way to assess the stability of results involves using the available information in the data, via computational methods to run some simulations. By following this type of approaches, we are able to free ourselves from the probabilistic assupmtions about the data, which are seldom met when dealing with multivariate data.
+
+The strategy that we use is based on random perturbations of the data, in order to simulate a certain natural variability or measurement error in the observations.
+
+Each observation in the data matrix is replaced by the observed value ples a random quantity that follows a normal distribution with mean and variance depending on the variable under modification.
+
+We denote this change of value as:
+
+\begin{equation}
+x_{ij} = x_{ij} + N(x_{ij}, Ks_j)
+(\#eq:32)
+\end{equation}
+
+The observed value $x_{ij}$ is modified by adding a random quantity that follows a normal distribution, centered at $x_{ij}$, and with standard deviation $K$ times the standard deviation $s_j$ of variable $j$.
+
+The value of the constant $K$ determines the amount of perturbation that we introduce in the data. $K=0$ indicates that the observations remain unchanged. A value of $K=1$ means that each observation is affected, on average, one standard deviation.
+
+Once we have modified the data table, we can perform a PCA, calculate its directions, the correlation of the extracted directions with the original-unmodified variables, obtaining a matrix of correlations between axis systems.
+
+In this matrix we will inspect, for each original axis, what other modified axes are most correlated with. We will also check if an axis is correlated with all other axes in analogous way. In the former case, this indicates that an axis is stable, despite the random modifications in the data. In the latter case, this indicates that an axis is the result of randomness in the data.
+
+By looking at the matrix of correlations described in the previous paragraph, we can detect up to what extent the rank of the axes are stables, and from what point the "natural" random fluctuations in data begin.
+
+In the example of the international cities, we show in table (TABLE 3.4) the correlation matrices between the axes (in rows) obtained in the analysis of ratios (salaries of professions with respect to the mean salary of the city) and the axes obtained with a random perturbation of 1%, 5% and 10% of the standard deviation of each variable.
+
+__INSERT TABLE 3.4__
+
+By looking at the diagonal of the tables, we observe stability in the first factor, as well as in the second and the third factors, up to a random perturbation of 5% of the original standard deviation. With a high perturbation (of 10%) only the first factor is resistant to the modifications.
 
