@@ -197,7 +197,68 @@ By looking at the matrix of correlations described in the previous paragraph, we
 
 In the example of the international cities, we show in table (TABLE 3.4) the correlation matrices between the axes (in rows) obtained in the analysis of ratios (salaries of professions with respect to the mean salary of the city) and the axes obtained with a random perturbation of 1%, 5% and 10% of the standard deviation of each variable.
 
-__INSERT TABLE 3.4__
+
+```{r table-3-4a, echo = FALSE}
+# perturbation 1%
+perturb1 <- read.csv('data/table-3-4a.csv', check.names = FALSE)
+
+knitr::kable(
+  perturb1,
+  booktabs = TRUE,
+  caption = 'Assessment of random perturbations (rows correspond to axes of 2nd PCA).'
+)
+```
+
+__Perturbation of 5%__
+
+```{r table-3-4b, echo = FALSE}
+# perturbation 5%
+perturb2 <- read.csv('data/table-3-4b.csv', check.names = FALSE)
+
+knitr::kable(
+  perturb2
+)
+```
+
+__Perturbation of 10%__
+
+```{r table-3-4c, echo = FALSE}
+# perturbation 10%
+perturb3 <- read.csv('data/table-3-4c.csv', check.names = FALSE)
+
+knitr::kable(
+  perturb3
+)
+```
+
+<br>
 
 By looking at the diagonal of the tables, we observe stability in the first factor, as well as in the second and the third factors, up to a random perturbation of 5% of the original standard deviation. With a high perturbation (of 10%) only the first factor is resistant to the modifications.
+
+Table \@ref(tab:table-3-5) displays the mean and standard deviation of the salary variables (gross salary divided by the city-mean salary), as well as the correlation between the randomly modified variable and the original variable. We can tell that with a random perturbation of 10% the standard deviations increase, while the correlations decrease.
+
+```{r table-3-5, echo = FALSE}
+# perturbation 1%
+table_3_5 <- read.csv('data/table-3-5.csv', check.names = FALSE)
+
+knitr::kable(
+  table_3_5,
+  booktabs = TRUE,
+  caption = 'Summary Statistics of Active Variables affected by random perturbations.'
+)
+```
+
+
+### Bootstrap Simulations
+
+Another way of empirical assessment can be done using random resampling methods on the data. The idea is to obtain a number of data tables, all of the same dimension as the original one, by randomly sampling with replacement the observations in the data. This approach is the so-called Bootstrap method (Efron et al, 1993). Following this approach, it is possible to estimate the sampling errors and the distribution of the various PCA results.
+
+How to implement the bootstrap method? First, we form a large number of samples of $n$ individuals which are drawn with replacement from the $n$ original individuals in the data. This set of samples is referred to as the _bootstrap samples_. For each bootstrap sample, some of the original individuals won't be part of the sample, while some individuals may appear more than once in the sample. Each bootstrap sample gives place to a data table.
+
+On each of the bootstrap tables we calculate its eigenvalues and eigenvectors. We then obtain a bootstrap distribution of the eigenvalues, as well as the bootstrap distribution of the correlations between the eigenvectors and the original axes.
+
+For each eigenvalue we can obtain a confidence interval. Likewise, for each eigenvector we can obtain a confidence cone around the original eigenvector. Examining the correlation between the axes can then reveal potential rotations among axes.
+
+The bootstrap simulations can also be used to assess the stability of the projections of the variables and the categories. We can position the different bootstrap tables as supplementary information in the analysis of the original table (Lebart et al, 1995). In this way, it is possible to visualize in the factorial planes regions of "natural" fluctuation of the different elements in the data table.
+
 
