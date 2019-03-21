@@ -262,3 +262,68 @@ For each eigenvalue we can obtain a confidence interval. Likewise, for each eige
 The bootstrap simulations can also be used to assess the stability of the projections of the variables and the categories. We can position the different bootstrap tables as supplementary information in the analysis of the original table (Lebart et al, 1995). In this way, it is possible to visualize in the factorial planes regions of "natural" fluctuation of the different elements in the data table.
 
 
+
+## Analysis of Table of Ranks
+
+In PCA, it is assumed that the variables are measured on a continuous scale. When applying a normalized PCA, the results will depend on the matrix of correlations between variables. Such results can be affected by the presence of outliers or atypical observations.
+
+One approach to make the results independent from the scale of measurement and monotone transformations, consists of working with the _ranks_ of the variables and not with the actual observed values.
+
+To do that, we substitute each value by its rank in increasing order, depending on the considered variable. By doing this, the active table becomes a table of ranks, and consequently, the PCA is performed on a correlation matrix of ranks. This is a remarkable feature of PCA: it is a general methodology that can be applied on any correlation matrix defined by the analyst.
+
+One interesting transformation involves working with the Spearman's correlation coefficients. This coefficient measures the monotone dependency between the rank values of two variables according to the following formula:
+
+\begin{equation}
+r_s (j, j') = 1 - \frac{6 \sum_{i}^{n} (x_{ij} - x_{ij'})^2}{n (n^2 - 1)}
+(\#eq:34)
+\end{equation}
+
+where the quantities $x_{ij}$ express the rank of the individual $i$ of teh $j$ variable. The advantage of the Spearman's correlation coefficient is that coincides with the Pearson coeffcient (usual correlation) when applied to a matrix of ranks.
+
+In the case of the international cities, the Spearman's correlations are given in table \@ref(tab:table-3-6).
+
+```{r table-3-6, echo = FALSE, comment = ''}
+load('data/table-3-6.RData')
+options(knitr.kable.NA = '')
+
+# print table with kable
+knitr::kable(
+  table_3_6,
+  
+  booktabs = TRUE,
+  caption = "Spearman's Rank Correlation matrix of variables (2nd analysis)"
+)
+```
+
+Table of eigenvalues
+
+```{r table-3-7, echo = FALSE}
+# table of eigenvalues
+load('data/table-3-7.RData')
+
+knitr::kable(
+  table_3_7,
+  booktabs = TRUE,
+  caption = 'Distribution of eigenvalues (from table of ranks).'
+)
+```
+
+Table 3.8
+
+```{r table-3-8, echo = FALSE}
+# table of eigenvalues
+load('data/table-3-8.RData')
+
+knitr::kable(
+  table_3_8,
+  booktabs = TRUE,
+  caption = 'PCA results on table of ranks (second analysis)'
+)
+```
+
+
+Image
+
+```{r fig-3-2, echo = FALSE, out.width = '70%', fig.cap='Circle of correlations on the first factorial plane of the second analysis'}
+knitr::include_graphics("images/figure-3-2.png")
+```
