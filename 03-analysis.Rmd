@@ -18,7 +18,7 @@ knitr::include_graphics("images/figure-3-1.png")
 ```
 
 
-####{-} Various Perspectives, Diverse Analyses
+#### Various Perspectives, Diverse Analyses {-}
 
 When selecting a particular active theme, this does not stop us from selecting another theme that can then become active in itself. By changing active themes, we have a different perspective of the analyzed data, in analogous way to taking photos of the same subject from different angles.
 
@@ -42,7 +42,7 @@ We should say that techniques such as Multiple Correspondence Analysis (MCA) can
 
 
 
-### Balance the content of active variables
+### Balancing the content of active variables
 
 More often than not, Principal Component Analysis is performed on variables having different units of measurement. In this case, the variances tend to be vary considerable in magnitude, and are not directly comparable. The typical solution to overcome this issue is to rescale the variables in standard units (i.e. mean of zero, unit variance). In this way, all variables wil be given the same importance, and we don't have to worry about units of measurement anymore. In fact, this type of transformation has become the default solution in most PCA computer programs: to carry out a normalized PCA and work on the matrix of correlations. Keep in mind that this transformation modifies the shape of the cloud of points by providing the same spread among all directions in the space of origin.
 
@@ -166,8 +166,24 @@ We have seen that when there is a _size effect_ in the first axis, the subsequen
 
 On the other hands, it is risky to interpret the percentage of inertia as a measure of the information contained in an axis. This percentage can be made as small as possible, just by adding independent random variables to the data of active variables. The overall inertia will increase, while the "information" contained in the first axes will remain the same and, consequently, the percentage of inertia in each axis will decrease.
 
+```{r table-3-3, echo = FALSE}
+# table of eigenvalues
+table_3_3 <- read.csv('data/table-3-3.csv')
 
-__INSERT TABLE 3.3 (see page 88)__
+knitr::kable(
+  table_3_3,
+  booktabs = TRUE,
+  caption = 'Distribution of eigenvalues from data with random perturbations.'
+)
+```
+
+```{r echo = FALSE}
+scree3 <- barplot(
+  table_3_3[,2], col = 'gray80', border = NA, las = 1, 
+  names.arg = 1:nrow(table_3_3), xlab = "eigenvalues",
+  main = "Scree plot (random perturbations)")
+lines(scree3[,1], table_3_3[,2], lwd = 2.5, col = "#4286f4")
+```
 
 
 ### Simulations, random effects on individuals
@@ -182,7 +198,7 @@ We denote this change of value as:
 
 \begin{equation}
 x_{ij} = x_{ij} + N(x_{ij}, Ks_j)
-(\#eq:32)
+(\#eq:33)
 \end{equation}
 
 The observed value $x_{ij}$ is modified by adding a random quantity that follows a normal distribution, centered at $x_{ij}$, and with standard deviation $K$ times the standard deviation $s_j$ of variable $j$.
@@ -278,9 +294,9 @@ r_s (j, j') = 1 - \frac{6 \sum_{i}^{n} (x_{ij} - x_{ij'})^2}{n (n^2 - 1)}
 (\#eq:34)
 \end{equation}
 
-where the quantities $x_{ij}$ express the rank of the individual $i$ of teh $j$ variable. The advantage of the Spearman's correlation coefficient is that coincides with the Pearson coeffcient (usual correlation) when applied to a matrix of ranks.
+where the quantities $x_{ij}$ represent the rank of the individual $i$ of the $j$ variable. The advantage of the Spearman's correlation coefficient is that it coincides with the Pearson's coeffcient (usual correlation) when applied to a matrix of ranks.
 
-In the case of the international cities, the Spearman's correlations are given in table \@ref(tab:table-3-6).
+In the case of the international cities, the Spearman's correlations are given in table \@ref(tab:table-3-6) (compare these with table \@ref(tab:table-2-6)).
 
 ```{r table-3-6, echo = FALSE, comment = ''}
 load('data/table-3-6.RData')
@@ -291,11 +307,13 @@ knitr::kable(
   table_3_6,
   
   booktabs = TRUE,
-  caption = "Spearman's Rank Correlation matrix of variables (2nd analysis)"
+  caption = "Spearman's Rank Correlation Matrix (variables from 2nd analysis)"
 )
 ```
 
-Table of eigenvalues
+<br>
+
+We apply a PCA on the matrix of Spearman's correlations. The eigenvalues are depicted in table \@ref(tab:table-3-7) which can be compared to those of table \@ref(tab:table-2-7).
 
 ```{r table-3-7, echo = FALSE}
 # table of eigenvalues
@@ -308,7 +326,9 @@ knitr::kable(
 )
 ```
 
-Table 3.8
+<br>
+
+Likewise, table \@ref(tab:table-3-8) displays the results obtained for the ranks of the active variables.
 
 ```{r table-3-8, echo = FALSE}
 # table of eigenvalues
@@ -317,13 +337,22 @@ load('data/table-3-8.RData')
 knitr::kable(
   table_3_8,
   booktabs = TRUE,
-  caption = 'PCA results on table of ranks (second analysis)'
+  caption = 'PCA results of table of ranks'
 )
 ```
 
+<br>
 
-Image
+The cloud of points is depicted in figure \@ref(fig:fig-3-2). The configuration of this cloud is similar to the initial cloud displayed in figure \@ref(fig:fig-2-9). The similarity of the results obtained with the table of ratios confirms the good quality of the performed analysis. Also, this similarity shows that the essential information is contained in the rank of the values, and not so much in the observed eigenvalues.
 
 ```{r fig-3-2, echo = FALSE, out.width = '70%', fig.cap='Circle of correlations on the first factorial plane of the second analysis'}
 knitr::include_graphics("images/figure-3-2.png")
 ```
+
+The fact that the cloud of points in figure \@ref(fig:fig-3-2) is similar to the graph \@ref(fig:fig-2-9), indicates that the visual displays do not depend on: the units of measurement, monotone transformations, or possible existance of outliers. Hence, we can say that the observed configurations are _robusts_.
+
+In the absence of robust configurations, we can suggest positioning the elements of the original table as supplementary elements in the analysis of ranks, in order to detect whether there are sensible elements.
+
+Sometimes it is convenient to work with variables that have distributions close to a normal distribution. In this case, each variables con be handled as having a normal distribution with expected value equal to the observation of rank $k$, instead of working directly with the ranks (Lebart et al, 1977).
+
+
