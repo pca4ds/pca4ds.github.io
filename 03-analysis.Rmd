@@ -387,3 +387,57 @@ The sum of the $p-q$ excluded eigenvalues measures the amount of error when appr
 
 This property is of great practical application. It justifies the utilization of PCA in a data compression problem (for example, in the reconstitution of images, and also in data transmission).
 
+
+
+## Synthetic Variables and Indices
+
+So far we have discussed Principal Component Analysis from a purely geometric perspective: how to obtain a subspace that best approximates the original distances of the data elements.
+
+Interestingly, PCA can also be seen from other points of views. One of them involves the idea of looking for a small set of new variables---formed by the original ones---in such a way that the loss of "information" is minimized.
+
+```{r fig-3-3, echo = FALSE, out.width = '50%', fig.cap='Dimension reduction or minimization of "information loss"'}
+knitr::include_graphics("images/figure-3-3.png")
+```
+
+The new variables (i.e. vectors) are searched for in a way that they are as close as possible (as much correlated) to the set of original variables.
+
+The solution is obtained with the vector $\Psi$ of $n$ elements that maximizes the function \@ref(eq:37)
+
+\begin{equation}
+max \sum_{j} cor^{2} (\boldsymbol{\Psi}, \mathbf{x_j})
+(\#eq:37)
+\end{equation}
+
+In other words, we look for a new variable that is the "closest" to the set of original variables. This will provide a first common factor; the rest of the factors are obtained with the same condition but orthogonal to the directions previously obtained.
+
+Often, the first factor is highly correlated with all the variables. This indicates the so-called _size factor_, which we have discussed in detail in section \@ref(size-factor).
+
+The size factor can be considered as an overall summary, or synthesis, of the entire set of variables. We can compare the first factor with the average of all the original variables, and confirm that they are very similar.
+
+\begin{equation}
+\frac{1}{p} (\mathbf{x_1} + \mathbf{x_2} + \dots + \mathbf{x_p}) \approx \boldsymbol{\Psi_1}
+(\#eq:38)
+\end{equation}
+
+```{r table-3-9, echo = FALSE}
+# table_3_9
+table_3_9 <- read.csv('data/table-3-9.csv', check.names = FALSE)
+
+knitr::kable(
+  table_3_9,
+  booktabs = TRUE,
+  caption = 'Coefficients of the first principal component (i.e. size factor) from first PCA analysis.'
+)
+```
+
+```{r fig-3-4, echo = FALSE, out.width = '70%', fig.cap='Size Factor of active variables'}
+knitr::include_graphics("images/figure-3-4.png")
+```
+
+The data set about the international cities provide an example of how to find an _index of mean salary per city_. The components of the unit axis give the linear combination of the original variables (mean-centered and reduced). This is the linear combination of the first principal component, namely, the desired index of mean salaries (see table \@ref(tab:table-2-3)).
+
+A common application of PCA is to build synthetic indices. For instance, a quality index of a given product made from several characteristics of the product. A common example in psychometrics has to do with indices that define a general aptitude factor: e.g. verbal aptitude, or math aptitude. Also in economics, we often find indices of economic capacity for a certain region or city.
+
+Sometimes there is no clear definition of the desired index, but rather a vague notion od the aspects that such an index may comprise. In these cases, the analysts must pay careful attention to collect reliable data, with indicators of the desired index, ideally with highly correlated variables. The computed index (or a first approximation) will be determined by the first principal component of the gathered data.
+
+
