@@ -451,7 +451,7 @@ The set of components $u_{j \alpha}$ also define the projection of the former un
 
 
 
-## Beyond the First Factor
+## Beyond the First Factor {#size-factor}
 
 The most striking fact from the results discussed so far is the so-called _size factor_ (or size effect) which is extremely dominant in our working example. This size factor, reflected in the first principal component, exclusively shows the salary inequality among the cities. The rest of the factors are somewhat "squeezed" by the strength of this phenomenon in the data table.
 
