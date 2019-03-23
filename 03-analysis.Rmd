@@ -356,3 +356,34 @@ In the absence of robust configurations, we can suggest positioning the elements
 Sometimes it is convenient to work with variables that have distributions close to a normal distribution. In this case, each variables con be handled as having a normal distribution with expected value equal to the observation of rank $k$, instead of working directly with the ranks (Lebart et al, 1977).
 
 
+
+## Optimal Reconstitution of Data
+
+Principal Component Analysis allows us to approximate a data matrix, generally of column-rank $p$, a matrix of lower rank defined by the first eigenvalues and their corresponding eigenvectors.
+
+The formula \@ref(eq:35), referred to as the singular value decompoisition (SVD), lets us approximate the original values $x_{ij}$ with a factorization of some set of eigenvectors and eigenvalues. In other words, we can obtain an approximate reconstitution of the data values by using only a few $q$ values and vectors from the SVD.
+
+\begin{equation}
+\hat{x}^{q}_{ij} = \sum_{\alpha = 1}^{q} \sqrt{\lambda_{\alpha}} \hspace{1mm} v_{i\alpha} u_{j\alpha}
+(\#eq:35)
+\end{equation}
+
+The term $\hat{x}^{q}_{ij}$ is an approximation of the observed value $x_{ij}$ from a small set of coefficients calculated from a PCA: the eigenvalues $\lambda_{\alpha}$, the eigenvectors $v_{i\alpha}$ and $u_{j\alpha}$, of rank 1 to $q$.
+
+This reconstitution is optimal in the sense that it provides the best least-squares approximation of the original matrix: minimizing the sum of squares of the deviations between the observed values and the approximated values (for all $q$):
+
+$$
+min \left \{ \sum_{i} \sum_{j} (x_{ij} - \hat{x}_{ij}^{q})^2 \right \}
+$$
+
+It can be proved that:
+
+\begin{equation}
+\sum_{i} \sum_{j} (x_{ij} - \hat{x}^{q}_{ij})^2 = \sum_{\alpha = q+1}^{p} \lambda_{\alpha}
+(\#eq:36)
+\end{equation}
+
+The sum of the $p-q$ excluded eigenvalues measures the amount of error when approximating the original cloud of points by its projection onto a subspace of dimension $q$.
+
+This property is of great practical application. It justifies the utilization of PCA in a data compression problem (for example, in the reconstitution of images, and also in data transmission).
+
