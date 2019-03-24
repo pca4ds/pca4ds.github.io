@@ -1,6 +1,6 @@
 # Appendix C: Data Analysis Reminder {#appendixc}
 
-In this appendix we present in a brief reminder of multivariate exploratory data analysis (factorial analysis, descriptive and clustering).
+In this appendix we provide a brief reminder of multivariate exploratory data analysis (factorial analysis, descriptive analysis, and clustering).
 
 
 ## Normalized Principal Component Analysis
@@ -17,6 +17,8 @@ The more associated two variables are, the smaller the angle between them.
 
 - _Distance between individuals_: classic (squared) euclidean distance (sum of the squares of the differences of standardized data).
 
+
+#### Interpretation {-}
 
 __Factorial Planes for Variables__: This has to do with the representation of the linear association between variables. We can interpret the directions in the plane in terms of the correlations between the variables and the axes.
 
@@ -44,6 +46,8 @@ $$
 - _Distance between individuals_: classic (squared) euclidean distance (sus of the squares of the differences with centered data).
 
 
+#### Interpretation {-}
+
 __Factorial Planes for Variables__: This has to do with the representation of the variances as well as the association among variables. We can interpret the directions in the plane in terms of the covariances between the variables and the axes.
 
 __Factorial Planes for Individuals__: This has to do with the representation of the similarities between individuals. We interpret the positions of the individuals on the factorial plane in terms of their values, and taking into account the meaning assigned to the axes.
@@ -68,7 +72,7 @@ __Analyzed Data__: two-way table or contingency table obtained by crossing two c
 The utilized distance in both cases is the _chi-squared_ distance.
 
 
-__Interpretation__
+#### Interpretation {-}
 
 - Overlapped representation of the row-profiles and the column-profiles.
 
@@ -86,7 +90,7 @@ Multiple Correspondence Analysis (MCA) is the generalization of (simple) corresp
 
 One of the advantages of MCA is that it allows to take into account non-linear associations among variables.
 
-The analyzed (raw) data table in this case is formed by multiple categorical variables. This table can be transformed into a complete disjoint table, or into a Burt table crossing all variables two-by-two).
+__Data Table.__ The analyzed (raw) data table in this case is formed by multiple categorical variables. This table can be transformed into a complete disjoint table, or into a Burt table crossing all variables two-by-two).
 
 - _For individuals_: we analyze the proximities between the row-profiles of the complete disjoint table.
 
@@ -95,7 +99,7 @@ The analyzed (raw) data table in this case is formed by multiple categorical var
 In both cases (rows and columns) the utilized distance is the _chi-squared_ distance.
 
 
-__Interpretation__
+#### Interpretation {-}
 
 Besides a dilation coefficient:
 
@@ -122,15 +126,49 @@ if the individuals with such categories have answered in a similar the set of ac
 
 ## Clustering of Factors
 
-We can use clustering techniques to find a reduced number of groups of individuals, homogenous and well separated. 
+We can use clustering techniques to find a reduced number of groups of individuals, homogenous, and well separated. 
 
-- using a clustering technique allows to handle a considerable number of dimensions from a dimension reduction procedure (e.g. PCA).
+
+#### Advantages {-}
+
+- Using a clustering technique allows us to handle a considerable number of dimensions from a dimension reduction procedure (e.g. PCA).
 
 - using a clustering technique also allows us to reduce the amount of "noise" in the data (by using only the most important dimensions).
 
 - it also enables us to cluster the individuals for the active variables.
 
-- different clustering techniques can be used: hierarchical clustering methods (e.f. War criterion, single linkage, maximum linkage), K-means.
 
-- the final partition can depend on the centers of the initial groups.
+#### Clustering approaches {-}
+
+Different clustering techniques can be used.
+
+- Hierarchical clustering methods:
+    + Ward's criterion
+    + Single linkage
+    + Maximum linkage
+    
+- Moving centroids:
+    + K-means
+
+The final partition can depend on the centers of the initial groups. To overcome this limitation, we can use the _strong_ or stable clusters.
+
+- Hybrid clustering:
+    + We can combine a hierarchical approach with a moving centroid approach. 
+    + This hybrid strategy is recommended for large data sets.
+    
+
+#### Groups consolidations {-}
+
+We can use a K-means algorithm by taking the initial centroids to be the centroids of the clusters obtained by _cutting_ or pruning the dendrogram. This improves the quality and stability of the obtained partition.
+
+
+#### Description of the clusters {-}
+
+To better understand and describe the obtained clusters, we can use both the active and supplementary variables.
+
+Using the _v-tests_:
+
+- _Categorical variable:_ a category characterizes a group if such category is significantly more abundant---or also relatively uncommon---in a given cluster compared to the overall population (comparison based on percentages).
+
+- _Continuous variable:_ a continuous variable characterizes a group if its mean is significantly higher or smaller than the rest of the population (comparison based on the means).
 
