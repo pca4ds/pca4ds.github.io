@@ -441,3 +441,23 @@ A common application of PCA is to build synthetic indices. For instance, a quali
 Sometimes there is no clear definition of the desired index, but rather a vague notion od the aspects that such an index may comprise. In these cases, the analysts must pay careful attention to collect reliable data, with indicators of the desired index, ideally with highly correlated variables. The computed index (or a first approximation) will be determined by the first principal component of the gathered data.
 
 
+
+## Handling Missing Values
+
+With real data, it is common to have individuals for which one or more variable measurements are missing. For example, in a survey about quality of housing, an interviewee may not feel like answering a question about the number of bathrooms in his/her house. Or the same interviewee may not recall the value of the area of the house.
+In order to have an idea of the amount of missing values, it is recommended to count the number of missing values per individual. In any case, given a data matrix with missing values, we should have a policy about to handle them.
+
+A first approach to take care of missing values consists of removing the individuals with missing data before performing a PCA. Obviously, this solution implies losing several individuals, which could be detrimental for the overall quality of the calculated results.
+
+Another approach involves replacing the missing values with an estimation. This approach is typically known as _imputing_ missing values.
+
+Keep in mind that PCA relies on the analysis of the dispersion in the individuals around the center of gravity. When we don't have information about an individul, a prudent decision is to locate that individual in the center of the cloud. By doing this, we don't privilege any direction of dispersion.
+
+This gives us a first basic rule to handle missing data. We substitute an individual's missing value by the mean of the variable for which there's no available information. This works as lon as the amount of missing data for that given variable is small.
+
+Of course, more refined imputation procedures can be devised. This usually depends on the degree of knowledge about the phenomenon under study. For example, if we have an old adult male farmer for which his income is missing, we could estimate this value with the average of the incomes in this category.
+
+Notice that we could also use the results of the PCA to _fine tune_ (in a non-parametric optimization way) the estimation of a missing values. The rationale behind this approach is based on the reconstitution formula \@ref(eq:35) to approximate the data. Under this procedure, we can estimate the value of the $ij$-th cell with the $q$ first factors.
+
+
+
