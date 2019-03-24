@@ -5,7 +5,8 @@ rmd_files: [
   "02-mechanics.Rmd",
   "03-analysis.Rmd",
   "05-appendixa.Rmd",
-  "06-appendixb.Rmd"
+  "06-appendixb.Rmd",
+  "07-appendixc.Rmd"
 ]
 
 before_chapter_script: "_common.R"
