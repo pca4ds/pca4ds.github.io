@@ -562,4 +562,4 @@ $$
 
 This option tensd to balance the representation between the rows and the columns in the sense that, for each axis, the sum of the squared of the distances to the axis is the same for the cloud of individuals as for the cloud of variables.
 
-We obtain a "balanced" graphic. Except by the common property of all the decompositions (i.e. the projection of individuals onto the variables approximates the data table), there are no specific properties for the interpretation of the proximities between individuals, ad neither for the proximities between variables.
+We obtain a "balanced" graphic. Except by the common property of all the decompositions (i.e. the projection of individuals onto the variables approximates the data table), there are no specific properties for the interpretation of the proximities between individuals, and neither for the proximities between variables.
