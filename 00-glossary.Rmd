@@ -38,8 +38,8 @@ refers to any type of object: person, animal, country, company, planet, etc.
 
 - __Supplementary Variables__: set of variables that are NOT used in the computation of the factorial axes, but that can be used as aid in the interpretation of results.
 
-- __Contribution__: measures the participation of an element (e.g. modality, variable, frequency, or individual) in the construction of a factorial axis.
+- __Contribution__: measures the participation of an element (e.g. category, variable, frequency, or individual) in the construction of a factorial axis.
 
-- __Squared Cosine__: measures the quality of the projection of an element (e.g. modality, variable, frequency, or individual) along a factorial axis.
+- __Squared Cosine__: measures the quality of the projection of an element (e.g. category, variable, frequency, or individual) along a factorial axis.
 
-- __V-test__: measures, in number of standard deviations, the distance between an observed value and its theoretical value under a null hypothesis. This test is used to characterize the axes, the modelities, the classes, etc.
+- __V-test__: measures, in number of standard deviations, the distance between an observed value and its theoretical value under a null hypothesis. This test is used to characterize the axes, the categories, the classes, etc.
