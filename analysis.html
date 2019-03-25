@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Principal Component Analysis for Data Science</title>
+  <meta name="description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Principal Component Analysis for Data Science" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
+  <meta name="github-repo" content="gastonstat/pca4ds" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Principal Component Analysis for Data Science" />
+  
+  <meta name="twitter:description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
+  
+
+<meta name="author" content="Tomas Aluja-Banet, Alain Morineau, and Gaston Sanchez">
+
+
+<meta name="date" content="2019-01-01">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="mechanics.html">
+<link rel="next" href="appendixa.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">PCA for Data Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="" data-path="terminology.html"><a href="terminology.html"><i class="fa fa-check"></i>Terminology</a></li>
+<li class="chapter" data-level="1" data-path="basic.html"><a href="basic.html"><i class="fa fa-check"></i><b>1</b> Basic Elements</a><ul>
+<li class="chapter" data-level="1.1" data-path="basic.html"><a href="basic.html#data-and-goals"><i class="fa fa-check"></i><b>1.1</b> Data and Goals</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="basic.html"><a href="basic.html#active-variables"><i class="fa fa-check"></i><b>1.1.1</b> Active Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="basic.html"><a href="basic.html#analysis-of-distances"><i class="fa fa-check"></i><b>1.2</b> Analysis of Distances</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="basic.html"><a href="basic.html#cloud-of-row-points"><i class="fa fa-check"></i><b>1.2.1</b> Cloud of Row-Points</a></li>
+<li class="chapter" data-level="1.2.2" data-path="basic.html"><a href="basic.html#cloud-of-column-points"><i class="fa fa-check"></i><b>1.2.2</b> Cloud of Column-Points</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="basic.html"><a href="basic.html#how-to-see-the-distances-between-points"><i class="fa fa-check"></i><b>1.3</b> How to see the distances between points</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="basic.html"><a href="basic.html#how-to-find-the-projection-planes"><i class="fa fa-check"></i><b>1.3.1</b> How to find the projection planes</a></li>
+<li class="chapter" data-level="1.3.2" data-path="basic.html"><a href="basic.html#how-to-take-into-account-the-importance-of-individuals"><i class="fa fa-check"></i><b>1.3.2</b> How to take into account the importance of individuals</a></li>
+<li class="chapter" data-level="1.3.3" data-path="basic.html"><a href="basic.html#inertia-decomposition"><i class="fa fa-check"></i><b>1.3.3</b> Inertia Decomposition</a></li>
+<li class="chapter" data-level="1.3.4" data-path="basic.html"><a href="basic.html#visualizing-association-between-variables."><i class="fa fa-check"></i><b>1.3.4</b> Visualizing association between variables.</a></li>
+<li class="chapter" data-level="1.3.5" data-path="basic.html"><a href="basic.html#normalized-pca-or-non-normalized-pca"><i class="fa fa-check"></i><b>1.3.5</b> Normalized PCA or non-normalized PCA?</a></li>
+<li class="chapter" data-level="1.3.6" data-path="basic.html"><a href="basic.html#distance-matrices"><i class="fa fa-check"></i><b>1.3.6</b> Distance Matrices</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="mechanics.html"><a href="mechanics.html"><i class="fa fa-check"></i><b>2</b> How Does PCA Work?</a><ul>
+<li class="chapter" data-level="2.1" data-path="mechanics.html"><a href="mechanics.html#principal-components"><i class="fa fa-check"></i><b>2.1</b> Principal Components</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="mechanics.html"><a href="mechanics.html#interpreting-the-inertia-proportions"><i class="fa fa-check"></i><b>2.1.1</b> Interpreting the Inertia Proportions</a></li>
+<li class="chapter" data-level="2.1.2" data-path="mechanics.html"><a href="mechanics.html#how-many-axes-to-retain"><i class="fa fa-check"></i><b>2.1.2</b> How many axes to retain?</a></li>
+<li class="chapter" data-level="2.1.3" data-path="mechanics.html"><a href="mechanics.html#coordinates-of-row-points"><i class="fa fa-check"></i><b>2.1.3</b> Coordinates of row-points</a></li>
+<li class="chapter" data-level="2.1.4" data-path="mechanics.html"><a href="mechanics.html#interpretation-tools"><i class="fa fa-check"></i><b>2.1.4</b> Interpretation Tools</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="mechanics.html"><a href="mechanics.html#projections-of-variables"><i class="fa fa-check"></i><b>2.2</b> Projections of Variables</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="mechanics.html"><a href="mechanics.html#size-effect"><i class="fa fa-check"></i><b>2.2.1</b> Size Effect</a></li>
+<li class="chapter" data-level="2.2.2" data-path="mechanics.html"><a href="mechanics.html#interpretation-tools-for-variable-interpretation"><i class="fa fa-check"></i><b>2.2.2</b> Interpretation tools for Variable Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="mechanics.html"><a href="mechanics.html#size-factor"><i class="fa fa-check"></i><b>2.3</b> Beyond the First Factor</a></li>
+<li class="chapter" data-level="2.4" data-path="mechanics.html"><a href="mechanics.html#using-supplementary-elements"><i class="fa fa-check"></i><b>2.4</b> Using Supplementary Elements</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="mechanics.html"><a href="mechanics.html#continuous-supplementary-variables"><i class="fa fa-check"></i><b>2.4.1</b> Continuous Supplementary Variables</a></li>
+<li class="chapter" data-level="2.4.2" data-path="mechanics.html"><a href="mechanics.html#nominal-supplementary-variables"><i class="fa fa-check"></i><b>2.4.2</b> Nominal Supplementary Variables</a></li>
+<li class="chapter" data-level="2.4.3" data-path="mechanics.html"><a href="mechanics.html#profiling-with-v-test"><i class="fa fa-check"></i><b>2.4.3</b> Profiling with V-test</a></li>
+<li class="chapter" data-level="2.4.4" data-path="mechanics.html"><a href="mechanics.html#axes-characterization-using-continuous-variables"><i class="fa fa-check"></i><b>2.4.4</b> Axes Characterization using Continuous Variables</a></li>
+<li class="chapter" data-level="2.4.5" data-path="mechanics.html"><a href="mechanics.html#v-test-and-data-science"><i class="fa fa-check"></i><b>2.4.5</b> V-test and Data Science</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="mechanics.html"><a href="mechanics.html#simultaneous-representations"><i class="fa fa-check"></i><b>2.5</b> Simultaneous Representations</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="mechanics.html"><a href="mechanics.html#old-unit-axes"><i class="fa fa-check"></i><b>2.5.1</b> Old Unit Axes</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>3</b> Analysis</a><ul>
+<li class="chapter" data-level="3.1" data-path="analysis.html"><a href="analysis.html#themescope"><i class="fa fa-check"></i><b>3.1</b> Themescope</a></li>
+<li class="chapter" data-level="3.2" data-path="analysis.html"><a href="analysis.html#conditions-of-application"><i class="fa fa-check"></i><b>3.2</b> Conditions of Application</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="analysis.html"><a href="analysis.html#linearity-and-symmetry"><i class="fa fa-check"></i><b>3.2.1</b> Linearity and Symmetry</a></li>
+<li class="chapter" data-level="3.2.2" data-path="analysis.html"><a href="analysis.html#balancing-the-content-of-active-variables"><i class="fa fa-check"></i><b>3.2.2</b> Balancing the content of active variables</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="analysis.html"><a href="analysis.html#validation-stability-and-significance"><i class="fa fa-check"></i><b>3.3</b> Validation: stability and significance</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="analysis.html"><a href="analysis.html#how-many-axes-to-study-and-retain"><i class="fa fa-check"></i><b>3.3.1</b> How many axes to study and retain?</a></li>
+<li class="chapter" data-level="3.3.2" data-path="analysis.html"><a href="analysis.html#simulations-random-effects-on-individuals"><i class="fa fa-check"></i><b>3.3.2</b> Simulations, random effects on individuals</a></li>
+<li class="chapter" data-level="3.3.3" data-path="analysis.html"><a href="analysis.html#bootstrap-simulations"><i class="fa fa-check"></i><b>3.3.3</b> Bootstrap Simulations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="analysis.html"><a href="analysis.html#analysis-of-table-of-ranks"><i class="fa fa-check"></i><b>3.4</b> Analysis of Table of Ranks</a></li>
+<li class="chapter" data-level="3.5" data-path="analysis.html"><a href="analysis.html#optimal-reconstitution-of-data"><i class="fa fa-check"></i><b>3.5</b> Optimal Reconstitution of Data</a></li>
+<li class="chapter" data-level="3.6" data-path="analysis.html"><a href="analysis.html#synthetic-variables-and-indices"><i class="fa fa-check"></i><b>3.6</b> Synthetic Variables and Indices</a></li>
+<li class="chapter" data-level="3.7" data-path="analysis.html"><a href="analysis.html#handling-missing-values"><i class="fa fa-check"></i><b>3.7</b> Handling Missing Values</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="appendixa.html"><a href="appendixa.html"><i class="fa fa-check"></i><b>4</b> Appendix A: Fundamentals</a><ul>
+<li class="chapter" data-level="4.1" data-path="appendixa.html"><a href="appendixa.html#space-of-p-dimensions"><i class="fa fa-check"></i><b>4.1</b> Space of <span class="math inline">\(p\)</span> Dimensions</a></li>
+<li class="chapter" data-level="4.2" data-path="appendixa.html"><a href="appendixa.html#distances-between-points"><i class="fa fa-check"></i><b>4.2</b> Distances between points</a></li>
+<li class="chapter" data-level="4.3" data-path="appendixa.html"><a href="appendixa.html#center-of-gravity"><i class="fa fa-check"></i><b>4.3</b> Center of Gravity</a></li>
+<li class="chapter" data-level="4.4" data-path="appendixa.html"><a href="appendixa.html#inertia-of-a-cloud-of-points"><i class="fa fa-check"></i><b>4.4</b> Inertia of a cloud of points</a></li>
+<li class="chapter" data-level="4.5" data-path="appendixa.html"><a href="appendixa.html#projection-of-the-cloud-of-points-on-a-line"><i class="fa fa-check"></i><b>4.5</b> Projection of the cloud of points on a line</a></li>
+<li class="chapter" data-level="4.6" data-path="appendixa.html"><a href="appendixa.html#centered-and-standardized-variable"><i class="fa fa-check"></i><b>4.6</b> Centered and Standardized Variable</a></li>
+<li class="chapter" data-level="4.7" data-path="appendixa.html"><a href="appendixa.html#correlation-coefficient"><i class="fa fa-check"></i><b>4.7</b> Correlation Coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="appendixb.html"><a href="appendixb.html"><i class="fa fa-check"></i><b>5</b> Appendix B: PCA Formulae</a><ul>
+<li class="chapter" data-level="5.1" data-path="appendixb.html"><a href="appendixb.html#general-analysis"><i class="fa fa-check"></i><b>5.1</b> General Analysis</a></li>
+<li class="chapter" data-level="5.2" data-path="appendixb.html"><a href="appendixb.html#formulas-for-pca"><i class="fa fa-check"></i><b>5.2</b> Formulas for PCA</a></li>
+<li class="chapter" data-level="5.3" data-path="appendixb.html"><a href="appendixb.html#biplot-and-pca"><i class="fa fa-check"></i><b>5.3</b> Biplot and PCA</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="appendixc.html"><a href="appendixc.html"><i class="fa fa-check"></i><b>6</b> Appendix C: Data Analysis Reminder</a><ul>
+<li class="chapter" data-level="6.1" data-path="appendixc.html"><a href="appendixc.html#normalized-principal-component-analysis"><i class="fa fa-check"></i><b>6.1</b> Normalized Principal Component Analysis</a></li>
+<li class="chapter" data-level="6.2" data-path="appendixc.html"><a href="appendixc.html#non-normalized-principal-component-analysis"><i class="fa fa-check"></i><b>6.2</b> Non-normalized Principal Component Analysis</a></li>
+<li class="chapter" data-level="6.3" data-path="appendixc.html"><a href="appendixc.html#simple-correpondence-analysis"><i class="fa fa-check"></i><b>6.3</b> Simple Correpondence Analysis</a></li>
+<li class="chapter" data-level="6.4" data-path="appendixc.html"><a href="appendixc.html#multiple-correspondence-analysis"><i class="fa fa-check"></i><b>6.4</b> Multiple Correspondence Analysis</a></li>
+<li class="chapter" data-level="6.5" data-path="appendixc.html"><a href="appendixc.html#clustering-of-factors"><i class="fa fa-check"></i><b>6.5</b> Clustering of Factors</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Principal Component Analysis for Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="analysis" class="section level1">
+<h1><span class="header-section-number">3</span> Analysis</h1>
+<p>Carrying out a comprehensive Principal Component Analysis is both an art and a science. The analyst must have some degree of analytical experience as well as a reasonable familiarity with the analyzed data. A rushed PCA analysis tends to lead to confusing results, and frustating endeavors. A well applied PCA involves a certain strategy to analyze the data, enforced with common sense, and taking certain precautions.</p>
+<p>In this chapter, we present a methodology to carry out a Principal Component Analysis that goes above and beyond what is typically discussed in other texts about PCA. We try to stay away from the narrow perspective of using PCA within with the sole purpose of wroking with few variables that are compatible with a statistical model. Instead, we strongly advocate for analyses that take into account as many variables as possible. This will make the analysis richer, more <em>holistic</em>, and with more coherent interpretations.</p>
+<div id="themescope" class="section level2">
+<h2><span class="header-section-number">3.1</span> Themescope</h2>
+<p>We are assuming that the data you are working with comes from a context of great <em>data diversity</em>. For example, data from surveys or questionnaires, or from a database of clients, in which there is an abundance of different types of variables.</p>
+<p>In these cases with a rich variety of variables, we can group those variables in <strong>themes</strong>. Each theme defining a point of view or <em>multivariate reality</em>. For instance, when we have a group of socio-economic variables, or when a set of variables have to do with preferences about a set of products. By refer to this approach as <strong>themescope</strong>, that is, a multidimensional description by themes.</p>
+<p>The analysis strategy that we propose is to analyze individuals by themes. This involves selecting a particular theme in which the variables associated to it become the active variables. Having a group of active variables, we study the resemblances of the individuals according to this point of view. And then we add all the available information that has not been utilized, but that can shed some light in better understanding the relationship between individuals and variables, by using the projection of supplementary elements.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-3-1"></span>
+<img src="images/figure-3-1.png" alt="Projection of categorical supplementary variables" width="85%" />
+<p class="caption">
+Figure 3.1: Projection of categorical supplementary variables
+</p>
+</div>
+<div id="various-perspectives-diverse-analyses" class="section level4 unnumbered">
+<h4>Various Perspectives, Diverse Analyses</h4>
+<p>When selecting a particular active theme, this does not stop us from selecting another theme that can then become active in itself. By changing active themes, we have a different perspective of the analyzed data, in analogous way to taking photos of the same subject from different angles.</p>
+</div>
+</div>
+<div id="conditions-of-application" class="section level2">
+<h2><span class="header-section-number">3.2</span> Conditions of Application</h2>
+<div id="linearity-and-symmetry" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> Linearity and Symmetry</h3>
+<p>We have seen the importance of the correlation coefficient (or covariance) in PCA. We can actually present PCA as a visualization technique of a correlation matrix (or coavraince matrix). The technique will excel when the correlation coefficient is a <em>good</em> measure of the association between variables. The ideal conditions to apply PCA are when the association among avriables are linear and their distributions are symmetric (i.e. closer to the normal distribution).</p>
+<p>Consequently, we need to be cautious when the distributions are extremely asymmetric or when the associations among variables are not linear.</p>
+<p>A common case that can limit the applicability of PCA is when analyzing variables that are seemingly continuous, but that in reality are a hybrid of continuous and nominal scale. For example, this is the case of variables like <em>payed work time</em> of women: this is null for a woman that is a housewife, while the distribution is continuous for women that have a payed job.</p>
+<p>Nonlinearity associations can also limit the applicability of PCA. This is illustrated with the relation betwen age and income: overall, income tends to increase with age during active working years, but when a person retires the income tend to decrease.</p>
+<p>Phenomena of lack of symmetry and lack of linearity will affect the results of a PCA. If these issues are not indentify, they can lead to wrong interpretations and conclusions. However, the presence of these phenomena will become apparent for the well trained eyes of an experienced analyst.</p>
+<p>We should say that techniques such as Multiple Correspondence Analysis (MCA) can always be used after having encoded (categorized) the continuous variables. Compared to PCA, MCA has the advantage of being inherently non-linear, and thus can be used in situations when PCA is limited.</p>
+</div>
+<div id="balancing-the-content-of-active-variables" class="section level3">
+<h3><span class="header-section-number">3.2.2</span> Balancing the content of active variables</h3>
+<p>More often than not, Principal Component Analysis is performed on variables having different units of measurement. In this case, the variances tend to be vary considerable in magnitude, and are not directly comparable. The typical solution to overcome this issue is to rescale the variables in standard units (i.e. mean of zero, unit variance). In this way, all variables wil be given the same importance, and we don’t have to worry about units of measurement anymore. In fact, this type of transformation has become the default solution in most PCA computer programs: to carry out a normalized PCA and work on the matrix of correlations. Keep in mind that this transformation modifies the shape of the cloud of points by providing the same spread among all directions in the space of origin.</p>
+<p>Despite the usefulness of transforming variables into standardized scale, this transformation is not always the ideal solution to <em>balance</em> the variables. For example, if thre is a subset of variables that are highly correlated among each other, this subset will dominate the first principal component, and therefore, will have a higher importance in the analysis.</p>
+<p>Suppose that you have 5 variables that are measuring the same aspect of a certain phenomenon, and that the other aspects are covered each one by just one variable. You can think of the group of 5 variables as being just one variable but with a variance 5 times larger than the rest of the variables. Consequently, the first axis will be determined by the cumulative effect of the 5 highly correlated variables. In summary, we should pay attention to the effect produced by groups of variables that are highly correlated, and have a mechanism to balance the importance of each aspect in the studied phenomeno.</p>
+</div>
+</div>
+<div id="validation-stability-and-significance" class="section level2">
+<h2><span class="header-section-number">3.3</span> Validation: stability and significance</h2>
+<p>What is the part in PCA results that is not really accounted by the structure of the data, but by the randomness in the data? Are the results stables and reproducibles? Do the configuration of points change based on the studied data? All of these questions make it necessary to assess the stability of the obtained results.</p>
+<p>The stability of the results will depend on the randomness of the data collection process (e.g. random samples, sampling surveys), as well as on the measurement errors in the variables.</p>
+<div id="how-many-axes-to-study-and-retain" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> How many axes to study and retain?</h3>
+<p>Are the directions of the first axes will defined and stable? More precisely, are the dispersions in consecutive directions really different? If not, we would have to consider that the factorial plane formed by them is stable but the associated axes are not really different (i.e. indeterminate by a rotation).</p>
+<p>One way to answer these questions is to suppose that the data come from a sample drawn from a population with a normal distribution. In this case, the eigenvalues asymptotically follow a normal distribution (Anderson, 1963). The, we can estimate a 95% confidence interval for each eigenvalue with the formula <a href="analysis.html#eq:31">(3.1)</a></p>
+<span class="math display" id="eq:31">\[\begin{equation}
+\left [ \lambda_{\alpha} \left (1 - 1.96 \sqrt{2/(n-1)} \right ); \hspace{1mm} \lambda_{\alpha} \left (1+1.96\sqrt{2/(n-1)} \right) \right ]
+\tag{3.1}
+\end{equation}\]</span>
+<p>The width of this interval gives us an idea of the stability of the eigenvalue with respect to the sample randomness. The overlapping in the intervals of two consecutive eigenvalues suggests that these eigenvalues are equal (or very similar). The corresponding axes are thus indeterminate by one rotation. Under this situation, the analyst should focus on the interpretation of the subspace defined by the first eigenvalues that are well separated.</p>
+<p>Although this result has to do with eigenvalues of covarance matrices, it can also be applied to the eigenvalues of correlation matrices. Simulation studies show that the confidence intervals tend to be “cautious”: the coverage percentage of the true eigenvalue, is almost always greater than the anounced confidence level. In any case, the asymptotic nature of the results, and the underlying hypothesis of normality, lead us to consider the results are merely indicative (not a hard rule).</p>
+<p>In regards of the factorial axes, it is convenient to distinguish the axes that will be studied, from the axes that will be used. The factorial axes can be seen as an ultimate result, or also as an intermediate stage for further studies.</p>
+<p>For example, a PCA can be a preliminary stage before performing a discriminant analysis. In this case, we will try to use the axes with discriminant power, which may not coincide with the axes of largest spread.</p>
+<p>If the goal is to classify individuals, it makes sense to retain only the axes expressing real directions of spread, in order to preserve the stable characteristics of the individuals, while excluding those directions that are mainly capturing random noise.</p>
+<div id="scree-test-cattells-rule-1966" class="section level4 unnumbered">
+<h4>Scree Test (Cattell’s rule, 1966)</h4>
+<p>One of the most prevalent questions in PCA is “how many principal components (or factorial axes) to retain?” Unfortunately, there is no simple answer to this question.</p>
+<p>If we assume that the <span class="math inline">\(n\)</span> values taken by the <span class="math inline">\(p\)</span> variables come from a random process that uniformly fills up the space, without privileging any direction, then the <span class="math inline">\(p\)</span> eigenvalues of the PCA will slowly decrease in a regular form.</p>
+<p>If a PCA provides a histogram of the eigenvalues showing one or more staircase steps, we can think that there are sufficiently strong associations between the variables. These associations would be responsible for the appearance of directions or subspaces where most of the dispersion is concentrated.</p>
+<p>Such pragmatic considerations, can be used to determine—in a more or less subjective way—a minimum and a maximum number of axes to retain in the analysis. The main way to do this is through visual inspection of the histogram of eigenvalues following the so-called <em>scree test</em> or <em>elbow criteria</em> proposed by Raymond Cattell (1966). This criteria, which is the simplest and oldest one, involves graphing a line plot of the eigenvalues, ordered from largest to smallest, and then look for the “elbow” of the graph where the eigenvalues seem to level off.</p>
+<p>In the example of the cities (first PCA), we obtained the following eigenvalues:</p>
+<table>
+<caption><span id="tab:table-3-1">Table 3.1: </span>Distribution of eigenvalues in 1st PCA.</caption>
+<thead>
+<tr class="header">
+<th align="right">num</th>
+<th align="right">eigenvalues</th>
+<th align="right">percentage</th>
+<th align="right">cumulative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">10.1390</td>
+<td align="right">84.49</td>
+<td align="right">84.49</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">0.8612</td>
+<td align="right">7.18</td>
+<td align="right">91.67</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">0.3248</td>
+<td align="right">2.71</td>
+<td align="right">94.37</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">0.1715</td>
+<td align="right">1.43</td>
+<td align="right">95.80</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">0.1484</td>
+<td align="right">1.24</td>
+<td align="right">97.04</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">0.0973</td>
+<td align="right">0.81</td>
+<td align="right">97.85</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">0.0682</td>
+<td align="right">0.57</td>
+<td align="right">98.42</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">0.0525</td>
+<td align="right">0.44</td>
+<td align="right">98.86</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">0.0505</td>
+<td align="right">0.42</td>
+<td align="right">99.28</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">0.0332</td>
+<td align="right">0.28</td>
+<td align="right">99.55</td>
+</tr>
+<tr class="odd">
+<td align="right">11</td>
+<td align="right">0.0309</td>
+<td align="right">0.26</td>
+<td align="right">99.81</td>
+</tr>
+<tr class="even">
+<td align="right">12</td>
+<td align="right">0.0226</td>
+<td align="right">0.19</td>
+<td align="right">100.00</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>We can then plot a histogram of the eigenvales, and add a line connecting the heights of the bars to better see the way in which the sizes of the eigenvalues decrease:</p>
+<p><img src="_main_files/figure-html4/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>In the second PCA of the salaries divided by the mean salary of a city, we obtained the following eigenvalues:</p>
+<table>
+<caption><span id="tab:table-3-2">Table 3.2: </span>Distribution of eigenvalues in 2nd PCA.</caption>
+<thead>
+<tr class="header">
+<th align="right">num</th>
+<th align="right">eigenvalues</th>
+<th align="right">percentage</th>
+<th align="right">cumulative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">4.4910</td>
+<td align="right">37.43</td>
+<td align="right">37.43</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">1.7148</td>
+<td align="right">14.29</td>
+<td align="right">51.72</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">1.2989</td>
+<td align="right">10.82</td>
+<td align="right">62.54</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">1.0396</td>
+<td align="right">8.66</td>
+<td align="right">71.20</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">0.8699</td>
+<td align="right">7.25</td>
+<td align="right">78.45</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">0.7831</td>
+<td align="right">6.53</td>
+<td align="right">84.98</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">0.5309</td>
+<td align="right">4.42</td>
+<td align="right">89.40</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">0.3874</td>
+<td align="right">3.23</td>
+<td align="right">92.63</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">0.3210</td>
+<td align="right">2.67</td>
+<td align="right">95.31</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">0.2561</td>
+<td align="right">2.13</td>
+<td align="right">97.44</td>
+</tr>
+<tr class="odd">
+<td align="right">11</td>
+<td align="right">0.2021</td>
+<td align="right">1.68</td>
+<td align="right">99.12</td>
+</tr>
+<tr class="even">
+<td align="right">12</td>
+<td align="right">0.1052</td>
+<td align="right">0.88</td>
+<td align="right">100.00</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Graphing the scree plot we obtain the following display:</p>
+<p><img src="_main_files/figure-html4/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>More formally, Cattell’s criteria consist of sorting the lagged differences of second order between eigenvalues, as follows:</p>
+<span class="math display" id="eq:32">\[\begin{equation}
+d(\alpha) = (\lambda_{\alpha + 1} - \lambda_{\alpha}) - (\lambda_{\alpha} - \lambda_{\alpha - 1})
+\tag{3.2}
+\end{equation}\]</span>
+<p>The reason why is called <em>scree test</em> has to do with the metaphor of a mountain scree. According to <a href="https://en.wikipedia.org/wiki/Scree">wikipedia</a>, a “scree is a collection of broken rock fragments at the base of crags, mountain cliffs, volcanoes or valley shoulders that has accumulated through periodic rockfall from adjacent cliff faces.”</p>
+<p><img src="images/scree-mountain.png" width="50%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="note-1" class="section level4 unnumbered">
+<h4>Note</h4>
+<p>We have seen that when there is a <em>size effect</em> in the first axis, the subsequent eigenvalues are affected and reduced. However, it is possible that subsequent eigenvalues reflect structural oppositions. This is the case of of the second PCA on raw data, which corresponds approximately, to the first axis of the analysis on the ratio data, when the size effect is eliminated.</p>
+<p>On the other hands, it is risky to interpret the percentage of inertia as a measure of the information contained in an axis. This percentage can be made as small as possible, just by adding independent random variables to the data of active variables. The overall inertia will increase, while the “information” contained in the first axes will remain the same and, consequently, the percentage of inertia in each axis will decrease.</p>
+<table>
+<caption><span id="tab:table-3-3">Table 3.3: </span>Distribution of eigenvalues from data with random perturbations.</caption>
+<thead>
+<tr class="header">
+<th align="right">num</th>
+<th align="right">eigenvalue</th>
+<th align="right">percentage</th>
+<th align="right">cumulative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1.7994</td>
+<td align="right">15.00</td>
+<td align="right">15.00</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">1.5473</td>
+<td align="right">12.89</td>
+<td align="right">27.89</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">1.4034</td>
+<td align="right">11.69</td>
+<td align="right">39.58</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">1.2329</td>
+<td align="right">10.27</td>
+<td align="right">49.86</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">1.1123</td>
+<td align="right">9.27</td>
+<td align="right">59.13</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">1.0635</td>
+<td align="right">8.86</td>
+<td align="right">67.99</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">0.8877</td>
+<td align="right">7.40</td>
+<td align="right">75.39</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">0.7653</td>
+<td align="right">6.38</td>
+<td align="right">81.76</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">0.7059</td>
+<td align="right">5.88</td>
+<td align="right">87.65</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">0.6000</td>
+<td align="right">5.00</td>
+<td align="right">92.65</td>
+</tr>
+<tr class="odd">
+<td align="right">11</td>
+<td align="right">0.5414</td>
+<td align="right">4.51</td>
+<td align="right">97.16</td>
+</tr>
+<tr class="even">
+<td align="right">12</td>
+<td align="right">0.3410</td>
+<td align="right">2.84</td>
+<td align="right">100.00</td>
+</tr>
+</tbody>
+</table>
+<p><img src="_main_files/figure-html4/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="simulations-random-effects-on-individuals" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> Simulations, random effects on individuals</h3>
+<p>One way to assess the stability of results involves using the available information in the data, via computational methods to run some simulations. By following this type of approaches, we are able to free ourselves from the probabilistic assupmtions about the data, which are seldom met when dealing with multivariate data.</p>
+<p>The strategy that we use is based on random perturbations of the data, in order to simulate a certain natural variability or measurement error in the observations.</p>
+<p>Each observation in the data matrix is replaced by the observed value ples a random quantity that follows a normal distribution with mean and variance depending on the variable under modification.</p>
+<p>We denote this change of value as:</p>
+<span class="math display" id="eq:33">\[\begin{equation}
+x_{ij} = x_{ij} + N(x_{ij}, Ks_j)
+\tag{3.3}
+\end{equation}\]</span>
+<p>The observed value <span class="math inline">\(x_{ij}\)</span> is modified by adding a random quantity that follows a normal distribution, centered at <span class="math inline">\(x_{ij}\)</span>, and with standard deviation <span class="math inline">\(K\)</span> times the standard deviation <span class="math inline">\(s_j\)</span> of variable <span class="math inline">\(j\)</span>.</p>
+<p>The value of the constant <span class="math inline">\(K\)</span> determines the amount of perturbation that we introduce in the data. <span class="math inline">\(K=0\)</span> indicates that the observations remain unchanged. A value of <span class="math inline">\(K=1\)</span> means that each observation is affected, on average, one standard deviation.</p>
+<p>Once we have modified the data table, we can perform a PCA, calculate its directions, the correlation of the extracted directions with the original-unmodified variables, obtaining a matrix of correlations between axis systems.</p>
+<p>In this matrix we will inspect, for each original axis, what other modified axes are most correlated with. We will also check if an axis is correlated with all other axes in analogous way. In the former case, this indicates that an axis is stable, despite the random modifications in the data. In the latter case, this indicates that an axis is the result of randomness in the data.</p>
+<p>By looking at the matrix of correlations described in the previous paragraph, we can detect up to what extent the rank of the axes are stables, and from what point the “natural” random fluctuations in data begin.</p>
+<p>In the example of the international cities, we show in table (TABLE 3.4) the correlation matrices between the axes (in rows) obtained in the analysis of ratios (salaries of professions with respect to the mean salary of the city) and the axes obtained with a random perturbation of 1%, 5% and 10% of the standard deviation of each variable.</p>
+<table>
+<caption><span id="tab:table-3-4a">Table 3.4: </span>Assessment of random perturbations (rows correspond to axes of 2nd PCA).</caption>
+<thead>
+<tr class="header">
+<th align="left">Variables (perturbation 1%)</th>
+<th align="right">F1</th>
+<th align="right">F2</th>
+<th align="right">F3</th>
+<th align="right">F4</th>
+<th align="right">F5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Factorial axis 1 (2nd PCA)</td>
+<td align="right">1.00</td>
+<td align="right">0.01</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">Factorial axis 2 (2nd PCA)</td>
+<td align="right">-0.01</td>
+<td align="right">0.99</td>
+<td align="right">-0.05</td>
+<td align="right">0.12</td>
+<td align="right">-0.06</td>
+</tr>
+<tr class="odd">
+<td align="left">Factorial axis 3 (2nd PCA)</td>
+<td align="right">0.00</td>
+<td align="right">0.04</td>
+<td align="right">0.99</td>
+<td align="right">0.04</td>
+<td align="right">-0.04</td>
+</tr>
+<tr class="even">
+<td align="left">Factorial axis 4 (2nd PCA)</td>
+<td align="right">0.00</td>
+<td align="right">-0.08</td>
+<td align="right">-0.02</td>
+<td align="right">0.91</td>
+<td align="right">0.37</td>
+</tr>
+<tr class="odd">
+<td align="left">Factorial axis 5 (2nd PCA)</td>
+<td align="right">0.00</td>
+<td align="right">-0.10</td>
+<td align="right">-0.06</td>
+<td align="right">0.35</td>
+<td align="right">-0.89</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Perturbation of 5%</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variables (perturbation 5%)</th>
+<th align="right">F1</th>
+<th align="right">F2</th>
+<th align="right">F3</th>
+<th align="right">F4</th>
+<th align="right">F5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Factorial axis 1 (2nd PCA)</td>
+<td align="right">0.99</td>
+<td align="right">0.08</td>
+<td align="right">-0.03</td>
+<td align="right">0.01</td>
+<td align="right">-0.03</td>
+</tr>
+<tr class="even">
+<td align="left">Factorial axis 2 (2nd PCA)</td>
+<td align="right">-0.08</td>
+<td align="right">0.87</td>
+<td align="right">-0.06</td>
+<td align="right">0.20</td>
+<td align="right">-0.20</td>
+</tr>
+<tr class="odd">
+<td align="left">Factorial axis 3 (2nd PCA)</td>
+<td align="right">0.01</td>
+<td align="right">0.13</td>
+<td align="right">0.85</td>
+<td align="right">0.24</td>
+<td align="right">0.34</td>
+</tr>
+<tr class="even">
+<td align="left">Factorial axis 4 (2nd PCA)</td>
+<td align="right">0.01</td>
+<td align="right">0.06</td>
+<td align="right">0.36</td>
+<td align="right">-0.57</td>
+<td align="right">-0.52</td>
+</tr>
+<tr class="odd">
+<td align="left">Factorial axis 5 (2nd PCA)</td>
+<td align="right">0.03</td>
+<td align="right">0.07</td>
+<td align="right">0.07</td>
+<td align="right">-0.48</td>
+<td align="right">0.47</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Perturbation of 10%</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variables (perturbation 10%)</th>
+<th align="right">F1</th>
+<th align="right">F2</th>
+<th align="right">F3</th>
+<th align="right">F4</th>
+<th align="right">F5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Factorial axis 1 (2nd PCA)</td>
+<td align="right">-0.64</td>
+<td align="right">0.72</td>
+<td align="right">-0.11</td>
+<td align="right">-0.05</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td align="left">Factorial axis 2 (2nd PCA)</td>
+<td align="right">-0.39</td>
+<td align="right">-0.31</td>
+<td align="right">-0.37</td>
+<td align="right">0.09</td>
+<td align="right">-0.32</td>
+</tr>
+<tr class="odd">
+<td align="left">Factorial axis 3 (2nd PCA)</td>
+<td align="right">-0.07</td>
+<td align="right">0.01</td>
+<td align="right">0.24</td>
+<td align="right">0.32</td>
+<td align="right">0.68</td>
+</tr>
+<tr class="even">
+<td align="left">Factorial axis 4 (2nd PCA)</td>
+<td align="right">0.11</td>
+<td align="right">-0.01</td>
+<td align="right">-0.54</td>
+<td align="right">-0.14</td>
+<td align="right">0.24</td>
+</tr>
+<tr class="odd">
+<td align="left">Factorial axis 5 (2nd PCA)</td>
+<td align="right">0.14</td>
+<td align="right">0.30</td>
+<td align="right">0.15</td>
+<td align="right">0.04</td>
+<td align="right">-0.29</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>By looking at the diagonal of the tables, we observe stability in the first factor, as well as in the second and the third factors, up to a random perturbation of 5% of the original standard deviation. With a high perturbation (of 10%) only the first factor is resistant to the modifications.</p>
+<p>Table <a href="analysis.html#tab:table-3-5">3.5</a> displays the mean and standard deviation of the salary variables (gross salary divided by the city-mean salary), as well as the correlation between the randomly modified variable and the original variable. We can tell that with a random perturbation of 10% the standard deviations increase, while the correlations decrease.</p>
+<table>
+<caption><span id="tab:table-3-5">Table 3.5: </span>Summary Statistics of Active Variables affected by random perturbations.</caption>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Summary Statistics</th>
+<th align="left">Original</th>
+<th align="right">P1%</th>
+<th align="right">P5%</th>
+<th align="right">P10%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">teacher</td>
+<td align="left">mean</td>
+<td align="left">1.19</td>
+<td align="right">1.18</td>
+<td align="right">1.18</td>
+<td align="right">1.17</td>
+</tr>
+<tr class="even">
+<td align="left">teacher</td>
+<td align="left">std deviation</td>
+<td align="left">0.37</td>
+<td align="right">0.38</td>
+<td align="right">0.44</td>
+<td align="right">0.54</td>
+</tr>
+<tr class="odd">
+<td align="left">teacher</td>
+<td align="left">correlation</td>
+<td align="left">-</td>
+<td align="right">0.99</td>
+<td align="right">0.94</td>
+<td align="right">0.71</td>
+</tr>
+<tr class="even">
+<td align="left">bus_driver</td>
+<td align="left">mean</td>
+<td align="left">1.04</td>
+<td align="right">1.04</td>
+<td align="right">1.03</td>
+<td align="right">1.05</td>
+</tr>
+<tr class="odd">
+<td align="left">bus_driver</td>
+<td align="left">std deviation</td>
+<td align="left">0.25</td>
+<td align="right">0.26</td>
+<td align="right">0.27</td>
+<td align="right">0.35</td>
+</tr>
+<tr class="even">
+<td align="left">bus_driver</td>
+<td align="left">correlation</td>
+<td align="left">-</td>
+<td align="right">1.00</td>
+<td align="right">0.96</td>
+<td align="right">0.60</td>
+</tr>
+<tr class="odd">
+<td align="left">mechanic</td>
+<td align="left">mean</td>
+<td align="left">0.96</td>
+<td align="right">0.96</td>
+<td align="right">0.96</td>
+<td align="right">1.00</td>
+</tr>
+<tr class="even">
+<td align="left">mechanic</td>
+<td align="left">std deviation</td>
+<td align="left">0.24</td>
+<td align="right">0.24</td>
+<td align="right">0.27</td>
+<td align="right">0.52</td>
+</tr>
+<tr class="odd">
+<td align="left">mechanic</td>
+<td align="left">correlation</td>
+<td align="left">-</td>
+<td align="right">0.99</td>
+<td align="right">0.89</td>
+<td align="right">0.46</td>
+</tr>
+<tr class="even">
+<td align="left">construction_worker</td>
+<td align="left">mean</td>
+<td align="left">0.72</td>
+<td align="right">0.73</td>
+<td align="right">0.73</td>
+<td align="right">0.72</td>
+</tr>
+<tr class="odd">
+<td align="left">construction_worker</td>
+<td align="left">std deviation</td>
+<td align="left">0.27</td>
+<td align="right">0.26</td>
+<td align="right">0.26</td>
+<td align="right">0.30</td>
+</tr>
+<tr class="even">
+<td align="left">construction_worker</td>
+<td align="left">correlation</td>
+<td align="left">-</td>
+<td align="right">0.99</td>
+<td align="right">0.94</td>
+<td align="right">0.71</td>
+</tr>
+<tr class="odd">
+<td align="left">metal_worker</td>
+<td align="left">mean</td>
+<td align="left">1.17</td>
+<td align="right">1.16</td>
+<td align="right">1.16</td>
+<td align="right">1.16</td>
+</tr>
+<tr class="even">
+<td align="left">metal_worker</td>
+<td align="left">std deviation</td>
+<td align="left">0.22</td>
+<td align="right">0.23</td>
+<td align="right">0.26</td>
+<td align="right">0.30</td>
+</tr>
+<tr class="odd">
+<td align="left">metal_worker</td>
+<td align="left">correlation</td>
+<td align="left">-</td>
+<td align="right">0.99</td>
+<td align="right">0.86</td>
+<td align="right">0.79</td>
+</tr>
+<tr class="even">
+<td align="left">cook_chef</td>
+<td align="left">mean</td>
+<td align="left">1.40</td>
+<td align="right">1.40</td>
+<td align="right">1.40</td>
+<td align="right">1.38</td>
+</tr>
+<tr class="odd">
+<td align="left">cook_chef</td>
+<td align="left">std deviation</td>
+<td align="left">0.61</td>
+<td align="right">0.63</td>
+<td align="right">0.61</td>
+<td align="right">0.58</td>
+</tr>
+<tr class="even">
+<td align="left">cook_chef</td>
+<td align="left">correlation</td>
+<td align="left">-</td>
+<td align="right">1.00</td>
+<td align="right">0.99</td>
+<td align="right">0.95</td>
+</tr>
+<tr class="odd">
+<td align="left">departmental_head</td>
+<td align="left">mean</td>
+<td align="left">2.63</td>
+<td align="right">2.62</td>
+<td align="right">2.61</td>
+<td align="right">2.53</td>
+</tr>
+<tr class="even">
+<td align="left">departmental_head</td>
+<td align="left">std deviation</td>
+<td align="left">1.31</td>
+<td align="right">1.31</td>
+<td align="right">1.34</td>
+<td align="right">1.44</td>
+</tr>
+<tr class="odd">
+<td align="left">departmental_head</td>
+<td align="left">correlation</td>
+<td align="left">-</td>
+<td align="right">1.00</td>
+<td align="right">0.98</td>
+<td align="right">0.95</td>
+</tr>
+<tr class="even">
+<td align="left">engineer</td>
+<td align="left">mean</td>
+<td align="left">2.12</td>
+<td align="right">2.12</td>
+<td align="right">2.07</td>
+<td align="right">2.04</td>
+</tr>
+<tr class="odd">
+<td align="left">engineer</td>
+<td align="left">std deviation</td>
+<td align="left">0.75</td>
+<td align="right">0.76</td>
+<td align="right">0.77</td>
+<td align="right">0.84</td>
+</tr>
+<tr class="even">
+<td align="left">engineer</td>
+<td align="left">correlation</td>
+<td align="left">-</td>
+<td align="right">1.00</td>
+<td align="right">0.96</td>
+<td align="right">0.90</td>
+</tr>
+<tr class="odd">
+<td align="left">bank_clerk</td>
+<td align="left">mean</td>
+<td align="left">1.51</td>
+<td align="right">1.52</td>
+<td align="right">1.48</td>
+<td align="right">1.48</td>
+</tr>
+<tr class="even">
+<td align="left">bank_clerk</td>
+<td align="left">std deviation</td>
+<td align="left">0.61</td>
+<td align="right">0.61</td>
+<td align="right">0.63</td>
+<td align="right">0.71</td>
+</tr>
+<tr class="odd">
+<td align="left">bank_clerk</td>
+<td align="left">correlation</td>
+<td align="left">-</td>
+<td align="right">1.00</td>
+<td align="right">0.98</td>
+<td align="right">0.90</td>
+</tr>
+<tr class="even">
+<td align="left">executive_secretary</td>
+<td align="left">mean</td>
+<td align="left">1.13</td>
+<td align="right">1.13</td>
+<td align="right">1.13</td>
+<td align="right">1.14</td>
+</tr>
+<tr class="odd">
+<td align="left">executive_secretary</td>
+<td align="left">std deviation</td>
+<td align="left">0.28</td>
+<td align="right">0.27</td>
+<td align="right">0.27</td>
+<td align="right">0.35</td>
+</tr>
+<tr class="even">
+<td align="left">executive_secretary</td>
+<td align="left">correlation</td>
+<td align="left">-</td>
+<td align="right">0.99</td>
+<td align="right">0.98</td>
+<td align="right">0.96</td>
+</tr>
+<tr class="odd">
+<td align="left">salesperson</td>
+<td align="left">mean</td>
+<td align="left">0.76</td>
+<td align="right">0.76</td>
+<td align="right">0.75</td>
+<td align="right">0.78</td>
+</tr>
+<tr class="even">
+<td align="left">salesperson</td>
+<td align="left">std deviation</td>
+<td align="left">0.16</td>
+<td align="right">0.16</td>
+<td align="right">0.16</td>
+<td align="right">0.18</td>
+</tr>
+<tr class="odd">
+<td align="left">salesperson</td>
+<td align="left">correlation</td>
+<td align="left">-</td>
+<td align="right">0.99</td>
+<td align="right">0.97</td>
+<td align="right">0.52</td>
+</tr>
+<tr class="even">
+<td align="left">textile_worker</td>
+<td align="left">mean</td>
+<td align="left">0.68</td>
+<td align="right">0.68</td>
+<td align="right">0.70</td>
+<td align="right">0.66</td>
+</tr>
+<tr class="odd">
+<td align="left">textile_worker</td>
+<td align="left">std deviation</td>
+<td align="left">0.17</td>
+<td align="right">0.18</td>
+<td align="right">0.20</td>
+<td align="right">0.27</td>
+</tr>
+<tr class="even">
+<td align="left">textile_worker</td>
+<td align="left">correlation</td>
+<td align="left">-</td>
+<td align="right">0.99</td>
+<td align="right">0.87</td>
+<td align="right">0.72</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="bootstrap-simulations" class="section level3">
+<h3><span class="header-section-number">3.3.3</span> Bootstrap Simulations</h3>
+<p>Another way of empirical assessment can be done using random resampling methods on the data. The idea is to obtain a number of data tables, all of the same dimension as the original one, by randomly sampling with replacement the observations in the data. This approach is the so-called Bootstrap method (Efron et al, 1993). Following this approach, it is possible to estimate the sampling errors and the distribution of the various PCA results.</p>
+<p>How to implement the bootstrap method? First, we form a large number of samples of <span class="math inline">\(n\)</span> individuals which are drawn with replacement from the <span class="math inline">\(n\)</span> original individuals in the data. This set of samples is referred to as the <em>bootstrap samples</em>. For each bootstrap sample, some of the original individuals won’t be part of the sample, while some individuals may appear more than once in the sample. Each bootstrap sample gives place to a data table.</p>
+<p>On each of the bootstrap tables we calculate its eigenvalues and eigenvectors. We then obtain a bootstrap distribution of the eigenvalues, as well as the bootstrap distribution of the correlations between the eigenvectors and the original axes.</p>
+<p>For each eigenvalue we can obtain a confidence interval. Likewise, for each eigenvector we can obtain a confidence cone around the original eigenvector. Examining the correlation between the axes can then reveal potential rotations among axes.</p>
+<p>The bootstrap simulations can also be used to assess the stability of the projections of the variables and the categories. We can position the different bootstrap tables as supplementary information in the analysis of the original table (Lebart et al, 1995). In this way, it is possible to visualize in the factorial planes regions of “natural” fluctuation of the different elements in the data table.</p>
+</div>
+</div>
+<div id="analysis-of-table-of-ranks" class="section level2">
+<h2><span class="header-section-number">3.4</span> Analysis of Table of Ranks</h2>
+<p>In PCA, it is assumed that the variables are measured on a continuous scale. When applying a normalized PCA, the results will depend on the matrix of correlations between variables. Such results can be affected by the presence of outliers or atypical observations.</p>
+<p>One approach to make the results independent from the scale of measurement and monotone transformations, consists of working with the <em>ranks</em> of the variables and not with the actual observed values.</p>
+<p>To do that, we substitute each value by its rank in increasing order, depending on the considered variable. By doing this, the active table becomes a table of ranks, and consequently, the PCA is performed on a correlation matrix of ranks. This is a remarkable feature of PCA: it is a general methodology that can be applied on any correlation matrix defined by the analyst.</p>
+<p>One interesting transformation involves working with the Spearman’s correlation coefficients. This coefficient measures the monotone dependency between the rank values of two variables according to the following formula:</p>
+<span class="math display" id="eq:34">\[\begin{equation}
+r_s (j, j&#39;) = 1 - \frac{6 \sum_{i}^{n} (x_{ij} - x_{ij&#39;})^2}{n (n^2 - 1)}
+\tag{3.4}
+\end{equation}\]</span>
+<p>where the quantities <span class="math inline">\(x_{ij}\)</span> represent the rank of the individual <span class="math inline">\(i\)</span> of the <span class="math inline">\(j\)</span> variable. The advantage of the Spearman’s correlation coefficient is that it coincides with the Pearson’s coeffcient (usual correlation) when applied to a matrix of ranks.</p>
+<p>In the case of the international cities, the Spearman’s correlations are given in table <a href="analysis.html#tab:table-3-6">3.6</a> (compare these with table <a href="mechanics.html#tab:table-2-6">2.6</a>).</p>
+<table>
+<caption><span id="tab:table-3-6">Table 3.6: </span>Spearman’s Rank Correlation Matrix (variables from 2nd analysis)</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">tea2</th>
+<th align="right">bus2</th>
+<th align="right">mec2</th>
+<th align="right">con2</th>
+<th align="right">met2</th>
+<th align="right">coo2</th>
+<th align="right">dep2</th>
+<th align="right">eng2</th>
+<th align="right">ban2</th>
+<th align="right">exe2</th>
+<th align="right">sal2</th>
+<th align="right">tex2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>tea2</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>bus2</td>
+<td align="right">0.22</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>mec2</td>
+<td align="right">-0.24</td>
+<td align="right">0.03</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>con2</td>
+<td align="right">0.27</td>
+<td align="right">0.28</td>
+<td align="right">0.31</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>met2</td>
+<td align="right">0.16</td>
+<td align="right">0.03</td>
+<td align="right">0.19</td>
+<td align="right">0.11</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>coo2</td>
+<td align="right">-0.24</td>
+<td align="right">-0.21</td>
+<td align="right">-0.20</td>
+<td align="right">-0.43</td>
+<td align="right">-0.33</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>dep2</td>
+<td align="right">-0.10</td>
+<td align="right">-0.14</td>
+<td align="right">-0.42</td>
+<td align="right">-0.61</td>
+<td align="right">0.03</td>
+<td align="right">0.24</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>eng2</td>
+<td align="right">-0.15</td>
+<td align="right">-0.33</td>
+<td align="right">-0.38</td>
+<td align="right">-0.68</td>
+<td align="right">0.02</td>
+<td align="right">0.28</td>
+<td align="right">0.49</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>ban2</td>
+<td align="right">0.03</td>
+<td align="right">0.01</td>
+<td align="right">-0.46</td>
+<td align="right">-0.37</td>
+<td align="right">-0.37</td>
+<td align="right">0.24</td>
+<td align="right">0.46</td>
+<td align="right">0.26</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>exe2</td>
+<td align="right">-0.22</td>
+<td align="right">-0.28</td>
+<td align="right">-0.59</td>
+<td align="right">-0.60</td>
+<td align="right">-0.36</td>
+<td align="right">0.19</td>
+<td align="right">0.41</td>
+<td align="right">0.49</td>
+<td align="right">0.37</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>sal2</td>
+<td align="right">0.02</td>
+<td align="right">-0.07</td>
+<td align="right">-0.07</td>
+<td align="right">-0.13</td>
+<td align="right">-0.17</td>
+<td align="right">-0.04</td>
+<td align="right">0.01</td>
+<td align="right">0.09</td>
+<td align="right">-0.05</td>
+<td align="right">0.13</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>tex2</td>
+<td align="right">0.16</td>
+<td align="right">0.27</td>
+<td align="right">-0.04</td>
+<td align="right">0.41</td>
+<td align="right">0.02</td>
+<td align="right">-0.42</td>
+<td align="right">-0.32</td>
+<td align="right">-0.25</td>
+<td align="right">-0.30</td>
+<td align="right">-0.04</td>
+<td align="right">0.06</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>We apply a PCA on the matrix of Spearman’s correlations. The eigenvalues are depicted in table <a href="analysis.html#tab:table-3-7">3.7</a> which can be compared to those of table <a href="mechanics.html#tab:table-2-7">2.7</a>.</p>
+<table>
+<caption><span id="tab:table-3-7">Table 3.7: </span>Distribution of eigenvalues (from table of ranks).</caption>
+<thead>
+<tr class="header">
+<th align="right">num</th>
+<th align="right">eigenvalue</th>
+<th align="right">percentage</th>
+<th align="right">cumulative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">3.8758</td>
+<td align="right">32.30</td>
+<td align="right">32.30</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">1.6301</td>
+<td align="right">13.58</td>
+<td align="right">45.88</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">1.3199</td>
+<td align="right">11.00</td>
+<td align="right">56.88</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">1.2365</td>
+<td align="right">10.30</td>
+<td align="right">67.19</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">0.9125</td>
+<td align="right">7.60</td>
+<td align="right">74.79</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">0.8049</td>
+<td align="right">6.71</td>
+<td align="right">81.50</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">0.6575</td>
+<td align="right">5.48</td>
+<td align="right">86.98</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">0.4481</td>
+<td align="right">3.73</td>
+<td align="right">90.71</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">0.3752</td>
+<td align="right">3.13</td>
+<td align="right">93.84</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">0.3372</td>
+<td align="right">2.81</td>
+<td align="right">96.65</td>
+</tr>
+<tr class="odd">
+<td align="right">11</td>
+<td align="right">0.2662</td>
+<td align="right">2.22</td>
+<td align="right">98.87</td>
+</tr>
+<tr class="even">
+<td align="right">12</td>
+<td align="right">0.1360</td>
+<td align="right">1.13</td>
+<td align="right">100.00</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Likewise, table <a href="analysis.html#tab:table-3-8">3.8</a> displays the results obtained for the ranks of the active variables.</p>
+<table>
+<caption><span id="tab:table-3-8">Table 3.8: </span>PCA results of table of ranks</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">coord1</th>
+<th align="right">coord2</th>
+<th align="right">coord3</th>
+<th align="right">cor1</th>
+<th align="right">cor2</th>
+<th align="right">cor3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>teacher2</td>
+<td align="right">-0.27</td>
+<td align="right">0.59</td>
+<td align="right">0.37</td>
+<td align="right">-0.27</td>
+<td align="right">0.59</td>
+<td align="right">0.37</td>
+</tr>
+<tr class="even">
+<td>bus_driver2</td>
+<td align="right">-0.39</td>
+<td align="right">0.45</td>
+<td align="right">0.00</td>
+<td align="right">-0.39</td>
+<td align="right">0.45</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td>mechanic2</td>
+<td align="right">-0.58</td>
+<td align="right">-0.65</td>
+<td align="right">-0.11</td>
+<td align="right">-0.58</td>
+<td align="right">-0.65</td>
+<td align="right">-0.11</td>
+</tr>
+<tr class="even">
+<td>construction_worker2</td>
+<td align="right">-0.85</td>
+<td align="right">0.16</td>
+<td align="right">-0.14</td>
+<td align="right">-0.85</td>
+<td align="right">0.16</td>
+<td align="right">-0.14</td>
+</tr>
+<tr class="odd">
+<td>metalworker2</td>
+<td align="right">-0.32</td>
+<td align="right">-0.22</td>
+<td align="right">0.84</td>
+<td align="right">-0.32</td>
+<td align="right">-0.22</td>
+<td align="right">0.84</td>
+</tr>
+<tr class="even">
+<td>cook_chef2</td>
+<td align="right">0.55</td>
+<td align="right">-0.30</td>
+<td align="right">-0.30</td>
+<td align="right">0.55</td>
+<td align="right">-0.30</td>
+<td align="right">-0.30</td>
+</tr>
+<tr class="odd">
+<td>factory_manager2</td>
+<td align="right">0.71</td>
+<td align="right">0.07</td>
+<td align="right">0.38</td>
+<td align="right">0.71</td>
+<td align="right">0.07</td>
+<td align="right">0.38</td>
+</tr>
+<tr class="even">
+<td>engineer2</td>
+<td align="right">0.73</td>
+<td align="right">-0.08</td>
+<td align="right">0.31</td>
+<td align="right">0.73</td>
+<td align="right">-0.08</td>
+<td align="right">0.31</td>
+</tr>
+<tr class="odd">
+<td>bank_clerk2</td>
+<td align="right">0.60</td>
+<td align="right">0.35</td>
+<td align="right">-0.09</td>
+<td align="right">0.60</td>
+<td align="right">0.35</td>
+<td align="right">-0.09</td>
+</tr>
+<tr class="even">
+<td>executive_secretary2</td>
+<td align="right">0.75</td>
+<td align="right">0.27</td>
+<td align="right">-0.16</td>
+<td align="right">0.75</td>
+<td align="right">0.27</td>
+<td align="right">-0.16</td>
+</tr>
+<tr class="odd">
+<td>salesperson2</td>
+<td align="right">0.11</td>
+<td align="right">0.15</td>
+<td align="right">-0.26</td>
+<td align="right">0.11</td>
+<td align="right">0.15</td>
+<td align="right">-0.26</td>
+</tr>
+<tr class="even">
+<td>textile_worker2</td>
+<td align="right">-0.46</td>
+<td align="right">0.51</td>
+<td align="right">-0.11</td>
+<td align="right">-0.46</td>
+<td align="right">0.51</td>
+<td align="right">-0.11</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>The cloud of points is depicted in figure <a href="analysis.html#fig:fig-3-2">3.2</a>. The configuration of this cloud is similar to the initial cloud displayed in figure <a href="mechanics.html#fig:fig-2-9">2.9</a>. The similarity of the results obtained with the table of ratios confirms the good quality of the performed analysis. Also, this similarity shows that the essential information is contained in the rank of the values, and not so much in the observed eigenvalues.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-3-2"></span>
+<img src="images/figure-3-2.png" alt="Circle of correlations on the first factorial plane of the second analysis" width="70%" />
+<p class="caption">
+Figure 3.2: Circle of correlations on the first factorial plane of the second analysis
+</p>
+</div>
+<p>The fact that the cloud of points in figure <a href="analysis.html#fig:fig-3-2">3.2</a> is similar to the graph <a href="mechanics.html#fig:fig-2-9">2.9</a>, indicates that the visual displays do not depend on: the units of measurement, monotone transformations, or possible existance of outliers. Hence, we can say that the observed configurations are <em>robusts</em>.</p>
+<p>In the absence of robust configurations, we can suggest positioning the elements of the original table as supplementary elements in the analysis of ranks, in order to detect whether there are sensible elements.</p>
+<p>Sometimes it is convenient to work with variables that have distributions close to a normal distribution. In this case, each variables con be handled as having a normal distribution with expected value equal to the observation of rank <span class="math inline">\(k\)</span>, instead of working directly with the ranks (Lebart et al, 1977).</p>
+</div>
+<div id="optimal-reconstitution-of-data" class="section level2">
+<h2><span class="header-section-number">3.5</span> Optimal Reconstitution of Data</h2>
+<p>Principal Component Analysis allows us to approximate a data matrix, generally of column-rank <span class="math inline">\(p\)</span>, a matrix of lower rank defined by the first eigenvalues and their corresponding eigenvectors.</p>
+<p>The formula <a href="analysis.html#eq:35">(3.5)</a>, referred to as the singular value decompoisition (SVD), lets us approximate the original values <span class="math inline">\(x_{ij}\)</span> with a factorization of some set of eigenvectors and eigenvalues. In other words, we can obtain an approximate reconstitution of the data values by using only a few <span class="math inline">\(q\)</span> values and vectors from the SVD.</p>
+<span class="math display" id="eq:35">\[\begin{equation}
+\hat{x}^{q}_{ij} = \sum_{\alpha = 1}^{q} \sqrt{\lambda_{\alpha}} \hspace{1mm} v_{i\alpha} u_{j\alpha}
+\tag{3.5}
+\end{equation}\]</span>
+<p>The term <span class="math inline">\(\hat{x}^{q}_{ij}\)</span> is an approximation of the observed value <span class="math inline">\(x_{ij}\)</span> from a small set of coefficients calculated from a PCA: the eigenvalues <span class="math inline">\(\lambda_{\alpha}\)</span>, the eigenvectors <span class="math inline">\(v_{i\alpha}\)</span> and <span class="math inline">\(u_{j\alpha}\)</span>, of rank 1 to <span class="math inline">\(q\)</span>.</p>
+<p>This reconstitution is optimal in the sense that it provides the best least-squares approximation of the original matrix: minimizing the sum of squares of the deviations between the observed values and the approximated values (for all <span class="math inline">\(q\)</span>):</p>
+<p><span class="math display">\[
+min \left \{ \sum_{i} \sum_{j} (x_{ij} - \hat{x}_{ij}^{q})^2 \right \}
+\]</span></p>
+<p>It can be proved that:</p>
+<span class="math display" id="eq:36">\[\begin{equation}
+\sum_{i} \sum_{j} (x_{ij} - \hat{x}^{q}_{ij})^2 = \sum_{\alpha = q+1}^{p} \lambda_{\alpha}
+\tag{3.6}
+\end{equation}\]</span>
+<p>The sum of the <span class="math inline">\(p-q\)</span> excluded eigenvalues measures the amount of error when approximating the original cloud of points by its projection onto a subspace of dimension <span class="math inline">\(q\)</span>.</p>
+<p>This property is of great practical application. It justifies the utilization of PCA in a data compression problem (for example, in the reconstitution of images, and also in data transmission).</p>
+</div>
+<div id="synthetic-variables-and-indices" class="section level2">
+<h2><span class="header-section-number">3.6</span> Synthetic Variables and Indices</h2>
+<p>So far we have discussed Principal Component Analysis from a purely geometric perspective: how to obtain a subspace that best approximates the original distances of the data elements.</p>
+<p>Interestingly, PCA can also be seen from other points of views. One of them involves the idea of looking for a small set of new variables—formed by the original ones—in such a way that the loss of “information” is minimized.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-3-3"></span>
+<img src="images/figure-3-3.png" alt="Dimension reduction or minimization of &quot;information loss&quot;" width="50%" />
+<p class="caption">
+Figure 3.3: Dimension reduction or minimization of “information loss”
+</p>
+</div>
+<p>The new variables (i.e. vectors) are searched for in a way that they are as close as possible (as much correlated) to the set of original variables.</p>
+<p>The solution is obtained with the vector <span class="math inline">\(\Psi\)</span> of <span class="math inline">\(n\)</span> elements that maximizes the function <a href="analysis.html#eq:37">(3.7)</a></p>
+<span class="math display" id="eq:37">\[\begin{equation}
+max \sum_{j} cor^{2} (\boldsymbol{\Psi}, \mathbf{x_j})
+\tag{3.7}
+\end{equation}\]</span>
+<p>In other words, we look for a new variable that is the “closest” to the set of original variables. This will provide a first common factor; the rest of the factors are obtained with the same condition but orthogonal to the directions previously obtained.</p>
+<p>Often, the first factor is highly correlated with all the variables. This indicates the so-called <em>size factor</em>, which we have discussed in detail in section <a href="mechanics.html#size-factor">2.3</a>.</p>
+<p>The size factor can be considered as an overall summary, or synthesis, of the entire set of variables. We can compare the first factor with the average of all the original variables, and confirm that they are very similar.</p>
+<span class="math display" id="eq:38">\[\begin{equation}
+\frac{1}{p} (\mathbf{x_1} + \mathbf{x_2} + \dots + \mathbf{x_p}) \approx \boldsymbol{\Psi_1}
+\tag{3.8}
+\end{equation}\]</span>
+<table>
+<caption><span id="tab:table-3-9">Table 3.9: </span>Coefficients of the first principal component (i.e. size factor) from first PCA analysis.</caption>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="right">Coord1</th>
+<th align="right">Coeff1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">teacher</td>
+<td align="right">0.94</td>
+<td align="right">0.30</td>
+</tr>
+<tr class="even">
+<td align="left">bus_driver</td>
+<td align="right">0.96</td>
+<td align="right">0.30</td>
+</tr>
+<tr class="odd">
+<td align="left">mechanic</td>
+<td align="right">0.92</td>
+<td align="right">0.29</td>
+</tr>
+<tr class="even">
+<td align="left">construction_worker</td>
+<td align="right">0.90</td>
+<td align="right">0.28</td>
+</tr>
+<tr class="odd">
+<td align="left">metalworker</td>
+<td align="right">0.95</td>
+<td align="right">0.30</td>
+</tr>
+<tr class="even">
+<td align="left">cook_chef</td>
+<td align="right">0.87</td>
+<td align="right">0.27</td>
+</tr>
+<tr class="odd">
+<td align="left">factory_manager</td>
+<td align="right">0.84</td>
+<td align="right">0.26</td>
+</tr>
+<tr class="even">
+<td align="left">engineer</td>
+<td align="right">0.90</td>
+<td align="right">0.28</td>
+</tr>
+<tr class="odd">
+<td align="left">bank_clerk</td>
+<td align="right">0.88</td>
+<td align="right">0.28</td>
+</tr>
+<tr class="even">
+<td align="left">executive_secretary</td>
+<td align="right">0.97</td>
+<td align="right">0.31</td>
+</tr>
+<tr class="odd">
+<td align="left">salesperson</td>
+<td align="right">0.96</td>
+<td align="right">0.30</td>
+</tr>
+<tr class="even">
+<td align="left">textile_worker</td>
+<td align="right">0.94</td>
+<td align="right">0.29</td>
+</tr>
+</tbody>
+</table>
+<div class="figure" style="text-align: center"><span id="fig:fig-3-4"></span>
+<img src="images/figure-3-4.png" alt="Size Factor of active variables" width="70%" />
+<p class="caption">
+Figure 3.4: Size Factor of active variables
+</p>
+</div>
+<p>The data set about the international cities provide an example of how to find an <em>index of mean salary per city</em>. The components of the unit axis give the linear combination of the original variables (mean-centered and reduced). This is the linear combination of the first principal component, namely, the desired index of mean salaries (see table <a href="mechanics.html#tab:table-2-3">2.3</a>).</p>
+<p>A common application of PCA is to build synthetic indices. For instance, a quality index of a given product made from several characteristics of the product. A common example in psychometrics has to do with indices that define a general aptitude factor: e.g. verbal aptitude, or math aptitude. Also in economics, we often find indices of economic capacity for a certain region or city.</p>
+<p>Sometimes there is no clear definition of the desired index, but rather a vague notion od the aspects that such an index may comprise. In these cases, the analysts must pay careful attention to collect reliable data, with indicators of the desired index, ideally with highly correlated variables. The computed index (or a first approximation) will be determined by the first principal component of the gathered data.</p>
+</div>
+<div id="handling-missing-values" class="section level2">
+<h2><span class="header-section-number">3.7</span> Handling Missing Values</h2>
+<p>With real data, it is common to have individuals for which one or more variable measurements are missing. For example, in a survey about quality of housing, an interviewee may not feel like answering a question about the number of bathrooms in his/her house. Or the same interviewee may not recall the value of the area of the house.
+In order to have an idea of the amount of missing values, it is recommended to count the number of missing values per individual. In any case, given a data matrix with missing values, we should have a policy about to handle them.</p>
+<p>A first approach to take care of missing values consists of removing the individuals with missing data before performing a PCA. Obviously, this solution implies losing several individuals, which could be detrimental for the overall quality of the calculated results.</p>
+<p>Another approach involves replacing the missing values with an estimation. This approach is typically known as <em>imputing</em> missing values.</p>
+<p>Keep in mind that PCA relies on the analysis of the dispersion in the individuals around the center of gravity. When we don’t have information about an individul, a prudent decision is to locate that individual in the center of the cloud. By doing this, we don’t privilege any direction of dispersion.</p>
+<p>This gives us a first basic rule to handle missing data. We substitute an individual’s missing value by the mean of the variable for which there’s no available information. This works as lon as the amount of missing data for that given variable is small.</p>
+<p>Of course, more refined imputation procedures can be devised. This usually depends on the degree of knowledge about the phenomenon under study. For example, if we have an old adult male farmer for which his income is missing, we could estimate this value with the average of the incomes in this category.</p>
+<p>Notice that we could also use the results of the PCA to <em>fine tune</em> (in a non-parametric optimization way) the estimation of a missing values. The rationale behind this approach is based on the reconstitution formula <a href="analysis.html#eq:35">(3.5)</a> to approximate the data. Under this procedure, we can estimate the value of the <span class="math inline">\(ij\)</span>-th cell with the <span class="math inline">\(q\)</span> first factors.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="mechanics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="appendixa.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/pca4ds/pca4ds.github.io/edit/master/03-analysis.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
