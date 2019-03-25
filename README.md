@@ -9,7 +9,7 @@ PCA4DS is an adaptation and translation of the books:
 by Tomàs Aluja-Banet and Alain Morineau (1999).
 
 - __Analyse en Composantes Principales__ 
-by Alain Morineau and Tomàs Aluja-Banet (1997).
+by Alain Morineau and Tomàs Aluja-Banet (1998).
 
 
 Authors: Tomàs Aluja-Banet, Alain Morineau, and Gaston Sanchez.
