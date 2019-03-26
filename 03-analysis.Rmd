@@ -461,3 +461,29 @@ Notice that we could also use the results of the PCA to _fine tune_ (in a non-pa
 
 
 
+## PCA and Cluster Analysis
+
+__Work in progress__
+
+
+
+## Data Weighing
+
+In PCA, the weights of the individuals affect the calculation of the means, the covariances, and the correlations.
+
+$$
+cov(x_j, x_k) = \sum_{i=1}^{n} p_i \hspace{1mm} (x_{ij} - \bar{x}_j) (x_{ik} - \bar{x}_k)
+$$
+
+In general, all the individuals of a data table have the same weight. Consequently, the analysis focuses on the description of the individuals without privileging any of them.
+
+However, if what we are interested in is describing the population (and not just the sample), we should determine whether the sample can be made more representative by reweighing the individuals. 
+Notice that in this case, the visual displays and the interpretations are conditioned by the appropriateness of the weights: we go from a purely descriptive context with an unweighted analysis, to a more delicate inferencial context.
+
+In any case, the weights of the individuals should not vary drastically. Put it another way, the reweighing is done to refine the estimations, not to create them in an exclusive form (it is a good habit to assess the variability of the weights by looking at their histogram).
+
+We should also highlight the possibility of using the weights to study the _stability_ of the PCA results. This can be done with the bootstrap method with a system of weights ($p_i$ = 0 or 1 or 2, etc, $\sum p_i = n$). Alternatively, we can also use a more classic system of weights ($p_i > 0$; $\sum p_i = n$).
+
+_Note_: we can modify an active individual into a supplementary individual by assigning it a weight of zero.
+
+
