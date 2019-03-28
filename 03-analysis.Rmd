@@ -521,3 +521,22 @@ We can select the principal components that will be part of a given model. One w
 
 An analogous situation occurs within a classification context. As a particular case, the discriminant analysis of two groups is equivalent to a regression analysis. In this case, we can have a preliminary selection of those principal components with the most discriminant power.
 
+
+
+## Comparing Various Tables
+
+Consider a study in which we observe a group of individuals measured by a set of variables. Moreover, suppose that we repeat the study at different time periods, and that we are interested in looking at the evoution of such measurements over time. A study like this will provide several data tables of the same dimension (e.g. one table per time period). Obviously, one of the analytical goals has to do with comparing such tables.
+
+One possible way to compare the tables is to take one of the data tables as the active variables, while the rest of tables are treated as supplementary variables. For example, we can take the first table as the reference table; or also the last table. Likewise, we can take the mean table and use it as a benchmark to compare all the tables against with: the mean table is the active one, and all the other tables become supplementary.
+
+```{r fig-3-8, echo = FALSE, out.width = '70%', fig.cap='Comparison of two tables.'}
+knitr::include_graphics("images/figure-3-9.png")
+```
+
+In the example of the international cities, we have the same study performed at two points in time: 1991 and 1994. So far we have used only the 1994 table. However, we can use the table from 1991. The only difference is that some cities are not included in 1991: Manama, Prague, Budapest, Abu Dhabi, and Bangkok.
+
+We have decided to consolidate both tables into a single one: by stacking both tables by columns. Doing this allows us to consider those cities from 1991 as supplemetary individuals, and then project them on the results from the analysis of the 1994 table.
+
+The axes of this analysis are those defined in the analysis of the 1994 table. The first axis is related with the income inequality. In turn, the second axis is related with the oposition of the salaries of qualified manual labor, versus the salaries of managers and employees in the sector of services.
+
+In this plane we project the the cities in terms of their salaries from 1991. Then, the movement of the cities suggests a greater salary inequality
