@@ -529,7 +529,7 @@ Consider a study in which we observe a group of individuals measured by a set of
 
 One possible way to compare the tables is to take one of the data tables as the active variables, while the rest of tables are treated as supplementary variables. For example, we can take the first table as the reference table; or also the last table. Likewise, we can take the mean table and use it as a benchmark to compare all the tables against with: the mean table is the active one, and all the other tables become supplementary.
 
-```{r fig-3-8, echo = FALSE, out.width = '70%', fig.cap='Comparison of two tables.'}
+```{r fig-3-9, echo = FALSE, out.width = '70%', fig.cap='Comparison of two tables.'}
 knitr::include_graphics("images/figure-3-9.png")
 ```
 
