@@ -4,7 +4,7 @@ bookdown::gitbook:
     toc:
       collapse: subsection
       before: |
-        <li><a href="./">PCA for Data Science</a></li>
+        <li><a href="./"><b>PCA for Data Science</b><br><small>T. Aluja, A. Morineau, G. Sanchez</small></a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
     edit:
