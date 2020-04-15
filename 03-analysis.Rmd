@@ -359,7 +359,7 @@ Sometimes it is convenient to work with variables that have distributions close 
 
 ## Optimal Reconstitution of Data
 
-Principal Component Analysis allows us to approximate a data matrix, generally of column-rank $p$, a matrix of lower rank defined by the first eigenvalues and their corresponding eigenvectors.
+Principal Component Analysis allows us to approximate a data matrix, generally of column-rank $p$, by using a matrix of lower rank defined by the first eigenvalues and their corresponding eigenvectors.
 
 The formula \@ref(eq:35), referred to as the singular value decompoisition (SVD), lets us approximate the original values $x_{ij}$ with a factorization of some set of eigenvectors and eigenvalues. In other words, we can obtain an approximate reconstitution of the data values by using only a few $q$ values and vectors from the SVD.
 
@@ -373,19 +373,33 @@ The term $\hat{x}^{q}_{ij}$ is an approximation of the observed value $x_{ij}$ f
 This reconstitution is optimal in the sense that it provides the best least-squares approximation of the original matrix: minimizing the sum of squares of the deviations between the observed values and the approximated values (for all $q$):
 
 $$
-min \left \{ \sum_{i} \sum_{j} (x_{ij} - \hat{x}_{ij}^{q})^2 \right \}
+\min \left \{ \sum_{i} \sum_{j} (x_{ij} - \hat{x}_{ij}^{q})^2 \right \}
 $$
 
 It can be proved that:
 
-\begin{equation}
+$$
 \sum_{i} \sum_{j} (x_{ij} - \hat{x}^{q}_{ij})^2 = \sum_{\alpha = q+1}^{p} \lambda_{\alpha}
 (\#eq:36)
-\end{equation}
+$$
 
 The sum of the $p-q$ excluded eigenvalues measures the amount of error when approximating the original cloud of points by its projection onto a subspace of dimension $q$.
 
 This property is of great practical application. It justifies the utilization of PCA in a data compression problem (for example, in the reconstitution of images, and also in data transmission).
+
+
+#### Application to Image Reconstitution {-}
+
+Image reconstitution, for instance images from satellites, is one of the most 
+interesting applications of principal components analysis. In this case, the
+size of the data tables tends to be "large" (with information about the 
+gray level for each pixel). Applying PCA on such a table, allows us to detect
+a set of significant eigenvalues in terms of the irregularities present in 
+an image.
+
+The reconstitution enalbles an important reduction in storage capacity, because
+one goes from an image of $n \times n$ pixels into another image of size 
+$q \times (2n + 1)$, where $q$ is the number of retained axes in the analysis.
 
 
 
@@ -529,7 +543,7 @@ Consider a study in which we observe a group of individuals measured by a set of
 
 One possible way to compare the tables is to take one of the data tables as the active variables, while the rest of tables are treated as supplementary variables. For example, we can take the first table as the reference table; or also the last table. Likewise, we can take the mean table and use it as a benchmark to compare all the tables against with: the mean table is the active one, and all the other tables become supplementary.
 
-```{r fig-3-9, echo = FALSE, out.width = '70%', fig.cap='Comparison of two tables.'}
+```{r fig-3-9, echo = FALSE, out.width = '65%', fig.cap='Comparison of two tables.'}
 knitr::include_graphics("images/figure-3-9.png")
 ```
 
