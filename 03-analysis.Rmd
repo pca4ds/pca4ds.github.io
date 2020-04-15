@@ -478,9 +478,31 @@ Notice that we could also use the results of the PCA to _fine tune_ (in a non-pa
 
 ## PCA and Cluster Analysis
 
-__Work in progress__
+The graphics obtained from Principal Components Analysis provide a quick way 
+to get a "photo" of the multivariate phenomenon under study. These graphical 
+displays offer an excellent visual approximation to the systematic information 
+contained in data.
 
+Having said that, such visual approximations will be, in general, partial 
+approximations. This is because those low dimensional representations are 
+given by scatterplots in which only two dimensions are taken into account. 
+Unless the information in data is truly contained in two or three dimensions, 
+most graphics will give us a limited view of the multivariate phenomenon.
 
+Together with these graphical low dimensional representations, we can also use 
+clustering methods as a complementary analytical tasks to enrich the output 
+of a PCA. In clustering, we look for groups of individuals having similar 
+characteristics. An individual is characterized by its membership to 
+given cluster. In turn, the average characteristics of a group serve us to 
+characterize all individuals in a the corresponding cluster.
+
+We can take the output of a clustering method, that is, take the cluster 
+memberships of individuals, and use that information in a PCA plot. The
+location of the individuals on the first factorial plane, taking into 
+consideration their clustering assignment, gives an excellent opportunity to 
+"see in depth" the information contained in data. In other words, with the 
+formed clusters, we can see beyond the two axes of a scatterplot, and gain 
+deeper insight into the factorial displays.
 
 ## Data Weighing
 
