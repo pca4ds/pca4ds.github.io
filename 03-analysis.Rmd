@@ -466,13 +466,13 @@ A first approach to take care of missing values consists of removing the individ
 
 Another approach involves replacing the missing values with an estimation. This approach is typically known as _imputing_ missing values.
 
-Keep in mind that PCA relies on the analysis of the dispersion in the individuals around the center of gravity. When we don't have information about an individul, a prudent decision is to locate that individual in the center of the cloud. By doing this, we don't privilege any direction of dispersion.
+Keep in mind that PCA relies on the analysis of the dispersion in the individuals around the center of gravity. When we don't have information about an individual, a prudent decision is to place that individual at the center of the cloud. By doing this, we don't privilege any direction of dispersion.
 
-This gives us a first basic rule to handle missing data. We substitute an individual's missing value by the mean of the variable for which there's no available information. This works as lon as the amount of missing data for that given variable is small.
+This gives us a first basic rule to handle missing data. We substitute an individual's missing value by the mean of the variable for which there's no available information. This works as long as the amount of missing data for that given variable is small.
 
 Of course, more refined imputation procedures can be devised. This usually depends on the degree of knowledge about the phenomenon under study. For example, if we have an old adult male farmer for which his income is missing, we could estimate this value with the average of the incomes in this category.
 
-Notice that we could also use the results of the PCA to _fine tune_ (in a non-parametric optimization way) the estimation of a missing values. The rationale behind this approach is based on the reconstitution formula \@ref(eq:35) to approximate the data. Under this procedure, we can estimate the value of the $ij$-th cell with the $q$ first factors.
+Notice that we could also use the results of the PCA to _fine tune_ (in a non-parametric optimization way) the estimation of a missing value. The rationale behind this approach is based on the reconstitution formula \@ref(eq:35) to approximate the data. Under this procedure, we can estimate the value of the $ij$-th cell with the $q$ first factors.
 
 
 
