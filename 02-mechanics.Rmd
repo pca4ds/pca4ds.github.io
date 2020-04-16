@@ -18,22 +18,22 @@ knitr::include_graphics("images/figure-2-1.png")
 
 The projection (or coordinate) of a row-point on the direction defined by $\mathbf{u}$ is given by:
 
-\begin{equation}
+$$
 \psi_i = \sum_{j=1}^{p} (x_{ij} - \bar{x}_j) u_j
 (\#eq:2-1)
-\end{equation}
+$$
 
 
 The inertia (or variance) of all the projected points on $\mathbf{u}$ is then:
 
-\begin{equation}
+$$
 \sum_{i=1}^{n} = p_i \hspace{1mm} \psi_{i}^{2} = \lambda
 (\#eq:2-2)
-\end{equation}
+$$
 
 The goal is to look for a line $\mathbf{u}$ that maximizes the value $\lambda$.
 
-Let $\mathbf{X}$ be the mean-centered data matrix. Obtaining $\mathbf{u}$ implies diagonalizing the cross-product matrix $\mathbf{X^\mathsf{T} X}$. This matrix is the correlation matrix in a normalized PCA, whereas in a non-normalized PCA this matrix becomes teh covariance matrix.
+Let $\mathbf{X}$ be the mean-centered data matrix. Obtaining $\mathbf{u}$ implies diagonalizing the cross-product matrix $\mathbf{X^\mathsf{T} X}$. This matrix is the correlation matrix in a normalized PCA, whereas in a non-normalized PCA this matrix becomes the covariance matrix.
 
 It turns out that the unit vector $\mathbf{u}$ is the eigenvector associated to the largest eigenvalue from diagonalizing $\mathbf{X^\mathsf{T} X}$.
 
@@ -49,13 +49,13 @@ The eigenvalues provide the projected inertias on each of the desired directions
 | $\lambda_p$ | $\mathbf{u_p}$ |
 
 
-\begin{equation}
+$$
 I_T = \lambda_1 + \lambda_2 + \dots + \lambda_p = \begin{cases}
   0 & \text{in normalized PCA} \\
   \sum_{j=1}^{p} var(j) & \text{in non-normalized PCA}
 \end{cases}
 (\#eq:2-3)
-\end{equation}
+$$
 
 The eigenvectors give the directions of maximum inertia y we call them factorial axes.
 
@@ -98,7 +98,7 @@ Notice that we obtain a first principal component that stands out from the rest.
 
 The column `eigenvalue` provides the explained inertia for each direction. The sum of all of the inertias corresponds to the global inertia of the cloud of cities. Observe that this global inertia is equal to 12, which is the number of variables. Recall that this is property from a normalized PCA.
 
-The column `percentage`, in tuerns, expresses the porpotion of the explained inertia by each axis. As we can tell from the table, the first direction explains about 85% of the global inertia, which is contained in a 12-dimensional space. Because of the very large value of this principal component, one could be tempted to neglect the rest of the components. However, we'll see that such an attitude is not excempt of risks. This does not imply that the rest of the components are useless or uninteresting. Quite the opposite, they may help reveal systematic patterns of variation in the data.
+The column `percentage`, in turn, expresses the porpotion of the explained inertia by each axis. As we can tell from the table, the first direction explains about 85% of the global inertia, which is contained in a 12-dimensional space. Because of the very large value of this principal component, one could be tempted to neglect the rest of the components. However, we'll see that such an attitude is not excempt of risks. This does not imply that the rest of the components are useless or uninteresting. Quite the opposite, they may help reveal systematic patterns of variation in the data.
 
 The last column of table \@ref(tab:table-2-1) provides the cumulative percentage of inertia. With the first three factorial axes we summarize about 95% of the inertia (or spread) of the cloud of points.
 
@@ -161,10 +161,10 @@ It is important to mention that the orientation of a factorial axis is arbitrary
 
 The next two columns, `contr1` and `contr2`, provide the _contributions_ (in percentages) of the cities to the explained inertia by each axis. The inertia of an axis is obtained via formula \@ref(eq:2-2). Thus, we can measure the part of an axis' inertia that is due to a given row-point by means of the quotient:
 
-\begin{equation}
+$$
 CTR(i, \alpha) = \frac{p_i \psi^{2}_{i \alpha}}{\lambda_{\alpha}} \times 100
 (\#eq:2-4)
-\end{equation}
+$$
 
 
 The above quotient is the contribution of a point $i$ to the construction of axis $\alpha$.
@@ -187,10 +187,10 @@ knitr::include_graphics("images/figure-2-3.png")
 
 All the active points play a role in the construction of an axis. We can check that the sum of all the contributions in an axis add up to 100.
 
-\begin{equation}
+$$
 \sum_{i=1}^{n} CTR(i, \alpha) = 100
 (\#eq:2-5)
-\end{equation}
+$$
 
 
 
@@ -210,20 +210,20 @@ knitr::include_graphics("images/figure-2-4.png")
 
 The figure \@ref(fig:fig-2-4) illustrates the definition given in equation \@ref(eq:2-6)
 
-\begin{equation}
+$$
 COS^2(i, \alpha) = \frac{\psi^{2}_{i \alpha}}{d^2(i, G)}
 (\#eq:2-6)
-\end{equation}
+$$
 
 
-A squared cosine of 1means that the city is on the factorial axis (i.e. the angle $\omega$ is zero), whereas a squared cosine of 0 indicates that the city is on an orthogonal direction to the axis.
+A squared cosine of means that the city is on the factorial axis (i.e. the angle $\omega$ is zero), whereas a squared cosine of 0 indicates that the city is on an orthogonal direction to the axis.
 
 Notice that the sum of the squared cosines over all $p$ factorial axes is equal to 1. This has to do with fact that all axes are needed in order to have the exact position of a point in the entire space.
 
-\begin{equation}
+$$
 \sum_{\alpha = 1}^{p} COS^2(i, \alpha) = 1
 (\#eq:2-7)
-\end{equation}
+$$
 
 Interestingly, the sum of the squared cosines of a given point over the first axes provides, in percentage, the "quality" of representation of the point in the subspace defined by these axes.
 
@@ -263,10 +263,10 @@ The representation of the variables on an axis is obtained by projecting the var
 
 Let $\varphi_{j \alpha}$ be the coordinate of the $j$ variable on the axis $\alpha$
 
-\begin{equation}
+$$
 \varphi_{j \alpha} = \sum_{i=1}^{n} \frac{x_{ij} - \bar{x}_j}{s_j} \hspace{1mm} v_{i \alpha}
 (\#eq:2-8)
-\end{equation}
+$$
 
 where $\bar{x}_j$ is the mean of the $j$-th variable.
 
@@ -276,10 +276,10 @@ knitr::include_graphics("images/figure-2-8.png")
 
 The inertia on an axis is given by the sum of the inertias of each variable-point projected onto the axis. In PCA there is not an explicit  weight for the variable-points. However, each variable can play a role more or less important by changing the unit of measurement, which in turn will increase (or decrease) its variance in a non-normalized PCA.
 
-\begin{equation}
+$$
 \sum_{j=1}^{p} \varphi^{2}_{j \alpha} = \lambda_{\alpha}
 (\#eq:2-9)
-\end{equation}
+$$
 
 Notice that the inertia of the variable-points that are projected onto an axis is the same as the inertia of the row-points projected on the axis of same rank.
 
@@ -289,14 +289,14 @@ By using the transition relationships, we just need to perform a PCA on one of t
 
 In general, we perform the analysis on the cross-product with the smaller dimensions. Usually, this involves working with the matrix $\mathbf{X^\mathsf{T} X}$, assuming that the data matrix has more rows than columns: $n > p$. In this scenario, we obtain the projection of the row-points given in equation \@ref(eq:2-1). The projection of the variables is then calculated from the directions $\mathbf{u}$, which define the factorial axes of the cloud of row-points.
 
-\begin{equation}
+$$
 \varphi_{j \alpha} = \sqrt{\lambda_{\alpha}} \hspace{1mm} u_{j \alpha}
 (\#eq:2-10)
-\end{equation}
+$$
 
 The above formula allows us to interpret the simultaneous representation of both the cities and the professions.
 
-In our working example, the results about the cities are displayed in table 2.3
+In our working example, the results about the variables are displayed in table 2.3
 
 ```{r table-2-3, echo = FALSE, comment = ''}
 load('data/table-2-3.RData')
@@ -317,10 +317,10 @@ The coordinates of all the variables in the first axis have the same sign, which
 
 Notice also that, in the case of normalized analysis, the coordinate coincides with the correlation of a variable and the principal component (projection of the points onto the factorial axis of same rank):
 
-\begin{equation}
+$$
 \varphi_{j \alpha} = cor(\mathbf{x_j}, \boldsymbol{\psi_{\alpha}})
 (\#eq:2-11)
-\end{equation}
+$$
 
 This formula plays an important role in the interpretation of the results because it connects the representation of the row-points with the representation of the column-points.
 
@@ -365,10 +365,10 @@ The first principal component (projection of the cities onto the first direction
 
 The second factorial axis, showing lower correlations with the original variables, opposes the professions `factory_manager`, `engineer`, `bank_clerk`, and `cook_chef` to `textile_worker`, `construction_worker`, `mechanic`, and `metalworker`. In other words, the second axis has to do with the fact that, independently from the salaries of a city, certain professions have a higher salaries than others.
 
-The projection obto the second axis allows to distinguish cities with similar overall level of salaries: certain cities tend to value the _managerial_ jobs, whereas other cities tend to value the professions less socially appreciated.
+The projection onto the second axis allows to distinguish cities with similar overall level of salaries: certain cities tend to value the _managerial_ jobs, whereas other cities tend to value the professions less socially appreciated.
 
 
-### Interpretation tools for Variable Interpretation
+### Tools for Interpreting Components
 
 #### Cosine Squares {-}
 
@@ -378,18 +378,18 @@ The squared cosines are defined as the quotient between the projected squared di
 
 We know that the squared distance of a variable to the origin is equal to its variance:
 
-\begin{equation}
+$$
 COS^2(j, \alpha) = \frac{\varphi^{2}_{j \alpha}}{var(j)}
 (\#eq:2-12)
-\end{equation}
+$$
 
 
 The sum of the squared cosines over all the axes is always equal to one:
 
-\begin{equation}
+$$
 \sum_{\alpha = 1}^{p} COS^2(j, \alpha) = 1
 (\#eq:2-13)
-\end{equation}
+$$
 
 In the normalized PCA, the variances are equal to one; thus the squared cosines will be squared of the coordinates of the variables:
 
@@ -414,10 +414,10 @@ $$
 
 The contribution of a variable to the construction of an axis is:
 
-\begin{equation}
+$$
 CTR(j, \alpha) = \frac{\varphi_{j \alpha}^{2}}{\lambda_{\alpha}} = \frac{(\sqrt{\lambda_{\alpha}} \hspace{1mm} u_{j \alpha})^2}{\lambda_{\alpha}} = u_{j \alpha}^{2}
 (\#eq:2-14)
-\end{equation}
+$$
 
 where $u_{j \alpha}^{2}$ is the coordinate of the former unit axis associated to the variable $j$, projected on the axis $\alpha$.
 
@@ -429,10 +429,10 @@ $$
 
 To find how much a variable contributes to the construction of an axis, it suffices to square each component of the vector $\mathbf{u}$. These contributions indicate which variables are responsible for the construction of each axis. The sum of all the contributions to an axis is equal to 1 (or 100 in percentage).
 
-\begin{equation}
+$$
 \sum_{j=1}^{p} CTR(j, \alpha) = 100
 (\#eq:2-15)
-\end{equation}
+$$
 
 The elements of $\mathbf{u}$ define the linear combinations of the original variables, orthogonal among each other, and of maximum variance (i.e. the principal components). For example, the linear combination of the first component is:
 
@@ -443,7 +443,7 @@ $$
 + 0.31 \texttt{ executive_secretary} + 0.30 \texttt{ salesperson} + 0.29 \texttt{ textile_worker}
 $$
 
-where each variable has been mena-centered and standardized (because we have performed a normalized PCA).
+where each variable has been mean-centered and standardized (because we have performed a normalized PCA).
 
 The first component is therefore defined by a set of coefficients, very similar to each other. In this particular case, the first component is not that different from the average of all the profession salaries.
 
@@ -459,7 +459,7 @@ When a size factor dominates the analysis, it is interesting to rerun a Principa
 
 A simple way to achieve this consists of dividing the salaries of each profession by the mean salary in each city, thus eliminating the aforementioned effect of salary inequality. The mean salary of a city can be obtained as the average of the salaries in that city. However, we have decided to obtain the mean salaries of cities in a slightly different form: as the product of the _net hourly salary_ times the _number of hours worked per year_ (i.e. the product of columns `net_hourly_salary` and `work_hours_year`).
 
-At the same time, we have decided to create two new artificial cities. One indicates the "salary inequality" of each city: as the difference between its higher salary and its lower salary, with respect to mean salary of the city:
+At the same time, we have decided to create two new artificial variables (for illustrative purposes). One indicates the "salary inequality" of each city: as the difference between its higher salary and its lower salary, with respect to mean salary of the city:
 
 $$
 \text{salary inequality} = \frac{\text{salary}_{max} - \text{salary}_{min}}{\text{mean salary of the city}}
@@ -589,19 +589,19 @@ The continuous supplementary variables can be positioned in the factorial spcaes
 
 Within a normalized PCA, we use the correlation of a supplementary variable $\mathbf{x^{+}_{j}}$ with the principal components $\boldsymbol{\psi_{\alpha}}$
 
-\begin{equation}
+$$
 \phi^{+}_{j \alpha} = cor(\mathbf{x^{+}_{j}}, \boldsymbol{\psi_{\alpha}})
 (\#eq:2-16)
-\end{equation}
+$$
 
 (the superindex + indicates that this is a supplementary variable)
 
 With a non-normalized PCA, we just need to multiply the correlation by the standard deviation of the supplementary variable:
 
-\begin{equation}
+$$
 \phi^{+}_{j \alpha} = s_j \hspace{1mm} cor(\mathbf{x^{+}_{j}}, \boldsymbol{\psi_{\alpha}})
 (\#eq:2-17)
-\end{equation}
+$$
 
 The position of the supplementary variables with respect to the factorial axes is interpreted in the same way as with the active variables.
 
@@ -723,7 +723,7 @@ We can calculate the average point of these individuals. Furthermore, we can com
 
 #### Interpreting results with the V-test {-}
 
-The idea behind the so-called V-test involves performing a hypothesis test. The null hypothesis $H_0$ consists in the assumption that a set of $_k$ individuals are randomly selected, without replacement, from the total of $n$ individuals.
+The idea behind the so-called V-test involves performing a hypothesis test. The null hypothesis $H_0$ consists in the assumption that a set of $k$ individuals are randomly selected, without replacement, from the total of $n$ individuals.
 
 Under the null hypothesis, we calculate the probability of observing a configuration as the one obtained, or more extreme. This is the critical probability associated to $H_0$. The smaller this probability, the less likely is the hypothesis of individuals being randomly selected.
 
@@ -741,7 +741,7 @@ Var_{H_0} [M_k] &= \frac{n - n_k}{n - 1} \times \frac{\lambda_{\alpha}}{n_k} = s
 
 The average $M_k$ coincides with the average of the coordinates ($\sum_i \psi_{i\alpha} = 0$) and its variance is equal to the variance of the coordinates of the axis $\alpha$ ($\lambda_{\alpha}$) divided by the number of observations from group $k$ and scaled by the factor $(n - n_k) / (n-1)$.
 
-If $n$ and $n_k$ are not very small, the central limit theorem si applicable (even though the extractions are not indipendent) and in this case the variable:
+If $n$ and $n_k$ are not very small, the central limit theorem is applicable (even though the extractions are not independent) and in this case the variable:
 
 $$
 U = \frac{M_k - m}{s_k}
@@ -753,16 +753,16 @@ The critical probability associated to this variable is the probability of a nor
 
 We obtain the most characterizing probabilities of an axis, selecting the categories with the smaller critical probabilities. This is equivalent to selecting the categories that have the larger values:
 
-\begin{equation}
+$$
 u = \frac{m_k - m}{s_k}
 (\#eq:2-18)
-\end{equation}
+$$
 
 The statistic $u$ is what we call the __v-test__. This value expresses, in number of standard deviations, the difference between the average $m_k$ of group $k$, and the overall average $m$.
 
 We interpret this value as follows: the probability of having a difference between both averages is the probability of exceeding this number of standard deviations in a normal distribution.
 
-What we are doing is evaluating some sort of distance between the overall average and the average of a group, measured in terms of standard deviations from a normal distribution. By standardizing these values, we have a common unit that allows us to compare different categories, and rank them according to their importance. In this way, we assess thelikelihood of the null hypothesis: that individuals from category $k$ have been randomly selected.
+What we are doing is evaluating some sort of distance between the overall average and the average of a group, measured in terms of standard deviations from a normal distribution. By standardizing these values, we have a common unit that allows us to compare different categories, and rank them according to their importance. In this way, we assess the likelihood of the null hypothesis: that individuals from category $k$ have been randomly selected.
 
 The larger this p-value (in absolute value), the more this indicates that the group of individuals occupies a significant position, and characterizes the region of the factorial plane where they are.
 
@@ -893,10 +893,10 @@ The vectors that define the directions of the original variables are the vectors
 
 Let $\mathbf{e_j}$ be the $j$-th vector of this basis. Its projection on the basis determined by the vector $\mathbf{u}_{\alpha}$ is defined by the scalar product of the vectors:
 
-\begin{equation}
+$$
 \mathbf{e_j}^\mathsf{T} \mathbf{u}_{\alpha} = u_{j\alpha}
 (\#eq:2-19)
-\end{equation}
+$$
 
 The element $u_{j\alpha}$ is the $j$-th component of the vector $\mathbf{u}_{\alpha}$.
 
