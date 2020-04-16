@@ -5,18 +5,18 @@ throughout this book.
 
 - __Data table__: rectangular array formed by rows and columns. In each of
 the table entries (i.e. intersection of one row and one column), we find a
-datum, typically codified in numeric form. We also use the term _data amtrix_
+datum, typically codified in numeric form. We also use the term _data matrix_
 as a synonym term. We represent the data table with upper case bold letters
 e.g. $\mathbf{X}$, with $n$ rows and $p$ columns.
 
 - __Individual__: an individual is a row of the data table. The word individual
 refers to any type of object: person, animal, country, company, planet, etc.
 
-- __Variable__: we use the word "variable" to refer to any column in the data table. For each individual, we observe the same aggragate, the same measure, the same question, etc. Instead of variable we can also talk about "measure", attribute, characteristic, property, etc.
+- __Variable__: we use the word "variable" to refer to any column in the data table. For each individual, we observe the same aggregate, the same measure, the same question, etc. Instead of variable we can also talk about "measure", attribute, characteristic, property, etc.
 
-- __Continuous Variable__: we talk about continuous variable when the measurement is quantitative. To be more precise, a varibale is continuous when calculating the mean (or average) makes sense.
+- __Continuous Variable__: we talk about continuous variable when the measurement is quantitative. To be more precise, a variable is continuous when calculating the mean (or average) makes sense.
 
-- __Nominal Varibale__: we talk about a nominal variable when its values are names of categories (or qualities). Examples of nominal variables are _civil status_ (e.g. single, married, divorced, widowed), _geographc region_ (e.g. north, south, west, etc). We also use the terms categorical or qualitative variable as synonyms of nominal.
+- __Nominal Variable__: we talk about a nominal variable when its values are names of categories (or qualities). Examples of nominal variables are _civil status_ (e.g. single, married, divorced, widowed), _geographc region_ (e.g. north, south, west, etc). We also use the terms categorical or qualitative variable as synonyms of nominal.
 
 - __Modality__: the modalities or categories are the values taken by a nominal variable. For example the variable _gender_ (typical) has two modalities: male and female. A modalitiy is also known as group, class, or category.
 
