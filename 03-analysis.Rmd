@@ -1,5 +1,9 @@
 # Analysis {#analysis}
 
+```{r echo = FALSE, message=FALSE}
+library(FactoMineR)
+```
+
 Carrying out a comprehensive Principal Component Analysis is both an art and a science. The analyst must have some degree of analytical experience as well as a reasonable familiarity with the analyzed data. A rushed PCA analysis tends to lead to confusing results, and frustating endeavors. A well applied PCA involves a certain strategy to analyze the data, enforced with common sense, and taking certain precautions.
 
 In this chapter, we present a methodology to carry out a Principal Component Analysis that goes above and beyond what is typically discussed in other texts about PCA. We try to stay away from the narrow perspective of using PCA within with the sole purpose of wroking with few variables that are compatible with a statistical model. Instead, we strongly advocate for analyses that take into account as many variables as possible. This will make the analysis richer, more _holistic_, and with more coherent interpretations.
@@ -196,10 +200,10 @@ Each observation in the data matrix is replaced by the observed value ples a ran
 
 We denote this change of value as:
 
-\begin{equation}
+$$
 x_{ij} = x_{ij} + N(x_{ij}, Ks_j)
 (\#eq:33)
-\end{equation}
+$$
 
 The observed value $x_{ij}$ is modified by adding a random quantity that follows a normal distribution, centered at $x_{ij}$, and with standard deviation $K$ times the standard deviation $s_j$ of variable $j$.
 
@@ -289,10 +293,10 @@ To do that, we substitute each value by its rank in increasing order, depending 
 
 One interesting transformation involves working with the Spearman's correlation coefficients. This coefficient measures the monotone dependency between the rank values of two variables according to the following formula:
 
-\begin{equation}
+$$
 r_s (j, j') = 1 - \frac{6 \sum_{i}^{n} (x_{ij} - x_{ij'})^2}{n (n^2 - 1)}
 (\#eq:34)
-\end{equation}
+$$
 
 where the quantities $x_{ij}$ represent the rank of the individual $i$ of the $j$ variable. The advantage of the Spearman's correlation coefficient is that it coincides with the Pearson's coeffcient (usual correlation) when applied to a matrix of ranks.
 
@@ -476,7 +480,7 @@ Notice that we could also use the results of the PCA to _fine tune_ (in a non-pa
 
 
 
-## PCA and Cluster Analysis
+## PCA and Clustering
 
 The graphics obtained from Principal Components Analysis provide a quick way 
 to get a "photo" of the multivariate phenomenon under study. These graphical 
@@ -503,6 +507,63 @@ consideration their clustering assignment, gives an excellent opportunity to
 "see in depth" the information contained in data. In other words, with the 
 formed clusters, we can see beyond the two axes of a scatterplot, and gain 
 deeper insight into the factorial displays.
+
+
+### Real Groups or Instrumental Groups?
+
+Given a clustering partition, an important question to be asked is to what 
+extent the obtained groups reflect "real" groups, or are the groups simply 
+an algorithmic artifact? Do we have data that has discontinuous populations,
+or do we just have a continuous reality?
+
+In general, most clustering partitions tend to reflect intermediate situations.
+Sometimes we may find clusters that are more or less "natural", but there 
+will also be times in which the clusters are more "artificial". Intermediate
+situations have regions (set fo individuals) of high density embedded within 
+layers of individuals with low density. Even in such intermediate cases, the 
+obtained clustering partition is still useful. While we cannot say that clusters
+are "real" groups differentiated from one another, the formed groups makes it
+easier to understand the data. In this sense, clustering acts in a similar 
+fashion as when we make bins or intervals from a continuous variable. Simply
+put, clustering plays the role of a multivariate encoding. This is why we talk 
+about _instrumental_ groups.
+
+In the example of international cities, we obtain the following dendrogram
+from a hierarchical agglomerative clustering on the data of ratios.
+
+```{r fig-3-5, echo = FALSE, out.width = '90%', fig.cap='Clustering Dendrogram'}
+knitr::include_graphics("images/figure-3-5.png")
+```
+
+Looking at the dendrogram, we can identify the existence of several groups 
+of cities.
+
+On one hand, the 10 cities that are grouped in the first cluster are highly 
+homogeneous, and distinct from other cities. The cutting line (red horizontal 
+line) isolates well this group, while producing at the same time other three 
+different clusters.
+
+Ths cluster of 10 cities involves cities with a large salary inequality, with
+high salaries for those managerial/head-type of professions. Opposed to this 
+group, there is a considerably large cluster characterized for having elevated 
+taxes as well as social contributions, and for having better well payed 
+professions that are generally considered to be "lower class".
+
+Separated from the large cluster, there are two more groups, distinguished 
+on the second factorial axis. One of them is formed by cities with high
+salaries for manual-labor professions. The other group is formed by those 
+cities with high salaries for professions that depend on the Public Service.
+
+The obtained partitions are projected on the factorial plane, that is, the 
+centroids of each clustered are projected together with the cities, colored 
+by group, as depiected in the following figure:
+
+```{r fig-3-6, echo = FALSE, out.width = '80%', fig.cap='Clustering of cities in 4 groups'}
+knitr::include_graphics("images/figure-3-6.png")
+```
+
+
+
 
 
 
@@ -549,10 +610,10 @@ By using only the first principal components, we reduce the random variability i
 
 One is left with the operation to undo the change given by using the components. That is, we need to express the response variable in terms of the original variables. Each principal component is written as a linear combination of the explanatory variables:
 
-\begin{equation}
+$$
 \mathbf{y} = b_0 + b_1 \Psi_1 + \dots + b_p \Psi_p = \hat{\beta}_0 + \hat{\beta}_1 \mathbf{x_1} + \dots + \hat{\beta}_p \mathbf{x_p}
 (\#eq:39)
-\end{equation}
+$$
 
 The principal components in this case become _instrumental_ variables. This means that theur behave like intemediate links for a another subsequent analysis.
 
