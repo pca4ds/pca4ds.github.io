@@ -493,16 +493,18 @@ Together with these graphical low dimensional representations, we can also use
 clustering methods as a complementary analytical tasks to enrich the output 
 of a PCA. In clustering, we look for groups of individuals having similar 
 characteristics. An individual is characterized by its membership to 
-given cluster. In turn, the average characteristics of a group serve us to 
-characterize all individuals in a the corresponding cluster.
+a certain cluster. In turn, the average characteristics of a group serve us to 
+characterize all individuals in the corresponding cluster.
 
-We can take the output of a clustering method, that is, take the cluster 
+We can take the output of a clustering method, that is, take the clustering
 memberships of individuals, and use that information in a PCA plot. The
 location of the individuals on the first factorial plane, taking into 
 consideration their clustering assignment, gives an excellent opportunity to 
 "see in depth" the information contained in data. In other words, with the 
 formed clusters, we can see beyond the two axes of a scatterplot, and gain 
 deeper insight into the factorial displays.
+
+
 
 ## Data Weighing
 
