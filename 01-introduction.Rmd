@@ -669,7 +669,7 @@ In this case, the metric matrix is given by $\mathbf{S}^{-2}$ (diagonal matrix o
 Regarding the cloud of variable-points, the distance between variables is defined based on the correlation between two variables. In general, this distance is given by the scalar product between two vectors:
 
 $$
-cor(j,j') - \sum_{i=1}^{n} \frac{1}{n} \left ( \frac{x_{ij} - \bar{x}_j}{s_j} \right ) \left ( \frac{x_{ij'} - \bar{x}_{j'}}{s_{j'}} \right ) = \mathbf{z_{j}^{\mathsf{T}} N z_j}
+cor(j,j') = \sum_{i=1}^{n} \frac{1}{n} \left ( \frac{x_{ij} - \bar{x}_j}{s_j} \right ) \left ( \frac{x_{ij'} - \bar{x}_{j'}}{s_{j'}} \right ) = \mathbf{z_{j}^{\mathsf{T}} N z_j}
 (\#eq:24)
 $$
 
