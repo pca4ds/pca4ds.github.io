@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1553817547001.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "29785366",
+    "id" : "8C8FEA63",
+    "lastKnownWriteTime" : 1553616798,
+    "last_content_update" : 1553616798,
+    "path" : "~/Dropbox/pca4ds/scripts/pca2-cities.R",
+    "project_path" : "scripts/pca2-cities.R",
+    "properties" : {
+        "cursorPosition" : "78,0",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

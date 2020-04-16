@@ -1,0 +1,10 @@
+git status
+On branch source
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	[31mdata/cities91.csv[m
+	[31mscripts/comparing-tables-section-3-11.R[m
+
+nothing added to commit but untracked files present (use "git add" to track)
+]0;~/Dropbox/pca4ds[0;36m[gaston@ pca4ds]$[0m 
