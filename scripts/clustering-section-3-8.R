@@ -34,7 +34,7 @@ mean_salary <- dat2[ ,2] * dat2[ ,3]
 # transformed data: dividing by mean salary
 dat_trans <- sweep(dat2[ ,active], 1, mean_salary, FUN = "/")
 colnames(dat_trans) <- paste(active, '2', sep='')
-
+rownames(dat_trans) <- dat2$city
 
 # PCA on Data of Ratios
 pca2 <- PCA(dat_trans, graph = FALSE, ncp = 6)
@@ -70,7 +70,7 @@ plot(pca2, choix = "ind", col.ind = col_ind)
 plot(pca2$ind$coord[,1], pca2$ind$coord[,2])
 
 
-hcpc2 <- HCPC(pca2, nb.clust = 4, graph = FALSE)
+hcpc2 <- HCPC(pca2, nb.clust = 4, graph = TRUE)
 plot(hcpc2, choice = "map", las = 1)
 
 
