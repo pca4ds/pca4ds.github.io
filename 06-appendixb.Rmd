@@ -197,7 +197,7 @@ The symmetric matrix to be diagonalized is $\mathbf{Z^\mathsf{T}NZ}$. This matri
 
 #### Coordinates of Individuals {-}
 
-Regardless of whether we aera analyzing active individuals or supplementary ones, the coordinates of individuals are calculated by orthogonally projecting the rows of the data matrix $\mathbf{Z}$ onto the directions of the eigenvectors $\mathbf{u}_{\alpha}$.
+Regardless of whether we are analyzing active individuals or supplementary ones, the coordinates of individuals are calculated by orthogonally projecting the rows of the data matrix $\mathbf{Z}$ onto the directions of the eigenvectors $\mathbf{u}_{\alpha}$.
 
 $$
 \boldsymbol{\psi}_{\alpha} = \mathbf{Zu}_{\alpha} = 
@@ -224,7 +224,7 @@ $$
 
 The coordinates of the active variables are obtained by the orthogonal projection of the columns of $\mathbf{Z}$ onto the directions defined by $\dot{\mathbf{v}}_{\alpha}$ with the metric $\mathbf{N}$.
 
-The projection of the active variables on an axis $\alpha$ aer given by:
+The projection of the active variables on an axis $\alpha$ are given by:
 
 $$
 \mathbf{\Phi}_{\alpha} = \mathbf{Z^\mathsf{T}N}^{1/2} \mathbf{v}_{\alpha} = \frac{1}{\sqrt{\lambda_{\alpha}}} \mathbf{Z^\mathsf{T}NZu}_{\alpha} = \sqrt{\lambda_{\alpha}} \hspace{1mm} \mathbf{u}_{\alpha}
@@ -300,7 +300,7 @@ $$
 \mathbf{e_j}^\mathsf{T} \mathbf{u}_{\alpha} = u_{j\alpha}
 $$
 
-The elements of vectors $\mathbf{u}_{\alpha}$ directly provide the projection of the original axes of $\mathbb{R}^{p}$. Eaach axis of the original basis indicates the direction of growth of a variable. These directions can be jointly represented with the projection of the individual-points.
+The elements of vectors $\mathbf{u}_{\alpha}$ directly provide the projection of the original axes of $\mathbb{R}^{p}$. Each axis of the original basis indicates the direction of growth of a variable. These directions can be jointly represented with the projection of the individual-points.
 
 
 
@@ -336,7 +336,7 @@ $$
 
 #### Contribution of Individuals to an Axis' Inertia
 
-The prjected inertia on an axis is: $\sum_{i=1}^{n} p_i \psi_{i \alpha}^{2} = \lambda_{\alpha}$.
+The projected inertia on an axis is: $\sum_{i=1}^{n} p_i \psi_{i \alpha}^{2} = \lambda_{\alpha}$.
 
 The part of the inertia due to an individual is:
 
@@ -344,7 +344,7 @@ $$
 CTR(i, \alpha) = \frac{p_i \psi_{i \alpha}^{2}}{\lambda_{\alpha}} \times 100
 $$
 
-this applies to boeth a normalized and a non-normalized PCA.
+this applies to both a normalized and a non-normalized PCA.
 
 
 
@@ -423,7 +423,7 @@ var(\bar{\psi}_{k \alpha}) &= \frac{n - n_k}{n_k - 1} \frac{\lambda_{\alpha}}{n_
 
 By the central limit theorem, the variable $\bar{\psi}_{k \alpha}$ will (approximately) follow a normal distribution.
 
-The v-test is the value of the standardized variable $v_{k\alpha}$ with the same elvel of significance:
+The v-test is the value of the standardized variable $v_{k\alpha}$ with the same level of significance:
 
 $$
 v_{k \alpha} = \frac{\bar{\psi}_{k \alpha}}{\sqrt{\frac{n-n_k}{n_k - 1}} \frac{\lambda_{\alpha}}{n_k}}
@@ -486,13 +486,13 @@ $$
 
 with dimensions: $(n,p) = (n,k) \times (k,p)$, where $k$ is the rank of $\mathbf{Y}$.
 
-In a biplot, like in PCA, we graphically represent the individuals as points and the variables as vectors (i.e. arrows). The biplot involves approximating $\mathbf{Y}$ by the product:
+In a biplot, like in PCA, we graphically represent the individuals as points, and the variables as vectors (i.e. arrows). The biplot involves approximating $\mathbf{Y}$ by the product:
 
 $$
-\mathbf{Y} \approx \mathbf{AB^\mathsf{T}}
+\mathbf{\hat{Y}} \approx \mathbf{AB^\mathsf{T}}
 $$
 
-with dimensions: $(n,p) = (n,2) \times (2,p)$. The rows of the matrix $\mathbf{A}$ repreent the individuals, and the rows of $\mathbf{B}$ represent the variables. In order to achieve this decomposition, we use the same decomposition in a PCA, that is, the eigendecomposition of $\mathbf{Y}$:
+with dimensions: $(n,p) = (n,2) \times (2,p)$. The rows of the matrix $\mathbf{A}$ represent the individuals, and the rows of $\mathbf{B}$ represent the variables. In order to achieve this decomposition, we use the same decomposition in a PCA, that is, the eigendecomposition of $\mathbf{Y}$:
 
 $$
 \mathbf{Y} = \mathbf{V \Lambda U^\mathsf{T}}
@@ -531,7 +531,7 @@ $$
 \mathbf{Y} \approx \mathbf{AB^\mathsf{T}} = (\mathbf{V})(\mathbf{\Lambda U^\mathsf{T}})
 $$
 
-The cosine of the angle formed by the vectors $\mathbf{b_j}$ and $\mathbf{b_l}$ corresponds to the correlation between variables $\mathbf{y_j}$ and $\mathbf{y_l}$. Like in PCA, this property also holds for the active variables. With respect to the supplementary variables, this property is holds only through the axes.
+The cosine of the angle formed by the vectors $\mathbf{b_j}$ and $\mathbf{b_l}$ corresponds to the correlation between variables $\mathbf{y_j}$ and $\mathbf{y_l}$. Like in PCA, this property also holds for the active variables. With respect to the supplementary variables, this property is hold only through the axes.
 
 The euclidean distance between the individuals $\mathbf{a_i}$ and $\mathbf{a_h}$ is proportional to the Mahalanobis distance between the individuals $\mathbf{y_i}$ and $\mathbf{y_h}$ of the partitioned table.
 
@@ -560,6 +560,6 @@ $$
 \mathbf{Y} \approx \mathbf{AB^\mathsf{T}} = (\mathbf{V \Lambda}^{1/2})(\mathbf{\Lambda}^{1/2} \mathbf{U^\mathsf{T}})
 $$
 
-This option tensd to balance the representation between the rows and the columns in the sense that, for each axis, the sum of the squared of the distances to the axis is the same for the cloud of individuals as for the cloud of variables.
+This option tends to balance the representation between the rows and the columns in the sense that, for each axis, the sum of the squared of the distances to the axis is the same for the cloud of individuals as for the cloud of variables.
 
 We obtain a "balanced" graphic. Except by the common property of all the decompositions (i.e. the projection of individuals onto the variables approximates the data table), there are no specific properties for the interpretation of the proximities between individuals, and neither for the proximities between variables.
