@@ -32,7 +32,7 @@ When selecting a particular active theme, this does not stop us from selecting a
 
 ### Linearity and Symmetry
 
-We have seen the importance of the correlation coefficient (or covariance) in PCA. We can actually present PCA as a visualization technique of a correlation matrix (or coavraince matrix). The technique will excel when the correlation coefficient is a _good_ measure of the association between variables. The ideal conditions to apply PCA are when the association among avriables are linear and their distributions are symmetric (i.e. closer to the normal distribution).
+We have seen the importance of the correlation coefficient (or covariance) in PCA. We can actually present PCA as a visualization technique of a correlation matrix (or covariance matrix). The technique will excel when the correlation coefficient is a _good_ measure of the association between variables. The ideal conditions to apply PCA are when the association among variables are linear and their distributions are symmetric (i.e. closer to the normal distribution).
 
 Consequently, we need to be cautious when the distributions are extremely asymmetric or when the associations among variables are not linear.
 
@@ -40,7 +40,7 @@ A common case that can limit the applicability of PCA is when analyzing variable
 
 Nonlinearity associations can also limit the applicability of PCA. This is illustrated with the relation betwen age and income: overall, income tends to increase with age during active working years, but when a person retires the income tend to decrease.
 
-Phenomena of lack of symmetry and lack of linearity will affect the results of a PCA. If these issues are not indentify, they can lead to wrong interpretations and conclusions. However, the presence of these phenomena will become apparent for the well trained eyes of an experienced analyst.
+Phenomena of lack of symmetry and lack of linearity will affect the results of a PCA. If these issues are not identify, they can lead to wrong interpretations and conclusions. However, the presence of these phenomena will become apparent for the well trained eyes of an experienced analyst.
 
 We should say that techniques such as Multiple Correspondence Analysis (MCA) can always be used after having encoded (categorized) the continuous variables. Compared to PCA, MCA has the advantage of being inherently non-linear, and thus can be used in situations when PCA is limited.
 
@@ -50,7 +50,7 @@ We should say that techniques such as Multiple Correspondence Analysis (MCA) can
 
 More often than not, Principal Component Analysis is performed on variables having different units of measurement. In this case, the variances tend to be vary considerable in magnitude, and are not directly comparable. The typical solution to overcome this issue is to rescale the variables in standard units (i.e. mean of zero, unit variance). In this way, all variables wil be given the same importance, and we don't have to worry about units of measurement anymore. In fact, this type of transformation has become the default solution in most PCA computer programs: to carry out a normalized PCA and work on the matrix of correlations. Keep in mind that this transformation modifies the shape of the cloud of points by providing the same spread among all directions in the space of origin.
 
-Despite the usefulness of transforming variables into standardized scale, this transformation is not always the ideal solution to _balance_ the variables. For example, if thre is a subset of variables that are highly correlated among each other, this subset will dominate the first principal component, and therefore, will have a higher importance in the analysis.
+Despite the usefulness of transforming variables into standardized scale, this transformation is not always the ideal solution to _balance_ the variables. For example, if there is a subset of variables that are highly correlated among each other, this subset will dominate the first principal component, and therefore, will have a higher importance in the analysis.
 
 Suppose that you have 5 variables that are measuring the same aspect of a certain phenomenon, and that the other aspects are covered each one by just one variable. You can think of the group of 5 variables as being just one variable but with a variance 5 times larger than the rest of the variables. Consequently, the first axis will be determined by the cumulative effect of the 5 highly correlated variables. In summary, we should pay attention to the effect produced by groups of variables that are highly correlated, and have a mechanism to balance the importance of each aspect in the studied phenomeno.
 
@@ -67,12 +67,12 @@ The stability of the results will depend on the randomness of the data collectio
 
 Are the directions of the first axes will defined and stable? More precisely, are the dispersions in consecutive directions really different? If not, we would have to consider that the factorial plane formed by them is stable but the associated axes are not really different (i.e. indeterminate by a rotation).
 
-One way to answer these questions is to suppose that the data come from a sample drawn from a population with a normal distribution. In this case, the eigenvalues asymptotically follow a normal distribution (Anderson, 1963). The, we can estimate a 95% confidence interval for each eigenvalue with the formula \@ref(eq:31)
+One way to answer these questions is to suppose that the data come from a sample drawn from a population with a normal distribution. In this case, the eigenvalues asymptotically follow a normal distribution (Anderson, 1963). Then, we can estimate a 95% confidence interval for each eigenvalue with the formula \@ref(eq:31)
 
-\begin{equation}
+$$
 \left [ \lambda_{\alpha} \left (1 - 1.96 \sqrt{2/(n-1)} \right ); \hspace{1mm} \lambda_{\alpha} \left (1+1.96\sqrt{2/(n-1)} \right) \right ]
 (\#eq:31)
-\end{equation}
+$$
 
 The width of this interval gives us an idea of the stability of the eigenvalue with respect to the sample randomness. The overlapping in the intervals of two consecutive eigenvalues suggests that these eigenvalues are equal (or very similar). The corresponding axes are thus indeterminate by one rotation. Under this situation, the analyst should focus on the interpretation of the subspace defined by the first eigenvalues that are well separated.
 
@@ -166,7 +166,7 @@ knitr::include_graphics("images/scree-mountain.png")
 
 #### Note {-}
 
-We have seen that when there is a _size effect_ in the first axis, the subsequent eigenvalues are affected and reduced. However, it is possible that subsequent eigenvalues reflect structural oppositions. This is the case of of the second PCA on raw data, which corresponds approximately, to the first axis of the analysis on the ratio data, when the size effect is eliminated.
+We have seen that when there is a _size effect_ in the first axis, the subsequent eigenvalues are affected and reduced. However, it is possible that subsequent eigenvalues reflect structural oppositions. This is the case of the second PCA on raw data, which corresponds approximately, to the first axis of the analysis on the ratio data, when the size effect is eliminated.
 
 On the other hands, it is risky to interpret the percentage of inertia as a measure of the information contained in an axis. This percentage can be made as small as possible, just by adding independent random variables to the data of active variables. The overall inertia will increase, while the "information" contained in the first axes will remain the same and, consequently, the percentage of inertia in each axis will decrease.
 
@@ -196,7 +196,7 @@ One way to assess the stability of results involves using the available informat
 
 The strategy that we use is based on random perturbations of the data, in order to simulate a certain natural variability or measurement error in the observations.
 
-Each observation in the data matrix is replaced by the observed value ples a random quantity that follows a normal distribution with mean and variance depending on the variable under modification.
+Each observation in the data matrix is replaced by the observed value plus a random quantity that follows a normal distribution with mean and variance depending on the variable under modification.
 
 We denote this change of value as:
 
@@ -347,7 +347,7 @@ knitr::kable(
 
 <br>
 
-The cloud of points is depicted in figure \@ref(fig:fig-3-2). The configuration of this cloud is similar to the initial cloud displayed in figure \@ref(fig:fig-2-9). The similarity of the results obtained with the table of ratios confirms the good quality of the performed analysis. Also, this similarity shows that the essential information is contained in the rank of the values, and not so much in the observed eigenvalues.
+The cloud of points is depicted in figure \@ref(fig:fig-3-2). The configuration of this cloud is similar to the initial cloud displayed in figure \@ref(fig:fig-2-9). The similarity of the results obtained with the table of ratios confirms the good quality of the performed analysis. Also, this similarity shows that the essential information is contained in the rank of the values, and not so much in the observed values.
 
 ```{r fig-3-2, echo = FALSE, out.width = '70%', fig.cap='Circle of correlations on the first factorial plane of the second analysis'}
 knitr::include_graphics("images/figure-3-2.png")
