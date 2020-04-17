@@ -85,13 +85,13 @@ knitr::include_graphics("images/figure-a5.png")
 
 
 $$
-\psi_i = ||\mathbf{x}|| \hspace{1mm} ||\mathbf{u}|| \hspace{1mm} cos(\alpha) = \sum_{j=1}^{p} x_{ij} u_j
+\psi_i = \|\mathbf{x}\| \hspace{1mm} \|\mathbf{u}\| \hspace{1mm} cos(\alpha) = \sum_{j=1}^{p} x_{ij} u_j
 $$
 
 with
 
 $$
-||\mathbf{u}||^2 = \sum_{j=1}^{p} = u_{j}^{2} = 1
+\|\mathbf{u}\|^2 = \sum_{j=1}^{p} u_{j}^{2} = 1
 $$
 
 The inertia of the projected cloud on a line is the variance of the projections on the line $\mathbf{u}$. The square root of the variance is called _standard deviation_.
@@ -130,7 +130,7 @@ The variance of a variable is the squared of the distance from the variable-poin
 
 ## Correlation Coefficient
 
-The correlation coefficient is a measure of the association between two variables when such association is lineal.
+The correlation coefficient is a measure of the association between two variables when such association is linear.
 
 We calculate the correlation coefficient by centering and normalizing the variables:
 
