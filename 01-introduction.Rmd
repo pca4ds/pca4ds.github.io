@@ -1,3 +1,5 @@
+# (PART) Introduction {-}
+
 # Basic Elements {#basic}
 
 Principal Component Analysis (PCA) is a statistical technique with a strong
