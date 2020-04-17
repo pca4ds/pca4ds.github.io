@@ -1,3 +1,5 @@
+# (PART) Mechanics {-}
+
 # How Does PCA Work? {#mechanics}
 
 At its heart, performing a Principal Component Analysis involves taking a data table that contains the information about a certain phenomenon, in order to transform such data into a set of visual representations in some optimal sense. During the transformation process part of the information is "lost". However, PCA seeks to minimize this loss of information. There is a tradeoff between the amount of information that is lost, in exchange of gaining understanding and insight. We go from a raw data table to a set of graphical representations that should be easier to understand. In order to be able to _read_ the results and graphics obtained from a PCA, we need to discuss the mechanics of this technique and its underlying rationale.
