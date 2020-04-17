@@ -1,3 +1,5 @@
+# (PART) Appendix {-}
+
 # Appendix A: Fundamentals {#appendixa}
 
 In this appendix we discuss some fundamental notions that will allow us to provide a geometrical development of Principal Component Analysis.
