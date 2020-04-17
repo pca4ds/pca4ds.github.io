@@ -70,6 +70,7 @@
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
 <li class="chapter" data-level="" data-path="terminology.html"><a href="terminology.html"><i class="fa fa-check"></i>Terminology</a></li>
+<li class="part"><span><b>I Introduction</b></span></li>
 <li class="chapter" data-level="1" data-path="basic.html"><a href="basic.html"><i class="fa fa-check"></i><b>1</b> Basic Elements</a><ul>
 <li class="chapter" data-level="1.1" data-path="basic.html"><a href="basic.html#data-and-goals"><i class="fa fa-check"></i><b>1.1</b> Data and Goals</a><ul>
 <li class="chapter" data-level="1.1.1" data-path="basic.html"><a href="basic.html#active-variables"><i class="fa fa-check"></i><b>1.1.1</b> Active Variables</a></li>
@@ -87,6 +88,7 @@
 <li class="chapter" data-level="1.3.6" data-path="basic.html"><a href="basic.html#distance-matrices"><i class="fa fa-check"></i><b>1.3.6</b> Distance Matrices</a></li>
 </ul></li>
 </ul></li>
+<li class="part"><span><b>II Mechanics</b></span></li>
 <li class="chapter" data-level="2" data-path="mechanics.html"><a href="mechanics.html"><i class="fa fa-check"></i><b>2</b> How Does PCA Work?</a><ul>
 <li class="chapter" data-level="2.1" data-path="mechanics.html"><a href="mechanics.html#principal-components"><i class="fa fa-check"></i><b>2.1</b> Principal Components</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="mechanics.html"><a href="mechanics.html#interpreting-the-inertia-proportions"><i class="fa fa-check"></i><b>2.1.1</b> Interpreting the Inertia Proportions</a></li>
@@ -110,6 +112,7 @@
 <li class="chapter" data-level="2.5.1" data-path="mechanics.html"><a href="mechanics.html#old-unit-axes"><i class="fa fa-check"></i><b>2.5.1</b> Old Unit Axes</a></li>
 </ul></li>
 </ul></li>
+<li class="part"><span><b>III Practice</b></span></li>
 <li class="chapter" data-level="3" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>3</b> Analysis</a><ul>
 <li class="chapter" data-level="3.1" data-path="analysis.html"><a href="analysis.html#themescope"><i class="fa fa-check"></i><b>3.1</b> Themescope</a></li>
 <li class="chapter" data-level="3.2" data-path="analysis.html"><a href="analysis.html#conditions-of-application"><i class="fa fa-check"></i><b>3.2</b> Conditions of Application</a><ul>
@@ -127,11 +130,14 @@
 <li class="chapter" data-level="3.7" data-path="analysis.html"><a href="analysis.html#handling-missing-values"><i class="fa fa-check"></i><b>3.7</b> Handling Missing Values</a></li>
 <li class="chapter" data-level="3.8" data-path="analysis.html"><a href="analysis.html#pca-and-clustering"><i class="fa fa-check"></i><b>3.8</b> PCA and Clustering</a><ul>
 <li class="chapter" data-level="3.8.1" data-path="analysis.html"><a href="analysis.html#real-groups-or-instrumental-groups"><i class="fa fa-check"></i><b>3.8.1</b> Real Groups or Instrumental Groups?</a></li>
+<li class="chapter" data-level="3.8.2" data-path="analysis.html"><a href="analysis.html#representants-of-groups"><i class="fa fa-check"></i><b>3.8.2</b> Representants of Groups</a></li>
 </ul></li>
 <li class="chapter" data-level="3.9" data-path="analysis.html"><a href="analysis.html#data-weighing"><i class="fa fa-check"></i><b>3.9</b> Data Weighing</a></li>
 <li class="chapter" data-level="3.10" data-path="analysis.html"><a href="analysis.html#pca-as-an-intermediate-analytical-stage"><i class="fa fa-check"></i><b>3.10</b> PCA as an Intermediate Analytical Stage</a></li>
 <li class="chapter" data-level="3.11" data-path="analysis.html"><a href="analysis.html#comparing-various-tables"><i class="fa fa-check"></i><b>3.11</b> Comparing Various Tables</a></li>
+<li class="chapter" data-level="3.12" data-path="analysis.html"><a href="analysis.html#analysis-of-a-table-of-means"><i class="fa fa-check"></i><b>3.12</b> Analysis of a Table of Means</a></li>
 </ul></li>
+<li class="part"><span><b>IV Appendix</b></span></li>
 <li class="chapter" data-level="4" data-path="appendixa.html"><a href="appendixa.html"><i class="fa fa-check"></i><b>4</b> Appendix A: Fundamentals</a><ul>
 <li class="chapter" data-level="4.1" data-path="appendixa.html"><a href="appendixa.html#space-of-p-dimensions"><i class="fa fa-check"></i><b>4.1</b> Space of <span class="math inline">\(p\)</span> Dimensions</a></li>
 <li class="chapter" data-level="4.2" data-path="appendixa.html"><a href="appendixa.html#distances-between-points"><i class="fa fa-check"></i><b>4.2</b> Distances between points</a></li>
@@ -308,7 +314,7 @@
 <p>The symmetric matrix to be diagonalized is <span class="math inline">\(\mathbf{Z^\mathsf{T}NZ}\)</span>. This matrix coincides with the matrix of correlations in the case of a normalized PCA; or with a covariance matrix in the case of a non-normalized PCA.</p>
 <div id="coordinates-of-individuals" class="section level4 unnumbered">
 <h4>Coordinates of Individuals</h4>
-<p>Regardless of whether we aera analyzing active individuals or supplementary ones, the coordinates of individuals are calculated by orthogonally projecting the rows of the data matrix <span class="math inline">\(\mathbf{Z}\)</span> onto the directions of the eigenvectors <span class="math inline">\(\mathbf{u}_{\alpha}\)</span>.</p>
+<p>Regardless of whether we are analyzing active individuals or supplementary ones, the coordinates of individuals are calculated by orthogonally projecting the rows of the data matrix <span class="math inline">\(\mathbf{Z}\)</span> onto the directions of the eigenvectors <span class="math inline">\(\mathbf{u}_{\alpha}\)</span>.</p>
 <p><span class="math display">\[
 \boldsymbol{\psi}_{\alpha} = \mathbf{Zu}_{\alpha} = 
 \begin{cases}
@@ -330,7 +336,7 @@
 <div id="coordinates-of-active-variables" class="section level4 unnumbered">
 <h4>Coordinates of Active Variables</h4>
 <p>The coordinates of the active variables are obtained by the orthogonal projection of the columns of <span class="math inline">\(\mathbf{Z}\)</span> onto the directions defined by <span class="math inline">\(\dot{\mathbf{v}}_{\alpha}\)</span> with the metric <span class="math inline">\(\mathbf{N}\)</span>.</p>
-<p>The projection of the active variables on an axis <span class="math inline">\(\alpha\)</span> aer given by:</p>
+<p>The projection of the active variables on an axis <span class="math inline">\(\alpha\)</span> are given by:</p>
 <p><span class="math display">\[
 \mathbf{\Phi}_{\alpha} = \mathbf{Z^\mathsf{T}N}^{1/2} \mathbf{v}_{\alpha} = \frac{1}{\sqrt{\lambda_{\alpha}}} \mathbf{Z^\mathsf{T}NZu}_{\alpha} = \sqrt{\lambda_{\alpha}} \hspace{1mm} \mathbf{u}_{\alpha}
 \]</span></p>
@@ -388,7 +394,7 @@ cor(j, \alpha) =
 <p><span class="math display">\[
 \mathbf{e_j}^\mathsf{T} \mathbf{u}_{\alpha} = u_{j\alpha}
 \]</span></p>
-<p>The elements of vectors <span class="math inline">\(\mathbf{u}_{\alpha}\)</span> directly provide the projection of the original axes of <span class="math inline">\(\mathbb{R}^{p}\)</span>. Eaach axis of the original basis indicates the direction of growth of a variable. These directions can be jointly represented with the projection of the individual-points.</p>
+<p>The elements of vectors <span class="math inline">\(\mathbf{u}_{\alpha}\)</span> directly provide the projection of the original axes of <span class="math inline">\(\mathbb{R}^{p}\)</span>. Each axis of the original basis indicates the direction of growth of a variable. These directions can be jointly represented with the projection of the individual-points.</p>
 </div>
 <div id="distance-of-individuals-to-the-origin" class="section level4 unnumbered">
 <h4>Distance of Individuals to the Origin</h4>
@@ -417,12 +423,12 @@ d^2(j,O) = \sum_{i=1}^{n} p_i \hspace{1mm} z_{ij}^{2} =
 </div>
 <div id="contribution-of-individuals-to-an-axis-inertia" class="section level4">
 <h4><span class="header-section-number">5.2.0.2</span> Contribution of Individuals to an Axis’ Inertia</h4>
-<p>The prjected inertia on an axis is: <span class="math inline">\(\sum_{i=1}^{n} p_i \psi_{i \alpha}^{2} = \lambda_{\alpha}\)</span>.</p>
+<p>The projected inertia on an axis is: <span class="math inline">\(\sum_{i=1}^{n} p_i \psi_{i \alpha}^{2} = \lambda_{\alpha}\)</span>.</p>
 <p>The part of the inertia due to an individual is:</p>
 <p><span class="math display">\[
 CTR(i, \alpha) = \frac{p_i \psi_{i \alpha}^{2}}{\lambda_{\alpha}} \times 100
 \]</span></p>
-<p>this applies to boeth a normalized and a non-normalized PCA.</p>
+<p>this applies to both a normalized and a non-normalized PCA.</p>
 </div>
 <div id="squared-cosines-of-individuals" class="section level4 unnumbered">
 <h4>Squared Cosines of Individuals</h4>
@@ -479,7 +485,7 @@ E(\bar{\psi}_{k \alpha}) &amp;= 0 \\
 var(\bar{\psi}_{k \alpha}) &amp;= \frac{n - n_k}{n_k - 1} \frac{\lambda_{\alpha}}{n_k}
 \end{align*}\]</span></p>
 <p>By the central limit theorem, the variable <span class="math inline">\(\bar{\psi}_{k \alpha}\)</span> will (approximately) follow a normal distribution.</p>
-<p>The v-test is the value of the standardized variable <span class="math inline">\(v_{k\alpha}\)</span> with the same elvel of significance:</p>
+<p>The v-test is the value of the standardized variable <span class="math inline">\(v_{k\alpha}\)</span> with the same level of significance:</p>
 <p><span class="math display">\[
 v_{k \alpha} = \frac{\bar{\psi}_{k \alpha}}{\sqrt{\frac{n-n_k}{n_k - 1}} \frac{\lambda_{\alpha}}{n_k}}
 \]</span></p>
@@ -524,11 +530,11 @@ v_{k\alpha} = \frac{\bar{x}_{k\alpha} - \bar{x}_{j}}{\sqrt{\frac{n - n_k}{n_k - 
 \mathbf{Y} = \mathbf{AB^\mathsf{T}}
 \]</span></p>
 <p>with dimensions: <span class="math inline">\((n,p) = (n,k) \times (k,p)\)</span>, where <span class="math inline">\(k\)</span> is the rank of <span class="math inline">\(\mathbf{Y}\)</span>.</p>
-<p>In a biplot, like in PCA, we graphically represent the individuals as points and the variables as vectors (i.e. arrows). The biplot involves approximating <span class="math inline">\(\mathbf{Y}\)</span> by the product:</p>
+<p>In a biplot, like in PCA, we graphically represent the individuals as points, and the variables as vectors (i.e. arrows). The biplot involves approximating <span class="math inline">\(\mathbf{Y}\)</span> by the product:</p>
 <p><span class="math display">\[
-\mathbf{Y} \approx \mathbf{AB^\mathsf{T}}
+\mathbf{\hat{Y}} \approx \mathbf{AB^\mathsf{T}}
 \]</span></p>
-<p>with dimensions: <span class="math inline">\((n,p) = (n,2) \times (2,p)\)</span>. The rows of the matrix <span class="math inline">\(\mathbf{A}\)</span> repreent the individuals, and the rows of <span class="math inline">\(\mathbf{B}\)</span> represent the variables. In order to achieve this decomposition, we use the same decomposition in a PCA, that is, the eigendecomposition of <span class="math inline">\(\mathbf{Y}\)</span>:</p>
+<p>with dimensions: <span class="math inline">\((n,p) = (n,2) \times (2,p)\)</span>. The rows of the matrix <span class="math inline">\(\mathbf{A}\)</span> represent the individuals, and the rows of <span class="math inline">\(\mathbf{B}\)</span> represent the variables. In order to achieve this decomposition, we use the same decomposition in a PCA, that is, the eigendecomposition of <span class="math inline">\(\mathbf{Y}\)</span>:</p>
 <p><span class="math display">\[
 \mathbf{Y} = \mathbf{V \Lambda U^\mathsf{T}}
 \]</span></p>
@@ -579,7 +585,7 @@ v_{k\alpha} = \frac{\bar{x}_{k\alpha} - \bar{x}_{j}}{\sqrt{\frac{n - n_k}{n_k - 
 <p><span class="math display">\[
 \mathbf{Y} \approx \mathbf{AB^\mathsf{T}} = (\mathbf{V})(\mathbf{\Lambda U^\mathsf{T}})
 \]</span></p>
-<p>The cosine of the angle formed by the vectors <span class="math inline">\(\mathbf{b_j}\)</span> and <span class="math inline">\(\mathbf{b_l}\)</span> corresponds to the correlation between variables <span class="math inline">\(\mathbf{y_j}\)</span> and <span class="math inline">\(\mathbf{y_l}\)</span>. Like in PCA, this property also holds for the active variables. With respect to the supplementary variables, this property is holds only through the axes.</p>
+<p>The cosine of the angle formed by the vectors <span class="math inline">\(\mathbf{b_j}\)</span> and <span class="math inline">\(\mathbf{b_l}\)</span> corresponds to the correlation between variables <span class="math inline">\(\mathbf{y_j}\)</span> and <span class="math inline">\(\mathbf{y_l}\)</span>. Like in PCA, this property also holds for the active variables. With respect to the supplementary variables, this property is hold only through the axes.</p>
 <p>The euclidean distance between the individuals <span class="math inline">\(\mathbf{a_i}\)</span> and <span class="math inline">\(\mathbf{a_h}\)</span> is proportional to the Mahalanobis distance between the individuals <span class="math inline">\(\mathbf{y_i}\)</span> and <span class="math inline">\(\mathbf{y_h}\)</span> of the partitioned table.</p>
 <p>The Mahalanobis distance is a distance that takes into account the correlations between the variables. This distance transforms the cloud of row points, usually in an elliptical shape, into a circular shape. The Mahalnobis distance is given by:</p>
 <p><span class="math display">\[
@@ -599,7 +605,7 @@ v_{k\alpha} = \frac{\bar{x}_{k\alpha} - \bar{x}_{j}}{\sqrt{\frac{n - n_k}{n_k - 
 <p><span class="math display">\[
 \mathbf{Y} \approx \mathbf{AB^\mathsf{T}} = (\mathbf{V \Lambda}^{1/2})(\mathbf{\Lambda}^{1/2} \mathbf{U^\mathsf{T}})
 \]</span></p>
-<p>This option tensd to balance the representation between the rows and the columns in the sense that, for each axis, the sum of the squared of the distances to the axis is the same for the cloud of individuals as for the cloud of variables.</p>
+<p>This option tends to balance the representation between the rows and the columns in the sense that, for each axis, the sum of the squared of the distances to the axis is the same for the cloud of individuals as for the cloud of variables.</p>
 <p>We obtain a “balanced” graphic. Except by the common property of all the decompositions (i.e. the projection of individuals onto the variables approximates the data table), there are no specific properties for the interpretation of the proximities between individuals, and neither for the proximities between variables.</p>
 
 </div>
