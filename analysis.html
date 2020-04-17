@@ -125,7 +125,9 @@
 <li class="chapter" data-level="3.5" data-path="analysis.html"><a href="analysis.html#optimal-reconstitution-of-data"><i class="fa fa-check"></i><b>3.5</b> Optimal Reconstitution of Data</a></li>
 <li class="chapter" data-level="3.6" data-path="analysis.html"><a href="analysis.html#synthetic-variables-and-indices"><i class="fa fa-check"></i><b>3.6</b> Synthetic Variables and Indices</a></li>
 <li class="chapter" data-level="3.7" data-path="analysis.html"><a href="analysis.html#handling-missing-values"><i class="fa fa-check"></i><b>3.7</b> Handling Missing Values</a></li>
-<li class="chapter" data-level="3.8" data-path="analysis.html"><a href="analysis.html#pca-and-cluster-analysis"><i class="fa fa-check"></i><b>3.8</b> PCA and Cluster Analysis</a></li>
+<li class="chapter" data-level="3.8" data-path="analysis.html"><a href="analysis.html#pca-and-clustering"><i class="fa fa-check"></i><b>3.8</b> PCA and Clustering</a><ul>
+<li class="chapter" data-level="3.8.1" data-path="analysis.html"><a href="analysis.html#real-groups-or-instrumental-groups"><i class="fa fa-check"></i><b>3.8.1</b> Real Groups or Instrumental Groups?</a></li>
+</ul></li>
 <li class="chapter" data-level="3.9" data-path="analysis.html"><a href="analysis.html#data-weighing"><i class="fa fa-check"></i><b>3.9</b> Data Weighing</a></li>
 <li class="chapter" data-level="3.10" data-path="analysis.html"><a href="analysis.html#pca-as-an-intermediate-analytical-stage"><i class="fa fa-check"></i><b>3.10</b> PCA as an Intermediate Analytical Stage</a></li>
 <li class="chapter" data-level="3.11" data-path="analysis.html"><a href="analysis.html#comparing-various-tables"><i class="fa fa-check"></i><b>3.11</b> Comparing Various Tables</a></li>
@@ -320,7 +322,7 @@ Figure 3.1: Projection of categorical supplementary variables
 </table>
 <p><br></p>
 <p>We can then plot a histogram of the eigenvales, and add a line connecting the heights of the bars to better see the way in which the sizes of the eigenvalues decrease:</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>In the second PCA of the salaries divided by the mean salary of a city, we obtained the following eigenvalues:</p>
 <table>
 <caption><span id="tab:table-3-2">Table 3.2: </span>Distribution of eigenvalues in 2nd PCA.</caption>
@@ -409,7 +411,7 @@ Figure 3.1: Projection of categorical supplementary variables
 </table>
 <p><br></p>
 <p>Graphing the scree plot we obtain the following display:</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>More formally, Cattell’s criteria consist of sorting the lagged differences of second order between eigenvalues, as follows:</p>
 <p><span class="math display" id="eq:32">\[\begin{equation}
 d(\alpha) = (\lambda_{\alpha + 1} - \lambda_{\alpha}) - (\lambda_{\alpha} - \lambda_{\alpha - 1})
@@ -507,7 +509,7 @@ d(\alpha) = (\lambda_{\alpha + 1} - \lambda_{\alpha}) - (\lambda_{\alpha} - \lam
 </tr>
 </tbody>
 </table>
-<p><img src="_main_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="simulations-random-effects-on-individuals" class="section level3">
@@ -516,10 +518,10 @@ d(\alpha) = (\lambda_{\alpha + 1} - \lambda_{\alpha}) - (\lambda_{\alpha} - \lam
 <p>The strategy that we use is based on random perturbations of the data, in order to simulate a certain natural variability or measurement error in the observations.</p>
 <p>Each observation in the data matrix is replaced by the observed value ples a random quantity that follows a normal distribution with mean and variance depending on the variable under modification.</p>
 <p>We denote this change of value as:</p>
-<p><span class="math display" id="eq:33">\[\begin{equation}
+<p><span class="math display" id="eq:33">\[
 x_{ij} = x_{ij} + N(x_{ij}, Ks_j)
 \tag{3.3}
-\end{equation}\]</span></p>
+\]</span></p>
 <p>The observed value <span class="math inline">\(x_{ij}\)</span> is modified by adding a random quantity that follows a normal distribution, centered at <span class="math inline">\(x_{ij}\)</span>, and with standard deviation <span class="math inline">\(K\)</span> times the standard deviation <span class="math inline">\(s_j\)</span> of variable <span class="math inline">\(j\)</span>.</p>
 <p>The value of the constant <span class="math inline">\(K\)</span> determines the amount of perturbation that we introduce in the data. <span class="math inline">\(K=0\)</span> indicates that the observations remain unchanged. A value of <span class="math inline">\(K=1\)</span> means that each observation is affected, on average, one standard deviation.</p>
 <p>Once we have modified the data table, we can perform a PCA, calculate its directions, the correlation of the extracted directions with the original-unmodified variables, obtaining a matrix of correlations between axis systems.</p>
@@ -1013,10 +1015,10 @@ x_{ij} = x_{ij} + N(x_{ij}, Ks_j)
 <p>One approach to make the results independent from the scale of measurement and monotone transformations, consists of working with the <em>ranks</em> of the variables and not with the actual observed values.</p>
 <p>To do that, we substitute each value by its rank in increasing order, depending on the considered variable. By doing this, the active table becomes a table of ranks, and consequently, the PCA is performed on a correlation matrix of ranks. This is a remarkable feature of PCA: it is a general methodology that can be applied on any correlation matrix defined by the analyst.</p>
 <p>One interesting transformation involves working with the Spearman’s correlation coefficients. This coefficient measures the monotone dependency between the rank values of two variables according to the following formula:</p>
-<p><span class="math display" id="eq:34">\[\begin{equation}
+<p><span class="math display" id="eq:34">\[
 r_s (j, j&#39;) = 1 - \frac{6 \sum_{i}^{n} (x_{ij} - x_{ij&#39;})^2}{n (n^2 - 1)}
 \tag{3.4}
-\end{equation}\]</span></p>
+\]</span></p>
 <p>where the quantities <span class="math inline">\(x_{ij}\)</span> represent the rank of the individual <span class="math inline">\(i\)</span> of the <span class="math inline">\(j\)</span> variable. The advantage of the Spearman’s correlation coefficient is that it coincides with the Pearson’s coeffcient (usual correlation) when applied to a matrix of ranks.</p>
 <p>In the case of the international cities, the Spearman’s correlations are given in table <a href="analysis.html#tab:table-3-6">3.6</a> (compare these with table <a href="mechanics.html#tab:table-2-6">2.6</a>).</p>
 <table>
@@ -1596,8 +1598,8 @@ In order to have an idea of the amount of missing values, it is recommended to c
 <p>Of course, more refined imputation procedures can be devised. This usually depends on the degree of knowledge about the phenomenon under study. For example, if we have an old adult male farmer for which his income is missing, we could estimate this value with the average of the incomes in this category.</p>
 <p>Notice that we could also use the results of the PCA to <em>fine tune</em> (in a non-parametric optimization way) the estimation of a missing value. The rationale behind this approach is based on the reconstitution formula <a href="analysis.html#eq:35">(3.5)</a> to approximate the data. Under this procedure, we can estimate the value of the <span class="math inline">\(ij\)</span>-th cell with the <span class="math inline">\(q\)</span> first factors.</p>
 </div>
-<div id="pca-and-cluster-analysis" class="section level2">
-<h2><span class="header-section-number">3.8</span> PCA and Cluster Analysis</h2>
+<div id="pca-and-clustering" class="section level2">
+<h2><span class="header-section-number">3.8</span> PCA and Clustering</h2>
 <p>The graphics obtained from Principal Components Analysis provide a quick way
 to get a “photo” of the multivariate phenomenon under study. These graphical
 displays offer an excellent visual approximation to the systematic information
@@ -1620,6 +1622,56 @@ consideration their clustering assignment, gives an excellent opportunity to
 “see in depth” the information contained in data. In other words, with the
 formed clusters, we can see beyond the two axes of a scatterplot, and gain
 deeper insight into the factorial displays.</p>
+<div id="real-groups-or-instrumental-groups" class="section level3">
+<h3><span class="header-section-number">3.8.1</span> Real Groups or Instrumental Groups?</h3>
+<p>Given a clustering partition, an important question to be asked is to what
+extent the obtained groups reflect “real” groups, or are the groups simply
+an algorithmic artifact? Do we have data that has discontinuous populations,
+or do we just have a continuous reality?</p>
+<p>In general, most clustering partitions tend to reflect intermediate situations.
+Sometimes we may find clusters that are more or less “natural”, but there
+will also be times in which the clusters are more “artificial”. Intermediate
+situations have regions (set fo individuals) of high density embedded within
+layers of individuals with low density. Even in such intermediate cases, the
+obtained clustering partition is still useful. While we cannot say that clusters
+are “real” groups differentiated from one another, the formed groups makes it
+easier to understand the data. In this sense, clustering acts in a similar
+fashion as when we make bins or intervals from a continuous variable. Simply
+put, clustering plays the role of a multivariate encoding. This is why we talk
+about <em>instrumental</em> groups.</p>
+<p>In the example of international cities, we obtain the following dendrogram
+from a hierarchical agglomerative clustering on the data of ratios.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-3-5"></span>
+<img src="images/figure-3-5.png" alt="Clustering Dendrogram" width="90%" />
+<p class="caption">
+Figure 3.5: Clustering Dendrogram
+</p>
+</div>
+<p>Looking at the dendrogram, we can identify the existence of several groups
+of cities.</p>
+<p>On one hand, the 10 cities that are grouped in the first cluster are highly
+homogeneous, and distinct from other cities. The cutting line (red horizontal
+line) isolates well this group, while producing at the same time other three
+different clusters.</p>
+<p>Ths cluster of 10 cities involves cities with a large salary inequality, with
+high salaries for those managerial/head-type of professions. Opposed to this
+group, there is a considerably large cluster characterized for having elevated
+taxes as well as social contributions, and for having better well payed
+professions that are generally considered to be “lower class”.</p>
+<p>Separated from the large cluster, there are two more groups, distinguished
+on the second factorial axis. One of them is formed by cities with high
+salaries for manual-labor professions. The other group is formed by those
+cities with high salaries for professions that depend on the Public Service.</p>
+<p>The obtained partitions are projected on the factorial plane, that is, the
+centroids of each clustered are projected together with the cities, colored
+by group, as depiected in the following figure:</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-3-6"></span>
+<img src="images/figure-3-6.png" alt="Clustering of cities in 4 groups" width="80%" />
+<p class="caption">
+Figure 3.6: Clustering of cities in 4 groups
+</p>
+</div>
+</div>
 </div>
 <div id="data-weighing" class="section level2">
 <h2><span class="header-section-number">3.9</span> Data Weighing</h2>
@@ -1639,21 +1691,21 @@ Notice that in this case, the visual displays and the interpretations are condit
 <p>Working with the first principal components provides a handful of advantages: 1) the principal components are orthogonal; 2) the random variability part is minimized; 3) the components provide an optimal dimensionality reduction; and 4) calculating the distances between individuals is simplified.</p>
 <p>Often, a problem involves modeling a certain response variable <span class="math inline">\(\mathbf{y}\)</span>, in term of a series of explanatory variables. When the response variable is a quantitative variable we talk about <em>regression</em> models. In turn, we talk about <em>classification</em> when the response variables is of categorical nature.</p>
 <p>One common issue when modeling a response variable—with a regression or classfication technique—has to do with <em>multicollinearity</em> in the explanatory variables. Geometrically, the subspace spanned by the explanatory variables is unstable. This means that small variations in the values of the variables will result in large changes on the spanned subspace.</p>
-<p>Performing a regression analysis involves projecting the response variable onto the subspace spanned by the explanatory variables. If two explanatory variables are highly correlated, small variations in these variables will substantially modify the orientation of the space. And consequently, the projectino <span class="math inline">\(\hat{\mathbf{y}}\)</span> becomes unstable (see figure <a href="analysis.html#fig:fig-3-8">3.5</a>)</p>
+<p>Performing a regression analysis involves projecting the response variable onto the subspace spanned by the explanatory variables. If two explanatory variables are highly correlated, small variations in these variables will substantially modify the orientation of the space. And consequently, the projectino <span class="math inline">\(\hat{\mathbf{y}}\)</span> becomes unstable (see figure <a href="analysis.html#fig:fig-3-8">3.7</a>)</p>
 <div class="figure" style="text-align: center"><span id="fig:fig-3-8"></span>
 <img src="images/figure-3-8.png" alt="Orthogonal projection of y onto the plane spanned by two explanatory variables x" width="50%" />
 <p class="caption">
-Figure 3.5: Orthogonal projection of y onto the plane spanned by two explanatory variables x
+Figure 3.7: Orthogonal projection of y onto the plane spanned by two explanatory variables x
 </p>
 </div>
 <p>In this situation, and with more than two variables, it can be interesting to use the principal components obtained on the data table <span class="math inline">\(\mathbf{X}\)</span> formed by the explanatory variables. More specifically, we can keep those components for which their eigenvalues are sufficiently different from zero.</p>
 <p>Because the principal components are expressed as linear combinations of the explanatory variables, we can use the components to define the projection subspace for the response variable.</p>
 <p>By using only the first principal components, we reduce the random variability in the data. Therefore we can say that the data have been “smoothed”.</p>
 <p>One is left with the operation to undo the change given by using the components. That is, we need to express the response variable in terms of the original variables. Each principal component is written as a linear combination of the explanatory variables:</p>
-<p><span class="math display" id="eq:39">\[\begin{equation}
+<p><span class="math display" id="eq:39">\[
 \mathbf{y} = b_0 + b_1 \Psi_1 + \dots + b_p \Psi_p = \hat{\beta}_0 + \hat{\beta}_1 \mathbf{x_1} + \dots + \hat{\beta}_p \mathbf{x_p}
 \tag{3.9}
-\end{equation}\]</span></p>
+\]</span></p>
 <p>The principal components in this case become <em>instrumental</em> variables. This means that theur behave like intemediate links for a another subsequent analysis.</p>
 <p>We can select the principal components that will be part of a given model. One way to do this is by selecting them with the Furnival-Wilson (1974) algorithm to obtain the best regression equations. In fact, the problem is much simpler given that the factors are orthogonal.</p>
 <p>An analogous situation occurs within a classification context. As a particular case, the discriminant analysis of two groups is equivalent to a regression analysis. In this case, we can have a preliminary selection of those principal components with the most discriminant power.</p>
@@ -1665,7 +1717,7 @@ Figure 3.5: Orthogonal projection of y onto the plane spanned by two explanatory
 <div class="figure" style="text-align: center"><span id="fig:fig-3-9"></span>
 <img src="images/figure-3-9.png" alt="Comparison of two tables." width="65%" />
 <p class="caption">
-Figure 3.6: Comparison of two tables.
+Figure 3.8: Comparison of two tables.
 </p>
 </div>
 <p>In the example of the international cities, we have the same study performed at two points in time: 1991 and 1994. So far we have used only the 1994 table. However, we can use the table from 1991. The only difference is that some cities are not included in 1991: Manama, Prague, Budapest, Abu Dhabi, and Bangkok.</p>

@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1587095384268.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2354314016",
+    "id" : "70467580",
+    "lastKnownWriteTime" : 1587095659,
+    "last_content_update" : 1587095659825,
+    "path" : "~/Dropbox/pca4ds/06-appendixb.Rmd",
+    "project_path" : "06-appendixb.Rmd",
+    "properties" : {
+        "cursorPosition" : "490,2",
+        "scrollLine" : "485"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
