@@ -1,3 +1,5 @@
+# (PART) Practice {-}
+
 # Analysis {#analysis}
 
 ```{r echo = FALSE, message=FALSE}
@@ -367,10 +369,10 @@ Principal Component Analysis allows us to approximate a data matrix, generally o
 
 The formula \@ref(eq:35), referred to as the singular value decompoisition (SVD), lets us approximate the original values $x_{ij}$ with a factorization of some set of eigenvectors and eigenvalues. In other words, we can obtain an approximate reconstitution of the data values by using only a few $q$ values and vectors from the SVD.
 
-\begin{equation}
+$$
 \hat{x}^{q}_{ij} = \sum_{\alpha = 1}^{q} \sqrt{\lambda_{\alpha}} \hspace{1mm} v_{i\alpha} u_{j\alpha}
 (\#eq:35)
-\end{equation}
+$$
 
 The term $\hat{x}^{q}_{ij}$ is an approximation of the observed value $x_{ij}$ from a small set of coefficients calculated from a PCA: the eigenvalues $\lambda_{\alpha}$, the eigenvectors $v_{i\alpha}$ and $u_{j\alpha}$, of rank 1 to $q$.
 
@@ -538,6 +540,14 @@ knitr::include_graphics("images/figure-3-5.png")
 Looking at the dendrogram, we can identify the existence of several groups 
 of cities.
 
+The obtained partitions are projected on the factorial plane, that is, the 
+centroids of each clustered are projected together with the cities, colored 
+by group, as depicted in the following figure:
+
+```{r fig-3-6b, echo = FALSE, out.width = '80%'}
+knitr::include_graphics("images/figure-3-6b.png")
+```
+
 On one hand, the 10 cities that are grouped in the first cluster are highly 
 homogeneous, and distinct from other cities. The cutting line (red horizontal 
 line) isolates well this group, while producing at the same time other three 
@@ -556,20 +566,46 @@ cities with high salaries for professions that depend on the Public Service.
 
 The obtained partitions are projected on the factorial plane, that is, the 
 centroids of each clustered are projected together with the cities, colored 
-by group, as depiected in the following figure:
+by group, as depicted in the following figure:
 
 ```{r fig-3-6, echo = FALSE, out.width = '80%', fig.cap='Clustering of cities in 4 groups'}
-knitr::include_graphics("images/figure-3-6.png")
+knitr::include_graphics("images/figure-3-6a.png")
 ```
 
 
 
+### Representants of Groups
+
+For every cluster, we can calculate its corresponding centroid (i.e. average 
+individual). We can also determine the individual that is the closest to the 
+centroid, called the _representant_. Likewise, we can also look for the 
+second best representant, the third best representant, etc.
+
+If we establish the radius of circle (or sphere) around the centroid of a given
+cluster, we can capture the representants of the cluster. For a small radius, 
+we may get just one representant. As we increase the value of the radius, 
+more representants will be captured. Figure \@ref(fig:fig-3-7) shows that the 
+cities that are closest to the centroid of a group, are not always the closer
+ones in the factorial plane.
+
+```{r fig-3-7, echo = FALSE, out.width = '70%', fig.cap='Representants of each cluster'}
+knitr::include_graphics("images/figure-3-7.png")
+```
+
+On the first factorial plane, we observe the effect of how distances are 
+distorted due to the shrinking of the cloud of city-points in this plane. 
+
+In certain applications, it is interesting to identify the representans of 
+a certain category, in order to explore its attributes (for example, which 
+are the attributes of the category _men_, according to the active variables 
+of a survey).
 
 
 
 ## Data Weighing
 
-In PCA, the weights of the individuals affect the calculation of the means, the covariances, and the correlations.
+In PCA, the weights of the individuals, $p_i$, affect the calculation of the 
+means, the covariances, and the correlations.
 
 $$
 cov(x_j, x_k) = \sum_{i=1}^{n} p_i \hspace{1mm} (x_{ij} - \bar{x}_j) (x_{ik} - \bar{x}_k)
@@ -578,7 +614,7 @@ $$
 In general, all the individuals of a data table have the same weight. Consequently, the analysis focuses on the description of the individuals without privileging any of them.
 
 However, if what we are interested in is describing the population (and not just the sample), we should determine whether the sample can be made more representative by reweighing the individuals. 
-Notice that in this case, the visual displays and the interpretations are conditioned by the appropriateness of the weights: we go from a purely descriptive context with an unweighted analysis, to a more delicate inferencial context.
+Notice that in this case, the visual displays and the interpretations are conditioned by the adequacy of the weights: we go from a purely descriptive context with an unweighted analysis, to a more delicate inferencial context.
 
 In any case, the weights of the individuals should not vary drastically. Put it another way, the reweighing is done to refine the estimations, not to create them in an exclusive form (it is a good habit to assess the variability of the weights by looking at their histogram).
 
@@ -637,6 +673,60 @@ In the example of the international cities, we have the same study performed at 
 
 We have decided to consolidate both tables into a single one: by stacking both tables by columns. Doing this allows us to consider those cities from 1991 as supplemetary individuals, and then project them on the results from the analysis of the 1994 table.
 
-The axes of this analysis are those defined in the analysis of the 1994 table. The first axis is related with the income inequality. In turn, the second axis is related with the oposition of the salaries of qualified manual labor, versus the salaries of managers and employees in the sector of services.
+The axes of this analysis are those defined in the analysis of the 1994 table. The first axis is related with the income inequality. In turn, the second axis is related with the opposition of the salaries of qualified manual labor, versus the salaries of managers and employees in the sector of services.
 
-In this plane we project the the cities in terms of their salaries from 1991. Then, the movement of the cities suggests a greater salary inequality
+In this plane we project the the cities in terms of their salaries from 1991. 
+Then, the movement of the cities towards the left side suggests a greater 
+salary inequality; conversely, the those cities moving upward, suggest an 
+increment of salaries in manual labor jobs. Interestingly, notice the substantial
+changes in cities such as Lagos and Yakarta between 1991 and 1994.
+
+```{r fig-3-10, echo = FALSE, out.width = '75%', fig.cap='Some trajectories of cities between 1991 (in italics) and 1994 (in bold).'}
+knitr::include_graphics("images/figure-3-10.png")
+```
+
+_Note_: There are other multivariate techniques that can be applied to compare
+several tables. Some of the common methods derived from PCA are STATIS (Lavit, 
+1998), and AFM (Escofier-Pagès, 1990).
+
+
+
+## Analysis of a Table of Means
+
+In this section, we consider the table of individual consumption, regarding 
+consumption of food, observed in 2000 persons. We also have available information 
+for sociodemographic characteristics of each person. The PCA outputs are 
+similar to those displayed in figure \@ref(fig:fig-3-11).
+
+```{r fig-3-11, echo = FALSE, out.width = '85%', fig.cap='Analysis of a table of means.'}
+knitr::include_graphics("images/figure-3-11.png")
+```
+
+The first graph has to do with the points "consumption variables" (how much 
+it was spend on 7 products); the second graph has to do with the centroids of 
+categories for variable "number of children" crossed with "socio-economic 
+category" with 3 values (worker, employee, and executive).
+
+We have retained the output from crossing these two nominal variables because 
+the dispersion of their categories covers all regions of the factorial plane.
+Each point is the centroid of the individuals that have one of the categories
+of "number of children" crossed with one of the categories of "socio-economic 
+category". With this, we can try to imagine the constellation of points 
+around each centroid.
+
+In circumstances like this, we could obtain analogous graphical representations 
+by performing PCA on the table formed by the same 7 columns, but with only 9
+rows. The rows corresponding to the categories obtained from crossing the 
+aforementioned nominal variables. The analysis of this table with the
+mean consumption per category, gives the plots shown in \@ref(fig:fig-3-11).
+
+Inspecting the output, we get information about a _global model_ of the 
+consumption structure, by using only those two factors.
+
+Notice that the inverse process, does not imply the same conclusions. If we 
+begin with the analysis of tables of means, we obtain the plane that best 
+differentiates the row categories, while exploring the association among 
+consumption from the perspective of such categories. This analysis can be 
+quite different from the individual data if the categories under study do not
+get to "cover" all of the factorial plane.
+
