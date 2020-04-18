@@ -1,7 +1,7 @@
 # PCA for Data Science
 
 This is the repository of the book 
-_Principal Component Analysis for Data Science_ (PCA4DS).
+[Principal Component Analysis for Data Science](https://pca4ds.github.io/) (PCA4DS).
 
 PCA4DS is an adaptation and translation of the books:
 
