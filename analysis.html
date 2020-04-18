@@ -136,6 +136,8 @@
 <li class="chapter" data-level="3.10" data-path="analysis.html"><a href="analysis.html#pca-as-an-intermediate-analytical-stage"><i class="fa fa-check"></i><b>3.10</b> PCA as an Intermediate Analytical Stage</a></li>
 <li class="chapter" data-level="3.11" data-path="analysis.html"><a href="analysis.html#comparing-various-tables"><i class="fa fa-check"></i><b>3.11</b> Comparing Various Tables</a></li>
 <li class="chapter" data-level="3.12" data-path="analysis.html"><a href="analysis.html#analysis-of-a-table-of-means"><i class="fa fa-check"></i><b>3.12</b> Analysis of a Table of Means</a></li>
+<li class="chapter" data-level="3.13" data-path="analysis.html"><a href="analysis.html#analysis-of-a-binary-table"><i class="fa fa-check"></i><b>3.13</b> Analysis of a Binary Table</a></li>
+<li class="chapter" data-level="3.14" data-path="analysis.html"><a href="analysis.html#analysis-of-a-table-of-distances"><i class="fa fa-check"></i><b>3.14</b> Analysis of a Table of Distances</a></li>
 </ul></li>
 <li class="part"><span><b>IV Appendix</b></span></li>
 <li class="chapter" data-level="4" data-path="appendixa.html"><a href="appendixa.html"><i class="fa fa-check"></i><b>4</b> Appendix A: Fundamentals</a><ul>
@@ -1781,7 +1783,7 @@ consumption of food, observed in 2000 persons. We also have available informatio
 for sociodemographic characteristics of each person. The PCA outputs are
 similar to those displayed in figure <a href="analysis.html#fig:fig-3-11">3.11</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:fig-3-11"></span>
-<img src="images/figure-3-11.png" alt="Analysis of a table of means." width="75%" />
+<img src="images/figure-3-11.png" alt="Analysis of a table of means." width="85%" />
 <p class="caption">
 Figure 3.11: Analysis of a table of means.
 </p>
@@ -1809,6 +1811,87 @@ differentiates the row categories, while exploring the association among
 consumption from the perspective of such categories. This analysis can be
 quite different from the individual data if the categories under study do not
 get to “cover” all of the factorial plane.</p>
+</div>
+<div id="analysis-of-a-binary-table" class="section level2">
+<h2><span class="header-section-number">3.13</span> Analysis of a Binary Table</h2>
+<p>Some times, the analyzed data is exclusively formed of a set of features
+reflecting presence or absence of a certain attribute in individuals. For
+example, a variable Sex with categories “female” and “male” can be mapped
+into this presencs/absence setting: “female” = presence, and “male” = absence.
+Having a set of variables like these, we can numerically encode the categories
+with 0 and 1, e.g. “female” = 1, “male” = 0. We call these features <em>binary</em>
+variables. Alternatively, we can also think of this type of variables as
+nominal variables containing two categories.</p>
+<p>When we have a table of binary variables, we could perform a Multiple
+Correspondence Analysis (MCA). However, applying MCA on a binary table, we
+will see that each category has its complemtary category. It can be proved
+that performing PCA on the binary table, after having removed one of the
+category-columns for each binary variable, produces the same result of an MCA
+on the full binary table.</p>
+<p>There will be a scaling difference between the PCA results and the MCA results,
+but we can multiply the binary variables by some coefficient for both
+results to be identical (Lebart et al, 1977).</p>
+<div id="minimal-encoding" class="section level4 unnumbered">
+<h4>Minimal Encoding</h4>
+<p>In the example of the table with individual consumptions, we could encode the
+observed information as follows: “1” if the expenses are positive, and “0”
+if expenses are null. Let’s suppose that the analysis on this binary table,
+provides a configuration of expenses in the 7 products similar to the one
+obtained in the analysis that uses the original variables. This would indicate
+that the exposed relationships only depend on the access to these consumptions
+and not on their volume.</p>
+</div>
+</div>
+<div id="analysis-of-a-table-of-distances" class="section level2">
+<h2><span class="header-section-number">3.14</span> Analysis of a Table of Distances</h2>
+<p>The following formula gives the distance between two individuals <span class="math inline">\(i\)</span> and <span class="math inline">\(\ell\)</span></p>
+<p><span class="math display" id="eq:40">\[
+d^2(i, \ell) = w_{ii} + w_{i\ell} - 2w_{i\ell}
+\tag{3.10}
+\]</span></p>
+<p>where:</p>
+<ul>
+<li><p><span class="math inline">\(w_{ii} = \sum_{j}^{p} x^2_{ij}\)</span> is the squared distance of the <span class="math inline">\(i\)</span>-th
+point to the origin,</p></li>
+<li><p><span class="math inline">\(w_{i\ell} = \sum_{j}^{p} x_{ij} x_{\ell j}\)</span> is the inner product between
+points <span class="math inline">\(i\)</span> and <span class="math inline">\(\ell\)</span>.</p></li>
+</ul>
+<p><img src="images/figure-3-11b.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Some times the input data is not the matrix <span class="math inline">\(\mathbf{X}\)</span> of original variables,
+but the symmetric table of distances between pairs of individuals.</p>
+<p>From these distances, it is possible to obtain a representation of the points,
+in a low dimensional space, that reflects as much as possible the real distances
+between individuals (in the original space).</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-3-12"></span>
+<img src="images/figure-3-12.png" alt="Distances in a low dimensional space" width="85%" />
+<p class="caption">
+Figure 3.12: Distances in a low dimensional space
+</p>
+</div>
+<p>To carry out a PCA on the table of distances <span class="math inline">\(\mathbf{D}\)</span>, we must first
+convert this table into a matrix of inner products <span class="math inline">\(\mathbf{W}\)</span>, using the
+formula below:</p>
+<p><span class="math display" id="eq:41">\[
+w_{i\ell} = \frac{1}{2} \big( d^2_{i\cdot} + d^2_{\ell \cdot} - d^2_{\cdot\cdot} - d^2(i, \ell) \big)
+\tag{3.11}
+\]</span></p>
+<p>where:</p>
+<p><span class="math display">\[
+d^2_{i \cdot} = \frac{1}{n} \sum_{\ell} d^2(i, \ell) \quad \mathrm{and} \quad d^2_{\cdot \cdot} = \frac{1}{n^2} \sum_{i} \sum_{\ell} d^2(i, \ell)
+\]</span></p>
+<p>Then, by diagonalizing matrix <span class="math inline">\(\mathbf{W}\)</span>, we obtain a set of eigenvalues and
+eigenvectors that provide an optimal solution to the problem.</p>
+<p>The analysis of a table of distances via PCA is a completely generic technique.
+The reason for this is because PCA is applicable to any table of distances.</p>
+<p>If the table of distances has the usual distances of a normalized PCA, then
+this analysis is identical to the one obtained on the cloud of individuals.</p>
+<p>We should mention, though, that working with tables of distances, involves
+losing the relationship between the rows and columns. This loss prevents us
+from having access to the simultaneous representations of PCA when applied
+to a table <span class="math inline">\(\mathbf{X}\)</span> of individuals and variables.</p>
+<p>We should also say that, in order to place an illustrative individual on the
+low dimensional space, we need to know the distance of this individual to all
+the active points.</p>
 
 </div>
 </div>
