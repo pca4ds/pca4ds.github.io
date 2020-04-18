@@ -730,3 +730,107 @@ consumption from the perspective of such categories. This analysis can be
 quite different from the individual data if the categories under study do not
 get to "cover" all of the factorial plane.
 
+
+
+## Analysis of a Binary Table
+
+Some times, the analyzed data is exclusively formed of a set of features 
+reflecting presence or absence of a certain attribute in individuals. For 
+example, a variable Sex with categories "female" and "male" can be mapped 
+into this presencs/absence setting: "female" = presence, and "male" = absence. 
+Having a set of variables like these, we can numerically encode the categories 
+with 0 and 1, e.g. "female" = 1, "male" = 0. We call these features _binary_
+variables. Alternatively, we can also think of this type of variables as 
+nominal variables containing two categories.
+
+When we have a table of binary variables, we could perform a Multiple 
+Correspondence Analysis (MCA). However, applying MCA on a binary table, we 
+will see that each category has its complemtary category. It can be proved 
+that performing PCA on the binary table, after having removed one of the 
+category-columns for each binary variable, produces the same result of an MCA 
+on the full binary table. 
+
+There will be a scaling difference between the PCA results and the MCA results,
+but we can multiply the binary variables by some coefficient for both 
+results to be identical (Lebart et al, 1977).
+
+
+#### Minimal Encoding {-}
+
+In the example of the table with individual consumptions, we could encode the 
+observed information as follows: "1" if the expenses are positive, and "0" 
+if expenses are null. Let's suppose that the analysis on this binary table, 
+provides a configuration of expenses in the 7 products similar to the one 
+obtained in the analysis that uses the original variables. This would indicate
+that the exposed relationships only depend on the access to these consumptions
+and not on their volume.
+
+
+
+## Analysis of a Table of Distances
+
+The following formula gives the distance between two individuals $i$ and $\ell$
+
+$$
+d^2(i, \ell) = w_{ii} + w_{i\ell} - 2w_{i\ell}
+(\#eq:40)
+$$
+
+where:
+
+- $w_{ii} = \sum_{j}^{p} x^2_{ij}$ is the squared distance of the $i$-th 
+point to the origin,
+
+- $w_{i\ell} = \sum_{j}^{p} x_{ij} x_{\ell j}$ is the inner product between 
+points $i$ and $\ell$.
+
+```{r fig-3-11b, echo = FALSE, out.width = '70%'}
+knitr::include_graphics("images/figure-3-11b.png")
+```
+
+
+Some times the input data is not the matrix $\mathbf{X}$ of original variables,
+but the symmetric table of distances between pairs of individuals.
+
+From these distances, it is possible to obtain a representation of the points,
+in a low dimensional space, that reflects as much as possible the real distances
+between individuals (in the original space).
+
+```{r fig-3-12, echo = FALSE, out.width = '85%', fig.cap='Distances in a low dimensional space'}
+knitr::include_graphics("images/figure-3-12.png")
+```
+
+To carry out a PCA on the table of distances $\mathbf{D}$, we must first 
+convert this table into a matrix of inner products $\mathbf{W}$, using the 
+formula below:
+
+$$
+w_{i\ell} = \frac{1}{2} \big( d^2_{i\cdot} + d^2_{\ell \cdot} - d^2_{\cdot\cdot} - d^2(i, \ell) \big)
+(\#eq:41)
+$$
+
+where:
+
+$$
+d^2_{i \cdot} = \frac{1}{n} \sum_{\ell} d^2(i, \ell) \quad \mathrm{and} \quad d^2_{\cdot \cdot} = \frac{1}{n^2} \sum_{i} \sum_{\ell} d^2(i, \ell)
+$$
+
+Then, by diagonalizing matrix $\mathbf{W}$, we obtain a set of eigenvalues and
+eigenvectors that provide an optimal solution to the problem.
+
+The analysis of a table of distances via PCA is a completely generic technique.
+The reason for this is because PCA is applicable to any table of distances.
+
+If the table of distances has the usual distances of a normalized PCA, then 
+this analysis is identical to the one obtained on the cloud of individuals.
+
+We should mention, though, that working with tables of distances, involves
+losing the relationship between the rows and columns. This loss prevents us 
+from having access to the simultaneous representations of PCA when applied 
+to a table $\mathbf{X}$ of individuals and variables.
+
+We should also say that, in order to place an illustrative individual on the 
+low dimensional space, we need to know the distance of this individual to all
+the active points.
+
+
