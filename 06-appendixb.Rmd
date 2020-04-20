@@ -21,7 +21,7 @@ In $\mathbb{R}^p$ we assume $n$ points weighted by $\mathbf{N}$, and with metric
 In $\mathbb{R}^n$ we assume $p$ points weighted by $\mathbf{M}$, and with metric $\mathbf{N}.$
 
 
-#### Fit in n-dimensions {-}
+#### Fit in p-dimensions {-}
 
 Let $\dot{\mathbf{u}}$ be a unit vector (e.g. $\dot{\mathbf{u}}^\mathsf{T} \mathbf{Mu} = \mathbf{1}$), defining a direction in $\mathbb{R}^p$. In this direction we want to maximize the inertia of the projection of the individuals.
 
