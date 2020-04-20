@@ -5,7 +5,7 @@
 In this appendix we discuss some fundamental notions that will allow us to provide a geometrical development of Principal Component Analysis.
 
 
-## Space of $p$ Dimensions
+## Space of p-Dimensions
 
 The objects that surround us are in a three dimensional space. Each object is defined by its coordinates in a basis formed by an origin and three orthogonal axes.
 
