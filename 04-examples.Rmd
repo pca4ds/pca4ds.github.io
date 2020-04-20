@@ -1,0 +1,58 @@
+# (PART) Examples {-}
+
+# Application Examples
+
+Principal Component Analysis can be applied to a wide array of disciplines
+and fields of application. Some of the fields in which we have had the 
+opportunity to use PCA include Public Administration, Sociology, Marketing, 
+Quality Control, to mention but a few. In this chapter, we present some 
+applications of PCA to various case studies. These examples seek to give you an 
+idea of the possibilities and scope of PCA under diverse circumstances.
+
+
+## Lascaux Cave Temperatures {#lascaux}
+
+Our first example has to do with temperatures in the famous 
+<a href="https://en.wikipedia.org/wiki/Lascaux" target="_blank">Lascaux Cave</a>.
+This grotto is a complex of caves located in the department of Dordogne in 
+southwestern France. The cave contains over 600 parietal wall paintings, 
+depicting large animals (e.g. bulls, bisons, ibexes, rhinoceros) from the Upper 
+Paleolithic time period.
+
+The control of environmental variables (e.g. temperatures measured in distinct 
+places, hydrometry measurements, etc.) in Lascaux cave was done in a manual 
+fashion decades ago. The measurements involved daily readings of 77 different
+locations in the cave. From these readings, a technical operator in charge
+of the machines instaled in the cave, controled the settings in order to 
+guarantee adequate environmental conditions for the conservation of the paintings.
+
+In the late 1970s, it was acknowledged that a less manual and time consuming work 
+for controling the environment conditions in the cave had to be implemented. 
+The institution responsible to develop an automatic temperature controling 
+system was the _Laboratoire de Recherche des Monuments Historiques_ LRMH 
+(research laboratory of historical momuments). One of the stages in this 
+research project involved deciding whether to locate the sensors for reading 
+temperatures along the cave.
+
+We use a temperature data set that was part of this reserach project. The 
+purpose is to see in what way PCA can be applied in order to describe the 
+evolution of the cave temperatures, in terms of the reading positions, and 
+the date of such readings. We seek to obtain a description that allows us
+to better understand the environment conditions of the cave. As part of this 
+analysis, we'll see how looking for optimal regressions enable us to select a 
+minimum number of temperature points that capture as much of the 
+information as possible needed to control the temperature conditions of the cave. 
+
+
+### Temperature Data
+
+The data of this section have to do with temperatures collected in 30 different 
+locations along the cave, observed over 482 days, between February 1981 and 
+December 1982. The following diagram shows the location of the measurements
+inside the cave. Each label involves a thermometer, installed either on the rock,
+or outside.
+
+```{r fig-4-1, echo = FALSE, out.width = '80%', fig.cap='Location of reading temperature sensors'}
+knitr::include_graphics("images/figure-4-1.png")
+```
+
