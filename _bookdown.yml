@@ -4,6 +4,7 @@ rmd_files: [
   "01-introduction.Rmd",
   "02-mechanics.Rmd",
   "03-analysis.Rmd",
+  "04-examples.Rmd",
   "05-appendixa.Rmd",
   "06-appendixb.Rmd",
   "07-appendixc.Rmd"
