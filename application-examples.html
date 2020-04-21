@@ -147,6 +147,7 @@
 <li class="chapter" data-level="4" data-path="application-examples.html"><a href="application-examples.html"><i class="fa fa-check"></i><b>4</b> Application Examples</a><ul>
 <li class="chapter" data-level="4.1" data-path="application-examples.html"><a href="application-examples.html#lascaux"><i class="fa fa-check"></i><b>4.1</b> Lascaux Cave Temperatures</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="application-examples.html"><a href="application-examples.html#temperature-data"><i class="fa fa-check"></i><b>4.1.1</b> Temperature Data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="application-examples.html"><a href="application-examples.html#pca"><i class="fa fa-check"></i><b>4.1.2</b> PCA</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>V Appendix</b></span></li>
@@ -241,7 +242,405 @@ or outside.</p>
 Figure 4.1: Location of reading temperature sensors
 </p>
 </div>
+<p>The following table lists the 30 active variables used in the analysis
+(continuous variables, representing temperature measurements in Celsius degrees).</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Num</th>
+<th align="left">Variable</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">7</td>
+<td align="left"><code>temi</code></td>
+<td align="left">Minimum outside temperature</td>
+</tr>
+<tr class="even">
+<td align="left">8</td>
+<td align="left"><code>tema</code></td>
+<td align="left">Maximum outside temperature</td>
+</tr>
+<tr class="odd">
+<td align="left">9</td>
+<td align="left"><code>t11r</code></td>
+<td align="left">SAS1 left 1 - rock</td>
+</tr>
+<tr class="even">
+<td align="left">12</td>
+<td align="left"><code>t1ha</code></td>
+<td align="left">SAS1 left 3 up - air</td>
+</tr>
+<tr class="odd">
+<td align="left">13</td>
+<td align="left"><code>t1hr</code></td>
+<td align="left">SAS1 left 3 up - rock</td>
+</tr>
+<tr class="even">
+<td align="left">14</td>
+<td align="left"><code>t1vr</code></td>
+<td align="left">SAS1 under dome 3 - rock</td>
+</tr>
+<tr class="odd">
+<td align="left">15</td>
+<td align="left"><code>tmpa</code></td>
+<td align="left">Machine room left wall - air</td>
+</tr>
+<tr class="even">
+<td align="left">16</td>
+<td align="left"><code>tmpt</code></td>
+<td align="left">Machine room left wall - rock</td>
+</tr>
+<tr class="odd">
+<td align="left">17</td>
+<td align="left"><code>tmvr</code></td>
+<td align="left">Machine room, left dome - rock</td>
+</tr>
+<tr class="even">
+<td align="left">18</td>
+<td align="left"><code>tmha</code></td>
+<td align="left">Machine room top wall left - air</td>
+</tr>
+<tr class="odd">
+<td align="left">19</td>
+<td align="left"><code>tmba</code></td>
+<td align="left">Machine room bottom wall left - air</td>
+</tr>
+<tr class="even">
+<td align="left">20</td>
+<td align="left"><code>t2pa</code></td>
+<td align="left">SAS2 right wall - air</td>
+</tr>
+<tr class="odd">
+<td align="left">21</td>
+<td align="left"><code>t2pr</code></td>
+<td align="left">SAS2 right wall - rock</td>
+</tr>
+<tr class="even">
+<td align="left">22</td>
+<td align="left"><code>t2ma</code></td>
+<td align="left">SAS2 dome - air</td>
+</tr>
+<tr class="odd">
+<td align="left">23</td>
+<td align="left"><code>t2da</code></td>
+<td align="left">SAS2 ground right - air</td>
+</tr>
+<tr class="even">
+<td align="left">24</td>
+<td align="left"><code>t2ga</code></td>
+<td align="left">SAS2 ground left - air</td>
+</tr>
+<tr class="odd">
+<td align="left">28</td>
+<td align="left"><code>ttda</code></td>
+<td align="left">Hall of the Bulls right wall - air</td>
+</tr>
+<tr class="even">
+<td align="left">29</td>
+<td align="left"><code>ttdr</code></td>
+<td align="left">Hall of the Bulls right wall - rock</td>
+</tr>
+<tr class="odd">
+<td align="left">30</td>
+<td align="left"><code>ttsa</code></td>
+<td align="left">Hall of the Bulls ground - air</td>
+</tr>
+<tr class="even">
+<td align="left">31</td>
+<td align="left"><code>ttsr</code></td>
+<td align="left">Hall of the Bulls ground - rock</td>
+</tr>
+<tr class="odd">
+<td align="left">32</td>
+<td align="left"><code>ttga</code></td>
+<td align="left">Hall of the Bulls left wall - air</td>
+</tr>
+<tr class="even">
+<td align="left">33</td>
+<td align="left"><code>ttsr</code></td>
+<td align="left">Hall of the Bulls left wall - rock</td>
+</tr>
+<tr class="odd">
+<td align="left">34</td>
+<td align="left"><code>tdra</code></td>
+<td align="left">Axial Gallery narrow dome - air</td>
+</tr>
+<tr class="even">
+<td align="left">35</td>
+<td align="left"><code>tdrr</code></td>
+<td align="left">Axial Gallery narrow dome - rock</td>
+</tr>
+<tr class="odd">
+<td align="left">36</td>
+<td align="left"><code>tdvf</code></td>
+<td align="left">Axial Gallery end dome - air</td>
+</tr>
+<tr class="even">
+<td align="left">37</td>
+<td align="left"><code>tnca</code></td>
+<td align="left">Nave of Deer - air</td>
+</tr>
+<tr class="odd">
+<td align="left">38</td>
+<td align="left"><code>tncr</code></td>
+<td align="left">Nave of Deer - rock</td>
+</tr>
+<tr class="even">
+<td align="left">39</td>
+<td align="left"><code>tnba</code></td>
+<td align="left">Nave of Bisons - air</td>
+</tr>
+<tr class="odd">
+<td align="left">40</td>
+<td align="left"><code>tnbr</code></td>
+<td align="left">Nave of Bisons - rock</td>
+</tr>
+<tr class="even">
+<td align="left">41</td>
+<td align="left"><code>tpmr</code></td>
+<td align="left">Shaft edge - rock</td>
+</tr>
+</tbody>
+</table>
+<p>Looking at the diagram of the cave in figure <a href="application-examples.html#fig:fig-4-1">4.1</a>, the entrance
+is on the right side of the figure. The machine room is located below the first
+entrance. Then comes the Hall of the Bulls. Ahead this hall, there is the
+Axial Gallery. To the right of the hall, there is the passageway. As you can
+tell from the table of variables, all temperature readings are recorded
+“in the air” as well as “on the rock”.</p>
+</div>
+<div id="pca" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> PCA</h3>
+<p>We perform a first normalized Principal Component Analysis on the table of
+temperatures. In this analysis, we don’t take into account the time component
+of the measurements. In other words, we don’t take into account the date in
+which the readings were made. However, we do consider the time related variables
+(month, and year) as supplementary variables.</p>
+<p>Looking at the table of eigenvalues in <a href="application-examples.html#tab:table-4-2">4.1</a>, we clearly detect
+two dominant axes <strong>(see table 4.2)</strong>. About 50% of the variability in the
+first axis, and 30% of the variability in the second one. The remaining 28 axes
+account for the less than 20% of the total inertia. Therefore, we are confident
+that the first factorial plane depicts a stable configuration of associations.</p>
+<table>
+<caption><span id="tab:table-4-2">Table 4.1: </span>Table of eigenvalues from PCA on 30 temperature variables.</caption>
+<thead>
+<tr class="header">
+<th align="right">num</th>
+<th align="right">eigenvalue</th>
+<th align="right">percentage</th>
+<th align="right">cumulative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">14.8677</td>
+<td align="right">49.57</td>
+<td align="right">49.57</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">9.0366</td>
+<td align="right">30.13</td>
+<td align="right">79.69</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">1.8428</td>
+<td align="right">6.14</td>
+<td align="right">85.84</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">1.3074</td>
+<td align="right">4.36</td>
+<td align="right">90.20</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">0.9548</td>
+<td align="right">3.18</td>
+<td align="right">93.38</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">0.4578</td>
+<td align="right">1.53</td>
+<td align="right">94.91</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">0.3835</td>
+<td align="right">1.28</td>
+<td align="right">96.19</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">0.2860</td>
+<td align="right">0.95</td>
+<td align="right">97.14</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">0.1900</td>
+<td align="right">0.63</td>
+<td align="right">97.77</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">0.1010</td>
+<td align="right">0.34</td>
+<td align="right">98.11</td>
+</tr>
+<tr class="odd">
+<td align="right">11</td>
+<td align="right">0.0855</td>
+<td align="right">0.29</td>
+<td align="right">98.39</td>
+</tr>
+<tr class="even">
+<td align="right">12</td>
+<td align="right">0.0706</td>
+<td align="right">0.24</td>
+<td align="right">98.63</td>
+</tr>
+<tr class="odd">
+<td align="right">13</td>
+<td align="right">0.0656</td>
+<td align="right">0.22</td>
+<td align="right">98.85</td>
+</tr>
+<tr class="even">
+<td align="right">14</td>
+<td align="right">0.0564</td>
+<td align="right">0.19</td>
+<td align="right">99.04</td>
+</tr>
+<tr class="odd">
+<td align="right">15</td>
+<td align="right">0.0468</td>
+<td align="right">0.16</td>
+<td align="right">99.19</td>
+</tr>
+<tr class="even">
+<td align="right">16</td>
+<td align="right">0.0397</td>
+<td align="right">0.13</td>
+<td align="right">99.32</td>
+</tr>
+<tr class="odd">
+<td align="right">17</td>
+<td align="right">0.0353</td>
+<td align="right">0.12</td>
+<td align="right">99.44</td>
+</tr>
+<tr class="even">
+<td align="right">18</td>
+<td align="right">0.0314</td>
+<td align="right">0.10</td>
+<td align="right">99.55</td>
+</tr>
+<tr class="odd">
+<td align="right">19</td>
+<td align="right">0.0269</td>
+<td align="right">0.09</td>
+<td align="right">99.64</td>
+</tr>
+<tr class="even">
+<td align="right">20</td>
+<td align="right">0.0215</td>
+<td align="right">0.07</td>
+<td align="right">99.71</td>
+</tr>
+<tr class="odd">
+<td align="right">21</td>
+<td align="right">0.0143</td>
+<td align="right">0.05</td>
+<td align="right">99.76</td>
+</tr>
+<tr class="even">
+<td align="right">22</td>
+<td align="right">0.0140</td>
+<td align="right">0.05</td>
+<td align="right">99.80</td>
+</tr>
+<tr class="odd">
+<td align="right">23</td>
+<td align="right">0.0121</td>
+<td align="right">0.04</td>
+<td align="right">99.84</td>
+</tr>
+<tr class="even">
+<td align="right">24</td>
+<td align="right">0.0110</td>
+<td align="right">0.04</td>
+<td align="right">99.88</td>
+</tr>
+<tr class="odd">
+<td align="right">25</td>
+<td align="right">0.0097</td>
+<td align="right">0.03</td>
+<td align="right">99.91</td>
+</tr>
+<tr class="even">
+<td align="right">26</td>
+<td align="right">0.0070</td>
+<td align="right">0.02</td>
+<td align="right">99.94</td>
+</tr>
+<tr class="odd">
+<td align="right">27</td>
+<td align="right">0.0063</td>
+<td align="right">0.02</td>
+<td align="right">99.96</td>
+</tr>
+<tr class="even">
+<td align="right">28</td>
+<td align="right">0.0053</td>
+<td align="right">0.02</td>
+<td align="right">99.97</td>
+</tr>
+<tr class="odd">
+<td align="right">29</td>
+<td align="right">0.0045</td>
+<td align="right">0.02</td>
+<td align="right">99.99</td>
+</tr>
+<tr class="even">
+<td align="right">30</td>
+<td align="right">0.0033</td>
+<td align="right">0.01</td>
+<td align="right">100.00</td>
+</tr>
+</tbody>
+</table>
+<div id="configuration-of-temperature-points" class="section level4 unnumbered">
+<h4>Configuration of Temperature-Points</h4>
+<p>The configuration of the temperatures (active variables) in the first factorial
+plane, see figure <a href="application-examples.html#fig:fig-4-2">4.2</a>, shows a regular pattern, with arrows
+close to the circumference of radius one. This means that the position of the
+variables on the first plane provides a good approximation of the correlations
+between the measurement points. This is less true for the exterior temperatures
+(<code>temi</code> and <code>tema</code>) and for those observed in the machine room, which show a
+less regular evolution, as well as a less direct association with the internal
+temperatures of the cave. Notice the central position of the arrow corresponding
+to the temperature near the shaft (<code>tpmr</code>).</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-4-2"></span>
+<img src="images/figure-4-2.png" alt="Circle of correlations." width="70%" />
+<p class="caption">
+Figure 4.2: Circle of correlations.
+</p>
+</div>
+<p>We also see that those observation points that are physically close to each
+other inside the cave, are also close on the factorial plane. Which is a
+translation of the fact that closer readings, measure similar things (this is
+particularly seen among the temperatures “in the air” that always appear next
+to the temperatures “on the rock”).</p>
 
+</div>
 </div>
 </div>
 </div>
