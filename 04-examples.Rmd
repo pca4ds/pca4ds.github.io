@@ -159,3 +159,37 @@ other inside the cave, are also close on the factorial plane. Which is a
 translation of the fact that closer readings, measure similar things (this is
 particularly seen among the temperatures "in the air" that always appear next 
 to the temperatures "on the rock").
+
+Likewise, we observe that temperatures are scattered all around the 
+circumference in a counterclockwise direction: starting from the variables 
+that have to do with the external temperature (`temi` and `tema`), and then 
+moving "upward" with the variables corresponding to the readings of the 
+entrance in the cave, followed by the readings from the Hall of the Bulls 
+which are in an opposite direction to the external temperatures. Finally, we 
+observe the readings from the axial gallery, and then the readings from the
+nave and the shaft.
+
+```{r echo = FALSE, out.width = '70%'}
+knitr::include_graphics("images/figure-4-1.png")
+```
+
+This configuration reflects the effect of "distance from the cave's entrance".
+The farther from the entrance, the less the correlation of a given reading and
+the reading from the external temperature, except with the readings in the 
+Hall of the Bulls that are negatively correlated with the external temperature.
+
+Those readings from locations near the entrance are the ones that have the most
+variability. This is due to the fact that they are more influenced by the 
+external temperature, but also because their proximity to the machine room. 
+Beyond the second entrance, the associations between the temperatures become
+more stable and clearly reflect the geographic proximity and distance to the 
+entrance. Notice that the reading of point `tdvf`, located at the end of the 
+axial gallery, behaves in a similar fashion as those readings located in the 
+nave.
+
+The only exception to the previous pattern is the temperature of the shaft.
+According to the experts, the system of temperatures in this location is 
+independent from what happens in the rest of the cave, because of the presence
+of carbonic gas under the surface. The temperatures of the machine 
+room seem to be relatively far from the circumference, which is explained by
+the closeness of the sensors to the machines.
