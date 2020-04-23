@@ -148,6 +148,7 @@
 <li class="chapter" data-level="4.1" data-path="application-examples.html"><a href="application-examples.html#lascaux"><i class="fa fa-check"></i><b>4.1</b> Lascaux Cave Temperatures</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="application-examples.html"><a href="application-examples.html#temperature-data"><i class="fa fa-check"></i><b>4.1.1</b> Temperature Data</a></li>
 <li class="chapter" data-level="4.1.2" data-path="application-examples.html"><a href="application-examples.html#pca"><i class="fa fa-check"></i><b>4.1.2</b> PCA</a></li>
+<li class="chapter" data-level="4.1.3" data-path="application-examples.html"><a href="application-examples.html#seasonal-phenomenon"><i class="fa fa-check"></i><b>4.1.3</b> Seasonal Phenomenon</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>V Appendix</b></span></li>
@@ -666,6 +667,58 @@ independent from what happens in the rest of the cave, because of the presence
 of carbonic gas under the surface. The temperatures of the machine
 room seem to be relatively far from the circumference, which is explained by
 the closeness of the sensors to the machines.</p>
+</div>
+</div>
+<div id="seasonal-phenomenon" class="section level3">
+<h3><span class="header-section-number">4.1.3</span> Seasonal Phenomenon</h3>
+<p>As we previously mentioned, the data collected in the Lascaux Cave involves
+temperatures measured in 30 different locations along the cave, observed over
+482 days, between February 1981 and December 1982.</p>
+<p>So far, we have presented the results of the variables, that is, the results
+from analyzing the 30 temperature readings. However, we also have the 482 days
+that correspond to the rows of the data table (i.e. the individuals). In other
+words, we also have the 482 points that correspond to the cloud of row-points.</p>
+<p>As we know, two days will appear close to each other if their 30 temperatures
+are similar. Conversely, if two days have very different temperatures, they
+will appear far from each other (the more different their profiles, the farther
+they will be). In order to better visualize the scatterplot of the
+cloud of points, we calculate the monthly averages, obtaining 23 points,
+from February 1981 to December 1982 (see figure <a href="application-examples.html#fig:fig-4-3">4.3</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-4-3"></span>
+<img src="images/figure-4-3.png" alt="Average monthly temperature values in Lascaux Cave" width="80%" />
+<p class="caption">
+Figure 4.3: Average monthly temperature values in Lascaux Cave
+</p>
+</div>
+<p>As you can tell from this scatterplot, we have connected all consecutive
+months with a dotted line, starting in Feb-1981, and following the direction
+of the arrows till the last point in Dec-1982. It is interesting to see that
+the connected points form two loops. One loop for points of 1981, which is
+the outer loop; and another loop for points of 1982, which is narrower and
+offset to the left from the center of the plane.</p>
+<p>It seems that the factorial plane describe the transition of the year seasons,
+in a counterclockwise manner. The first axis opposes Summer months to Winter
+months. In turn, the second axis opposes Spring months to Fall months.</p>
+<p>In addition, we observe that, from the interior of the cave, the years 1981 and
+1982 are not that similar with respect to the monthly temperatures. 1981 seems
+to have a hotter Summer and colder Winter, whereas in 1982 the seasons are
+less different, and overall, less cold. This has been confirmed by checking
+the records from local weather stations.</p>
+<div id="thermal-wave-penetration" class="section level4 unnumbered">
+<h4>Thermal Wave Penetration</h4>
+<p>We can now take a look at both graphs (<a href="application-examples.html#fig:fig-4-2">4.2</a> and <a href="application-examples.html#fig:fig-4-3">4.3</a>)
+and enrich the interpretation of results. The configuration of the temperatures
+in the circle of correlations, and the pattern of the monthly temperatures,
+reveal the penetration of the thermal wave inside the cave.</p>
+<p>We are able to observe how temperature changes and moves inside the cave.
+The high temperatures of July and August, move from the exterior towards the
+first entrance during the months of September and October. By Fall, the maximum
+recorded temperatures occur in the second entrance (October and December).
+Then, in Winter (January, February, and March) the maximum temperatures are
+recorded in the Hall of the Bulls. The further we go into the cave, the more
+we advance in time (from the thermal point of view). The factorial plane allows
+us to visualize the average time that the thermal wave takes to reach every
+recording location in the cave.</p>
 
 </div>
 </div>
