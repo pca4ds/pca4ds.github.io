@@ -253,3 +253,63 @@ we advance in time (from the thermal point of view). The factorial plane allows
 us to visualize the average time that the thermal wave takes to reach every 
 recording location in the cave.
 
+
+
+### Modeling Propagation of Thermal Wave
+
+The discovered patterns of variability in the cave's temperature and the
+thermal wave, suggests us a modeling approach based on two aspects: 1) the 
+factorial plane shows that each month corresponds to an almost 
+constant rotation; 2) on the circle of correlations, the variables are 
+positioned in terms of their distance from the entrance to the cave.
+
+Let's consider the variation of the temperature to be modeled with a sine curve. 
+The penetration of the thermal wave in the cave is a function of the distance 
+between two reading-temperature locations. Let $i$ be the day, and let $j$ be 
+the distance to the entrance. Also, the amplitude of variation varies according 
+to the year (coefficients $\alpha_1$ and $\alpha_2$), as well as the average 
+annual temperature ($\mu_1$ and $\mu_2$).
+
+We model the temperature of the first year, in day $i$, and with a distance 
+$j$ to the entrance, with the following equation:
+
+$$
+T_1(i,j) = \alpha_1 \sin \big( 2\pi (i+j) \big) + \mu_1
+$$
+
+Analogously, the equation for the second year is:
+
+$$
+T_2(i,j) = \alpha_2 \sin \big( 2\pi (i+j) \big) + \mu_2
+$$
+
+It can be shown that, in a data table that has these relationships, the 
+following properties are verified:
+
+1) If the amplitudes and the annual means are equal, we obtain two non-null
+identical eigenvalues. The temperatures are ordered by a subindex on the 
+circle of correlations, and the months progress in chronological order, 
+confounded for both years on the same circumference 
+(see diagram A in figure \@ref(fig:fig-4-4)).
+
+2) If there is a difference between the annual temperature means 
+($\mu_1$ and $\mu_2$), the clouds of 1981 and 1982 become separated. If the 
+difference is not too large, then the two first eigenvalues are similar, 
+whereas the third eigenvalue is much more small. In turn, the months will be 
+arranged in an elliptical way, with two off-centered ellipses 
+(see diagram B in figure \@ref(fig:fig-4-4)). If the difference between the 
+annual means is more substantial, the first axis will be a function of this 
+difference (see diagram C in figure \@ref(fig:fig-4-4)), while in the second 
+and third axes, the annual circumferences that are identical will be 
+displayed.
+
+3) If additionally, there is a difference of annual amplitude 
+($\alpha_1$ and $\alpha_2$), then the size of the ellipses is modified.
+
+
+```{r fig-4-4, echo = FALSE, out.width = '85%', fig.cap='Three shape patterns of month-points'}
+knitr::include_graphics("images/figure-4-4.png")
+```
+
+
+
