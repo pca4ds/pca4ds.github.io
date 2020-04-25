@@ -59,38 +59,16 @@ knitr::include_graphics("images/figure-4-1.png")
 The following table lists the 30 active variables used in the analysis 
 (continuous variables, representing temperature measurements in Celsius degrees).
 
-| Num | Variable    | Description                          |
-|:----|:------------|:-------------------------------------|
-|  7  | `temi`      | Minimum outside temperature          |
-|  8  | `tema`      | Maximum outside temperature          |
-|  9  | `t11r`      | SAS1 left 1 - rock                   |
-| 12  | `t1ha`      | SAS1 left 3 up - air                 |
-| 13  | `t1hr`      | SAS1 left 3 up - rock                |
-| 14  | `t1vr`      | SAS1 under dome 3 - rock             |
-| 15  | `tmpa`      | Machine room left wall - air         |
-| 16  | `tmpt`      | Machine room left wall - rock        |
-| 17  | `tmvr`      | Machine room, left dome - rock       |
-| 18  | `tmha`      | Machine room top wall left - air     |
-| 19  | `tmba`      | Machine room bottom wall left - air  |
-| 20  | `t2pa`      | SAS2 right wall - air                |
-| 21  | `t2pr`      | SAS2 right wall - rock               |
-| 22  | `t2ma`      | SAS2 dome - air                      |
-| 23  | `t2da`      | SAS2 ground right - air              |
-| 24  | `t2ga`      | SAS2 ground left - air               |
-| 28  | `ttda`      | Hall of the Bulls right wall - air   |
-| 29  | `ttdr`      | Hall of the Bulls right wall - rock  |
-| 30  | `ttsa`      | Hall of the Bulls ground - air       |
-| 31  | `ttsr`      | Hall of the Bulls ground - rock      |
-| 32  | `ttga`      | Hall of the Bulls left wall - air    |
-| 33  | `ttsr`      | Hall of the Bulls left wall - rock   |
-| 34  | `tdra`      | Axial Gallery narrow dome - air      |
-| 35  | `tdrr`      | Axial Gallery narrow dome - rock     |
-| 36  | `tdvf`      | Axial Gallery end dome - air         |
-| 37  | `tnca`      | Nave of Deer - air                   |
-| 38  | `tncr`      | Nave of Deer - rock                  |
-| 39  | `tnba`      | Nave of Bisons - air                 |
-| 40  | `tnbr`      | Nave of Bisons - rock                |
-| 41  | `tpmr`      | Shaft edge - rock                    |
+```{r table-4-1, echo = FALSE}
+tab_4_1 <- read.csv("data/table-4-1.csv")
+
+knitr::kable(
+  tab_4_1,
+  booktabs = TRUE,
+  caption = 'Active variables of temperature in Lascaux Cave.'
+)
+```
+
 
 Looking at the diagram of the cave in figure \@ref(fig:fig-4-1), the entrance 
 is on the right side of the figure. The machine room is located below the first 
@@ -313,3 +291,119 @@ knitr::include_graphics("images/figure-4-4.png")
 
 
 
+#### Reconstitution of the Data {-}
+
+Without loss of generality, let us simplify things a bit by assuming that the
+data table has weekly observations, instead of daily observations. The year 1981
+involves weeks $i = 1, 2, \dots, 52$, and year 1982 involves weeks 
+$i = 53, 54, \dots, 104$. Based on the original data, we take 
+$\mu_1 - \mu_2 = 0.7$, and set amplitudes to $\alpha_1 = 1$ and $\alpha_2 = 1.5$.
+For the $j$-th variable, we define the distance between reading points according
+to their groupings in the cave, except for the first 8 reading locations for
+which we introduce a variable distance (see table below) that corresponds to
+the sepration of the reading points in the entrances and the machine room.
+
+```{r table-4-3, echo = FALSE,}
+knitr::kable(
+  data.frame(j="week", d="distance"),
+  booktabs = TRUE,
+  caption = 'Modeling weekly-lag data'
+)
+```
+
+$$
+\begin{array}{c|c}
+j & \text{distance} \\
+\hline \text{1 to 8} & 2\pi (j - 8) / 21 \\
+\text{9 to 15} & \pi / 3 \\
+\text{16 to 25} & \pi / 2 \\
+\text{26 to 30} & \pi
+\end{array}
+$$
+
+Analyzing the weekly data table previously described, we obtain a configuration 
+of points very similar to the one obtained with the original data. There is a 
+big loop for 1981, and a smaller loop for 1982, off-centered and overlaping with 
+the big loop in the winter zone. The inertia percentages of the first three 
+axes are: 59%, 31%, and 14%, very similar to the original inertias. This 
+indicates that the chosen model is acceptable.
+
+
+### Stability of the Axes
+
+The histogram of eigenvalues suggests a good stability of the first two axes.
+This is due to the existance of the seasonal phenomenon.
+
+To determine the number of stable axes, we add random noise to the data.
+The "important" axes must remain (for the most part) unchanged by the added
+noise, as long as they convey the structural relationships between data points.
+
+As an illustration, let's review how a large random noise (of up to 50% of 
+the variability in the series) is not enough to destroy the seasonal structure
+in data, while remaining stable in the first two axes.
+
+The way we add random noise to data is by adding a random amount generated from a
+Normal distribution, using mean zero, and standard deviation of 1/4 the standard 
+deviation of the annual temperatures in a given reading location. We perform
+PCA on this modified data set, examining the obtained principal components, 
+as well as the circle of correlations between the original components and the 
+ones obtained from the data with random noise (see table below).
+
+```{r table-4-4, echo = FALSE, comment = ''}
+options(knitr.kable.NA = '')
+cor_4_4 <- cbind(
+  c(0.996, 0.019, 0.000, 0.002, 0.003),
+  c(0.000, 0.994, 0.013, 0.000, 0.006),
+  c(0.000, 0.000, 0.974, 0.027, 0.006),
+  c(0.000, 0.000, 0.000, 0.921, 0.043),
+  c(0.000, 0.000, 0.000, 0.000, 0.920)
+)
+
+rownames(cor_4_4) <- paste0("original", 1:5)
+colnames(cor_4_4) <- paste0("random", 1:5)
+
+cor_4_4[upper.tri(cor_4_4, diag = TRUE)] <- NA
+
+# print table with kable
+knitr::kable(
+  cor_4_4,
+  
+  booktabs = TRUE,
+  caption = 'Stability analysis of first 5 axes'
+)
+```
+
+It turns out that with this added random noise, the first five axes remain 
+stable. 
+
+Next, we repeat the same procedure, but this time adding a larger
+amount of random noise: half of the standard deviation of each variable
+(see results in table below).
+
+```{r table-4-5, echo = FALSE, comment = ''}
+options(knitr.kable.NA = '')
+cor_4_5 <- cbind(
+  c(0.986, 0.039, 0.000, 0.003, 0.005),
+  c(0.000, 0.975, 0.025, 0.000, 0.011),
+  c(0.000, 0.000, 0.908, 0.057, 0.016),
+  c(0.000, 0.000, 0.000, 0.761, 0.064),
+  c(0.000, 0.000, 0.000, 0.000, 0.751)
+)
+
+rownames(cor_4_5) <- paste0("original", 1:5)
+colnames(cor_4_5) <- paste0("random", 1:5)
+
+cor_4_5[upper.tri(cor_4_5, diag = TRUE)] <- NA
+
+# print table with kable
+knitr::kable(
+  cor_4_5,
+  
+  booktabs = TRUE,
+  caption = 'Stability analysis of first 5 axes (continued)'
+)
+```
+
+Despite the larger amount of introduced random noise, the first three axes
+still remain mostly unchanged, whereas the fourth and the fifth axes have 
+been slightly modified.
