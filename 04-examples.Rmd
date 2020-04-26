@@ -23,7 +23,7 @@ The control of environmental variables (e.g. temperatures measured in distinct
 places, hydrometry measurements, etc.) in Lascaux cave was done in a manual 
 fashion decades ago. The measurements involved daily readings of 77 different
 locations in the cave. From these readings, a technical operator in charge
-of the machines instaled in the cave, controled the settings in order to 
+of the machines installed in the cave, controled the settings in order to 
 guarantee adequate environmental conditions for the conservation of the paintings.
 
 In the late 1970s, it was acknowledged that a less manual and time consuming work 
@@ -362,7 +362,7 @@ cor_4_4 <- cbind(
 rownames(cor_4_4) <- paste0("original", 1:5)
 colnames(cor_4_4) <- paste0("random", 1:5)
 
-cor_4_4[upper.tri(cor_4_4, diag = TRUE)] <- NA
+cor_4_4[upper.tri(cor_4_4, diag = FALSE)] <- NA
 
 # print table with kable
 knitr::kable(
@@ -393,7 +393,7 @@ cor_4_5 <- cbind(
 rownames(cor_4_5) <- paste0("original", 1:5)
 colnames(cor_4_5) <- paste0("random", 1:5)
 
-cor_4_5[upper.tri(cor_4_5, diag = TRUE)] <- NA
+cor_4_5[upper.tri(cor_4_5, diag = FALSE)] <- NA
 
 # print table with kable
 knitr::kable(
@@ -407,3 +407,56 @@ knitr::kable(
 Despite the larger amount of introduced random noise, the first three axes
 still remain mostly unchanged, whereas the fourth and the fifth axes have 
 been slightly modified.
+
+
+
+### Selecting Best Temperature Reading Locations
+
+As we mentioned in the introduction of this chapter, one of the stages of the 
+Lascaux Cave research project involved deciding whether to locate the sensors 
+for reading temperatures along the cave.
+
+We seek to obtain a small subset of reading locations, such that they provide
+essential information for the totality of the observations. Simply put, we
+seek to conserve the stable factorial directions.
+
+The first decision that we made was to retain just one of the measurements 
+for every pair of temperature "rock/air"; this reduced the number of readings
+from 30 to 15 temperature variables.
+
+We provide only the sketch idea used to find the solution. The methodology 
+consists of eliminating, step by step, the more redundant variables. We use the
+correlation between the new computed factorial axes (PCA on retained temperature 
+reading locations) and the original factorial axes (PCA on all variables).
+To be more precise, we calculate the sum of squared correlations between
+homologous axes (diagonal of the correlation matrix). Finally, we obtain a 
+subset of 8 variables that adequately reconstitute the subspace of the first 
+three initial factorial axes (with correlations of 0.986, 0.980, and 0.865, like 
+in the table \@ref(tab:table-4-6) below).
+
+```{r fig-4-5, echo = FALSE, out.width = '80%', fig.cap='Location of best 8 reading temperature sensors'}
+knitr::include_graphics("images/figure-4-5.png")
+```
+
+
+```{r table-4-6, echo = FALSE, comment = ''}
+options(knitr.kable.NA = '')
+cor_4_6 <- cbind(
+  c(0.986, 0.162, 0.046),
+  c(0.000, 0.980, 0.008),
+  c(0.000, 0.000, 0.865)
+)
+
+rownames(cor_4_6) <- paste0("original", 1:3)
+colnames(cor_4_6) <- paste0("random", 1:3)
+
+cor_4_6[upper.tri(cor_4_6, diag = FALSE)] <- NA
+
+# print table with kable
+knitr::kable(
+  cor_4_6,
+  
+  booktabs = TRUE,
+  caption = 'Reconstitution of 3 first factorial axes with 8 temperature readings'
+)
+```
