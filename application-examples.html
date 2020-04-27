@@ -153,6 +153,9 @@
 <li class="chapter" data-level="4.1.5" data-path="application-examples.html"><a href="application-examples.html#stability-of-the-axes"><i class="fa fa-check"></i><b>4.1.5</b> Stability of the Axes</a></li>
 <li class="chapter" data-level="4.1.6" data-path="application-examples.html"><a href="application-examples.html#selecting-best-temperature-reading-locations"><i class="fa fa-check"></i><b>4.1.6</b> Selecting Best Temperature Reading Locations</a></li>
 </ul></li>
+<li class="chapter" data-level="4.2" data-path="application-examples.html"><a href="application-examples.html#design-of-experiments-and-pca"><i class="fa fa-check"></i><b>4.2</b> Design of Experiments and PCA</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="application-examples.html"><a href="application-examples.html#pca-1"><i class="fa fa-check"></i><b>4.2.1</b> PCA</a></li>
+</ul></li>
 </ul></li>
 <li class="part"><span><b>V Appendix</b></span></li>
 <li class="chapter" data-level="5" data-path="appendixa.html"><a href="appendixa.html"><i class="fa fa-check"></i><b>5</b> Appendix A: Fundamentals</a><ul>
@@ -1006,6 +1009,195 @@ Figure 4.5: Location of best 8 reading temperature sensors
 <td align="right">0.046</td>
 <td align="right">0.008</td>
 <td align="right">0.865</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+</div>
+</div>
+<div id="design-of-experiments-and-pca" class="section level2">
+<h2><span class="header-section-number">4.2</span> Design of Experiments and PCA</h2>
+<p>Our second example has to do with material coatings degrading over time that
+need to be replaced with protection coverings, paint, or chemical filters.
+We are interested in studying the effect of three factors associated with
+the aging of material coatings. To do this, an experimental design is carried
+out with the following factors:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Factor</th>
+<th align="left">Levels</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Radiation type</td>
+<td align="left">Radiation V</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Radiation W</td>
+</tr>
+<tr class="odd">
+<td align="left">Radiation intensity</td>
+<td align="left">1/2 dose</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">2 dose</td>
+</tr>
+<tr class="odd">
+<td align="left">Chemical protection filter</td>
+<td align="left">Filter A</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Filter B</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Filter C</td>
+</tr>
+</tbody>
+</table>
+<p>The material coatings go through an artifical aging process. Several parameters
+are measured that have to do with the apparent degradation of the surface.
+The experiment involves five series of measurements obtained in different times:
+<span class="math inline">\(\mathsf{T}_0, \mathsf{T}_1, \mathsf{T}_2, \mathsf{T}_3\)</span> and <span class="math inline">\(\mathsf{T}_4\)</span>.
+The duration of the tests is of one year. In addition, we also have a series of
+coatings with no protection, which have been subjected to radiations in order
+to establish comparisons, whereas the other coatings are used as “control”
+units without being exposed to any radiation (only measuring their natural aging).</p>
+<p>The observed aging parameters have been: <em>color</em>, <em>thickness</em>, <em>lackluster</em>,
+<em>wrinkles</em>, and <em>cracks</em>. We also have available an assessment of the overall
+aging aspect, as well as other “non controlled” variables, all of them
+observed as continuous variables.</p>
+<div id="pca-1" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> PCA</h3>
+<p>Principal Component Analysis has been performed on a data set containing the
+five time periods of tests <span class="math inline">\(\mathsf{T}_0\)</span>, <span class="math inline">\(\mathsf{T}_1\)</span>, <span class="math inline">\(\mathsf{T}_2\)</span>,
+<span class="math inline">\(\mathsf{T}_3\)</span>, and <span class="math inline">\(\mathsf{T}_4\)</span> (i.e. each coating is repeated 5 times).
+The table also contains, as nominal variables, the variable that indicates
+the period and the interactions with the factors of interest (radiation type,
+radiation dose, and type of chemical filter). The active variables are the
+5 aging measurement parameters. All of the variables are listed in the following
+table:</p>
+<table>
+<caption><span id="tab:table-4-7">Table 4.7: </span>Table of Active and Supplementary Variables</caption>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Type</th>
+<th align="left">Scale</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Radiation type</td>
+<td align="left">supplementary nominal</td>
+<td align="left">6 categories</td>
+</tr>
+<tr class="even">
+<td align="left">Radiation dose</td>
+<td align="left">supplementary nominal</td>
+<td align="left">4 categories</td>
+</tr>
+<tr class="odd">
+<td align="left">Protection filter</td>
+<td align="left">supplementary nominal</td>
+<td align="left">6 categories</td>
+</tr>
+<tr class="even">
+<td align="left">Time period</td>
+<td align="left">supplementary nominal</td>
+<td align="left">5 categories</td>
+</tr>
+<tr class="odd">
+<td align="left">Color</td>
+<td align="left">active continuous</td>
+<td align="left">continuous</td>
+</tr>
+<tr class="even">
+<td align="left">Lackluster</td>
+<td align="left">active continuous</td>
+<td align="left">continuous</td>
+</tr>
+<tr class="odd">
+<td align="left">Cracks</td>
+<td align="left">active continuous</td>
+<td align="left">continuous</td>
+</tr>
+<tr class="even">
+<td align="left">Thickness</td>
+<td align="left">active continuous</td>
+<td align="left">continuous</td>
+</tr>
+<tr class="odd">
+<td align="left">Wrinkles</td>
+<td align="left">active continuous</td>
+<td align="left">continuous</td>
+</tr>
+<tr class="even">
+<td align="left">Assessment</td>
+<td align="left">supplementary continuous</td>
+<td align="left">continuous</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Likewise, the table below shows the correlations among the active variables:</p>
+<table>
+<caption><span id="tab:table-4-8">Table 4.8: </span>Correlations Matrix of 5 Active Variables</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">color</th>
+<th align="right">lackluster</th>
+<th align="right">cracks</th>
+<th align="right">thickness</th>
+<th align="right">wrinkles</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>color</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>lackluster</td>
+<td align="right">0.45</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>cracks</td>
+<td align="right">0.24</td>
+<td align="right">0.74</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>thickness</td>
+<td align="right">0.88</td>
+<td align="right">0.48</td>
+<td align="right">0.35</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>wrinkles</td>
+<td align="right">0.60</td>
+<td align="right">0.64</td>
+<td align="right">0.57</td>
+<td align="right">0.65</td>
+<td align="right">1</td>
 </tr>
 </tbody>
 </table>
