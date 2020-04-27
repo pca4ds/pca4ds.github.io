@@ -460,3 +460,119 @@ knitr::kable(
   caption = 'Reconstitution of 3 first factorial axes with 8 temperature readings'
 )
 ```
+
+<br>
+
+
+## Design of Experiments and PCA
+
+Our second example has to do with material coatings degrading over time that 
+need to be replaced with protection coverings, paint, or chemical filters.
+We are interested in studying the effect of three factors associated with 
+the aging of material coatings. To do this, an experimental design is carried
+out with the following factors:
+
+| Factor                     | Levels      |
+|:---------------------------|:------------|
+| Radiation type             | Radiation V |
+|                            | Radiation W |
+| Radiation intensity        | 1/2 dose    |
+|                            | 2 dose      |
+| Chemical protection filter | Filter A    |
+|                            | Filter B    |
+|                            | Filter C    |
+
+The material coatings go through an artifical aging process. Several parameters
+are measured that have to do with the apparent degradation of the surface. 
+The experiment involves five series of measurements obtained in different times:
+$\mathsf{T}_0, \mathsf{T}_1, \mathsf{T}_2, \mathsf{T}_3$ and $\mathsf{T}_4$.
+The duration of the tests is of one year. In addition, we also have a series of
+coatings with no protection, which have been subjected to radiations in order
+to establish comparisons, whereas the other coatings are used as "control"
+units without being exposed to any radiation (only measuring their natural aging).
+
+The observed aging parameters have been: _color_, _thickness_, _lackluster_,
+_wrinkles_, and _cracks_. We also have available an assessment of the overall
+aging aspect, as well as other "non controlled" variables, all of them 
+observed as continuous variables.
+
+
+### PCA
+
+Principal Component Analysis has been performed on a data set containing the 
+five time periods of tests $\mathsf{T}_0$, $\mathsf{T}_1$, $\mathsf{T}_2$,
+$\mathsf{T}_3$, and $\mathsf{T}_4$ (i.e. each coating is repeated 5 times).
+The table also contains, as nominal variables, the variable that indicates
+the period and the interactions with the factors of interest (radiation type,
+radiation dose, and type of chemical filter). The active variables are the 
+5 aging measurement parameters. All of the variables are listed in the following 
+table:
+
+```{r table-4-7, echo = FALSE, comment = ''}
+tbl_4_7a <- data.frame(
+  Variable = c(
+    'Radiation type', 
+    'Radiation dose',
+    'Protection filter',
+    'Time period',
+    'Color',
+    'Lackluster',
+    'Cracks',
+    'Thickness',
+    'Wrinkles',
+    'Assessment'),
+  Type = c(
+    rep('supplementary nominal', 4),
+    rep('active continuous', 5),
+    c('supplementary continuous')
+  ),
+  Scale = c(
+    '6 categories',
+    '4 categories',
+    '6 categories',
+    '5 categories',
+    'continuous',
+    'continuous',
+    'continuous',
+    'continuous',
+    'continuous',
+    'continuous')
+)
+
+# print table with kable
+knitr::kable(
+  tbl_4_7a,
+  
+  booktabs = TRUE,
+  caption = 'Table of Active and Supplementary Variables'
+)
+```
+
+<br>
+
+Likewise, the table below shows the correlations among the active variables:
+
+```{r table-4-8, echo = FALSE, comment = ''}
+options(knitr.kable.NA = '')
+cor_4_8 <- cbind(
+  c(1.00, 0.45, 0.24, 0.88, 0.60),
+  c(0.00, 1.00, 0.74, 0.48, 0.64),
+  c(0.00, 0.00, 1.00, 0.35, 0.57),
+  c(0.00, 0.00, 0.00, 1.00, 0.65),
+  c(0.00, 0.00, 0.00, 0.00, 1.00)
+)
+
+rownames(cor_4_8) <- c('color', 'lackluster', 'cracks', 'thickness', 'wrinkles')
+colnames(cor_4_8) <- c('color', 'lackluster', 'cracks', 'thickness', 'wrinkles')
+
+cor_4_8[upper.tri(cor_4_8, diag = FALSE)] <- NA
+
+# print table with kable
+knitr::kable(
+  cor_4_8,
+  
+  booktabs = TRUE,
+  caption = 'Correlations Matrix of 5 Active Variables'
+)
+```
+
