@@ -542,8 +542,7 @@ tbl_4_7a <- data.frame(
 # print table with kable
 knitr::kable(
   tbl_4_7a,
-  
-  booktabs = TRUE,
+  booktabs = FALSE,
   caption = 'Table of Active and Supplementary Variables'
 )
 ```
@@ -552,9 +551,9 @@ knitr::kable(
 
 Likewise, the table below shows the correlations among the active variables:
 
-```{r table-4-8, echo = FALSE, comment = ''}
+```{r table-4-7b, echo = FALSE, comment = ''}
 options(knitr.kable.NA = '')
-cor_4_8 <- cbind(
+cor_4_b7 <- cbind(
   c(1.00, 0.45, 0.24, 0.88, 0.60),
   c(0.00, 1.00, 0.74, 0.48, 0.64),
   c(0.00, 0.00, 1.00, 0.35, 0.57),
@@ -562,17 +561,52 @@ cor_4_8 <- cbind(
   c(0.00, 0.00, 0.00, 0.00, 1.00)
 )
 
-rownames(cor_4_8) <- c('color', 'lackluster', 'cracks', 'thickness', 'wrinkles')
-colnames(cor_4_8) <- c('color', 'lackluster', 'cracks', 'thickness', 'wrinkles')
+rownames(cor_4_b7) <- c('color', 'lackluster', 'cracks', 'thickness', 'wrinkles')
+colnames(cor_4_b7) <- c('color', 'lackluster', 'cracks', 'thickness', 'wrinkles')
 
-cor_4_8[upper.tri(cor_4_8, diag = FALSE)] <- NA
+cor_4_b7[upper.tri(cor_4_b7, diag = FALSE)] <- NA
 
 # print table with kable
 knitr::kable(
-  cor_4_8,
-  
+  cor_4_b7)
+```
+
+As you can tell, all correlations are positive. This will produce a first 
+factor with the so-called _size effect_, opposing the more deteriorated coatings
+against those that are in better shape (in the sample of size 830, we consider 
+a non-null correlation to be 0.07, with a significance level $\alpha = 0.05$).
+
+The table \@ref(tab:table-4-8) shows the distribution of eigenvalues from the
+principal component analysis on the five aging parameters.
+
+```{r table-4-8, echo = FALSE}
+# table 4.8: eigenvalues
+eigvals <- c(3.2531, 1.0675, 0.3284, 0.2424, 0.1085)
+
+eig_temps <- data.frame(
+  num = 1:5,
+  eigenvalue = eigvals,
+  percentage = round(100 * eigvals / sum(eigvals), 2),
+  cumulative = round(cumsum(100 * eigvals / sum(eigvals)), 2)
+)
+
+knitr::kable(
+  eig_temps,
   booktabs = TRUE,
-  caption = 'Correlations Matrix of 5 Active Variables'
+  caption = 'Table of eigenvalues from PCA on 5 aging parameters.'
 )
 ```
 
+<br>
+
+In the figure below (circle of correlations), look at the correlation between 
+the supplementary variable "overall assessment" and the first factor. This 
+indicates that the first axis opposes the more degradated coatings to the less 
+deteriorated. In turn, the second factor opposes the degradation due to 
+lackluster and cracks, versus the degradation in color and thickness. Wrinkles 
+are located in an intermediate position, very correlated with the overall 
+assessment. These two factors account for 86% of the total inertia.
+
+```{r fig-4-6, echo = FALSE, out.width = '60%', fig.cap='Circle of correlations for aging parameters'}
+knitr::include_graphics("images/figure-4-6.png")
+```
