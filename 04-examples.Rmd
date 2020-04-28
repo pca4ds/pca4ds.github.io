@@ -610,3 +610,75 @@ assessment. These two factors account for 86% of the total inertia.
 ```{r fig-4-6, echo = FALSE, out.width = '60%', fig.cap='Circle of correlations for aging parameters'}
 knitr::include_graphics("images/figure-4-6.png")
 ```
+
+
+
+### Evolution of Factor Trajectories over Time
+
+To gain insight into the relationship between the extracted dimensions and the 
+active variables, we project, as supplementary points, the different explanatory 
+factors crossed with the five time periods. This operation defines trajectories
+in the factorial plane that help us understand the aging phenomenon under study.
+
+We first project the different types of filters per time period, which produces
+trajectories fA, fB and fC in figure \@ref(fig:fig-4-7). We also project the
+non-treated coatings that have been subjected to radiation, as well as those 
+that have not been subjected to any radiation. The latter show natural againg 
+of the material coatings. Recall that these non-treated samples are used as 
+control units to which we compare the different filters.
+
+```{r fig-4-7, echo = FALSE, out.width = '85%', fig.cap='Average aging of filters per period'}
+knitr::include_graphics("images/figure-4-7.png")
+```
+
+We observe that filter B quickly degrades coatings, especially on cracks and 
+lackluster. In contrast, filter C has a trajectory quite close to the 
+"non-treated" and the two time periods, close to the control samples. Then, 
+the degradation increases, mostly in color and thickness (compare the direction
+of this trajectory with that of figure \@ref(fig:fig-4-6)). With respect to 
+filter A, this is located in an intermediate position between filters B and C.
+
+Actually, figure \@ref(fig:fig-4-7) shows the average evolutions per filter,
+independently of the radiation type and dose.
+
+It is interesting to project the interactions between filter type, radiation 
+type, and radiation dose (which are the cells of the experimental design) onto 
+the first factorial plane. Because of the large number of points to be 
+plotted, we have divided them in two graphs. One plot contains the points 
+for filters B and C, and the "non-treated" (figure \@ref(fig:fig-4-8)); the
+other plot (see figure \@ref(fig:fig-4-9)) contains the observations for filter 
+A for which two types of radiation have been used: normal (1/2 dose) and high 
+dose (2 dose).
+
+The graph in figure \@ref(fig:fig-4-8) distinguishes two types of trajectories.
+We have a set of trajectories going from the right side of the plane to the
+top left corner: filter C and "non-treated", with degradation in color and 
+thickness. The other set of trajectories are in the left bottom part of the 
+plane: filter B, with degradation in cracks and lackluster.
+
+```{r fig-4-8, echo = FALSE, out.width = '85%', fig.cap='Evolution of filters B and C, according to type and dose of radiation '}
+knitr::include_graphics("images/figure-4-8.png")
+```
+
+Note that for both, filter C and "non-treated", there is a small divergence
+depending on the type of radiation, V or W. Moreover, the type of radiation W
+is more degradating. Likewise, filter B strongly degrades the material coating.
+The degradation is stronger between $\mathsf{T}_0$ and $\mathsf{T}_1$, and 
+then it keeps going on but at a slower pace. Here again, the radiation W appears 
+to be more dominant in cracks and lackluster.
+
+With respect to filter A, we distinguish two levels of radiation intensity 
+(dose 1/2 and 2), as well as the 2 types of radiation (V and W), shown in 
+figure \@ref(fig:fig-4-9). We find that trajectory of filter A and V1/2 has 
+a small degradation effect. In contrast, the trajectory of filter A and 
+radiation type W behaves a lot like that of filter C and non-treated. When we 
+move to the high dose (dose 2), the degradation of radiation V is accentuated
+with respect to the level that it has with lower dose (dose 1/2). However, 
+this degradation is less than the one shown in filter B in a central position.
+In contrast, when we use radiation W with a dose equal to 2, then filter A
+behaves like filter B with the same radiation, but dose 1/2.
+
+```{r fig-4-9, echo = FALSE, out.width = '85%', fig.cap='Evolution of filters A, according to type and dose of radiation '}
+knitr::include_graphics("images/figure-4-9.png")
+```
+
