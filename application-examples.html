@@ -155,6 +155,7 @@
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="application-examples.html"><a href="application-examples.html#design-of-experiments-and-pca"><i class="fa fa-check"></i><b>4.2</b> Design of Experiments and PCA</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="application-examples.html"><a href="application-examples.html#pca-1"><i class="fa fa-check"></i><b>4.2.1</b> PCA</a></li>
+<li class="chapter" data-level="4.2.2" data-path="application-examples.html"><a href="application-examples.html#evolution-of-factor-trajectories-over-time"><i class="fa fa-check"></i><b>4.2.2</b> Evolution of Factor Trajectories over Time</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>V Appendix</b></span></li>
@@ -1147,7 +1148,6 @@ table:</p>
 <p><br></p>
 <p>Likewise, the table below shows the correlations among the active variables:</p>
 <table>
-<caption><span id="tab:table-4-8">Table 4.8: </span>Correlations Matrix of 5 Active Variables</caption>
 <thead>
 <tr class="header">
 <th></th>
@@ -1201,6 +1201,137 @@ table:</p>
 </tr>
 </tbody>
 </table>
+<p>As you can tell, all correlations are positive. This will produce a first
+factor with the so-called <em>size effect</em>, opposing the more deteriorated coatings
+against those that are in better shape (in the sample of size 830, we consider
+a non-null correlation to be 0.07, with a significance level <span class="math inline">\(\alpha = 0.05\)</span>).</p>
+<p>The table <a href="application-examples.html#tab:table-4-8">4.8</a> shows the distribution of eigenvalues from the
+principal component analysis on the five aging parameters.</p>
+<table>
+<caption><span id="tab:table-4-8">Table 4.8: </span>Table of eigenvalues from PCA on 5 aging parameters.</caption>
+<thead>
+<tr class="header">
+<th align="right">num</th>
+<th align="right">eigenvalue</th>
+<th align="right">percentage</th>
+<th align="right">cumulative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">3.2531</td>
+<td align="right">65.06</td>
+<td align="right">65.06</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">1.0675</td>
+<td align="right">21.35</td>
+<td align="right">86.41</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">0.3284</td>
+<td align="right">6.57</td>
+<td align="right">92.98</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">0.2424</td>
+<td align="right">4.85</td>
+<td align="right">97.83</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">0.1085</td>
+<td align="right">2.17</td>
+<td align="right">100.00</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>In the figure below (circle of correlations), look at the correlation between
+the supplementary variable “overall assessment” and the first factor. This
+indicates that the first axis opposes the more degradated coatings to the less
+deteriorated. In turn, the second factor opposes the degradation due to
+lackluster and cracks, versus the degradation in color and thickness. Wrinkles
+are located in an intermediate position, very correlated with the overall
+assessment. These two factors account for 86% of the total inertia.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-4-6"></span>
+<img src="images/figure-4-6.png" alt="Circle of correlations for aging parameters" width="60%" />
+<p class="caption">
+Figure 4.6: Circle of correlations for aging parameters
+</p>
+</div>
+</div>
+<div id="evolution-of-factor-trajectories-over-time" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Evolution of Factor Trajectories over Time</h3>
+<p>To gain insight into the relationship between the extracted dimensions and the
+active variables, we project, as supplementary points, the different explanatory
+factors crossed with the five time periods. This operation defines trajectories
+in the factorial plane that help us understand the aging phenomenon under study.</p>
+<p>We first project the different types of filters per time period, which produces
+trajectories fA, fB and fC in figure <a href="application-examples.html#fig:fig-4-7">4.7</a>. We also project the
+non-treated coatings that have been subjected to radiation, as well as those
+that have not been subjected to any radiation. The latter show natural againg
+of the material coatings. Recall that these non-treated samples are used as
+control units to which we compare the different filters.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-4-7"></span>
+<img src="images/figure-4-7.png" alt="Average aging of filters per period" width="85%" />
+<p class="caption">
+Figure 4.7: Average aging of filters per period
+</p>
+</div>
+<p>We observe that filter B quickly degrades coatings, especially on cracks and
+lackluster. In contrast, filter C has a trajectory quite close to the
+“non-treated” and the two time periods, close to the control samples. Then,
+the degradation increases, mostly in color and thickness (compare the direction
+of this trajectory with that of figure <a href="application-examples.html#fig:fig-4-6">4.6</a>). With respect to
+filter A, this is located in an intermediate position between filters B and C.</p>
+<p>Actually, figure <a href="application-examples.html#fig:fig-4-7">4.7</a> shows the average evolutions per filter,
+independently of the radiation type and dose.</p>
+<p>It is interesting to project the interactions between filter type, radiation
+type, and radiation dose (which are the cells of the experimental design) onto
+the first factorial plane. Because of the large number of points to be
+plotted, we have divided them in two graphs. One plot contains the points
+for filters B and C, and the “non-treated” (figure <a href="application-examples.html#fig:fig-4-8">4.8</a>); the
+other plot (see figure <a href="application-examples.html#fig:fig-4-9">4.9</a>) contains the observations for filter
+A for which two types of radiation have been used: normal (1/2 dose) and high
+dose (2 dose).</p>
+<p>The graph in figure <a href="application-examples.html#fig:fig-4-8">4.8</a> distinguishes two types of trajectories.
+We have a set of trajectories going from the right side of the plane to the
+top left corner: filter C and “non-treated”, with degradation in color and
+thickness. The other set of trajectories are in the left bottom part of the
+plane: filter B, with degradation in cracks and lackluster.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-4-8"></span>
+<img src="images/figure-4-8.png" alt="Evolution of filters B and C, according to type and dose of radiation " width="85%" />
+<p class="caption">
+Figure 4.8: Evolution of filters B and C, according to type and dose of radiation
+</p>
+</div>
+<p>Note that for both, filter C and “non-treated”, there is a small divergence
+depending on the type of radiation, V or W. Moreover, the type of radiation W
+is more degradating. Likewise, filter B strongly degrades the material coating.
+The degradation is stronger between <span class="math inline">\(\mathsf{T}_0\)</span> and <span class="math inline">\(\mathsf{T}_1\)</span>, and
+then it keeps going on but at a slower pace. Here again, the radiation W appears
+to be more dominant in cracks and lackluster.</p>
+<p>With respect to filter A, we distinguish two levels of radiation intensity
+(dose 1/2 and 2), as well as the 2 types of radiation (V and W), shown in
+figure <a href="application-examples.html#fig:fig-4-9">4.9</a>. We find that trajectory of filter A and V1/2 has
+a small degradation effect. In contrast, the trajectory of filter A and
+radiation type W behaves a lot like that of filter C and non-treated. When we
+move to the high dose (dose 2), the degradation of radiation V is accentuated
+with respect to the level that it has with lower dose (dose 1/2). However,
+this degradation is less than the one shown in filter B in a central position.
+In contrast, when we use radiation W with a dose equal to 2, then filter A
+behaves like filter B with the same radiation, but dose 1/2.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-4-9"></span>
+<img src="images/figure-4-9.png" alt="Evolution of filters A, according to type and dose of radiation " width="85%" />
+<p class="caption">
+Figure 4.9: Evolution of filters A, according to type and dose of radiation
+</p>
+</div>
 
 </div>
 </div>
