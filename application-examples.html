@@ -156,6 +156,7 @@
 <li class="chapter" data-level="4.2" data-path="application-examples.html"><a href="application-examples.html#design-of-experiments-and-pca"><i class="fa fa-check"></i><b>4.2</b> Design of Experiments and PCA</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="application-examples.html"><a href="application-examples.html#pca-1"><i class="fa fa-check"></i><b>4.2.1</b> PCA</a></li>
 <li class="chapter" data-level="4.2.2" data-path="application-examples.html"><a href="application-examples.html#evolution-of-factor-trajectories-over-time"><i class="fa fa-check"></i><b>4.2.2</b> Evolution of Factor Trajectories over Time</a></li>
+<li class="chapter" data-level="4.2.3" data-path="application-examples.html"><a href="application-examples.html#analysis-of-variance"><i class="fa fa-check"></i><b>4.2.3</b> Analysis of Variance</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>V Appendix</b></span></li>
@@ -1332,6 +1333,189 @@ behaves like filter B with the same radiation, but dose 1/2.</p>
 Figure 4.9: Evolution of filters A, according to type and dose of radiation
 </p>
 </div>
+</div>
+<div id="analysis-of-variance" class="section level3">
+<h3><span class="header-section-number">4.2.3</span> Analysis of Variance</h3>
+<p>We want to study how the aging of the coating surface is related with time and
+group. Time is expressed by the period of measurement, and the groups are
+defined by the combination of factors in the experimental design (interaction
+of filter, radiation type, and radiation dose).</p>
+<p>We perform an analysis of variance (anova) using variable “overall assessment”
+as the response variable, and using period (4 dates) and group (12 combinations)
+as anova factors. The obtained results are displayed in table <a href="application-examples.html#tab:table-4-9">4.9</a>.
+This table contains the model’s summary statistics, and the table with the
+decomposition of variance.</p>
+<table>
+<caption><span id="tab:table-4-9">Table 4.9: </span>Analysis of Variance.</caption>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">coefficient</th>
+<th align="right">stdev</th>
+<th align="right">t_stat</th>
+<th align="right">p_val</th>
+<th align="right">v_test</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">period T0</td>
+<td align="right">-4.5940</td>
+<td align="right">0.138</td>
+<td align="right">33.262</td>
+<td align="right">0.000</td>
+<td align="right">-26.42</td>
+</tr>
+<tr class="even">
+<td align="left">period T1</td>
+<td align="right">-2.1695</td>
+<td align="right">0.138</td>
+<td align="right">15.671</td>
+<td align="right">0.000</td>
+<td align="right">-14.65</td>
+</tr>
+<tr class="odd">
+<td align="left">period T2</td>
+<td align="right">-0.3717</td>
+<td align="right">0.140</td>
+<td align="right">2.665</td>
+<td align="right">0.008</td>
+<td align="right">-2.66</td>
+</tr>
+<tr class="even">
+<td align="left">period T3</td>
+<td align="right">2.4890</td>
+<td align="right">0.142</td>
+<td align="right">17.551</td>
+<td align="right">0.000</td>
+<td align="right">16.16</td>
+</tr>
+<tr class="odd">
+<td align="left">period T4</td>
+<td align="right">4.6463</td>
+<td align="right">0.145</td>
+<td align="right">32.000</td>
+<td align="right">0.000</td>
+<td align="right">25.74</td>
+</tr>
+<tr class="even">
+<td align="left">rad. V 1/2 non-treated</td>
+<td align="right">-0.5353</td>
+<td align="right">0.232</td>
+<td align="right">2.311</td>
+<td align="right">0.021</td>
+<td align="right">-2.31</td>
+</tr>
+<tr class="odd">
+<td align="left">rad. V 1/2 filter A</td>
+<td align="right">-0.7255</td>
+<td align="right">0.252</td>
+<td align="right">2.878</td>
+<td align="right">0.004</td>
+<td align="right">-2.87</td>
+</tr>
+<tr class="even">
+<td align="left">rad. V 1/2 filter B</td>
+<td align="right">3.1480</td>
+<td align="right">0.232</td>
+<td align="right">13.587</td>
+<td align="right">0.000</td>
+<td align="right">12.90</td>
+</tr>
+<tr class="odd">
+<td align="left">rad. V 1/2 filter C</td>
+<td align="right">-0.2815</td>
+<td align="right">0.234</td>
+<td align="right">1.205</td>
+<td align="right">0.228</td>
+<td align="right">-1.20</td>
+</tr>
+<tr class="even">
+<td align="left">rad. V 2 filter A</td>
+<td align="right">0.8372</td>
+<td align="right">0.234</td>
+<td align="right">3.585</td>
+<td align="right">0.000</td>
+<td align="right">3.57</td>
+</tr>
+<tr class="odd">
+<td align="left">rad. W 1/2 non-treated</td>
+<td align="right">-0.5601</td>
+<td align="right">0.208</td>
+<td align="right">2.696</td>
+<td align="right">0.007</td>
+<td align="right">-2.69</td>
+</tr>
+<tr class="even">
+<td align="left">rad. W 1/2 filter A</td>
+<td align="right">-0.0464</td>
+<td align="right">0.207</td>
+<td align="right">0.225</td>
+<td align="right">0.822</td>
+<td align="right">-0.22</td>
+</tr>
+<tr class="odd">
+<td align="left">rad. W 1/2 filter B</td>
+<td align="right">3.6387</td>
+<td align="right">0.210</td>
+<td align="right">17.299</td>
+<td align="right">0.000</td>
+<td align="right">15.96</td>
+</tr>
+<tr class="even">
+<td align="left">rad. W 1/2 filter C</td>
+<td align="right">0.3510</td>
+<td align="right">0.207</td>
+<td align="right">1.699</td>
+<td align="right">0.090</td>
+<td align="right">1.70</td>
+</tr>
+<tr class="odd">
+<td align="left">rad. W 2 filter A</td>
+<td align="right">4.1088</td>
+<td align="right">0.270</td>
+<td align="right">15.233</td>
+<td align="right">0.000</td>
+<td align="right">14.28</td>
+</tr>
+<tr class="even">
+<td align="left">control</td>
+<td align="right">-1.5533</td>
+<td align="right">0.235</td>
+<td align="right">6.597</td>
+<td align="right">0.000</td>
+<td align="right">-6.51</td>
+</tr>
+<tr class="odd">
+<td align="left">not applicable</td>
+<td align="right">-8.3816</td>
+<td align="right">0.464</td>
+<td align="right">18.065</td>
+<td align="right">0.000</td>
+<td align="right">-16.56</td>
+</tr>
+<tr class="even">
+<td align="left">constant</td>
+<td align="right">8.8687</td>
+<td align="right">0.077</td>
+<td align="right">114.840</td>
+<td align="right">0.000</td>
+<td align="right">48.11</td>
+</tr>
+</tbody>
+</table>
+<pre><code>Residual standard error: 3260.0056 on 15 degrees of freedom
+Multiple R-squared: 0.7780
+F-statistic: 190.134 on 15 and 814
+p-value: 0.0000
+          Df    Sum Sq  F-value  Pr(&gt;F)  v-test
+Periods:   8  8574.453  535.245   0.000   32.08
+Groups:   14  2886.327   88.217   0.000   42.29</code></pre>
+<p>We observe that both factors, time period and group, are clearly significant.
+The coefficients of each period are arranged in a similar fashion to the way
+they appear in the fatorial planes. The only positive coefficients for groups
+(indicating a greater degradation) are for filter B with any type of radiation,
+and for filter A with radiation W and dose 2.</p>
 
 </div>
 </div>
