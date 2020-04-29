@@ -682,3 +682,67 @@ behaves like filter B with the same radiation, but dose 1/2.
 knitr::include_graphics("images/figure-4-9.png")
 ```
 
+
+
+### Analysis of Variance
+
+We want to study how the aging of the coating surface is related with time and 
+group. Time is expressed by the period of measurement, and the groups are 
+defined by the combination of factors in the experimental design (interaction
+of filter, radiation type, and radiation dose).
+
+We perform an analysis of variance (anova) using variable "overall assessment" 
+as the response variable, and using period (4 dates) and group (12 combinations) 
+as anova factors. The obtained results are displayed in table \@ref(tab:table-4-9).
+This table contains the model's summary statistics, and the table with the 
+decomposition of variance.
+
+```{r table-4-9, echo = FALSE}
+# table 4.9: eigenvalues
+anova_tbl <- data.frame(
+  term = c(
+    paste0('period T', 0:4),
+    paste0('rad. V 1/2 ', c('non-treated', 'filter A', 'filter B', 'filter C')),
+    paste0('rad. V 2 ', 'filter A'),
+    paste0('rad. W 1/2 ', c('non-treated', 'filter A', 'filter B', 'filter C')),
+    paste0('rad. W 2 ', 'filter A'),
+    c('control', 'not applicable', 'constant')),
+  coefficient = c(-4.5940, -2.1695, -0.3717, 2.4890, 4.6463, -0.5353, -0.7255,
+                  3.1480, -0.2815, 0.8372, -0.5601, -0.0464, 3.6387, 0.3510,
+                  4.1088, -1.5533, -8.3816, 8.8687),
+  stdev = c(0.138, 0.138, 0.140, 0.142, 0.145, 0.232, 0.252, 0.232, 0.234, 
+            0.234, 0.208, 0.207, 0.210, 0.207, 0.270, 0.235, 0.464, 0.077),
+  t_stat = c(33.262, 15.671, 2.665, 17.551, 32.00, 2.311, 2.878, 13.587,
+             1.205, 3.585, 2.696, 0.225, 17.299, 1.699, 15.233, 6.597, 
+             18.065, 114.840),
+  p_val = c(0.000, 0.000, 0.008, 0.000, 0.000, 0.021, 0.004, 0.000, 0.228,
+            0.000, 0.007, 0.822, 0.000, 0.090, 0.000, 0.000, 0.000, 0.000),
+  v_test = c(-26.42, -14.65, -2.66, 16.16, 25.74, -2.31, -2.87, 12.90, -1.20,
+             3.57, -2.69, -0.22, 15.96, 1.70, 14.28, -6.51, -16.56, 48.11)
+)
+
+knitr::kable(
+  anova_tbl,
+  booktabs = TRUE,
+  caption = 'Analysis of Variance.'
+)
+```
+
+```{r echo = FALSE, comment = ''}
+cat('Residual standard error: 3260.0056 on 15 degrees of freedom')
+cat('Multiple R-squared: 0.7780')
+cat('F-statistic: 190.134 on 15 and 814')
+cat('p-value: 0.0000')
+cat('\n\n')
+cat('          Df    Sum Sq  F-value  Pr(>F)  v-test')
+cat('Periods:   8  8574.453  535.245   0.000   32.08')
+cat('Groups:   14  2886.327   88.217   0.000   42.29')
+```
+
+
+We observe that both factors, time period and group, are clearly significant.
+The coefficients of each period are arranged in a similar fashion to the way 
+they appear in the fatorial planes. The only positive coefficients for groups
+(indicating a greater degradation) are for filter B with any type of radiation,
+and for filter A with radiation W and dose 2.
+
