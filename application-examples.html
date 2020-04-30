@@ -158,6 +158,10 @@
 <li class="chapter" data-level="4.2.2" data-path="application-examples.html"><a href="application-examples.html#evolution-of-factor-trajectories-over-time"><i class="fa fa-check"></i><b>4.2.2</b> Evolution of Factor Trajectories over Time</a></li>
 <li class="chapter" data-level="4.2.3" data-path="application-examples.html"><a href="application-examples.html#analysis-of-variance"><i class="fa fa-check"></i><b>4.2.3</b> Analysis of Variance</a></li>
 </ul></li>
+<li class="chapter" data-level="4.3" data-path="application-examples.html"><a href="application-examples.html#defining-an-economic-capacity-index"><i class="fa fa-check"></i><b>4.3</b> Defining an Economic Capacity Index</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="application-examples.html"><a href="application-examples.html#analyzed-information"><i class="fa fa-check"></i><b>4.3.1</b> Analyzed Information</a></li>
+<li class="chapter" data-level="4.3.2" data-path="application-examples.html"><a href="application-examples.html#pca-2"><i class="fa fa-check"></i><b>4.3.2</b> PCA</a></li>
+</ul></li>
 </ul></li>
 <li class="part"><span><b>V Appendix</b></span></li>
 <li class="chapter" data-level="5" data-path="appendixa.html"><a href="appendixa.html"><i class="fa fa-check"></i><b>5</b> Appendix A: Fundamentals</a><ul>
@@ -1516,6 +1520,190 @@ The coefficients of each period are arranged in a similar fashion to the way
 they appear in the fatorial planes. The only positive coefficients for groups
 (indicating a greater degradation) are for filter B with any type of radiation,
 and for filter A with radiation W and dose 2.</p>
+</div>
+</div>
+<div id="defining-an-economic-capacity-index" class="section level2">
+<h2><span class="header-section-number">4.3</span> Defining an Economic Capacity Index</h2>
+<p>Our third example has to do with assessing the mean “economic capacity” of
+micro metropolitan components in a given year. To be more precise, the
+statistical units correspond to the smallest administrative units in a big
+Spanish city (these units are tehnically known as “census sections”). One of
+the goals is to draw a map of the city showing the distribution of the economic
+capacity in different areas.</p>
+<p>This type of analysis seeks to provide support in economic studies in which
+a geographical element is taken into account, for example, urban development
+projects, location of shops, services, operational branches of businesses, etc.</p>
+<p>We will focus on the indicators about income and wealth, routinely collected
+by municipal data bases, and service provider companies.</p>
+<p>Due to confidentiality issues, the treatment of the data has to be done at
+an aggregated level by census section. Therefore, the resulting index won’t
+be a family economic capacity index, but raher an estimation of the average
+family economic capacity by census section.</p>
+<div id="analyzed-information" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> Analyzed Information</h3>
+<p>The analyzed information comes from four sources: municipal registry data,
+office of motor vehicles, municipal land registry, and telephone bills.
+Because the related data files contain a large number of variables, the main
+problem has been the selection of the variables (indicators of the economic
+capacity of families) to be used in the construction of the index.</p>
+<p>The goal is to find a list of indicators in a balanced way such that all
+indicator subgroups have a similar importance, as well as being highly
+correlated.</p>
+<p>The chosen indicators are:</p>
+<ol style="list-style-type: decimal">
+<li><p>First factor from a simple correspondence analysis performed on the
+“socioprofessional categories” of the municipal registry.</p></li>
+<li><p>Tax potential based on car registrations.</p></li>
+<li><p>Age of cars.</p></li>
+<li><p>Construction value of properties (from municipal land registry)</p></li>
+<li><p>Value of properties (from municipal land registry)</p></li>
+<li><p>Total monthly telephone bill of all families.</p></li>
+</ol>
+<p>These retained variables give us an idea of either the income (based on
+telephone bills), or the wealth (based on property values). Other variables
+are more complex, for instance, the tax potential of vehicles is an indicator
+of both income and wealth; the age of vehicles is related with renewal periods
+of the stock of cars; the tax value of land is associated to speculation of
+real estate prices, and therefore the prices of real estate in a given area.
+Likewise, the first factor (from a correspondence analysis of socioprofessional
+categories) can be interpreted as an indicator of social status in a given area.</p>
+<p>The analyzed data are the mean values by census section. The following table
+shows the matrix of correlations of the described indicators.</p>
+<table>
+<caption><span id="tab:table-4-10">Table 4.10: </span>Correlation matrix of retained indicators.</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">socioprof</th>
+<th align="right">cars age</th>
+<th align="right">land value</th>
+<th align="right">cars tax</th>
+<th align="right">dwelling value</th>
+<th align="right">phone bill</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>socioprof</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>cars age</td>
+<td align="right">0.57</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>land value</td>
+<td align="right">0.82</td>
+<td align="right">0.41</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>cars tax</td>
+<td align="right">0.67</td>
+<td align="right">0.45</td>
+<td align="right">0.71</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>dwelling value</td>
+<td align="right">0.71</td>
+<td align="right">0.65</td>
+<td align="right">0.74</td>
+<td align="right">0.71</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>phone bill</td>
+<td align="right">0.74</td>
+<td align="right">0.49</td>
+<td align="right">0.75</td>
+<td align="right">0.71</td>
+<td align="right">0.76</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="pca-2" class="section level3">
+<h3><span class="header-section-number">4.3.2</span> PCA</h3>
+<p>The table <a href="application-examples.html#tab:table-4-11">4.11</a>, shown below, displays the distribution of
+eigenvalues from the principal component analysis on the six economic indicators.</p>
+<table>
+<caption><span id="tab:table-4-11">Table 4.11: </span>Table of eigenvalues from PCA on 6 economic indicators.</caption>
+<thead>
+<tr class="header">
+<th align="right">num</th>
+<th align="right">eigenvalue</th>
+<th align="right">percentage</th>
+<th align="right">cumulative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">4.3235</td>
+<td align="right">72.06</td>
+<td align="right">72.06</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">0.6800</td>
+<td align="right">11.33</td>
+<td align="right">83.39</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">0.3653</td>
+<td align="right">6.09</td>
+<td align="right">89.48</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">0.2768</td>
+<td align="right">4.61</td>
+<td align="right">94.09</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">0.2315</td>
+<td align="right">3.86</td>
+<td align="right">97.95</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">0.1230</td>
+<td align="right">2.05</td>
+<td align="right">100.00</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Figure <a href="application-examples.html#fig:fig-4-10">4.10</a> depicts the circle of correlations. Note how all
+variables, except “age of vehicles”, are highly correlated with the first axis.
+This reflects the so-called <em>size effect</em>. The amount of inertia captured by
+the first axis is 72% (of the total inertia).</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-4-10"></span>
+<img src="images/figure-4-10.png" alt="Circle of correlations of economic indicators" width="70%" />
+<p class="caption">
+Figure 4.10: Circle of correlations of economic indicators
+</p>
+</div>
 
 </div>
 </div>
