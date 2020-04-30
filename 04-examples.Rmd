@@ -746,3 +746,130 @@ they appear in the fatorial planes. The only positive coefficients for groups
 (indicating a greater degradation) are for filter B with any type of radiation,
 and for filter A with radiation W and dose 2.
 
+
+
+## Defining an Economic Capacity Index
+
+Our third example has to do with assessing the mean "economic capacity" of 
+micro metropolitan components in a given year. To be more precise, the 
+statistical units correspond to the smallest administrative units in a big 
+Spanish city (these units are tehnically known as "census sections"). One of 
+the goals is to draw a map of the city showing the distribution of the economic 
+capacity in different areas.
+
+This type of analysis seeks to provide support in economic studies in which 
+a geographical element is taken into account, for example, urban development 
+projects, location of shops, services, operational branches of businesses, etc.
+
+We will focus on the indicators about income and wealth, routinely collected
+by municipal data bases, and service provider companies.
+
+Due to confidentiality issues, the treatment of the data has to be done at 
+an aggregated level by census section. Therefore, the resulting index won't
+be a family economic capacity index, but raher an estimation of the average
+family economic capacity by census section.
+
+
+### Analyzed Information
+
+The analyzed information comes from four sources: municipal registry data, 
+office of motor vehicles, municipal land registry, and telephone bills.
+Because the related data files contain a large number of variables, the main 
+problem has been the selection of the variables (indicators of the economic
+capacity of families) to be used in the construction of the index.
+
+The goal is to find a list of indicators in a balanced way such that all 
+indicator subgroups have a similar importance, as well as being highly 
+correlated.
+
+The chosen indicators are:
+
+1. First factor from a simple correspondence analysis performed on the 
+"socioprofessional categories" of the municipal registry.
+
+2. Tax potential based on car registrations.
+
+3. Age of cars.
+
+4. Construction value of properties (from municipal land registry)
+
+5. Value of properties (from municipal land registry)
+
+6. Total monthly telephone bill of all families.
+
+These retained variables give us an idea of either the income (based on 
+telephone bills), or the wealth (based on property values). Other variables
+are more complex, for instance, the tax potential of vehicles is an indicator 
+of both income and wealth; the age of vehicles is related with renewal periods
+of the stock of cars; the tax value of land is associated to speculation of 
+real estate prices, and therefore the prices of real estate in a given area.
+Likewise, the first factor (from a correspondence analysis of socioprofessional
+categories) can be interpreted as an indicator of social status in a given area.
+
+The analyzed data are the mean values by census section. The following table
+shows the matrix of correlations of the described indicators.
+
+```{r table-4-10, echo = FALSE, comment = ''}
+options(knitr.kable.NA = '')
+cor_4_10 <- cbind(
+  c(1.00, 0.57, 0.82, 0.67, 0.71, 0.74),
+  c(0.00, 1.00, 0.41, 0.45, 0.65, 0.49),
+  c(0.00, 0.00, 1.00, 0.71, 0.74, 0.75),
+  c(0.00, 0.00, 0.00, 1.00, 0.71, 0.71),
+  c(0.00, 0.00, 0.00, 0.00, 1.00, 0.76),
+  c(0.00, 0.00, 0.00, 0.00, 0.00, 1.00)
+)
+
+var_labels <- c('socioprof', 'cars age', 'land value', 'cars tax', 
+  'dwelling value', 'phone bill')
+
+rownames(cor_4_10) <- var_labels
+colnames(cor_4_10) <- var_labels
+
+cor_4_10[upper.tri(cor_4_10, diag = FALSE)] <- NA
+
+# print table with kable
+knitr::kable(
+  cor_4_10,
+  
+  booktabs = TRUE,
+  caption = 'Correlation matrix of retained indicators.'
+)
+```
+
+
+### PCA
+
+The table \@ref(tab:table-4-11), shown below, displays the distribution of 
+eigenvalues from the principal component analysis on the six economic indicators.
+
+```{r table-4-11, echo = FALSE}
+# table 4.11: eigenvalues
+eigvals <- c(4.3235, 0.6800, 0.3653, 0.2768, 0.2315, 0.1230)
+
+eig_temps <- data.frame(
+  num = 1:6,
+  eigenvalue = eigvals,
+  percentage = round(100 * eigvals / sum(eigvals), 2),
+  cumulative = round(cumsum(100 * eigvals / sum(eigvals)), 2)
+)
+
+knitr::kable(
+  eig_temps,
+  booktabs = TRUE,
+  caption = 'Table of eigenvalues from PCA on 6 economic indicators.'
+)
+```
+
+<br>
+
+Figure \@ref(fig:fig-4-10) depicts the circle of correlations. Note how all 
+variables, except "age of vehicles", are highly correlated with the first axis. 
+This reflects the so-called _size effect_. The amount of inertia captured by 
+the first axis is 72% (of the total inertia).
+
+```{r fig-4-10, echo = FALSE, out.width = '70%', fig.cap='Circle of correlations of economic indicators'}
+knitr::include_graphics("images/figure-4-10.png")
+```
+
+
