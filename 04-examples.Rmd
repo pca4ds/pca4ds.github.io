@@ -872,4 +872,38 @@ the first axis is 72% (of the total inertia).
 knitr::include_graphics("images/figure-4-10.png")
 ```
 
+The correlations of the original variables with the first principal component 
+are as follows:
+
+| Variable                   | Correlation |
+|:---------------------------|:------------|
+| Value of properties        |    0.90     |
+| Socioprofessional category |    0.89     |
+| Construction value         |    0.88     |
+| Telephone bill             |    0.88     |
+| Tax potential based on car |    0.84     |
+| Age of vehicles            |    0.68     |
+
+
+As you can tell, these are high correlations, which indicates that the first
+factor is a good representant of all the analyzed variables. These correlations
+give the coefficients for the explanatory model using the first factor (assuming 
+mean-centered and reduced variables). The fact that most of the coefficients 
+are very similar, implies that the first factor is a good approximation to the 
+arithmetic mean of the variables. Consequently, the first principal component
+allows us to order the census sections according to their level of economic 
+capacity. The centroid of this factor corresponds to the average economic 
+capacity of the city.
+
+We should say that the obtained index is an abstract index. It does not 
+represent a concrete measurement, centered around 0 and with an arbitrary
+variance. Using information from other research studies,we can transform the 
+scale of the index in order to have a more conventional scale ranging from 
+0 to 100. Which provides the following distribution depicted in figure 
+\@ref(fig:fig-4-11).
+
+```{r fig-4-11, echo = FALSE, out.width = '80%', fig.cap='Histogram of Economic Capacity Index'}
+knitr::include_graphics("images/figure-4-11.png")
+```
+
 
