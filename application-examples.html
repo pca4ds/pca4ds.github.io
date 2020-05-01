@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4 Application Examples | Principal Component Analysis for Data Science (PCA4DS)</title>
+  <title>4 Application Examples | Principal Component Analysis for Data Science (pca4ds)</title>
   <meta name="description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4 Application Examples | Principal Component Analysis for Data Science (PCA4DS)" />
+  <meta property="og:title" content="4 Application Examples | Principal Component Analysis for Data Science (pca4ds)" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="gastonstat/pca4ds" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4 Application Examples | Principal Component Analysis for Data Science (PCA4DS)" />
+  <meta name="twitter:title" content="4 Application Examples | Principal Component Analysis for Data Science (pca4ds)" />
   
   <meta name="twitter:description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
   
@@ -197,7 +197,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Principal Component Analysis for Data Science (PCA4DS)</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Principal Component Analysis for Data Science (pca4ds)</a>
           </h1>
         </div>
 
@@ -1702,6 +1702,63 @@ the first axis is 72% (of the total inertia).</p>
 <img src="images/figure-4-10.png" alt="Circle of correlations of economic indicators" width="70%" />
 <p class="caption">
 Figure 4.10: Circle of correlations of economic indicators
+</p>
+</div>
+<p>The correlations of the original variables with the first principal component
+are as follows:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Correlation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Value of properties</td>
+<td align="left">0.90</td>
+</tr>
+<tr class="even">
+<td align="left">Socioprofessional category</td>
+<td align="left">0.89</td>
+</tr>
+<tr class="odd">
+<td align="left">Construction value</td>
+<td align="left">0.88</td>
+</tr>
+<tr class="even">
+<td align="left">Telephone bill</td>
+<td align="left">0.88</td>
+</tr>
+<tr class="odd">
+<td align="left">Tax potential based on car</td>
+<td align="left">0.84</td>
+</tr>
+<tr class="even">
+<td align="left">Age of vehicles</td>
+<td align="left">0.68</td>
+</tr>
+</tbody>
+</table>
+<p>As you can tell, these are high correlations, which indicates that the first
+factor is a good representant of all the analyzed variables. These correlations
+give the coefficients for the explanatory model using the first factor (assuming
+mean-centered and reduced variables). The fact that most of the coefficients
+are very similar, implies that the first factor is a good approximation to the
+arithmetic mean of the variables. Consequently, the first principal component
+allows us to order the census sections according to their level of economic
+capacity. The centroid of this factor corresponds to the average economic
+capacity of the city.</p>
+<p>We should say that the obtained index is an abstract index. It does not
+represent a concrete measurement, centered around 0 and with an arbitrary
+variance. Using information from other research studies,we can transform the
+scale of the index in order to have a more conventional scale ranging from
+0 to 100. Which provides the following distribution depicted in figure
+<a href="application-examples.html#fig:fig-4-11">4.11</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-4-11"></span>
+<img src="images/figure-4-11.png" alt="Histogram of Economic Capacity Index" width="80%" />
+<p class="caption">
+Figure 4.11: Histogram of Economic Capacity Index
 </p>
 </div>
 
