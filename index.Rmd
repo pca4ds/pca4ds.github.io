@@ -1,5 +1,5 @@
 --- 
-title: "Principal Component Analysis for Data Science (PCA4DS)"
+title: "Principal Component Analysis for Data Science (pca4ds)"
 author: "Tomas Aluja-Banet<br>Alain Morineau<br>Gaston Sanchez"
 description: "This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression."
 github-repo: gastonstat/pca4ds
