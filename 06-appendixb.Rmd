@@ -510,7 +510,7 @@ $$
 \mathbf{Y} \approx \hat{\mathbf{Y}} = \underset{(n,2)}{\mathbf{V}} \mathbf{\Lambda} \underset{(2,p)}{\mathbf{U}}
 $$
 
-We can define three decompositions of $\mathbf{Y}$ in therms of $\mathbf{AB^\mathsf{T}}$ based on thr form in which we assign the singular values between individuals ($\mathbf{V}$) or between variables ($\mathbf{U}$).
+We can define three decompositions of $\mathbf{Y}$ in therms of $\mathbf{AB^\mathsf{T}}$ based on the form in which we assign the singular values between individuals ($\mathbf{V}$) or between variables ($\mathbf{U}$).
 
 | Representation | $\mathbf{A}$ | $\mathbf{B^\mathsf{T}}$ |
 |:----------------|:-------------|:------------------------|
