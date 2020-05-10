@@ -12,8 +12,10 @@ documentclass: book
 output: bookdown::gitbook
 ---
 
-# Preface {-}
+# (PART) Preface {-}
 
+
+# PCA4DS {-}
 
 This book aims to provide an introduction to Principal Component Analysis for
 Data Science.
