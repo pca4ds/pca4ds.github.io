@@ -1,5 +1,6 @@
 rmd_files: [
-  "index.rmd",
+  "index.Rmd",
+  "preface.Rmd",
   "00-glossary.Rmd",
   "01-introduction.Rmd",
   "02-mechanics.Rmd",
