@@ -8,7 +8,7 @@ library(FactoMineR)
 
 Carrying out a comprehensive Principal Component Analysis is both an art and a science. The analyst must have some degree of analytical experience as well as a reasonable familiarity with the analyzed data. A rushed PCA analysis tends to lead to confusing results, and frustating endeavors. A well applied PCA involves a certain strategy to analyze the data, enforced with common sense, and taking certain precautions.
 
-In this chapter, we present a methodology to carry out a Principal Component Analysis that goes above and beyond what is typically discussed in other texts about PCA. We try to stay away from the narrow perspective of using PCA within with the sole purpose of wroking with few variables that are compatible with a statistical model. Instead, we strongly advocate for analyses that take into account as many variables as possible. This will make the analysis richer, more _holistic_, and with more coherent interpretations.
+In this chapter, we present a methodology to carry out a Principal Component Analysis that goes above and beyond what is typically discussed in other texts about PCA. We try to stay away from the narrow perspective of using PCA within with the sole purpose of working with few variables that are compatible with a statistical model. Instead, we strongly advocate for analyses that take into account as many variables as possible. This will make the analysis richer, more _holistic_, and with more coherent interpretations.
 
 
 ## Themescope
@@ -42,7 +42,7 @@ A common case that can limit the applicability of PCA is when analyzing variable
 
 Nonlinearity associations can also limit the applicability of PCA. This is illustrated with the relation betwen age and income: overall, income tends to increase with age during active working years, but when a person retires the income tend to decrease.
 
-Phenomena of lack of symmetry and lack of linearity will affect the results of a PCA. If these issues are not identify, they can lead to wrong interpretations and conclusions. However, the presence of these phenomena will become apparent for the well trained eyes of an experienced analyst.
+Phenomena of lack of symmetry and lack of linearity will affect the results of a PCA. If these issues are not identified, they can lead to wrong interpretations and conclusions. However, the presence of these phenomena will become apparent for the well trained eyes of an experienced analyst.
 
 We should say that techniques such as Multiple Correspondence Analysis (MCA) can always be used after having encoded (categorized) the continuous variables. Compared to PCA, MCA has the advantage of being inherently non-linear, and thus can be used in situations when PCA is limited.
 
@@ -54,7 +54,7 @@ More often than not, Principal Component Analysis is performed on variables havi
 
 Despite the usefulness of transforming variables into standardized scale, this transformation is not always the ideal solution to _balance_ the variables. For example, if there is a subset of variables that are highly correlated among each other, this subset will dominate the first principal component, and therefore, will have a higher importance in the analysis.
 
-Suppose that you have 5 variables that are measuring the same aspect of a certain phenomenon, and that the other aspects are covered each one by just one variable. You can think of the group of 5 variables as being just one variable but with a variance 5 times larger than the rest of the variables. Consequently, the first axis will be determined by the cumulative effect of the 5 highly correlated variables. In summary, we should pay attention to the effect produced by groups of variables that are highly correlated, and have a mechanism to balance the importance of each aspect in the studied phenomeno.
+Suppose that you have 5 variables that are measuring the same aspect of a certain phenomenon, and that the other aspects are covered each one by just one variable. You can think of the group of 5 variables as being just one variable but with a variance 5 times larger than the rest of the variables. Consequently, the first axis will be determined by the cumulative effect of the 5 highly correlated variables. In summary, we should pay attention to the effect produced by groups of variables that are highly correlated, and have a mechanism to balance the importance of each aspect in the studied phenomenon.
 
 
 
@@ -67,7 +67,7 @@ The stability of the results will depend on the randomness of the data collectio
 
 ### How many axes to study and retain?
 
-Are the directions of the first axes will defined and stable? More precisely, are the dispersions in consecutive directions really different? If not, we would have to consider that the factorial plane formed by them is stable but the associated axes are not really different (i.e. indeterminate by a rotation).
+Are the directions of the first axes well defined and stable? More precisely, are the dispersions in consecutive directions really different? If not, we would have to consider that the factorial plane formed by them is stable but the associated axes are not really different (i.e. indeterminate by a rotation).
 
 One way to answer these questions is to suppose that the data come from a sample drawn from a population with a normal distribution. In this case, the eigenvalues asymptotically follow a normal distribution (Anderson, 1963). Then, we can estimate a 95% confidence interval for each eigenvalue with the formula \@ref(eq:31)
 
@@ -78,7 +78,7 @@ $$
 
 The width of this interval gives us an idea of the stability of the eigenvalue with respect to the sample randomness. The overlapping in the intervals of two consecutive eigenvalues suggests that these eigenvalues are equal (or very similar). The corresponding axes are thus indeterminate by one rotation. Under this situation, the analyst should focus on the interpretation of the subspace defined by the first eigenvalues that are well separated.
 
-Although this result has to do with eigenvalues of covarance matrices, it can also be applied to the eigenvalues of correlation matrices. Simulation studies show that the confidence intervals tend to be "cautious": the coverage percentage of the true eigenvalue, is almost always greater than the anounced confidence level. In any case, the asymptotic nature of the results, and the underlying hypothesis of normality, lead us to consider the results are merely indicative (not a hard rule).
+Although this result has to do with eigenvalues of covariance matrices, it can also be applied to the eigenvalues of correlation matrices. Simulation studies show that the confidence intervals tend to be "cautious": the coverage percentage of the true eigenvalue, is almost always greater than the anounced confidence level. In any case, the asymptotic nature of the results, and the underlying hypothesis of normality, lead us to consider the results are merely indicative (not a hard rule).
 
 In regards of the factorial axes, it is convenient to distinguish the axes that will be studied, from the axes that will be used. The factorial axes can be seen as an ultimate result, or also as an intermediate stage for further studies.
 
@@ -300,7 +300,7 @@ r_s (j, j') = 1 - \frac{6 \sum_{i}^{n} (x_{ij} - x_{ij'})^2}{n (n^2 - 1)}
 (\#eq:34)
 $$
 
-where the quantities $x_{ij}$ represent the rank of the individual $i$ of the $j$ variable. The advantage of the Spearman's correlation coefficient is that it coincides with the Pearson's coeffcient (usual correlation) when applied to a matrix of ranks.
+where the quantities $x_{ij}$ represent the rank of the individual $i$ of the $j$ variable. The advantage of the Spearman's correlation coefficient is that it coincides with the Pearson's coeffcient (usual correlation coefficient) when applied to a matrix of ranks.
 
 In the case of the international cities, the Spearman's correlations are given in table \@ref(tab:table-3-6) (compare these with table \@ref(tab:table-2-6)).
 
@@ -403,7 +403,7 @@ gray level for each pixel). Applying PCA on such a table, allows us to detect
 a set of significant eigenvalues in terms of the irregularities present in 
 an image.
 
-The reconstitution enalbles an important reduction in storage capacity, because
+The reconstitution enables an important reduction in storage capacity, because
 one goes from an image of $n \times n$ pixels into another image of size 
 $q \times (2n + 1)$, where $q$ is the number of retained axes in the analysis.
 
@@ -521,7 +521,7 @@ or do we just have a continuous reality?
 In general, most clustering partitions tend to reflect intermediate situations.
 Sometimes we may find clusters that are more or less "natural", but there 
 will also be times in which the clusters are more "artificial". Intermediate
-situations have regions (set fo individuals) of high density embedded within 
+situations have regions (set of individuals) of high density embedded within 
 layers of individuals with low density. Even in such intermediate cases, the 
 obtained clustering partition is still useful. While we cannot say that clusters
 are "real" groups differentiated from one another, the formed groups makes it
@@ -632,7 +632,7 @@ Often, a problem involves modeling a certain response variable $\mathbf{y}$, in 
 
 One common issue when modeling a response variable---with a regression or classfication technique---has to do with _multicollinearity_ in the explanatory variables. Geometrically, the subspace spanned by the explanatory variables is unstable. This means that small variations in the values of the variables will result in large changes on the spanned subspace.
 
-Performing a regression analysis involves projecting the response variable onto the subspace spanned by the explanatory variables. If two explanatory variables are highly correlated, small variations in these variables will substantially modify the orientation of the space. And consequently, the projectino $\hat{\mathbf{y}}$ becomes unstable (see figure \@ref(fig:fig-3-8))
+Performing a regression analysis involves projecting the response variable onto the subspace spanned by the explanatory variables. If two explanatory variables are highly correlated, small variations in these variables will substantially modify the orientation of the space. And consequently, the projection $\hat{\mathbf{y}}$ becomes unstable (see figure \@ref(fig:fig-3-8))
 
 ```{r fig-3-8, echo = FALSE, out.width = '50%', fig.cap='Orthogonal projection of y onto the plane spanned by two explanatory variables x'}
 knitr::include_graphics("images/figure-3-8.png")
@@ -651,7 +651,7 @@ $$
 (\#eq:39)
 $$
 
-The principal components in this case become _instrumental_ variables. This means that theur behave like intemediate links for a another subsequent analysis.
+The principal components in this case become _instrumental_ variables. This means that they behave like intemediate links for a another subsequent analysis.
 
 We can select the principal components that will be part of a given model. One way to do this is by selecting them with the Furnival-Wilson (1974) algorithm to obtain the best regression equations. In fact, the problem is much simpler given that the factors are orthogonal.
 
@@ -661,7 +661,7 @@ An analogous situation occurs within a classification context. As a particular c
 
 ## Comparing Various Tables
 
-Consider a study in which we observe a group of individuals measured by a set of variables. Moreover, suppose that we repeat the study at different time periods, and that we are interested in looking at the evoution of such measurements over time. A study like this will provide several data tables of the same dimension (e.g. one table per time period). Obviously, one of the analytical goals has to do with comparing such tables.
+Consider a study in which we observe a group of individuals measured by a set of variables. Moreover, suppose that we repeat the study at different time periods, and that we are interested in looking at the evolution of such measurements over time. A study like this will provide several data tables of the same dimension (e.g. one table per time period). Obviously, one of the analytical goals has to do with comparing such tables.
 
 One possible way to compare the tables is to take one of the data tables as the active variables, while the rest of tables are treated as supplementary variables. For example, we can take the first table as the reference table; or also the last table. Likewise, we can take the mean table and use it as a benchmark to compare all the tables against with: the mean table is the active one, and all the other tables become supplementary.
 
@@ -677,9 +677,10 @@ The axes of this analysis are those defined in the analysis of the 1994 table. T
 
 In this plane we project the the cities in terms of their salaries from 1991. 
 Then, the movement of the cities towards the left side suggests a greater 
-salary inequality; conversely, the those cities moving upward, suggest an 
+salary equality; conversely, the those cities moving upward, suggest an 
 increment of salaries in manual labor jobs. Interestingly, notice the substantial
-changes in cities such as Lagos and Yakarta between 1991 and 1994.
+changes in cities such as Lagos and Yakarta between 1991 and 1994, indicating 
+a unstable pattern of salaries in those cities.
 
 ```{r fig-3-10, echo = FALSE, out.width = '75%', fig.cap='Some trajectories of cities between 1991 (in italics) and 1994 (in bold).'}
 knitr::include_graphics("images/figure-3-10.png")
