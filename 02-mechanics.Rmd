@@ -53,15 +53,19 @@ The eigenvalues provide the projected inertias on each of the desired directions
 
 $$
 I_T = \lambda_1 + \lambda_2 + \dots + \lambda_p = \begin{cases}
-  0 & \text{in normalized PCA} \\
+  p & \text{in normalized PCA} \\
+  & \\
   \sum_{j=1}^{p} var(j) & \text{in non-normalized PCA}
 \end{cases}
 (\#eq:2-3)
 $$
 
-The eigenvectors give the directions of maximum inertia y we call them factorial axes.
+The eigenvectors give the directions of maximum inertia and we call them 
+factorial axes.
 
-On these directions we project the individuals, obtaining what is called the __principal components__ (see formula \@ref(eq:2-3)). As we can tell, each component is obtained as a linear combination of the original variables:
+On these directions we project the individuals, obtaining what is called the
+__principal components__ (see formula \@ref(eq:2-1)). As we can tell, each 
+component is obtained as a linear combination of the original variables:
 
 $$
 \boldsymbol{\psi}_{\alpha} = u_1 \mathbf{x_1} + \dots + u_p \mathbf{x_p}
@@ -83,7 +87,8 @@ knitr::include_graphics("images/figure-2-2.png")
 
 ### Interpreting the Inertia Proportions
 
-In our working examples with the data about the cities, we obtain the following 12 eigenvalues:
+In our working example with the data about the cities, we obtain the following 
+12 eigenvalues:
 
 ```{r table-2-1, echo = FALSE}
 # table of eigenvalues
@@ -130,7 +135,8 @@ _Note:_ To decrease the percentage of inertia of each axis, one can add new unco
 
 ### Coordinates of row-points
 
-The table below contains the results about the cities with respect to the first three factorial axes:
+The table below contains the results about the cities with respect to the first 
+two factorial axes:
 
 ```{r table-2-2, echo = FALSE, comment = ''}
 load('data/table-2-2.RData')
@@ -147,13 +153,27 @@ knitr::kable(
 ```
 
 
-The column `wgt` indicates the weight of each city, which in this case is a uniform weight of 100 / 51 = 1.96.
+The column `wgt` indicates the weight of each city, which in this case is a 
+uniform weight of 100 / 51 = 1.96.
 
-The column `disto` provides the squared distance of each city to the center of gravity. This column allows us to find which cities are the _typical_ cities (i.e. the closest ones to the center of gravity), such as Helsinki. Likewise, it allows us to identify the _unusual_ or _unique_ cities (i.e. those that have a large distance to the center of gravity) like Zurich or Tokyo. In general, the distance to the center of gravity is a criterion of the _singularity_ of each city.
+The column `disto` provides the squared distance of each city to the center of 
+gravity. This column allows us to find which cities are the _typical_ cities 
+(i.e. the closest ones to the center of gravity), such as Helsinki. Likewise, 
+it allows us to identify the _unusual_ or _unique_ cities (i.e. those that have 
+a large distance to the center of gravity) like Zurich or Tokyo. In general, 
+the distance to the center of gravity is a criterion of the _singularity_ of 
+each city.
 
-The third and fourth columns correspond to the coordinates obtained from projecting the cities onto the first two factorial axes. The representation on the first factorial plane is obtained with these coordinateas ($F_1$ and $F_2$), given in figure \@ref(fig:fig-1-9).
+The third and fourth columns correspond to the coordinates obtained from 
+projecting the cities onto the first two factorial axes. The representation on 
+the first factorial plane is obtained with these coordinateas ($F_1$ and $F_2$),
+given in figure \@ref(fig:fig-1-9).
 
-It is important to mention that the orientation of a factorial axis is arbitrary: the important trait is the direction. We could change the orientation of an axis by changing the sign of the coordinates on this axis. Graphically, this means that all symmetries are possible. The user has to make the decision of which orientation is the most convenient.
+It is important to mention that the orientation of a factorial axis is arbitrary:
+the important trait is the direction. We could change the orientation of an axis 
+by changing the sign of the coordinates on this axis. Graphically, this means 
+that all symmetries are possible. The user has to make the decision of which 
+orientation is the most convenient.
 
 
 
@@ -169,15 +189,21 @@ CTR(i, \alpha) = \frac{p_i \psi^{2}_{i \alpha}}{\lambda_{\alpha}} \times 100
 $$
 
 
-The above quotient is the contribution of a point $i$ to the construction of axis $\alpha$.
+The above quotient is the contribution of a point $i$ to the construction of 
+axis $\alpha$.
 
-We can use the contributions to identify the cities that contribute the most to the construction of the factorial axes.
+We can use the contributions to identify the cities that contribute the most to 
+the construction of the factorial axes.
 
-If all cities had the same contribution, this would have a value of about 2% (100/51). Consequently, all those cities with contributions greater than 2% can be considered to have influence above the average.
+If all cities had the same contribution, this would have a value of about 2%
+(100/51). Consequently, all those cities with contributions greater than 2% can 
+be considered to have influence above the average.
 
 _When is a contribution considered to be "high"?_
 
-The answer to this question is not straightforward. A contribution will be considered "high" when, compared to the rest of contributions, it has an unusual large value.
+The answer to this question is not straightforward. A contribution will be
+considered "high" when, compared to the rest of contributions, it has an unusual 
+large value.
 
 For example, the city that contributes the most to the second axis is Abu Dhabi (48%). Almost half of the inertia of this axis is due to this city alone. Abu Dhabi is clearly very influent in the construction of this axis. We can actually ask about the stability of this axis, meaning, how much the result would change if Abu Dhabi were to be eliminated?
 
@@ -218,9 +244,13 @@ COS^2(i, \alpha) = \frac{\psi^{2}_{i \alpha}}{d^2(i, G)}
 $$
 
 
-A squared cosine of means that the city is on the factorial axis (i.e. the angle $\omega$ is zero), whereas a squared cosine of 0 indicates that the city is on an orthogonal direction to the axis.
+A squared cosine of 1 means that the city is on the factorial axis (i.e. the 
+angle $\omega$ is zero), whereas a squared cosine of 0 indicates that the city 
+is on an orthogonal direction to the axis.
 
-Notice that the sum of the squared cosines over all $p$ factorial axes is equal to 1. This has to do with fact that all axes are needed in order to have the exact position of a point in the entire space.
+Notice that the sum of the squared cosines over all $p$ factorial axes is equal 
+to 1. This has to do with fact that all axes are needed in order to have the 
+exact position of a point in the entire space.
 
 $$
 \sum_{\alpha = 1}^{p} COS^2(i, \alpha) = 1
@@ -285,7 +315,7 @@ $$
 
 Notice that the inertia of the variable-points that are projected onto an axis is the same as the inertia of the row-points projected on the axis of same rank.
 
-Among the factorial axes of both clouds of points, the factorial axes in one space are related to the factorial axes in the other space. Thiese relationships allow us to obtain the directions of one space taking into account the directions of the other space. Such relationships are known as _transition relationships_.
+Among the factorial axes of both clouds of points, the factorial axes in one space are related to the factorial axes in the other space. These relationships allow us to obtain the directions of one space taking into account the directions of the other space. Such relationships are known as _transition relationships_.
 
 By using the transition relationships, we just need to perform a PCA on one of the spaces (e.g. the rows), and then use these results to derive the results of the other space (e.g. the columns), without having to diagonalize two different cross-products.
 
@@ -568,13 +598,13 @@ knitr::kable(
 
 <br>
 
-There are few cities farther apart from the center of gravity: Abu Dhabi, Nairobi, and Buenos Aires. Figure \@ref(fig:fig-2-10) shows the factorial plane. On the left side we find the cities with salaries of "managerial" professions _relatively_ higher. To the right of the graph we find cities that could be labeled as more "egalitarian" (in terms of their salaries).
+There are few cities farther apart from the center of gravity: Abu Dhabi, Nairobi, and Buenos Aires. Figure \@ref(fig:fig-2-10) shows the factorial plane. On the right side we find the cities with salaries of "managerial" professions _relatively_ higher. To the left of the graph we find cities that could be labeled as more "egalitarian" (in terms of their salaries).
 
 ```{r fig-2-10, echo = FALSE, out.width = '80%', fig.cap='Projection of the individuals in the first factorial plane'}
 knitr::include_graphics("images/figure-2-10.png")
 ```
 
-In the lower half of the graph we find cities that provide more value to the qualified manual jobs, whereas the upper half of the graph contains cities that tend to provide more value to the managerial and services types of jobs.
+In the lower half of the graph we find cities that provide more value to the qualified manual jobs, whereas the upper half of the graph contains cities that tend to provide more value to the public service types of jobs.
 
 All these results suggest that the salaries can be explained from the level of salaries of each city (first factor from first analysis), the degree of "egalitarianism" between professions and the orientation of the types of jobs (manual jobs versus service jobs).
 
@@ -587,7 +617,7 @@ In section 1.1 we described the data set containing 51 cities on which 40 econom
 
 ### Continuous Supplementary Variables
 
-The continuous supplementary variables can be positioned in the factorial spcaes using the same formulas applied to the active variables.
+The continuous supplementary variables can be positioned in the factorial spaces using the same formulas applied to the active variables.
 
 Within a normalized PCA, we use the correlation of a supplementary variable $\mathbf{x^{+}_{j}}$ with the principal components $\boldsymbol{\psi_{\alpha}}$
 
@@ -657,7 +687,8 @@ knitr::kable(
 
 From the above table, we see that the salaries of the 12 professions, as well as most of the expenses, are negatively correlated with the first dimension. This indicates that the cities with higher salaries tend to remunerate (relatively) less the managerial professions.
 
-Also, the correlations with the variables `price_index_no_rent` and `price_index_with_rent` are a bit smaller than the correlations with the variables `gross_salaries` and `net_salaries`. This has to do with the most expensive cities which have a higher buying capacity, and elevated taxes and social services.
+Also, the correlations of variables `price_index_no_rent` and `price_index_with_rent` are a bit smaller than the correlations of  `gross_salaries` and `net_salaries`. This indicates that the most expensive 
+cities have also a higher buying capacity, and elevated taxes and social services.
 
 The first axis opposes cities with low salaries that pay relatively well to `factory_manager`, `engineer` and `executive_secretary`, to the cities with higher salaries that pay relatively better those professions that are less socially well considered. This axis can thus be labeled as a _salary inequality_. In fact, the derived variable `salary_inequality` is the most correlated to this axis.
 
@@ -702,9 +733,16 @@ In contrast, when the projected category is clearly separated from the overall c
 
 It would be interesting to assess what category (i.e group of individuals) seems to indicate an relevant area in the factorial plane.
 
-We can regard the overall center of gravity to be the _center of atraction_ of al the average points of all groups randomly selected. By doing this, we can highlight those centroids that differ "significantly" from the overall centroid. The individuals that form such group will have a high degree of resemblance among them, and therefore will be sufficiently unique to differentiate themselves from the center of gravity.
+We can regard the overall center of gravity to be the _center of atraction_ of 
+the average points of all groups randomly selected. By doing this, we can 
+highlight those centroids that differ "significantly" from the overall centroid. 
+The individuals that form such group will have a high degree of resemblance 
+among them, and therefore will be sufficiently unique to differentiate 
+themselves from the center of gravity.
 
-Suppose that we randomly select a group of $n_j$ individuals from the total of $n$ individuals. The graph of these individuals over the first factorial plane will be a a random scatter plot over this plane.
+Suppose that we randomly select a group of $n_j$ individuals from the total of 
+$n$ individuals. The graph of these individuals over the first factorial plane 
+will be a random scatter plot over this plane.
 
 The average point of these $n_j$ individuals will differ only by the random fluctuations from the overall average represented by the origin of the coordinates (see figure \@ref(fig:fig-2-14)).
 
@@ -723,9 +761,9 @@ knitr::include_graphics("images/figure-2-15.png")
 We can calculate the average point of these individuals. Furthermore, we can compute the distance between this average point and the overall centroid. Is the position of this average point compatible with the hypothesis that the individuals have been randomly selected? The more the evidence againts this hypothesis, the more interesting this category will be to profile the region of the factorial plane that it occupies.
 
 
-#### Interpreting results with the V-test {-}
+#### Interpreting results with the v-test {-}
 
-The idea behind the so-called V-test involves performing a hypothesis test. The null hypothesis $H_0$ consists in the assumption that a set of $k$ individuals are randomly selected, without replacement, from the total of $n$ individuals.
+The idea behind the so-called v-test involves performing a hypothesis test. The null hypothesis $H_0$ consists in the assumption that a set of $n_k$ individuals are randomly selected, without replacement, from the total of $n$ individuals.
 
 Under the null hypothesis, we calculate the probability of observing a configuration as the one obtained, or more extreme. This is the critical probability associated to $H_0$. The smaller this probability, the less likely is the hypothesis of individuals being randomly selected.
 
@@ -766,7 +804,7 @@ We interpret this value as follows: the probability of having a difference betwe
 
 What we are doing is evaluating some sort of distance between the overall average and the average of a group, measured in terms of standard deviations from a normal distribution. By standardizing these values, we have a common unit that allows us to compare different categories, and rank them according to their importance. In this way, we assess the likelihood of the null hypothesis: that individuals from category $k$ have been randomly selected.
 
-The larger this p-value (in absolute value), the more this indicates that the group of individuals occupies a significant position, and characterizes the region of the factorial plane where they are.
+The larger this v-test (in absolute value), the more this indicates that the group of individuals occupies a significant position, and characterizes the region of the factorial plane where they are.
 
 ```{r fig-2-16, echo = FALSE, out.width = '55%', fig.cap='V-test associated to a critical probability'}
 knitr::include_graphics("images/figure-2-16.png")
@@ -795,9 +833,11 @@ knitr::kable(
 
 The first column, named `EFF`, provides the effective of each category (total number of cities of each category). The second column, named `PABS` provides the weight (sum of the weights of all the cities in a given category). When we have uniform weights, the weight and the effective are the same. The first category is formed by six cities of Northern Europe.
 
-The v-test controlled, for each axis, the  hypothesis of random distribution for these 6 cities among the 51 cities. In the first axis, for example, we see a significant opposition of North America with respect to South America and Middle East.
+The v-test controlled, for each axis, the  hypothesis of random distribution for these 6 cities among the 51 cities. In the first axis, for example, we see a significant opposition of North America with respect to South America and Middle East, the latter being the most unequal regions of the world, whereas Central
+Europe corresponds to where the service professions are (relatively) better paid.
 
-The second axis separates with significant v-tests the cities of Central Europe with the cities in Africa.
+The second axis separates with significant v-tests the cities of Central Europe 
+with the cities in Africa.
 
 
 
@@ -953,7 +993,7 @@ knitr::include_graphics("images/figure-2-23.png")
 
 This graphical similarity leads to abuse of language in interpretating simultaneous representation (mixing analysis of angles and analysis of growth directions).
 
-Notice that it is not possible to directly display at the same time the supplementary variables in a simultaneous PCA plot  of variables-individuals. The supplementary variables do not participate iin the definition of the original basis for the cloud of row-points.
+Notice that it is not possible to directly display at the same time the supplementary variables in a simultaneous PCA plot  of variables-individuals. The supplementary variables do not participate in the definition of the original basis for the cloud of row-points.
 
 
 #### In Summary ... {-}
