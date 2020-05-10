@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Terminology | Principal Component Analysis for Data Science (pca4ds)</title>
+  <title>3.8 PCA and Clustering | Principal Component Analysis for Data Science (pca4ds)</title>
   <meta name="description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Terminology | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta property="og:title" content="3.8 PCA and Clustering | Principal Component Analysis for Data Science (pca4ds)" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="gastonstat/pca4ds" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Terminology | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta name="twitter:title" content="3.8 PCA and Clustering | Principal Component Analysis for Data Science (pca4ds)" />
   
   <meta name="twitter:description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="from-lanalyse-des-données-to-data-science.html"/>
-<link rel="next" href="basic.html"/>
+<link rel="prev" href="handling-missing-values.html"/>
+<link rel="next" href="data-weighing.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -207,47 +207,117 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="terminology" class="section level1 unnumbered">
-<h1>Terminology</h1>
-<p>This section will briefly introduce you to the terms that we will use
-throughout this book.</p>
-<ul>
-<li><p><strong>Data table</strong>: rectangular array formed by rows and columns. In each of
-the table entries (i.e. intersection of one row and one column), we find a
-datum, typically codified in numeric form. We also use the term <em>data matrix</em>
-as a synonym term. We represent the data table with upper case bold letters
-e.g. <span class="math inline">\(\mathbf{X}\)</span>, with <span class="math inline">\(n\)</span> rows and <span class="math inline">\(p\)</span> columns.</p></li>
-<li><p><strong>Individual</strong>: an individual is a row of the data table. The word individual
-refers to any type of object: person, animal, country, company, planet, etc.</p></li>
-<li><p><strong>Variable</strong>: we use the word “variable” to refer to any column in the data table. For each individual, we observe the same aggregate, the same measure, the same question, etc. Instead of variable we can also talk about “measure”, attribute, characteristic, property, etc.</p></li>
-<li><p><strong>Continuous Variable</strong>: we talk about continuous variable when the measurement is quantitative. To be more precise, a variable is continuous when calculating the mean (or average) makes sense.</p></li>
-<li><p><strong>Nominal Variable</strong>: we talk about a nominal variable when its values are names of categories (or qualities). Examples of nominal variables are <em>civil status</em> (e.g. single, married, divorced, widowed), <em>geographc region</em> (e.g. north, south, west, etc). We also use the terms categorical or qualitative variable as synonyms of nominal.</p></li>
-<li><p><strong>Modality</strong>: the modalities or categories are the values taken by a nominal variable. For example the variable <em>gender</em> (typical) has two modalities: male and female. A modalitiy is also known as group, class, or category.</p></li>
-<li><p><strong>Cloud of Points</strong>: on a plane or in a three-dimensional space, the notion of “cloud of points” has to do with how the points are positioned according to a series of coordinates, which are based on a set of orthogonal axes. Given the coordinates of the points, it is easy to calculate distance between them. When we have more than three axes, even though the cloud of points exist, we cannot visualize them.</p></li>
-<li><p><strong>Distance</strong>: the distance between two points in a given cloud coincides with the usual notion of distance (which can be calculated based on the coordinates of the points via the famous Pythogorean theorem).</p></li>
-<li><p><strong>Inertia</strong>: inertia is a borrowed term from Mechanics (in Physics) which is entirely equivalent to the statistical concept of variance. The inertia gives an idea of the spread in a cloud of weighted points. If the individuals have the same weight (same importance), the direction with the larger inertia of the cloud is the direction of its major axis.</p></li>
-<li><p><strong>Center of Gravity</strong>: this is the average point (or central point) in a cloud of weighted points. Therefore, there is an equivalence between the mechanical notion of center of gravity and the statistical notion of average point.</p></li>
-<li><p><strong>Factorial Analysis</strong>: optimal visualization (in a certain sense) of a cloud of points in some multidimensional space.</p></li>
-<li><p><strong>Factorial Axes</strong>: these are the axes, sorted by importance, which we use to visualize the cloud of points in a factorial analysis. They are defined by the directions of larger stretching (inertia) of the cloud of poitns.</p></li>
-<li><p><strong>PCA</strong>: Principal Component(s) Analysis.</p></li>
-<li><p><strong>Active Variables</strong>: set of variables that are used in the computation of the axes for the factorial planes.</p></li>
-<li><p><strong>Supplementary Variables</strong>: set of variables that are NOT used in the computation of the factorial axes, but that can be used as aid in the interpretation of results.</p></li>
-<li><p><strong>Contribution</strong>: measures the participation of an element (e.g. category, variable, frequency, or individual) in the construction of a factorial axis.</p></li>
-<li><p><strong>Squared Cosine</strong>: measures the quality of the projection of an element (e.g. category, variable, frequency, or individual) along a factorial axis.</p></li>
-<li><p><strong>V-test</strong>: measures, in number of standard deviations, the distance between an observed value and its theoretical value under a null hypothesis. This test is used to characterize the axes, the categories, the classes, etc.</p></li>
-</ul>
-
+<div id="pca-and-clustering" class="section level2">
+<h2><span class="header-section-number">3.8</span> PCA and Clustering</h2>
+<p>The graphics obtained from Principal Components Analysis provide a quick way
+to get a “photo” of the multivariate phenomenon under study. These graphical
+displays offer an excellent visual approximation to the systematic information
+contained in data.</p>
+<p>Having said that, such visual approximations will be, in general, partial
+approximations. This is because those low dimensional representations are
+given by scatterplots in which only two dimensions are taken into account.
+Unless the information in data is truly contained in two or three dimensions,
+most graphics will give us a limited view of the multivariate phenomenon.</p>
+<p>Together with these graphical low dimensional representations, we can also use
+clustering methods as a complementary analytical tasks to enrich the output
+of a PCA. In clustering, we look for groups of individuals having similar
+characteristics. An individual is characterized by its membership to
+a certain cluster. In turn, the average characteristics of a group serve us to
+characterize all individuals in the corresponding cluster.</p>
+<p>We can take the output of a clustering method, that is, take the clustering
+memberships of individuals, and use that information in a PCA plot. The
+location of the individuals on the first factorial plane, taking into
+consideration their clustering assignment, gives an excellent opportunity to
+“see in depth” the information contained in data. In other words, with the
+formed clusters, we can see beyond the two axes of a scatterplot, and gain
+deeper insight into the factorial displays.</p>
+<div id="real-groups-or-instrumental-groups" class="section level3">
+<h3><span class="header-section-number">3.8.1</span> Real Groups or Instrumental Groups?</h3>
+<p>Given a clustering partition, an important question to be asked is to what
+extent the obtained groups reflect “real” groups, or are the groups simply
+an algorithmic artifact? Do we have data that has discontinuous populations,
+or do we just have a continuous reality?</p>
+<p>In general, most clustering partitions tend to reflect intermediate situations.
+Sometimes we may find clusters that are more or less “natural”, but there
+will also be times in which the clusters are more “artificial”. Intermediate
+situations have regions (set of individuals) of high density embedded within
+layers of individuals with low density. Even in such intermediate cases, the
+obtained clustering partition is still useful. While we cannot say that clusters
+are “real” groups differentiated from one another, the formed groups makes it
+easier to understand the data. In this sense, clustering acts in a similar
+fashion as when we make bins or intervals from a continuous variable. Simply
+put, clustering plays the role of a multivariate encoding. This is why we talk
+about <em>instrumental</em> groups.</p>
+<p>In the example of international cities, we obtain the following dendrogram
+from a hierarchical agglomerative clustering on the data of ratios.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-3-5"></span>
+<img src="images/figure-3-5.png" alt="Clustering Dendrogram" width="90%" />
+<p class="caption">
+Figure 3.5: Clustering Dendrogram
+</p>
 </div>
-
-
-
+<p>Looking at the dendrogram, we can identify the existence of several groups
+of cities.</p>
+<p>The obtained partitions are projected on the factorial plane, that is, the
+centroids of each clustered are projected together with the cities, colored
+by group, as depicted in the following figure:</p>
+<p><img src="images/figure-3-6b.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>On one hand, the 10 cities that are grouped in the first cluster are highly
+homogeneous, and distinct from other cities. The cutting line (red horizontal
+line) isolates well this group, while producing at the same time other three
+different clusters.</p>
+<p>Ths cluster of 10 cities involves cities with a large salary inequality, with
+high salaries for those managerial/head-type of professions. Opposed to this
+group, there is a considerably large cluster characterized for having elevated
+taxes as well as social contributions, and for having better well payed
+professions that are generally considered to be “lower class”.</p>
+<p>Separated from the large cluster, there are two more groups, distinguished
+on the second factorial axis. One of them is formed by cities with high
+salaries for manual-labor professions. The other group is formed by those
+cities with high salaries for professions that depend on the Public Service.</p>
+<p>The obtained partitions are projected on the factorial plane, that is, the
+centroids of each clustered are projected together with the cities, colored
+by group, as depicted in the following figure:</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-3-6"></span>
+<img src="images/figure-3-6a.png" alt="Clustering of cities in 4 groups" width="80%" />
+<p class="caption">
+Figure 3.6: Clustering of cities in 4 groups
+</p>
+</div>
+</div>
+<div id="representants-of-groups" class="section level3">
+<h3><span class="header-section-number">3.8.2</span> Representants of Groups</h3>
+<p>For every cluster, we can calculate its corresponding centroid (i.e. average
+individual). We can also determine the individual that is the closest to the
+centroid, called the <em>representant</em>. Likewise, we can also look for the
+second best representant, the third best representant, etc.</p>
+<p>If we establish the radius of circle (or sphere) around the centroid of a given
+cluster, we can capture the representants of the cluster. For a small radius,
+we may get just one representant. As we increase the value of the radius,
+more representants will be captured. Figure <a href="pca-and-clustering.html#fig:fig-3-7">3.7</a> shows that the
+cities that are closest to the centroid of a group, are not always the closer
+ones in the factorial plane.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-3-7"></span>
+<img src="images/figure-3-7.png" alt="Representants of each cluster" width="70%" />
+<p class="caption">
+Figure 3.7: Representants of each cluster
+</p>
+</div>
+<p>On the first factorial plane, we observe the effect of how distances are
+distorted due to the shrinking of the cloud of city-points in this plane.</p>
+<p>In certain applications, it is interesting to identify the representans of
+a certain category, in order to explore its attributes (for example, which
+are the attributes of the category <em>men</em>, according to the active variables
+of a survey).</p>
+</div>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="from-lanalyse-des-données-to-data-science.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="basic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="handling-missing-values.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-weighing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

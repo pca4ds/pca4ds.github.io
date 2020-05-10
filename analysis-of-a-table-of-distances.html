@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Terminology | Principal Component Analysis for Data Science (pca4ds)</title>
+  <title>3.14 Analysis of a Table of Distances | Principal Component Analysis for Data Science (pca4ds)</title>
   <meta name="description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Terminology | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta property="og:title" content="3.14 Analysis of a Table of Distances | Principal Component Analysis for Data Science (pca4ds)" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="gastonstat/pca4ds" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Terminology | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta name="twitter:title" content="3.14 Analysis of a Table of Distances | Principal Component Analysis for Data Science (pca4ds)" />
   
   <meta name="twitter:description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="from-lanalyse-des-données-to-data-science.html"/>
-<link rel="next" href="basic.html"/>
+<link rel="prev" href="analysis-of-a-binary-table.html"/>
+<link rel="next" href="conditional-pca.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -207,47 +207,64 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="terminology" class="section level1 unnumbered">
-<h1>Terminology</h1>
-<p>This section will briefly introduce you to the terms that we will use
-throughout this book.</p>
+<div id="analysis-of-a-table-of-distances" class="section level2">
+<h2><span class="header-section-number">3.14</span> Analysis of a Table of Distances</h2>
+<p>The following formula gives the distance between two individuals <span class="math inline">\(i\)</span> and <span class="math inline">\(\ell\)</span></p>
+<p><span class="math display" id="eq:40">\[
+d^2(i, \ell) = w_{ii} + w_{i\ell} - 2w_{i\ell}
+\tag{3.10}
+\]</span></p>
+<p>where:</p>
 <ul>
-<li><p><strong>Data table</strong>: rectangular array formed by rows and columns. In each of
-the table entries (i.e. intersection of one row and one column), we find a
-datum, typically codified in numeric form. We also use the term <em>data matrix</em>
-as a synonym term. We represent the data table with upper case bold letters
-e.g. <span class="math inline">\(\mathbf{X}\)</span>, with <span class="math inline">\(n\)</span> rows and <span class="math inline">\(p\)</span> columns.</p></li>
-<li><p><strong>Individual</strong>: an individual is a row of the data table. The word individual
-refers to any type of object: person, animal, country, company, planet, etc.</p></li>
-<li><p><strong>Variable</strong>: we use the word “variable” to refer to any column in the data table. For each individual, we observe the same aggregate, the same measure, the same question, etc. Instead of variable we can also talk about “measure”, attribute, characteristic, property, etc.</p></li>
-<li><p><strong>Continuous Variable</strong>: we talk about continuous variable when the measurement is quantitative. To be more precise, a variable is continuous when calculating the mean (or average) makes sense.</p></li>
-<li><p><strong>Nominal Variable</strong>: we talk about a nominal variable when its values are names of categories (or qualities). Examples of nominal variables are <em>civil status</em> (e.g. single, married, divorced, widowed), <em>geographc region</em> (e.g. north, south, west, etc). We also use the terms categorical or qualitative variable as synonyms of nominal.</p></li>
-<li><p><strong>Modality</strong>: the modalities or categories are the values taken by a nominal variable. For example the variable <em>gender</em> (typical) has two modalities: male and female. A modalitiy is also known as group, class, or category.</p></li>
-<li><p><strong>Cloud of Points</strong>: on a plane or in a three-dimensional space, the notion of “cloud of points” has to do with how the points are positioned according to a series of coordinates, which are based on a set of orthogonal axes. Given the coordinates of the points, it is easy to calculate distance between them. When we have more than three axes, even though the cloud of points exist, we cannot visualize them.</p></li>
-<li><p><strong>Distance</strong>: the distance between two points in a given cloud coincides with the usual notion of distance (which can be calculated based on the coordinates of the points via the famous Pythogorean theorem).</p></li>
-<li><p><strong>Inertia</strong>: inertia is a borrowed term from Mechanics (in Physics) which is entirely equivalent to the statistical concept of variance. The inertia gives an idea of the spread in a cloud of weighted points. If the individuals have the same weight (same importance), the direction with the larger inertia of the cloud is the direction of its major axis.</p></li>
-<li><p><strong>Center of Gravity</strong>: this is the average point (or central point) in a cloud of weighted points. Therefore, there is an equivalence between the mechanical notion of center of gravity and the statistical notion of average point.</p></li>
-<li><p><strong>Factorial Analysis</strong>: optimal visualization (in a certain sense) of a cloud of points in some multidimensional space.</p></li>
-<li><p><strong>Factorial Axes</strong>: these are the axes, sorted by importance, which we use to visualize the cloud of points in a factorial analysis. They are defined by the directions of larger stretching (inertia) of the cloud of poitns.</p></li>
-<li><p><strong>PCA</strong>: Principal Component(s) Analysis.</p></li>
-<li><p><strong>Active Variables</strong>: set of variables that are used in the computation of the axes for the factorial planes.</p></li>
-<li><p><strong>Supplementary Variables</strong>: set of variables that are NOT used in the computation of the factorial axes, but that can be used as aid in the interpretation of results.</p></li>
-<li><p><strong>Contribution</strong>: measures the participation of an element (e.g. category, variable, frequency, or individual) in the construction of a factorial axis.</p></li>
-<li><p><strong>Squared Cosine</strong>: measures the quality of the projection of an element (e.g. category, variable, frequency, or individual) along a factorial axis.</p></li>
-<li><p><strong>V-test</strong>: measures, in number of standard deviations, the distance between an observed value and its theoretical value under a null hypothesis. This test is used to characterize the axes, the categories, the classes, etc.</p></li>
+<li><p><span class="math inline">\(w_{ii} = \sum_{j}^{p} x^2_{ij}\)</span> is the squared distance of the <span class="math inline">\(i\)</span>-th
+point to the origin,</p></li>
+<li><p><span class="math inline">\(w_{i\ell} = \sum_{j}^{p} x_{ij} x_{\ell j}\)</span> is the inner product between
+points <span class="math inline">\(i\)</span> and <span class="math inline">\(\ell\)</span>.</p></li>
 </ul>
-
+<p><img src="images/figure-3-11b.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Some times the input data is not the matrix <span class="math inline">\(\mathbf{X}\)</span> of original variables,
+but the symmetric table of distances between pairs of individuals.</p>
+<p>From these distances, it is possible to obtain a representation of the points,
+in a low dimensional space, that reflects as much as possible the real distances
+between individuals (in the original space).</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-3-12"></span>
+<img src="images/figure-3-12.png" alt="Distances in a low dimensional space" width="85%" />
+<p class="caption">
+Figure 3.12: Distances in a low dimensional space
+</p>
 </div>
-
-
-
+<p>To carry out a PCA on the table of distances <span class="math inline">\(\mathbf{D}\)</span>, we must first
+convert this table into a matrix of inner products <span class="math inline">\(\mathbf{W}\)</span>, using the
+formula below:</p>
+<p><span class="math display" id="eq:41">\[
+w_{i\ell} = \frac{1}{2} \big( d^2_{i\cdot} + d^2_{\ell \cdot} - d^2_{\cdot\cdot} - d^2(i, \ell) \big)
+\tag{3.11}
+\]</span></p>
+<p>where:</p>
+<p><span class="math display">\[
+d^2_{i \cdot} = \frac{1}{n} \sum_{\ell} d^2(i, \ell) \quad \mathrm{and} \quad d^2_{\cdot \cdot} = \frac{1}{n^2} \sum_{i} \sum_{\ell} d^2(i, \ell)
+\]</span></p>
+<p>Then, by diagonalizing matrix <span class="math inline">\(\mathbf{W}\)</span>, we obtain a set of eigenvalues and
+eigenvectors that provide an optimal solution to the problem.</p>
+<p>The analysis of a table of distances via PCA is a completely generic technique.
+The reason for this is because PCA is applicable to any table of distances.</p>
+<p>If the table of distances has the usual distances of a normalized PCA, then
+this analysis is identical to the one obtained on the cloud of individuals.</p>
+<p>We should mention, though, that working with tables of distances, involves
+losing the relationship between the rows and columns. This loss prevents us
+from having access to the simultaneous representations of PCA when applied
+to a table <span class="math inline">\(\mathbf{X}\)</span> of individuals and variables.</p>
+<p>We should also say that, in order to place an illustrative individual on the
+low dimensional space, we need to know the distance of this individual to all
+the active points.</p>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="from-lanalyse-des-données-to-data-science.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="basic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="analysis-of-a-binary-table.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conditional-pca.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Terminology | Principal Component Analysis for Data Science (pca4ds)</title>
+  <title>3.6 Synthetic Variables and Indices | Principal Component Analysis for Data Science (pca4ds)</title>
   <meta name="description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Terminology | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta property="og:title" content="3.6 Synthetic Variables and Indices | Principal Component Analysis for Data Science (pca4ds)" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="gastonstat/pca4ds" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Terminology | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta name="twitter:title" content="3.6 Synthetic Variables and Indices | Principal Component Analysis for Data Science (pca4ds)" />
   
   <meta name="twitter:description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="from-lanalyse-des-données-to-data-science.html"/>
-<link rel="next" href="basic.html"/>
+<link rel="prev" href="optimal-reconstitution-of-data.html"/>
+<link rel="next" href="handling-missing-values.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -207,47 +207,119 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="terminology" class="section level1 unnumbered">
-<h1>Terminology</h1>
-<p>This section will briefly introduce you to the terms that we will use
-throughout this book.</p>
-<ul>
-<li><p><strong>Data table</strong>: rectangular array formed by rows and columns. In each of
-the table entries (i.e. intersection of one row and one column), we find a
-datum, typically codified in numeric form. We also use the term <em>data matrix</em>
-as a synonym term. We represent the data table with upper case bold letters
-e.g. <span class="math inline">\(\mathbf{X}\)</span>, with <span class="math inline">\(n\)</span> rows and <span class="math inline">\(p\)</span> columns.</p></li>
-<li><p><strong>Individual</strong>: an individual is a row of the data table. The word individual
-refers to any type of object: person, animal, country, company, planet, etc.</p></li>
-<li><p><strong>Variable</strong>: we use the word “variable” to refer to any column in the data table. For each individual, we observe the same aggregate, the same measure, the same question, etc. Instead of variable we can also talk about “measure”, attribute, characteristic, property, etc.</p></li>
-<li><p><strong>Continuous Variable</strong>: we talk about continuous variable when the measurement is quantitative. To be more precise, a variable is continuous when calculating the mean (or average) makes sense.</p></li>
-<li><p><strong>Nominal Variable</strong>: we talk about a nominal variable when its values are names of categories (or qualities). Examples of nominal variables are <em>civil status</em> (e.g. single, married, divorced, widowed), <em>geographc region</em> (e.g. north, south, west, etc). We also use the terms categorical or qualitative variable as synonyms of nominal.</p></li>
-<li><p><strong>Modality</strong>: the modalities or categories are the values taken by a nominal variable. For example the variable <em>gender</em> (typical) has two modalities: male and female. A modalitiy is also known as group, class, or category.</p></li>
-<li><p><strong>Cloud of Points</strong>: on a plane or in a three-dimensional space, the notion of “cloud of points” has to do with how the points are positioned according to a series of coordinates, which are based on a set of orthogonal axes. Given the coordinates of the points, it is easy to calculate distance between them. When we have more than three axes, even though the cloud of points exist, we cannot visualize them.</p></li>
-<li><p><strong>Distance</strong>: the distance between two points in a given cloud coincides with the usual notion of distance (which can be calculated based on the coordinates of the points via the famous Pythogorean theorem).</p></li>
-<li><p><strong>Inertia</strong>: inertia is a borrowed term from Mechanics (in Physics) which is entirely equivalent to the statistical concept of variance. The inertia gives an idea of the spread in a cloud of weighted points. If the individuals have the same weight (same importance), the direction with the larger inertia of the cloud is the direction of its major axis.</p></li>
-<li><p><strong>Center of Gravity</strong>: this is the average point (or central point) in a cloud of weighted points. Therefore, there is an equivalence between the mechanical notion of center of gravity and the statistical notion of average point.</p></li>
-<li><p><strong>Factorial Analysis</strong>: optimal visualization (in a certain sense) of a cloud of points in some multidimensional space.</p></li>
-<li><p><strong>Factorial Axes</strong>: these are the axes, sorted by importance, which we use to visualize the cloud of points in a factorial analysis. They are defined by the directions of larger stretching (inertia) of the cloud of poitns.</p></li>
-<li><p><strong>PCA</strong>: Principal Component(s) Analysis.</p></li>
-<li><p><strong>Active Variables</strong>: set of variables that are used in the computation of the axes for the factorial planes.</p></li>
-<li><p><strong>Supplementary Variables</strong>: set of variables that are NOT used in the computation of the factorial axes, but that can be used as aid in the interpretation of results.</p></li>
-<li><p><strong>Contribution</strong>: measures the participation of an element (e.g. category, variable, frequency, or individual) in the construction of a factorial axis.</p></li>
-<li><p><strong>Squared Cosine</strong>: measures the quality of the projection of an element (e.g. category, variable, frequency, or individual) along a factorial axis.</p></li>
-<li><p><strong>V-test</strong>: measures, in number of standard deviations, the distance between an observed value and its theoretical value under a null hypothesis. This test is used to characterize the axes, the categories, the classes, etc.</p></li>
-</ul>
-
+<div id="synthetic-variables-and-indices" class="section level2">
+<h2><span class="header-section-number">3.6</span> Synthetic Variables and Indices</h2>
+<p>So far we have discussed Principal Component Analysis from a purely geometric perspective: how to obtain a subspace that best approximates the original distances of the data elements.</p>
+<p>Interestingly, PCA can also be approached from other points of views. One of them involves looking for a small set of new variables—formed by the original ones—in such a way that the loss of “information” is minimized.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-3-3"></span>
+<img src="images/figure-3-3.png" alt="Dimension reduction or minimization of &quot;information loss&quot;" width="50%" />
+<p class="caption">
+Figure 3.3: Dimension reduction or minimization of “information loss”
+</p>
 </div>
-
-
-
+<p>The new variables (i.e. vectors) are searched for in a way that they are as close as possible (as much correlated as possible) to the set of original variables.
+We can think of these new variables as <em>synthetic variables</em>.</p>
+<p>The solution is obtained with the vector <span class="math inline">\(\Psi\)</span> of <span class="math inline">\(n\)</span> elements that maximizes the function <a href="synthetic-variables-and-indices.html#eq:37">(3.7)</a></p>
+<p><span class="math display" id="eq:37">\[
+\max \sum_{j} cor^{2} (\boldsymbol{\Psi}, \mathbf{x_j})
+\tag{3.7}
+\]</span></p>
+<p>In other words, we look for a new variable that is the “closest” to the set of original variables. This will provide a first common factor; the rest of the factors are obtained with the same condition but orthogonal to the directions previously obtained.</p>
+<p>Often, the first factor is highly correlated with all the variables. This indicates the so-called <em>size factor</em>, which we have discussed in detail in section <a href="size-factor.html#size-factor">2.3</a>.</p>
+<p>The size factor can be considered as an overall summary, or synthesis, of the entire set of variables. We can compare the first factor with the average of all the original variables, and notice that they are very similar.</p>
+<p><span class="math display" id="eq:38">\[
+\frac{1}{p} (\mathbf{x_1} + \mathbf{x_2} + \dots + \mathbf{x_p}) \approx \boldsymbol{\Psi_1}
+\tag{3.8}
+\]</span></p>
+<table>
+<caption><span id="tab:table-3-9">Table 3.9: </span>Coefficients of the first principal component (i.e. size factor) from first PCA analysis.</caption>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="right">Coord1</th>
+<th align="right">Coeff1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">teacher</td>
+<td align="right">0.94</td>
+<td align="right">0.30</td>
+</tr>
+<tr class="even">
+<td align="left">bus_driver</td>
+<td align="right">0.96</td>
+<td align="right">0.30</td>
+</tr>
+<tr class="odd">
+<td align="left">mechanic</td>
+<td align="right">0.92</td>
+<td align="right">0.29</td>
+</tr>
+<tr class="even">
+<td align="left">construction_worker</td>
+<td align="right">0.90</td>
+<td align="right">0.28</td>
+</tr>
+<tr class="odd">
+<td align="left">metalworker</td>
+<td align="right">0.95</td>
+<td align="right">0.30</td>
+</tr>
+<tr class="even">
+<td align="left">cook_chef</td>
+<td align="right">0.87</td>
+<td align="right">0.27</td>
+</tr>
+<tr class="odd">
+<td align="left">factory_manager</td>
+<td align="right">0.84</td>
+<td align="right">0.26</td>
+</tr>
+<tr class="even">
+<td align="left">engineer</td>
+<td align="right">0.90</td>
+<td align="right">0.28</td>
+</tr>
+<tr class="odd">
+<td align="left">bank_clerk</td>
+<td align="right">0.88</td>
+<td align="right">0.28</td>
+</tr>
+<tr class="even">
+<td align="left">executive_secretary</td>
+<td align="right">0.97</td>
+<td align="right">0.31</td>
+</tr>
+<tr class="odd">
+<td align="left">salesperson</td>
+<td align="right">0.96</td>
+<td align="right">0.30</td>
+</tr>
+<tr class="even">
+<td align="left">textile_worker</td>
+<td align="right">0.94</td>
+<td align="right">0.29</td>
+</tr>
+</tbody>
+</table>
+<div class="figure" style="text-align: center"><span id="fig:fig-3-4"></span>
+<img src="images/figure-3-4.png" alt="Size Factor of active variables" width="70%" />
+<p class="caption">
+Figure 3.4: Size Factor of active variables
+</p>
+</div>
+<p>The data set about the international cities provide an example of how to find an <em>index of mean salary per city</em>. The components of the unit axis give the linear combination of the original variables (mean-centered and reduced). This is the linear combination of the first principal component, namely, the desired index of mean salaries (see table <a href="projections-of-variables.html#tab:table-2-3">2.3</a>).</p>
+<p>A common application of PCA is to build synthetic indices. For instance, a quality index of a given product made from several characteristics of the product. A common example in psychometrics has to do with indices that define a general aptitude factor: e.g. verbal aptitude, or math aptitude. Also in economics, we often find indices of economic capacity for a certain region or city.</p>
+<p>Sometimes there is no clear definition of the desired index, but rather a vague notion of the aspects that such an index may comprise. In these cases, the analyst must pay careful attention to collect reliable data, with indicators of the desired index, ideally with highly correlated variables. The computed index (or a first approximation) will be determined by the first principal component of the gathered data.</p>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="from-lanalyse-des-données-to-data-science.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="basic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="optimal-reconstitution-of-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="handling-missing-values.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

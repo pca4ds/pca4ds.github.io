@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Terminology | Principal Component Analysis for Data Science (pca4ds)</title>
+  <title>7.2 Non-normalized Principal Component Analysis | Principal Component Analysis for Data Science (pca4ds)</title>
   <meta name="description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Terminology | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta property="og:title" content="7.2 Non-normalized Principal Component Analysis | Principal Component Analysis for Data Science (pca4ds)" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="gastonstat/pca4ds" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Terminology | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta name="twitter:title" content="7.2 Non-normalized Principal Component Analysis | Principal Component Analysis for Data Science (pca4ds)" />
   
   <meta name="twitter:description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="from-lanalyse-des-données-to-data-science.html"/>
-<link rel="next" href="basic.html"/>
+<link rel="prev" href="normalized-principal-component-analysis.html"/>
+<link rel="next" href="simple-correpondence-analysis.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -207,47 +207,36 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="terminology" class="section level1 unnumbered">
-<h1>Terminology</h1>
-<p>This section will briefly introduce you to the terms that we will use
-throughout this book.</p>
+<div id="non-normalized-principal-component-analysis" class="section level2">
+<h2><span class="header-section-number">7.2</span> Non-normalized Principal Component Analysis</h2>
+<p><strong>Active variables</strong></p>
 <ul>
-<li><p><strong>Data table</strong>: rectangular array formed by rows and columns. In each of
-the table entries (i.e. intersection of one row and one column), we find a
-datum, typically codified in numeric form. We also use the term <em>data matrix</em>
-as a synonym term. We represent the data table with upper case bold letters
-e.g. <span class="math inline">\(\mathbf{X}\)</span>, with <span class="math inline">\(n\)</span> rows and <span class="math inline">\(p\)</span> columns.</p></li>
-<li><p><strong>Individual</strong>: an individual is a row of the data table. The word individual
-refers to any type of object: person, animal, country, company, planet, etc.</p></li>
-<li><p><strong>Variable</strong>: we use the word “variable” to refer to any column in the data table. For each individual, we observe the same aggregate, the same measure, the same question, etc. Instead of variable we can also talk about “measure”, attribute, characteristic, property, etc.</p></li>
-<li><p><strong>Continuous Variable</strong>: we talk about continuous variable when the measurement is quantitative. To be more precise, a variable is continuous when calculating the mean (or average) makes sense.</p></li>
-<li><p><strong>Nominal Variable</strong>: we talk about a nominal variable when its values are names of categories (or qualities). Examples of nominal variables are <em>civil status</em> (e.g. single, married, divorced, widowed), <em>geographc region</em> (e.g. north, south, west, etc). We also use the terms categorical or qualitative variable as synonyms of nominal.</p></li>
-<li><p><strong>Modality</strong>: the modalities or categories are the values taken by a nominal variable. For example the variable <em>gender</em> (typical) has two modalities: male and female. A modalitiy is also known as group, class, or category.</p></li>
-<li><p><strong>Cloud of Points</strong>: on a plane or in a three-dimensional space, the notion of “cloud of points” has to do with how the points are positioned according to a series of coordinates, which are based on a set of orthogonal axes. Given the coordinates of the points, it is easy to calculate distance between them. When we have more than three axes, even though the cloud of points exist, we cannot visualize them.</p></li>
-<li><p><strong>Distance</strong>: the distance between two points in a given cloud coincides with the usual notion of distance (which can be calculated based on the coordinates of the points via the famous Pythogorean theorem).</p></li>
-<li><p><strong>Inertia</strong>: inertia is a borrowed term from Mechanics (in Physics) which is entirely equivalent to the statistical concept of variance. The inertia gives an idea of the spread in a cloud of weighted points. If the individuals have the same weight (same importance), the direction with the larger inertia of the cloud is the direction of its major axis.</p></li>
-<li><p><strong>Center of Gravity</strong>: this is the average point (or central point) in a cloud of weighted points. Therefore, there is an equivalence between the mechanical notion of center of gravity and the statistical notion of average point.</p></li>
-<li><p><strong>Factorial Analysis</strong>: optimal visualization (in a certain sense) of a cloud of points in some multidimensional space.</p></li>
-<li><p><strong>Factorial Axes</strong>: these are the axes, sorted by importance, which we use to visualize the cloud of points in a factorial analysis. They are defined by the directions of larger stretching (inertia) of the cloud of poitns.</p></li>
-<li><p><strong>PCA</strong>: Principal Component(s) Analysis.</p></li>
-<li><p><strong>Active Variables</strong>: set of variables that are used in the computation of the axes for the factorial planes.</p></li>
-<li><p><strong>Supplementary Variables</strong>: set of variables that are NOT used in the computation of the factorial axes, but that can be used as aid in the interpretation of results.</p></li>
-<li><p><strong>Contribution</strong>: measures the participation of an element (e.g. category, variable, frequency, or individual) in the construction of a factorial axis.</p></li>
-<li><p><strong>Squared Cosine</strong>: measures the quality of the projection of an element (e.g. category, variable, frequency, or individual) along a factorial axis.</p></li>
-<li><p><strong>V-test</strong>: measures, in number of standard deviations, the distance between an observed value and its theoretical value under a null hypothesis. This test is used to characterize the axes, the categories, the classes, etc.</p></li>
+<li><em>Distance between variables</em>: based on the covariances of the variables</li>
 </ul>
-
+<p><span class="math display">\[
+d^2(j,l) = var(j) + var(h) - 2 cov(j,h)
+\]</span></p>
+<ul>
+<li><em>Distance between individuals</em>: classic (squared) euclidean distance (sum of the squares of the differences with centered data).</li>
+</ul>
+<div id="interpretation-1" class="section level4 unnumbered">
+<h4>Interpretation</h4>
+<p><strong>Factorial Planes for Variables</strong>: This has to do with the representation of the variances as well as the association among variables. We can interpret the directions in the plane in terms of the covariances between the variables and the axes.</p>
+<p><strong>Factorial Planes for Individuals</strong>: This has to do with the representation of the similarities between individuals. We interpret the positions of the individuals on the factorial plane in terms of their values, and taking into account the meaning assigned to the axes.</p>
+<p><strong>Supplementary Variables</strong></p>
+<ul>
+<li><p><em>Continuous</em>: we pay attention to the covariances of the continuous variables with the factorial axes.</p></li>
+<li><p><em>Categorical</em>: representation of each category in the cloud of row-points as the center of gravity of the individuals having such category. We use the v-test to assess their “characterization power.”</p></li>
+</ul>
 </div>
-
-
-
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="from-lanalyse-des-données-to-data-science.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="basic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="normalized-principal-component-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="simple-correpondence-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

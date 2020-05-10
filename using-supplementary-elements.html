@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.4 Using Supplementary Elements | Principal Component Analysis for Data Science (pca4ds)</title>
+  <meta name="description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.4 Using Supplementary Elements | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
+  <meta name="github-repo" content="gastonstat/pca4ds" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.4 Using Supplementary Elements | Principal Component Analysis for Data Science (pca4ds)" />
+  
+  <meta name="twitter:description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
+  
+
+<meta name="author" content="Tomas Aluja-Banet Alain Morineau Gaston Sanchez" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="size-factor.html"/>
+<link rel="next" href="simultaneous-representations.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./"><b>PCA for Data Science</b><br><small>T. Aluja, A. Morineau, G. Sanchez</small></a></li>
+
+<li class="divider"></li>
+<li class="part"><span><b>I Preface</b></span></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>PCA4DS</a></li>
+<li class="chapter" data-level="" data-path="from-lanalyse-des-données-to-data-science.html"><a href="from-lanalyse-des-données-to-data-science.html"><i class="fa fa-check"></i>From “L’Analyse des Données” to Data Science</a></li>
+<li class="chapter" data-level="" data-path="terminology.html"><a href="terminology.html"><i class="fa fa-check"></i>Terminology</a></li>
+<li class="part"><span><b>II Introduction</b></span></li>
+<li class="chapter" data-level="1" data-path="basic.html"><a href="basic.html"><i class="fa fa-check"></i><b>1</b> Basic Elements</a><ul>
+<li class="chapter" data-level="1.1" data-path="data-and-goals.html"><a href="data-and-goals.html"><i class="fa fa-check"></i><b>1.1</b> Data and Goals</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="data-and-goals.html"><a href="data-and-goals.html#active-variables"><i class="fa fa-check"></i><b>1.1.1</b> Active Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="analysis-of-distances.html"><a href="analysis-of-distances.html"><i class="fa fa-check"></i><b>1.2</b> Analysis of Distances</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="analysis-of-distances.html"><a href="analysis-of-distances.html#cloud-of-row-points"><i class="fa fa-check"></i><b>1.2.1</b> Cloud of Row-Points</a></li>
+<li class="chapter" data-level="1.2.2" data-path="analysis-of-distances.html"><a href="analysis-of-distances.html#cloud-of-column-points"><i class="fa fa-check"></i><b>1.2.2</b> Cloud of Column-Points</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html"><i class="fa fa-check"></i><b>1.3</b> How to see the distances between points</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#how-to-find-the-projection-planes"><i class="fa fa-check"></i><b>1.3.1</b> How to find the projection planes</a></li>
+<li class="chapter" data-level="1.3.2" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#how-to-take-into-account-the-importance-of-individuals"><i class="fa fa-check"></i><b>1.3.2</b> How to take into account the importance of individuals</a></li>
+<li class="chapter" data-level="1.3.3" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#inertia-decomposition"><i class="fa fa-check"></i><b>1.3.3</b> Inertia Decomposition</a></li>
+<li class="chapter" data-level="1.3.4" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#visualizing-association-between-variables."><i class="fa fa-check"></i><b>1.3.4</b> Visualizing association between variables.</a></li>
+<li class="chapter" data-level="1.3.5" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#normalized-pca-or-non-normalized-pca"><i class="fa fa-check"></i><b>1.3.5</b> Normalized PCA or non-normalized PCA?</a></li>
+<li class="chapter" data-level="1.3.6" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#distance-matrices"><i class="fa fa-check"></i><b>1.3.6</b> Distance Matrices</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>III Mechanics</b></span></li>
+<li class="chapter" data-level="2" data-path="mechanics.html"><a href="mechanics.html"><i class="fa fa-check"></i><b>2</b> How Does PCA Work?</a><ul>
+<li class="chapter" data-level="2.1" data-path="principal-components.html"><a href="principal-components.html"><i class="fa fa-check"></i><b>2.1</b> Principal Components</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="principal-components.html"><a href="principal-components.html#interpreting-the-inertia-proportions"><i class="fa fa-check"></i><b>2.1.1</b> Interpreting the Inertia Proportions</a></li>
+<li class="chapter" data-level="2.1.2" data-path="principal-components.html"><a href="principal-components.html#how-many-axes-to-retain"><i class="fa fa-check"></i><b>2.1.2</b> How many axes to retain?</a></li>
+<li class="chapter" data-level="2.1.3" data-path="principal-components.html"><a href="principal-components.html#coordinates-of-row-points"><i class="fa fa-check"></i><b>2.1.3</b> Coordinates of row-points</a></li>
+<li class="chapter" data-level="2.1.4" data-path="principal-components.html"><a href="principal-components.html#interpretation-tools"><i class="fa fa-check"></i><b>2.1.4</b> Interpretation Tools</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="projections-of-variables.html"><a href="projections-of-variables.html"><i class="fa fa-check"></i><b>2.2</b> Projections of Variables</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="projections-of-variables.html"><a href="projections-of-variables.html#size-effect"><i class="fa fa-check"></i><b>2.2.1</b> Size Effect</a></li>
+<li class="chapter" data-level="2.2.2" data-path="projections-of-variables.html"><a href="projections-of-variables.html#tools-for-interpreting-components"><i class="fa fa-check"></i><b>2.2.2</b> Tools for Interpreting Components</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="size-factor.html"><a href="size-factor.html"><i class="fa fa-check"></i><b>2.3</b> Beyond the First Factor</a></li>
+<li class="chapter" data-level="2.4" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html"><i class="fa fa-check"></i><b>2.4</b> Using Supplementary Elements</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html#continuous-supplementary-variables"><i class="fa fa-check"></i><b>2.4.1</b> Continuous Supplementary Variables</a></li>
+<li class="chapter" data-level="2.4.2" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html#nominal-supplementary-variables"><i class="fa fa-check"></i><b>2.4.2</b> Nominal Supplementary Variables</a></li>
+<li class="chapter" data-level="2.4.3" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html#profiling-with-v-test"><i class="fa fa-check"></i><b>2.4.3</b> Profiling with V-test</a></li>
+<li class="chapter" data-level="2.4.4" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html#axes-characterization-using-continuous-variables"><i class="fa fa-check"></i><b>2.4.4</b> Axes Characterization using Continuous Variables</a></li>
+<li class="chapter" data-level="2.4.5" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html#v-test-and-data-science"><i class="fa fa-check"></i><b>2.4.5</b> V-test and Data Science</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="simultaneous-representations.html"><a href="simultaneous-representations.html"><i class="fa fa-check"></i><b>2.5</b> Simultaneous Representations</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="simultaneous-representations.html"><a href="simultaneous-representations.html#old-unit-axes"><i class="fa fa-check"></i><b>2.5.1</b> Old Unit Axes</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV Practice</b></span></li>
+<li class="chapter" data-level="3" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>3</b> Analysis</a><ul>
+<li class="chapter" data-level="3.1" data-path="themescope.html"><a href="themescope.html"><i class="fa fa-check"></i><b>3.1</b> Themescope</a></li>
+<li class="chapter" data-level="3.2" data-path="conditions-of-application.html"><a href="conditions-of-application.html"><i class="fa fa-check"></i><b>3.2</b> Conditions of Application</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="conditions-of-application.html"><a href="conditions-of-application.html#linearity-and-symmetry"><i class="fa fa-check"></i><b>3.2.1</b> Linearity and Symmetry</a></li>
+<li class="chapter" data-level="3.2.2" data-path="conditions-of-application.html"><a href="conditions-of-application.html#balancing-the-content-of-active-variables"><i class="fa fa-check"></i><b>3.2.2</b> Balancing the content of active variables</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="validation-stability-and-significance.html"><a href="validation-stability-and-significance.html"><i class="fa fa-check"></i><b>3.3</b> Validation: stability and significance</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="validation-stability-and-significance.html"><a href="validation-stability-and-significance.html#how-many-axes-to-study-and-retain"><i class="fa fa-check"></i><b>3.3.1</b> How many axes to study and retain?</a></li>
+<li class="chapter" data-level="3.3.2" data-path="validation-stability-and-significance.html"><a href="validation-stability-and-significance.html#simulations-random-effects-on-individuals"><i class="fa fa-check"></i><b>3.3.2</b> Simulations, random effects on individuals</a></li>
+<li class="chapter" data-level="3.3.3" data-path="validation-stability-and-significance.html"><a href="validation-stability-and-significance.html#bootstrap-simulations"><i class="fa fa-check"></i><b>3.3.3</b> Bootstrap Simulations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="analysis-of-table-of-ranks.html"><a href="analysis-of-table-of-ranks.html"><i class="fa fa-check"></i><b>3.4</b> Analysis of Table of Ranks</a></li>
+<li class="chapter" data-level="3.5" data-path="optimal-reconstitution-of-data.html"><a href="optimal-reconstitution-of-data.html"><i class="fa fa-check"></i><b>3.5</b> Optimal Reconstitution of Data</a></li>
+<li class="chapter" data-level="3.6" data-path="synthetic-variables-and-indices.html"><a href="synthetic-variables-and-indices.html"><i class="fa fa-check"></i><b>3.6</b> Synthetic Variables and Indices</a></li>
+<li class="chapter" data-level="3.7" data-path="handling-missing-values.html"><a href="handling-missing-values.html"><i class="fa fa-check"></i><b>3.7</b> Handling Missing Values</a></li>
+<li class="chapter" data-level="3.8" data-path="pca-and-clustering.html"><a href="pca-and-clustering.html"><i class="fa fa-check"></i><b>3.8</b> PCA and Clustering</a><ul>
+<li class="chapter" data-level="3.8.1" data-path="pca-and-clustering.html"><a href="pca-and-clustering.html#real-groups-or-instrumental-groups"><i class="fa fa-check"></i><b>3.8.1</b> Real Groups or Instrumental Groups?</a></li>
+<li class="chapter" data-level="3.8.2" data-path="pca-and-clustering.html"><a href="pca-and-clustering.html#representants-of-groups"><i class="fa fa-check"></i><b>3.8.2</b> Representants of Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="data-weighing.html"><a href="data-weighing.html"><i class="fa fa-check"></i><b>3.9</b> Data Weighing</a></li>
+<li class="chapter" data-level="3.10" data-path="pca-as-an-intermediate-analytical-stage.html"><a href="pca-as-an-intermediate-analytical-stage.html"><i class="fa fa-check"></i><b>3.10</b> PCA as an Intermediate Analytical Stage</a></li>
+<li class="chapter" data-level="3.11" data-path="comparing-various-tables.html"><a href="comparing-various-tables.html"><i class="fa fa-check"></i><b>3.11</b> Comparing Various Tables</a></li>
+<li class="chapter" data-level="3.12" data-path="analysis-of-a-table-of-means.html"><a href="analysis-of-a-table-of-means.html"><i class="fa fa-check"></i><b>3.12</b> Analysis of a Table of Means</a></li>
+<li class="chapter" data-level="3.13" data-path="analysis-of-a-binary-table.html"><a href="analysis-of-a-binary-table.html"><i class="fa fa-check"></i><b>3.13</b> Analysis of a Binary Table</a></li>
+<li class="chapter" data-level="3.14" data-path="analysis-of-a-table-of-distances.html"><a href="analysis-of-a-table-of-distances.html"><i class="fa fa-check"></i><b>3.14</b> Analysis of a Table of Distances</a></li>
+<li class="chapter" data-level="3.15" data-path="conditional-pca.html"><a href="conditional-pca.html"><i class="fa fa-check"></i><b>3.15</b> Conditional PCA</a><ul>
+<li class="chapter" data-level="3.15.1" data-path="conditional-pca.html"><a href="conditional-pca.html#pca-on-model-residuals"><i class="fa fa-check"></i><b>3.15.1</b> PCA on Model Residuals</a></li>
+<li class="chapter" data-level="3.15.2" data-path="conditional-pca.html"><a href="conditional-pca.html#analysis-of-local-variation"><i class="fa fa-check"></i><b>3.15.2</b> Analysis of Local Variation</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>V Examples</b></span></li>
+<li class="chapter" data-level="4" data-path="application-examples.html"><a href="application-examples.html"><i class="fa fa-check"></i><b>4</b> Application Examples</a><ul>
+<li class="chapter" data-level="4.1" data-path="lascaux.html"><a href="lascaux.html"><i class="fa fa-check"></i><b>4.1</b> Lascaux Cave Temperatures</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="lascaux.html"><a href="lascaux.html#temperature-data"><i class="fa fa-check"></i><b>4.1.1</b> Temperature Data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="lascaux.html"><a href="lascaux.html#pca"><i class="fa fa-check"></i><b>4.1.2</b> PCA</a></li>
+<li class="chapter" data-level="4.1.3" data-path="lascaux.html"><a href="lascaux.html#seasonal-phenomenon"><i class="fa fa-check"></i><b>4.1.3</b> Seasonal Phenomenon</a></li>
+<li class="chapter" data-level="4.1.4" data-path="lascaux.html"><a href="lascaux.html#modeling-propagation-of-thermal-wave"><i class="fa fa-check"></i><b>4.1.4</b> Modeling Propagation of Thermal Wave</a></li>
+<li class="chapter" data-level="4.1.5" data-path="lascaux.html"><a href="lascaux.html#stability-of-the-axes"><i class="fa fa-check"></i><b>4.1.5</b> Stability of the Axes</a></li>
+<li class="chapter" data-level="4.1.6" data-path="lascaux.html"><a href="lascaux.html#selecting-best-temperature-reading-locations"><i class="fa fa-check"></i><b>4.1.6</b> Selecting Best Temperature Reading Locations</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="design-of-experiments-and-pca.html"><a href="design-of-experiments-and-pca.html"><i class="fa fa-check"></i><b>4.2</b> Design of Experiments and PCA</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="design-of-experiments-and-pca.html"><a href="design-of-experiments-and-pca.html#pca-1"><i class="fa fa-check"></i><b>4.2.1</b> PCA</a></li>
+<li class="chapter" data-level="4.2.2" data-path="design-of-experiments-and-pca.html"><a href="design-of-experiments-and-pca.html#evolution-of-factor-trajectories-over-time"><i class="fa fa-check"></i><b>4.2.2</b> Evolution of Factor Trajectories over Time</a></li>
+<li class="chapter" data-level="4.2.3" data-path="design-of-experiments-and-pca.html"><a href="design-of-experiments-and-pca.html#analysis-of-variance"><i class="fa fa-check"></i><b>4.2.3</b> Analysis of Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="defining-an-economic-capacity-index.html"><a href="defining-an-economic-capacity-index.html"><i class="fa fa-check"></i><b>4.3</b> Defining an Economic Capacity Index</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="defining-an-economic-capacity-index.html"><a href="defining-an-economic-capacity-index.html#analyzed-information"><i class="fa fa-check"></i><b>4.3.1</b> Analyzed Information</a></li>
+<li class="chapter" data-level="4.3.2" data-path="defining-an-economic-capacity-index.html"><a href="defining-an-economic-capacity-index.html#pca-2"><i class="fa fa-check"></i><b>4.3.2</b> PCA</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>VI Appendix</b></span></li>
+<li class="chapter" data-level="5" data-path="appendixa.html"><a href="appendixa.html"><i class="fa fa-check"></i><b>5</b> Appendix A: Fundamentals</a><ul>
+<li class="chapter" data-level="5.1" data-path="space-of-p-dimensions.html"><a href="space-of-p-dimensions.html"><i class="fa fa-check"></i><b>5.1</b> Space of p-Dimensions</a></li>
+<li class="chapter" data-level="5.2" data-path="distances-between-points.html"><a href="distances-between-points.html"><i class="fa fa-check"></i><b>5.2</b> Distances between points</a></li>
+<li class="chapter" data-level="5.3" data-path="center-of-gravity.html"><a href="center-of-gravity.html"><i class="fa fa-check"></i><b>5.3</b> Center of Gravity</a></li>
+<li class="chapter" data-level="5.4" data-path="inertia-of-a-cloud-of-points.html"><a href="inertia-of-a-cloud-of-points.html"><i class="fa fa-check"></i><b>5.4</b> Inertia of a cloud of points</a></li>
+<li class="chapter" data-level="5.5" data-path="projection-of-the-cloud-of-points-on-a-line.html"><a href="projection-of-the-cloud-of-points-on-a-line.html"><i class="fa fa-check"></i><b>5.5</b> Projection of the cloud of points on a line</a></li>
+<li class="chapter" data-level="5.6" data-path="centered-and-standardized-variable.html"><a href="centered-and-standardized-variable.html"><i class="fa fa-check"></i><b>5.6</b> Centered and Standardized Variable</a></li>
+<li class="chapter" data-level="5.7" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html"><i class="fa fa-check"></i><b>5.7</b> Correlation Coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="appendixb.html"><a href="appendixb.html"><i class="fa fa-check"></i><b>6</b> Appendix B: PCA Formulae</a><ul>
+<li class="chapter" data-level="6.1" data-path="general-analysis.html"><a href="general-analysis.html"><i class="fa fa-check"></i><b>6.1</b> General Analysis</a></li>
+<li class="chapter" data-level="6.2" data-path="formulas-for-pca.html"><a href="formulas-for-pca.html"><i class="fa fa-check"></i><b>6.2</b> Formulas for PCA</a></li>
+<li class="chapter" data-level="6.3" data-path="biplot-and-pca.html"><a href="biplot-and-pca.html"><i class="fa fa-check"></i><b>6.3</b> Biplot and PCA</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="appendixc.html"><a href="appendixc.html"><i class="fa fa-check"></i><b>7</b> Appendix C: Data Analysis Reminder</a><ul>
+<li class="chapter" data-level="7.1" data-path="normalized-principal-component-analysis.html"><a href="normalized-principal-component-analysis.html"><i class="fa fa-check"></i><b>7.1</b> Normalized Principal Component Analysis</a></li>
+<li class="chapter" data-level="7.2" data-path="non-normalized-principal-component-analysis.html"><a href="non-normalized-principal-component-analysis.html"><i class="fa fa-check"></i><b>7.2</b> Non-normalized Principal Component Analysis</a></li>
+<li class="chapter" data-level="7.3" data-path="simple-correpondence-analysis.html"><a href="simple-correpondence-analysis.html"><i class="fa fa-check"></i><b>7.3</b> Simple Correpondence Analysis</a></li>
+<li class="chapter" data-level="7.4" data-path="multiple-correspondence-analysis.html"><a href="multiple-correspondence-analysis.html"><i class="fa fa-check"></i><b>7.4</b> Multiple Correspondence Analysis</a></li>
+<li class="chapter" data-level="7.5" data-path="clustering-of-factors.html"><a href="clustering-of-factors.html"><i class="fa fa-check"></i><b>7.5</b> Clustering of Factors</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Principal Component Analysis for Data Science (pca4ds)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="using-supplementary-elements" class="section level2">
+<h2><span class="header-section-number">2.4</span> Using Supplementary Elements</h2>
+<p>In section 1.1 we described the data set containing 51 cities on which 40 economic variables have been measured. Until now we have performed a couple of Principal Component Analysis using only the so-called active variables (i.e. the variables about the salaries of 12 professions). However, the data table contains additional variables that can be taken into account in order to enrich our analysis.</p>
+<div id="continuous-supplementary-variables" class="section level3">
+<h3><span class="header-section-number">2.4.1</span> Continuous Supplementary Variables</h3>
+<p>The continuous supplementary variables can be positioned in the factorial spaces using the same formulas applied to the active variables.</p>
+<p>Within a normalized PCA, we use the correlation of a supplementary variable <span class="math inline">\(\mathbf{x^{+}_{j}}\)</span> with the principal components <span class="math inline">\(\boldsymbol{\psi_{\alpha}}\)</span></p>
+<p><span class="math display" id="eq:2-16">\[
+\phi^{+}_{j \alpha} = cor(\mathbf{x^{+}_{j}}, \boldsymbol{\psi_{\alpha}})
+\tag{2.16}
+\]</span></p>
+<p>(the superindex + indicates that this is a supplementary variable)</p>
+<p>With a non-normalized PCA, we just need to multiply the correlation by the standard deviation of the supplementary variable:</p>
+<p><span class="math display" id="eq:2-17">\[
+\phi^{+}_{j \alpha} = s_j \hspace{1mm} cor(\mathbf{x^{+}_{j}}, \boldsymbol{\psi_{\alpha}})
+\tag{2.17}
+\]</span></p>
+<p>The position of the supplementary variables with respect to the factorial axes is interpreted in the same way as with the active variables.</p>
+<p><em>The position of a supplementary variable in a factorial plane allows us to visualize the relationship of the variable with the set of active variables via the factorial axes.</em></p>
+<p>Notice that we have not defined a distance between two supplementary variables. The relative positions between two supplementary variables does not imply any correlation between them. However, as long as the supplementary variables are well represented on the first factorial plane, and close to each other, we can expect that the similarity of their correlations with the axes (similarity of their coordinates) is a consequence of a strong correlation between them.</p>
+<div id="visualized-regression" class="section level4 unnumbered">
+<h4>Visualized Regression</h4>
+<p>The position of a continuous supplementary variable in a factorial plane resembles that of a “visual regression”. From this point of view, the supplementary variable plays the role of response variable. In turn, the projection subspace (first factorial planes) play the role of explanatory variables. This analogy is depicted in figure <a href="using-supplementary-elements.html#fig:fig-2-11">2.11</a></p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-11"></span>
+<img src="images/figure-2-11.png" alt="Equivalence between a regression and the projection of supplementary" width="80%" />
+<p class="caption">
+Figure 2.11: Equivalence between a regression and the projection of supplementary
+</p>
+</div>
+<p>In a regression, we are mostly interested in the value of the coefficients, and we care about whether the explanatory variables allows us to predict the response variable <span class="math inline">\(\mathbf{y}\)</span>.</p>
+<p>In a PCA, there is usually a considerable number of variables of type <span class="math inline">\(\mathbf{y}\)</span>. Their projections onto the first factorial plane indicate, in a quick way, which are well (or not) related with the set of active variables. On the other hand, their positions with respect the axes provide what we call interpretation elements of the axes.</p>
+</div>
+<div id="quality-of-representation-for-supplementary-variables" class="section level4 unnumbered">
+<h4>Quality of Representation for Supplementary Variables</h4>
+<p>To compute the quality of representation for the supplementary variables we calculate the squared cosines of each supplementary variable with the different factorial axes. Keep in mind that the overall sum of the squared cosines on the <span class="math inline">\(p\)</span> axes will (in general) be less than one.</p>
+<p><span class="math display">\[
+COS^2 (j^{+}, \alpha) = cor^2 (\text{variable}^{+}, \text{factor})
+\]</span></p>
+<p>To get the location of a supplementary variable in the original space, we need to know its <span class="math inline">\(n\)</span> elements (its values for the <span class="math inline">\(n\)</span> individuals). This is analogous to an active variable, except that the set of active variables is found in a subset of dimension <span class="math inline">\(p\)</span> (the rank of <span class="math inline">\(\mathbf{X}\)</span>, or the rank of <span class="math inline">\(\mathbf{X^\mathsf{T} X}\)</span>). The coordinates on the <span class="math inline">\(p\)</span> factorial axes allow to locate any active variable. This property is not present for supplementary variables.</p>
+<p>It doesn’t make sense to calculate the contributions of the supplementary variables to the inertia of the axes, because these variables have not intervened in its construction.</p>
+<p>In the second analysis of the cities, we have decided to treat the following variables as supplementary variables: the 12 active variables used in the first PCA, the rest of the 16 continuous variables, as well as the variables derived in the 2nd analysis, namely, <code>salary_inequality</code> and <code>manual_qualified</code>. In addition, we have also decided to consider the five axes obtained in the first analysis as supplementary variables; we do this to study the relationship of both PCA analyses.</p>
+<table>
+<caption><span id="tab:table-2-10">Table 2.10: </span>Results of the continuous supplementary variables</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">Dim.1</th>
+<th align="right">Dim.2</th>
+<th align="right">Dim.3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>price_index_no_rent</td>
+<td align="right">-0.35</td>
+<td align="right">0.22</td>
+<td align="right">-0.09</td>
+</tr>
+<tr class="even">
+<td>price_index_with_rent</td>
+<td align="right">-0.31</td>
+<td align="right">0.26</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="odd">
+<td>gross_salaries</td>
+<td align="right">-0.61</td>
+<td align="right">0.37</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td>net_salaries</td>
+<td align="right">-0.58</td>
+<td align="right">0.39</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="odd">
+<td>work_hours_year</td>
+<td align="right">0.46</td>
+<td align="right">-0.09</td>
+<td align="right">0.18</td>
+</tr>
+<tr class="even">
+<td>paid_vacations_year</td>
+<td align="right">0.10</td>
+<td align="right">0.34</td>
+<td align="right">-0.11</td>
+</tr>
+<tr class="odd">
+<td>gross_buying_power</td>
+<td align="right">-0.67</td>
+<td align="right">0.37</td>
+<td align="right">0.03</td>
+</tr>
+<tr class="even">
+<td>net_buying_power</td>
+<td align="right">-0.62</td>
+<td align="right">0.39</td>
+<td align="right">0.07</td>
+</tr>
+<tr class="odd">
+<td>bread_kg_work_time</td>
+<td align="right">0.42</td>
+<td align="right">-0.28</td>
+<td align="right">-0.15</td>
+</tr>
+<tr class="even">
+<td>burger_work_time</td>
+<td align="right">0.22</td>
+<td align="right">-0.33</td>
+<td align="right">-0.26</td>
+</tr>
+<tr class="odd">
+<td>food_expenses</td>
+<td align="right">-0.29</td>
+<td align="right">0.15</td>
+<td align="right">-0.10</td>
+</tr>
+<tr class="even">
+<td>shopping_basket</td>
+<td align="right">-0.35</td>
+<td align="right">0.21</td>
+<td align="right">-0.09</td>
+</tr>
+<tr class="odd">
+<td>women_apparel</td>
+<td align="right">-0.13</td>
+<td align="right">0.14</td>
+<td align="right">-0.05</td>
+</tr>
+<tr class="even">
+<td>men_apparel</td>
+<td align="right">-0.11</td>
+<td align="right">0.21</td>
+<td align="right">-0.16</td>
+</tr>
+<tr class="odd">
+<td>bed4_apt_furnished</td>
+<td align="right">0.08</td>
+<td align="right">0.21</td>
+<td align="right">0.37</td>
+</tr>
+<tr class="even">
+<td>bed3_apt_unfurnished</td>
+<td align="right">0.06</td>
+<td align="right">0.08</td>
+<td align="right">0.45</td>
+</tr>
+<tr class="odd">
+<td>rent_cost</td>
+<td align="right">-0.28</td>
+<td align="right">0.33</td>
+<td align="right">0.30</td>
+</tr>
+<tr class="even">
+<td>home_appliances</td>
+<td align="right">0.12</td>
+<td align="right">-0.15</td>
+<td align="right">-0.16</td>
+</tr>
+<tr class="odd">
+<td>public_transportation</td>
+<td align="right">-0.58</td>
+<td align="right">0.31</td>
+<td align="right">-0.12</td>
+</tr>
+<tr class="even">
+<td>taxi</td>
+<td align="right">-0.49</td>
+<td align="right">0.26</td>
+<td align="right">-0.12</td>
+</tr>
+<tr class="odd">
+<td>car</td>
+<td align="right">-0.10</td>
+<td align="right">-0.13</td>
+<td align="right">0.38</td>
+</tr>
+<tr class="even">
+<td>restaurant</td>
+<td align="right">-0.22</td>
+<td align="right">0.12</td>
+<td align="right">0.28</td>
+</tr>
+<tr class="odd">
+<td>hotel_night</td>
+<td align="right">-0.18</td>
+<td align="right">0.22</td>
+<td align="right">-0.03</td>
+</tr>
+<tr class="even">
+<td>various_services</td>
+<td align="right">-0.37</td>
+<td align="right">0.27</td>
+<td align="right">-0.04</td>
+</tr>
+<tr class="odd">
+<td>tax_pct_gross_salary</td>
+<td align="right">-0.68</td>
+<td align="right">0.17</td>
+<td align="right">-0.19</td>
+</tr>
+<tr class="even">
+<td>net_hourly_salary</td>
+<td align="right">-0.58</td>
+<td align="right">0.38</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="odd">
+<td>teacher</td>
+<td align="right">-0.51</td>
+<td align="right">0.50</td>
+<td align="right">0.18</td>
+</tr>
+<tr class="even">
+<td>bus_driver</td>
+<td align="right">-0.56</td>
+<td align="right">0.43</td>
+<td align="right">0.14</td>
+</tr>
+<tr class="odd">
+<td>mechanic</td>
+<td align="right">-0.62</td>
+<td align="right">0.13</td>
+<td align="right">-0.01</td>
+</tr>
+<tr class="even">
+<td>construction_worker</td>
+<td align="right">-0.69</td>
+<td align="right">0.21</td>
+<td align="right">-0.01</td>
+</tr>
+<tr class="odd">
+<td>metalworker</td>
+<td align="right">-0.63</td>
+<td align="right">0.28</td>
+<td align="right">0.21</td>
+</tr>
+<tr class="even">
+<td>cook_chef</td>
+<td align="right">-0.25</td>
+<td align="right">0.37</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td>factory_manager</td>
+<td align="right">-0.04</td>
+<td align="right">0.52</td>
+<td align="right">0.16</td>
+</tr>
+<tr class="even">
+<td>engineer</td>
+<td align="right">-0.25</td>
+<td align="right">0.51</td>
+<td align="right">0.11</td>
+</tr>
+<tr class="odd">
+<td>bank_clerk</td>
+<td align="right">-0.14</td>
+<td align="right">0.54</td>
+<td align="right">-0.02</td>
+</tr>
+<tr class="even">
+<td>executive_secretary</td>
+<td align="right">-0.43</td>
+<td align="right">0.45</td>
+<td align="right">0.03</td>
+</tr>
+<tr class="odd">
+<td>salesperson</td>
+<td align="right">-0.46</td>
+<td align="right">0.42</td>
+<td align="right">-0.10</td>
+</tr>
+<tr class="even">
+<td>textile_worker</td>
+<td align="right">-0.63</td>
+<td align="right">0.40</td>
+<td align="right">0.03</td>
+</tr>
+<tr class="odd">
+<td>Axis1</td>
+<td align="right">-0.48</td>
+<td align="right">0.43</td>
+<td align="right">0.07</td>
+</tr>
+<tr class="even">
+<td>Axis2</td>
+<td align="right">0.72</td>
+<td align="right">0.39</td>
+<td align="right">0.03</td>
+</tr>
+<tr class="odd">
+<td>Axis3</td>
+<td align="right">0.01</td>
+<td align="right">-0.37</td>
+<td align="right">-0.23</td>
+</tr>
+<tr class="even">
+<td>Axis4</td>
+<td align="right">0.01</td>
+<td align="right">-0.08</td>
+<td align="right">0.03</td>
+</tr>
+<tr class="odd">
+<td>Axis5</td>
+<td align="right">-0.05</td>
+<td align="right">0.01</td>
+<td align="right">0.71</td>
+</tr>
+<tr class="even">
+<td>salary_inequality</td>
+<td align="right">0.87</td>
+<td align="right">0.07</td>
+<td align="right">0.23</td>
+</tr>
+<tr class="odd">
+<td>manual_qualified</td>
+<td align="right">-0.55</td>
+<td align="right">-0.68</td>
+<td align="right">0.27</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>From the above table, we see that the salaries of the 12 professions, as well as most of the expenses, are negatively correlated with the first dimension. This indicates that the cities with higher salaries tend to remunerate (relatively) less the managerial professions.</p>
+<p>Also, the correlations of variables <code>price_index_no_rent</code> and <code>price_index_with_rent</code> are a bit smaller than the correlations of <code>gross_salaries</code> and <code>net_salaries</code>. This indicates that the most expensive
+cities have also a higher buying capacity, and elevated taxes and social services.</p>
+<p>The first axis opposes cities with low salaries that pay relatively well to <code>factory_manager</code>, <code>engineer</code> and <code>executive_secretary</code>, to the cities with higher salaries that pay relatively better those professions that are less socially well considered. This axis can thus be labeled as a <em>salary inequality</em>. In fact, the derived variable <code>salary_inequality</code> is the most correlated to this axis.</p>
+<p>This first axis is correlated to the first axis of the first PCA analysis (i.e. the so-called <em>size effect</em>). In other words, the first axis of salary inequality is correlated to the salary level: the higher the level of salary, the less the salary inequality. However, notice that the largest correlation occurs with the second axis from the first analysis. This indicates a rotation: the first axis from the analysis on the ratios corresponds to the second axis from the analysis on the raw data. This is a common phenomenon that occurs in an analysis in which we eliminate the size effect.</p>
+</div>
+</div>
+<div id="nominal-supplementary-variables" class="section level3">
+<h3><span class="header-section-number">2.4.2</span> Nominal Supplementary Variables</h3>
+<p>A categorical variable observed on a set of individuals defines a partition of such individuals into groups; there are as many groups as categories in the variable.</p>
+<p>When considering the cloud of row-points, we can distinguish the various groups of individuals for each category. For each group of points we can calculate the <em>average point</em> or center of gravity (see figure <a href="using-supplementary-elements.html#fig:fig-2-12">2.12</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-12"></span>
+<img src="images/figure-2-12.png" alt="Partition of individuals based on a nominal variable" width="80%" />
+<p class="caption">
+Figure 2.12: Partition of individuals based on a nominal variable
+</p>
+</div>
+<p>The projection of a supplementary categorical variable is the projection of the centroids onto the space of row-points. We obtain as many projected points as categories of the nominal variable.</p>
+<p>In our working example, we use the variable <code>region</code> as the supplementary categorical variable. In this case we obtain the following representation in the first factorial plane (see figure <a href="using-supplementary-elements.html#fig:fig-2-13">2.13</a>). Each category groups the cities of a given <code>region</code> of the world.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-13"></span>
+<img src="images/figure-2-13.png" alt="Regions of the world as supplementary categories (second PCA analysis)" width="80%" />
+<p class="caption">
+Figure 2.13: Regions of the world as supplementary categories (second PCA analysis)
+</p>
+</div>
+<p>This plot provides a simplified visualization of the cloud of row-points according to the chosen supplementary categorical variable—in this case <code>region</code>. The configuration of the category-points allows us to assess certain areas of the graph. This could suggest some elements useful in the interpretation of the factorial directions. For example, the opposition of Europe and North America against the rest of the world regions.</p>
+<div id="supplementary-category-and-supplementary-individual" class="section level4 unnumbered">
+<h4>Supplementary Category and Supplementary Individual</h4>
+<p>In summary, a supplementary category is positioned as the average point (i.e. centroid) of the individuals that form such category. Consequently, the definition of a nominal variable with three categories is equivalent to defining three supplementary individuals equal to the center of gravity of the active variables for each category. The supplementary individuals are located in the same factorial plane as the active individuals, with the same rules of interpretation.</p>
+</div>
+</div>
+<div id="profiling-with-v-test" class="section level3">
+<h3><span class="header-section-number">2.4.3</span> Profiling with V-test</h3>
+<p>The projection of a category is interpreted as the position of the average individual of the group defined by such category—the centroid. This position can be close to the center of gravity of all the individuals (i.e. the origin of the factorial coordinates).</p>
+<p>The proximity to the overall center of gravity suggests that there is little difference between the individuals that have such category and the set of all the individuals.</p>
+<p>In contrast, when the projected category is clearly separated from the overall centroid, this indicates that there is a relationship between the active variables and the given category.</p>
+<p>It would be interesting to assess what category (i.e group of individuals) seems to indicate an relevant area in the factorial plane.</p>
+<p>We can regard the overall center of gravity to be the <em>center of atraction</em> of
+the average points of all groups randomly selected. By doing this, we can
+highlight those centroids that differ “significantly” from the overall centroid.
+The individuals that form such group will have a high degree of resemblance
+among them, and therefore will be sufficiently unique to differentiate
+themselves from the center of gravity.</p>
+<p>Suppose that we randomly select a group of <span class="math inline">\(n_j\)</span> individuals from the total of
+<span class="math inline">\(n\)</span> individuals. The graph of these individuals over the first factorial plane
+will be a random scatter plot over this plane.</p>
+<p>The average point of these <span class="math inline">\(n_j\)</span> individuals will differ only by the random fluctuations from the overall average represented by the origin of the coordinates (see figure <a href="using-supplementary-elements.html#fig:fig-2-14">2.14</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-14"></span>
+<img src="images/figure-2-14.png" alt="Random selection of a group of individuals" width="75%" />
+<p class="caption">
+Figure 2.14: Random selection of a group of individuals
+</p>
+</div>
+<p>Suppose that we repeat the random selection of <span class="math inline">\(n_j\)</span> individuals a large number of times. For each repetition we calculate the average point of the selected individuals. We should expect the center of all these groups to coincide with the overall center of gravity.</p>
+<p>Now, suppose that a set of <span class="math inline">\(n_k\)</span> individuals having the same category, non-randomly selected, are located in a certain region of the factorial plane (see figure <a href="using-supplementary-elements.html#fig:fig-2-15">2.15</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-15"></span>
+<img src="images/figure-2-15.png" alt="Group of individuals defined by a certain category" width="75%" />
+<p class="caption">
+Figure 2.15: Group of individuals defined by a certain category
+</p>
+</div>
+<p>We can calculate the average point of these individuals. Furthermore, we can compute the distance between this average point and the overall centroid. Is the position of this average point compatible with the hypothesis that the individuals have been randomly selected? The more the evidence againts this hypothesis, the more interesting this category will be to profile the region of the factorial plane that it occupies.</p>
+<div id="interpreting-results-with-the-v-test" class="section level4 unnumbered">
+<h4>Interpreting results with the v-test</h4>
+<p>The idea behind the so-called v-test involves performing a hypothesis test. The null hypothesis <span class="math inline">\(H_0\)</span> consists in the assumption that a set of <span class="math inline">\(n_k\)</span> individuals are randomly selected, without replacement, from the total of <span class="math inline">\(n\)</span> individuals.</p>
+<p>Under the null hypothesis, we calculate the probability of observing a configuration as the one obtained, or more extreme. This is the critical probability associated to <span class="math inline">\(H_0\)</span>. The smaller this probability, the less likely is the hypothesis of individuals being randomly selected.</p>
+<p>In order to classify the elements in terms of importance, we rank them based on their critical probability. The elements that are most characteristic are those with a smaller critical probability.</p>
+<p>The more significant is the difference between the average of the coordinates in group <span class="math inline">\(k\)</span> and the overall centroid, the more interesting the position will be of this group in the factorial plane.</p>
+<p>Let <span class="math inline">\(m\)</span> be the average of the coordinates and <span class="math inline">\(s^2\)</span> the empirical variance calculated from the <span class="math inline">\(n\)</span> observations, which will be equal to the eigenvalue of the corresponding axis. Let <span class="math inline">\(m_k\)</span> be the average of the <span class="math inline">\(n_k\)</span> observations in group <span class="math inline">\(k\)</span>. We call <span class="math inline">\(M_k\)</span> to the random variable “average of the <span class="math inline">\(k\)</span> extractions.” Under the null hypothesis of random selection without replacement from a <em>finite populatoin</em>, we have that:</p>
+<p><span class="math display">\[\begin{align*}
+E_{H_0} [M_k] &amp;= 0 \\
+Var_{H_0} [M_k] &amp;= \frac{n - n_k}{n - 1} \times \frac{\lambda_{\alpha}}{n_k} = s^{2}_{k}
+\end{align*}\]</span></p>
+<p>The average <span class="math inline">\(M_k\)</span> coincides with the average of the coordinates (<span class="math inline">\(\sum_i \psi_{i\alpha} = 0\)</span>) and its variance is equal to the variance of the coordinates of the axis <span class="math inline">\(\alpha\)</span> (<span class="math inline">\(\lambda_{\alpha}\)</span>) divided by the number of observations from group <span class="math inline">\(k\)</span> and scaled by the factor <span class="math inline">\((n - n_k) / (n-1)\)</span>.</p>
+<p>If <span class="math inline">\(n\)</span> and <span class="math inline">\(n_k\)</span> are not very small, the central limit theorem is applicable (even though the extractions are not independent) and in this case the variable:</p>
+<p><span class="math display">\[
+U = \frac{M_k - m}{s_k}
+\]</span></p>
+<p>approximately follows a standard normal distribution.</p>
+<p>The critical probability associated to this variable is the probability of a normal distribution of observing a value greater than <span class="math inline">\(u\)</span> calculated on the <span class="math inline">\(n_k\)</span> individuals for the random variable <span class="math inline">\(U\)</span>.</p>
+<p>We obtain the most characterizing probabilities of an axis, selecting the categories with the smaller critical probabilities. This is equivalent to selecting the categories that have the larger values:</p>
+<p><span class="math display" id="eq:2-18">\[
+u = \frac{m_k - m}{s_k}
+\tag{2.18}
+\]</span></p>
+<p>The statistic <span class="math inline">\(u\)</span> is what we call the <strong>v-test</strong>. This value expresses, in number of standard deviations, the difference between the average <span class="math inline">\(m_k\)</span> of group <span class="math inline">\(k\)</span>, and the overall average <span class="math inline">\(m\)</span>.</p>
+<p>We interpret this value as follows: the probability of having a difference between both averages is the probability of exceeding this number of standard deviations in a normal distribution.</p>
+<p>What we are doing is evaluating some sort of distance between the overall average and the average of a group, measured in terms of standard deviations from a normal distribution. By standardizing these values, we have a common unit that allows us to compare different categories, and rank them according to their importance. In this way, we assess the likelihood of the null hypothesis: that individuals from category <span class="math inline">\(k\)</span> have been randomly selected.</p>
+<p>The larger this v-test (in absolute value), the more this indicates that the group of individuals occupies a significant position, and characterizes the region of the factorial plane where they are.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-16"></span>
+<img src="images/figure-2-16.png" alt="V-test associated to a critical probability" width="55%" />
+<p class="caption">
+Figure 2.16: V-test associated to a critical probability
+</p>
+</div>
+<p>In practice, we often use the threshold of 2 standard deviations in order to determine if the variable is significant.</p>
+<p>Values larger than 2 indicate less likely value under the null hypothesis of random selection. We can think that these individuals have some kind of relationship with the set of active variables, which makes them have an excentric position in the cloud of individuals.</p>
+<p>However, we should take into account the total number of individuals. One could double the data table indefinitly to make the v-test as large as desired.</p>
+<p>We must say that the v-test is used as a tool to arrange the categories according to their association with the factorial axes. We don’t really use the v-test to formally test a null hypothesis.</p>
+<p>In our working examples of the cities, we have a nominal categorical variable: the region of the world in which a city is located. This variable allows us to obtain a simplified representation of the cloud of cities. The results obtained with the first three axes are displayed in <a href="using-supplementary-elements.html#tab:table-2-11">2.11</a>.</p>
+<table>
+<caption><span id="tab:table-2-11">Table 2.11: </span>V-test of the variable <code>world region</code>, used in the second PCA.</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">EFF</th>
+<th align="right">PABS</th>
+<th align="right">vtest1</th>
+<th align="right">vtest2</th>
+<th align="right">vtest3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Northern Europe</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">-1.9</td>
+<td align="right">-0.2</td>
+<td align="right">1.3</td>
+</tr>
+<tr class="even">
+<td>Central Europe</td>
+<td align="right">9</td>
+<td align="right">9</td>
+<td align="right">-1.4</td>
+<td align="right">-3.0</td>
+<td align="right">-0.9</td>
+</tr>
+<tr class="odd">
+<td>Southern Europe</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">-1.0</td>
+<td align="right">-0.8</td>
+<td align="right">0.7</td>
+</tr>
+<tr class="even">
+<td>Africa</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">1.1</td>
+<td align="right">2.5</td>
+<td align="right">0.7</td>
+</tr>
+<tr class="odd">
+<td>East Asia</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">-0.6</td>
+<td align="right">-0.5</td>
+<td align="right">-1.4</td>
+</tr>
+<tr class="even">
+<td>South Asia and Australia</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">1.4</td>
+<td align="right">1.3</td>
+<td align="right">-1.7</td>
+</tr>
+<tr class="odd">
+<td>North America</td>
+<td align="right">7</td>
+<td align="right">7</td>
+<td align="right">-2.4</td>
+<td align="right">1.4</td>
+<td align="right">-0.2</td>
+</tr>
+<tr class="even">
+<td>South America</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">3.6</td>
+<td align="right">0.7</td>
+<td align="right">1.9</td>
+</tr>
+<tr class="odd">
+<td>Middle East</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">2.8</td>
+<td align="right">-0.7</td>
+<td align="right">-0.5</td>
+</tr>
+<tr class="even">
+<td>Eastern Europe</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">-0.3</td>
+<td align="right">0.7</td>
+<td align="right">0.5</td>
+</tr>
+</tbody>
+</table>
+<p>The first column, named <code>EFF</code>, provides the effective of each category (total number of cities of each category). The second column, named <code>PABS</code> provides the weight (sum of the weights of all the cities in a given category). When we have uniform weights, the weight and the effective are the same. The first category is formed by six cities of Northern Europe.</p>
+<p>The v-test controlled, for each axis, the hypothesis of random distribution for these 6 cities among the 51 cities. In the first axis, for example, we see a significant opposition of North America with respect to South America and Middle East, the latter being the most unequal regions of the world, whereas Central
+Europe corresponds to where the service professions are (relatively) better paid.</p>
+<p>The second axis separates with significant v-tests the cities of Central Europe
+with the cities in Africa.</p>
+</div>
+</div>
+<div id="axes-characterization-using-continuous-variables" class="section level3">
+<h3><span class="header-section-number">2.4.4</span> Axes Characterization using Continuous Variables</h3>
+<p>We’ve seen that on each axis we have the projection of the active continuous variables, of the supplementary continuous variables, of the individuals, as well as the categories of supplementary qualitative variables.</p>
+<p>In order to interpret the axes we should pay attention to the projected elements in their extremes. A first quick approximation to characterize the axes involves listing the projected elements on their more extreme positions (with coordinates further from the origin). To sort the categories we can use the larger v-tests on each axis.</p>
+<p>With our working example about the international cities, the continuous variables—both active and supplementary—are arranged based on their correlation displayed in table <a href="using-supplementary-elements.html#tab:table-2-12">2.12</a>.</p>
+<table>
+<caption><span id="tab:table-2-12">Table 2.12: </span>Characterization of the first axis from second PCA.</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="left">scale</th>
+<th align="left">type</th>
+<th align="right">coord</th>
+<th align="right">weight</th>
+<th align="right">mean</th>
+<th align="right">stdev</th>
+<th align="right">number</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>construction_worker2</td>
+<td align="left">continuous</td>
+<td align="left">active</td>
+<td align="right">-0.81</td>
+<td align="right">51</td>
+<td align="right">0.72</td>
+<td align="right">0.27</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td>engineer2</td>
+<td align="left">continuous</td>
+<td align="left">active</td>
+<td align="right">0.79</td>
+<td align="right">51</td>
+<td align="right">2.12</td>
+<td align="right">0.75</td>
+<td align="right">12</td>
+</tr>
+<tr class="odd">
+<td>construction_worker</td>
+<td align="left">continuous</td>
+<td align="left">supplementary</td>
+<td align="right">-0.69</td>
+<td align="right">51</td>
+<td align="right">10343.14</td>
+<td align="right">8239.82</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td>tax_pct_gross_salary</td>
+<td align="left">continuous</td>
+<td align="left">supplementary</td>
+<td align="right">-0.68</td>
+<td align="right">51</td>
+<td align="right">20.04</td>
+<td align="right">9.54</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td>gross_buying_power</td>
+<td align="left">continuous</td>
+<td align="left">supplementary</td>
+<td align="right">-0.67</td>
+<td align="right">51</td>
+<td align="right">56.53</td>
+<td align="right">31.89</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td>textile_worker</td>
+<td align="left">continuous</td>
+<td align="left">supplementary</td>
+<td align="right">-0.63</td>
+<td align="right">51</td>
+<td align="right">9247.06</td>
+<td align="right">6429.78</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td>work_hours_year</td>
+<td align="left">continuous</td>
+<td align="left">supplementary</td>
+<td align="right">0.46</td>
+<td align="right">51</td>
+<td align="right">1920.25</td>
+<td align="right">158.69</td>
+<td align="right">43</td>
+</tr>
+<tr class="even">
+<td>Axis1</td>
+<td align="left">continuous</td>
+<td align="left">supplementary</td>
+<td align="right">0.48</td>
+<td align="right">51</td>
+<td align="right">0.00</td>
+<td align="right">3.18</td>
+<td align="right">44</td>
+</tr>
+<tr class="odd">
+<td>Axis2</td>
+<td align="left">continuous</td>
+<td align="left">supplementary</td>
+<td align="right">0.72</td>
+<td align="right">51</td>
+<td align="right">0.00</td>
+<td align="right">0.93</td>
+<td align="right">45</td>
+</tr>
+<tr class="even">
+<td>salary_inequality</td>
+<td align="left">continuous</td>
+<td align="left">supplementary</td>
+<td align="right">0.88</td>
+<td align="right">51</td>
+<td align="right">2.23</td>
+<td align="right">1.42</td>
+<td align="right">56</td>
+</tr>
+</tbody>
+</table>
+<p>We can easily identify the variables that are more correlated with the first axis. The second axis opposes the <code>mechanic</code> with the rest of the professions, especially <code>teacher</code> (see table <a href="using-supplementary-elements.html#tab:table-2-13">2.13</a>).</p>
+<table>
+<caption><span id="tab:table-2-13">Table 2.13: </span>Characterization of the second axis from second PCA.</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="left">scale</th>
+<th align="left">type</th>
+<th align="right">coord</th>
+<th align="right">weight</th>
+<th align="right">mean</th>
+<th align="right">stdev</th>
+<th align="right">number</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>teacher2</td>
+<td align="left">continuous</td>
+<td align="left">active</td>
+<td align="right">-0.69</td>
+<td align="right">51</td>
+<td align="right">1.19</td>
+<td align="right">0.37</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td>mechanic2</td>
+<td align="left">continuous</td>
+<td align="left">active</td>
+<td align="right">0.72</td>
+<td align="right">51</td>
+<td align="right">0.96</td>
+<td align="right">0.24</td>
+<td align="right">12</td>
+</tr>
+<tr class="odd">
+<td>bank_clerk2</td>
+<td align="left">continuous</td>
+<td align="left">supplementary</td>
+<td align="right">-0.54</td>
+<td align="right">51</td>
+<td align="right">18749.02</td>
+<td align="right">13413.83</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td>factory_manager</td>
+<td align="left">continuous</td>
+<td align="left">supplementary</td>
+<td align="right">-0.52</td>
+<td align="right">51</td>
+<td align="right">30933.34</td>
+<td align="right">21250.57</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td>engineer</td>
+<td align="left">continuous</td>
+<td align="left">supplementary</td>
+<td align="right">-0.51</td>
+<td align="right">51</td>
+<td align="right">24664.71</td>
+<td align="right">14019.08</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td>teacher</td>
+<td align="left">continuous</td>
+<td align="left">supplementary</td>
+<td align="right">-0.50</td>
+<td align="right">51</td>
+<td align="right">16801.96</td>
+<td align="right">13243.42</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td>burger_work_time</td>
+<td align="left">continuous</td>
+<td align="left">supplementary</td>
+<td align="right">0.33</td>
+<td align="right">51</td>
+<td align="right">66.71</td>
+<td align="right">97.82</td>
+<td align="right">42</td>
+</tr>
+<tr class="even">
+<td>Axis3</td>
+<td align="left">continuous</td>
+<td align="left">supplementary</td>
+<td align="right">0.37</td>
+<td align="right">51</td>
+<td align="right">0.00</td>
+<td align="right">0.57</td>
+<td align="right">44</td>
+</tr>
+<tr class="odd">
+<td>Axis1</td>
+<td align="left">continuous</td>
+<td align="left">supplementary</td>
+<td align="right">0.43</td>
+<td align="right">51</td>
+<td align="right">0.00</td>
+<td align="right">3.18</td>
+<td align="right">45</td>
+</tr>
+<tr class="even">
+<td>manual_qualified</td>
+<td align="left">continuous</td>
+<td align="left">supplementary</td>
+<td align="right">0.68</td>
+<td align="right">51</td>
+<td align="right">1.06</td>
+<td align="right">0.17</td>
+<td align="right">46</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="v-test-and-data-science" class="section level3">
+<h3><span class="header-section-number">2.4.5</span> V-test and Data Science</h3>
+<p>The v-test values are a quick and fast tool for data science (e.g. automatic exploration of significant associations) for the raw data, as well as for the results from dimension reduction techniques (e.g. PCA) and cluster analysis. When dealing with <em>large</em> data tables, to read complex multidimensional analysis, sorting the elements according to the v-test in decreasing order, will allow us to highlight the relevant features. This enables us to see where are the systemic patterns, which in turn will accumulate progressive knowledge about the data under analyisis.</p>
+<p>All the available information in a data table can be ordered according to the v-tests over a fatorial plane. For example, when analyzing survey data, we could include information such as “hour of the interview”, or the interaction between sex-age of the pair interviewer-interviewee, etc. These attributes, located on the factorial planes, and associated with their most significant v-test, form an interesting validation tool of the survey results.</p>
+<p>Figure <a href="using-supplementary-elements.html#fig:fig-2-17">2.17</a> shows the position of the <em>time of interview</em> and the <em>age of interviewer</em>. The “interview in the afternoon”, for instance, is the center of gravity of all the interviewed persons in the afternoon.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-17"></span>
+<img src="images/figure-2-17.png" alt="Position of additional information." width="75%" />
+<p class="caption">
+Figure 2.17: Position of additional information.
+</p>
+</div>
+<p>The v-test allows us to characterize all the significant associations, although we don’t take into account the redundancies nor the dependencies between elements. This fact causes multiple redundancies, and consequently, improves our knowledge about the analyzed data.</p>
+<p>As another example, we can consider the trajectory, on a factorial plane, of the categories of <em>age of interviewer</em>, from 1 to 4. Let’s suppose that these categories follow the direction of the first factorial axis, as shown in figure <a href="using-supplementary-elements.html#fig:fig-2-18">2.18</a>. The form of this trajectory comes from the set of associations between the active elements in the analysis.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-18"></span>
+<img src="images/figure-2-18.png" alt="Pattern of a trajectory." width="75%" />
+<p class="caption">
+Figure 2.18: Pattern of a trajectory.
+</p>
+</div>
+<p>It is possible that the v-test associated to the extreme categories 1 and 4 are high. However, the central categories 2 and 3 will very likely have small v-test values that won’t be significantly different from the origin. Does this mean that we should ignore these “non significant” categories, even though their alignment on the trajetory shows a coherent pattern?</p>
+<p>We see that the notion of a “coherent pattern” is implied in the associations among variables. Some elements may have weak v-test values, but these does not imply that they are useless.</p>
+<div id="note" class="section level4 unnumbered">
+<h4>Note</h4>
+<p>The proximity between two categories <em>A</em> and <em>B</em> from two different variables, can be the result from two distinct effects. On one hand, it is possible that both categories share most of the individuals in common, which results in the proximity between their average points. On the other hand, it is possible that the individuals the form each category are different, although they are located in the same region of the plane (see <a href="using-supplementary-elements.html#fig:fig-2-19">2.19</a>). In both cases, the proximity between categories <em>A</em> and <em>B</em> can be interpreted in terms of the similarity with respect to the active variables among the individuals forming such categories.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-19"></span>
+<img src="images/figure-2-19.png" alt="Proximity between two categories." width="80%" />
+<p class="caption">
+Figure 2.19: Proximity between two categories.
+</p>
+</div>
+<p>For example, two age categories may be close to each other, although they are formed by different individuals. Likewise, the individuals that have a certain voting behavior will be in the same region of the plane as those individuals that consume a certain product; this can be explained because they have the socio-cultural profile without being the same individuals.</p>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="size-factor.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="simultaneous-representations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

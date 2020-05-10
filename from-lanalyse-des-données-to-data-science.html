@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Terminology | Principal Component Analysis for Data Science (pca4ds)</title>
+  <title>From “L’Analyse des Données” to Data Science | Principal Component Analysis for Data Science (pca4ds)</title>
   <meta name="description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Terminology | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta property="og:title" content="From “L’Analyse des Données” to Data Science | Principal Component Analysis for Data Science (pca4ds)" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="gastonstat/pca4ds" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Terminology | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta name="twitter:title" content="From “L’Analyse des Données” to Data Science | Principal Component Analysis for Data Science (pca4ds)" />
   
   <meta name="twitter:description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="from-lanalyse-des-données-to-data-science.html"/>
-<link rel="next" href="basic.html"/>
+<link rel="prev" href="index.html"/>
+<link rel="next" href="terminology.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -207,47 +207,231 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="terminology" class="section level1 unnumbered">
-<h1>Terminology</h1>
-<p>This section will briefly introduce you to the terms that we will use
-throughout this book.</p>
+<div id="from-lanalyse-des-données-to-data-science" class="section level1 unnumbered">
+<h1>From “L’Analyse des Données” to Data Science</h1>
+<blockquote>
+<p>“When the Lord created the world and people to live in—an enterprise which
+according modern science, took a very long time—I could well imagine that
+He reasoned with Himself as follows: “If I make everything predictable, these
+human beings, whom I have endowed with pretty good brains, will undoubtedly
+learn to predict everything, and they will thereupon have no motive to do
+anything at all, because they will recognize that the future is totally
+determined and cannot be influenced by any human action. On the other hand,
+if I make everything unpredictable, they will gradually discover that there
+is no rational basis for any decision whatsoever and, as in the first case,
+they will thereupon have no motive to do anything at all. Neither scheme would
+make sense. I must therefore create a mixture of the two. Let some things be
+predictable and let others be unpredictable. They will then, amongst many
+other things, have the very important task of finding out which is which.”</p>
+<p><em>E.F. Schumacher.</em> (Small is beautiful, 1973)</p>
+</blockquote>
+<p>Observation is our first human activity. Observation of our surrounding world
+had been the first approach to unveil the signals of the existing relationships,
+the first paradigm of Science. However, in our perceptual world, observed data
+is largely contaminated by random noise, making it hard to discover the true models.
+George Box, in his paper <em>Science and Statistics</em> (JASA, 1976), synthetized in
+a simple diagram how learning in science occur, not by just mere theoretical
+speculation, neither by just observation of practical facts, but rather by a
+motivated iteration process between the theoretical world of ideas, hypothesis,
+or models on one hand; and the real world of facts, events, data, on the other.</p>
+<p><img src="images/figure-preface1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p>From observed data, a hypothesis may be conjectured, which it would be tested by
+an appropriate design, where the analysis of the collected data may led to a
+modified hypothesis, which in turn it would be tested by a new design …, and
+then, by iteration of these inductive/deductive phases, knowledge emerges.
+Statistics is the key discipline of this feedback loop. According to C.R. Rao, “Statistics is the methodology for extracting information from data and expressing the amount of uncertainty in decisions we make” (Statistics and Truth, 1989).</p>
+<p>However, Statistics has privileged the top-down approach: setting first the model,
+then collecting data, and finally analyzing and validating the model, giving
+raise to what it is understood by Classical Statistics. Statistics, which
+appeared as a formal discipline in the beginning of the XX century, is largely
+indebted to the scientific spirit of the XIX century where the search of
+universal laws was the <em>leitmotif</em>.</p>
+<p>Everything changed with the advent of computers, giving raise to what has been
+called <em>Computational Statistics</em>. In 1973, French statistician Jean-Paul
+Benzécri published his revolutionary book <em>L’Analyse des Données</em>, where he
+stated five principles of data analysis:</p>
+<ol style="list-style-type: decimal">
+<li><p>Statistics is not probability, under the name of (mathematical) statistics
+was built a pompous discipline based on theoretical assumptions that are rarely
+met in practice.</p></li>
+<li><p>The models should follow the data and not vice versa.</p></li>
+<li><p>You must simultaneously process the information relating to the greater
+number of possible dimensions so as to provide a sufficiently complete
+representation of the phenomena of interest.</p></li>
+<li><p>You need the computer to process the data for the analysis of complex
+phenomena.</p></li>
+<li><p>The use of the computer implies the abandonment of the classical paradigm of
+Statistics.</p></li>
+</ol>
+<p>That is, learning starts from the observed facts, the data. Data is multivariate
+and should be analyzed jointly, with as many variables as possible in large data
+sets, in order to enable patterns to rise up, by accumulation of congruent facts;
+without any probabilistic hypothesis about the generating mechanism of data,
+which are indeed totally unrealistic in large scale datasets; relying on
+simulation procedures to assess the validity of the results, adapting the
+scientific method to the specificities of data, and logically, using computers.
+This movement had been called in France <em>Analyse des Données</em>, which can be
+translated in English more-or-less to as <em>Multivariate Description of Data</em>. It
+relies on the paradigm that data contains information about its generating
+mechanism which can be revealed by using multivariate descriptive techniques.
+It encompasses three steps:</p>
+<ol style="list-style-type: decimal">
+<li><p>A visualization of the information (the inertia) contained in the data, by
+means of a Factorial Descriptive technique (such as Principal Components
+Analysis, Correspondence Analysis or a Multiple Correspondence Analysis), and
+relating the different semantic topics existing in the data by means of
+supplementary information.</p></li>
+<li><p>Performing clustering to synthesize the reality in a small number of
+operational classes.</p></li>
+<li><p>And finally, interpreting the obtained classes in clear understandable
+cluster profiles.</p></li>
+</ol>
+<p>Later, from the obtained results, we can better understand the data, and new
+hypotheses can be conjectured, and models can be estimated.</p>
+<p>This is the philosophy of the <em>Analyse des Données</em> which is patently inherited
+in this book. We focus on the most used multivariate technique, Principal
+Component Analysis (PCA). We present it from a very practical point of view,
+downsizing the mathematical aspects (which had been transferred to appendix
+sections), while emphasizing the practical problems that an analyst must
+address, for instance:</p>
 <ul>
-<li><p><strong>Data table</strong>: rectangular array formed by rows and columns. In each of
-the table entries (i.e. intersection of one row and one column), we find a
-datum, typically codified in numeric form. We also use the term <em>data matrix</em>
-as a synonym term. We represent the data table with upper case bold letters
-e.g. <span class="math inline">\(\mathbf{X}\)</span>, with <span class="math inline">\(n\)</span> rows and <span class="math inline">\(p\)</span> columns.</p></li>
-<li><p><strong>Individual</strong>: an individual is a row of the data table. The word individual
-refers to any type of object: person, animal, country, company, planet, etc.</p></li>
-<li><p><strong>Variable</strong>: we use the word “variable” to refer to any column in the data table. For each individual, we observe the same aggregate, the same measure, the same question, etc. Instead of variable we can also talk about “measure”, attribute, characteristic, property, etc.</p></li>
-<li><p><strong>Continuous Variable</strong>: we talk about continuous variable when the measurement is quantitative. To be more precise, a variable is continuous when calculating the mean (or average) makes sense.</p></li>
-<li><p><strong>Nominal Variable</strong>: we talk about a nominal variable when its values are names of categories (or qualities). Examples of nominal variables are <em>civil status</em> (e.g. single, married, divorced, widowed), <em>geographc region</em> (e.g. north, south, west, etc). We also use the terms categorical or qualitative variable as synonyms of nominal.</p></li>
-<li><p><strong>Modality</strong>: the modalities or categories are the values taken by a nominal variable. For example the variable <em>gender</em> (typical) has two modalities: male and female. A modalitiy is also known as group, class, or category.</p></li>
-<li><p><strong>Cloud of Points</strong>: on a plane or in a three-dimensional space, the notion of “cloud of points” has to do with how the points are positioned according to a series of coordinates, which are based on a set of orthogonal axes. Given the coordinates of the points, it is easy to calculate distance between them. When we have more than three axes, even though the cloud of points exist, we cannot visualize them.</p></li>
-<li><p><strong>Distance</strong>: the distance between two points in a given cloud coincides with the usual notion of distance (which can be calculated based on the coordinates of the points via the famous Pythogorean theorem).</p></li>
-<li><p><strong>Inertia</strong>: inertia is a borrowed term from Mechanics (in Physics) which is entirely equivalent to the statistical concept of variance. The inertia gives an idea of the spread in a cloud of weighted points. If the individuals have the same weight (same importance), the direction with the larger inertia of the cloud is the direction of its major axis.</p></li>
-<li><p><strong>Center of Gravity</strong>: this is the average point (or central point) in a cloud of weighted points. Therefore, there is an equivalence between the mechanical notion of center of gravity and the statistical notion of average point.</p></li>
-<li><p><strong>Factorial Analysis</strong>: optimal visualization (in a certain sense) of a cloud of points in some multidimensional space.</p></li>
-<li><p><strong>Factorial Axes</strong>: these are the axes, sorted by importance, which we use to visualize the cloud of points in a factorial analysis. They are defined by the directions of larger stretching (inertia) of the cloud of poitns.</p></li>
-<li><p><strong>PCA</strong>: Principal Component(s) Analysis.</p></li>
-<li><p><strong>Active Variables</strong>: set of variables that are used in the computation of the axes for the factorial planes.</p></li>
-<li><p><strong>Supplementary Variables</strong>: set of variables that are NOT used in the computation of the factorial axes, but that can be used as aid in the interpretation of results.</p></li>
-<li><p><strong>Contribution</strong>: measures the participation of an element (e.g. category, variable, frequency, or individual) in the construction of a factorial axis.</p></li>
-<li><p><strong>Squared Cosine</strong>: measures the quality of the projection of an element (e.g. category, variable, frequency, or individual) along a factorial axis.</p></li>
-<li><p><strong>V-test</strong>: measures, in number of standard deviations, the distance between an observed value and its theoretical value under a null hypothesis. This test is used to characterize the axes, the categories, the classes, etc.</p></li>
+<li>How many significant dimensions are there?,</li>
+<li>Looking at the possibility of changing the focus of an analysis by changing
+the active topic of it, in order to analyze the same phenomenon from a different
+point of view,</li>
+<li>How to interpret the supplementary positioning of points using the v-test,</li>
+<li>Obtaining synthetic indices,</li>
+<li>Interpreting the joint representation (biplot) of individuals with the
+growth’s direction of variables.</li>
 </ul>
+<p>In this book, we cover theoretical concepts illustrated with case studies,
+(the UBS Earnings and Prices survey,
+<a href="https://www.ubs.com/microsites/prices-earnings/" class="uri">https://www.ubs.com/microsites/prices-earnings/</a>); supplemented by three real analyses covering different types of applications. These examples
+illustrate how a visual descriptive technique such as PCA, allows gaining deep
+insight into the analyzed phenomena. Principal Component Analysis is a
+data-driven method for the understanding of data. It works like an ultrasound
+scan in medicine, that allows us to visualize the reality, invisible to the
+human eye. Of course, without forgetting the researcher’s responsibility
+of correctly “preparing” the data under study.</p>
+<p>The first editions of this book were written in French and Spanish in the 1990s
+under the title:</p>
+<p><strong>Learning from Data: Principal Component Analysis. An Approch from Data Mining</strong></p>
+<p>Twenty years later, we wonder whether this title it is still applicable. In the
+1990s we assisted to the boom of Data Mining, which was described by Usama
+Fayyad—one of his founders—as “the process of identifying valid, novel, potentially useful and understandable patterns in data.” (Data Mining to
+Knowledge Discovery, 1996).</p>
+<p>In fact, Data Mining is the natural continuation of the exploratory approach of
+Statistics, but it’s more much than that. Data Mining intersects with the
+emergent, at that time, Machine Learning discipline; “with an overall goal to
+extract information (with intelligent methods) from a data set and transform the
+information into a comprehensible structure for further use” (Wikipedia, 2020).
+In essence, Data Mining consists of transforming data into knowledge. Clearly
+this goal overlaps with that of Statistics.</p>
+<p>At the beginning, Statistics and Machine Learning had developed independently
+from one another, establishing their own notation and models, totally strange
+for the other discipline, like two foreign languages. It was Ludovic Lebart who
+in one seminar in Barcelona in 1995, presented a <em>Roseta Stone</em> to decipher the
+matching notation in both fields.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Statistics</th>
+<th align="left">Machine Learning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Variables</td>
+<td align="left">Attributes or features</td>
+</tr>
+<tr class="even">
+<td align="left">Individuals</td>
+<td align="left">Instances or samples</td>
+</tr>
+<tr class="odd">
+<td align="left">Explanatory variables, predictors</td>
+<td align="left">Inputs</td>
+</tr>
+<tr class="even">
+<td align="left">Response variables</td>
+<td align="left">Outputs or targets</td>
+</tr>
+<tr class="odd">
+<td align="left">Model</td>
+<td align="left">Machine or learner</td>
+</tr>
+<tr class="even">
+<td align="left">Coefficients</td>
+<td align="left">Weights</td>
+</tr>
+<tr class="odd">
+<td align="left">Fit criterion</td>
+<td align="left">Cost function</td>
+</tr>
+<tr class="even">
+<td align="left">Estimation</td>
+<td align="left">Learning / Training</td>
+</tr>
+<tr class="odd">
+<td align="left">Clustering</td>
+<td align="left">Unsupervised classification</td>
+</tr>
+<tr class="even">
+<td align="left">Discrimination</td>
+<td align="left">Supervised classification</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Both disciplines share the same goal, learning from data; nevertheless they have
+an intrinsic difference. (Classical) Statistics is prone towards theory-driven
+models, whereas Machine Learning is clearly bending to data-driven models. In
+the former, the focus is to understand the true generative mechanism of data
+(ultimately trying to look for the causal relationships of the response), this
+implies that models have to be interpretable and parsimonious; hence, we use
+parametric (statistical) models with known error probability distribution. This
+leads to global measures of fit and test the significance of coefficients (by
+computing p-values). Prediction then may allow forecasting the future in
+presence of change. On the contrary, in data-driven models we are just interested
+in the accuracy of predictions (significance is secondary). We focus on the Generalization Error of the model, error should be made minimal, indeed, in
+some applications (i.e. computer vision) it is possible to fit (almost) exactly
+the target. The model is considered a black box (interpretability is not an issue).
+Models are mere algorithms trained to fit future observations, but with the same
+generating mechanism as the training data; hence predictions may fail in presence
+of change. (Leo Breiman, Two cultures. 2011).</p>
+<p>This divergence has jumped up with the appearance of the Big Data movement,
+with new challenges in various fields of application (e.g. computer vision,
+speech recognition) that clearly demand very complex models relying in huge
+quantities of data. This pushes Big Data Management and data intensive
+computing discovery to the front edge. Calling Data Science the multidisciplinary
+field formed by joining all previous methodologies to extract knowledge and
+insights from data, in whatever form it may have: numeric, textual, sequential
+logs, pixel images, audio snippets, etc. The following diagram illustrates the
+evolution process from Exploratory Statistics to Data Science.</p>
+<p><img src="images/figure-preface2.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>Beyond the fact that intensive computing discovery may provide accurate
+technological solutions to solve actual problems, data alone is not a universal
+solution, “a cure-all solution” as it is claimed in
+<em>The End of Theory: The Data Deluge Makes the Scientific Method Obsolete</em> (Chris
+Anderson, 2008). Overwhelming data is not synonym of useful data; most of the
+data, nowadays easily and cheaply collected, is just redundant or noise. In
+predictive analytics understanding the context is crucial to obtain reliable
+predictions, with more available data, greater risk to detect patterns in random
+noise; then, understanding the information contained in data achieves all of its
+sense. Multivariate Descriptive Analysis will continue to have a prominent place
+under the Data Science era; this is why we think this book it is, and it will
+still be useful.</p>
+<p>Tomàs Aluja-Banet</p>
+<p>Barcelona, May 17th, 2020.</p>
 
 </div>
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="from-lanalyse-des-données-to-data-science.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="basic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="terminology.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.3 Beyond the First Factor | Principal Component Analysis for Data Science (pca4ds)</title>
+  <meta name="description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.3 Beyond the First Factor | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
+  <meta name="github-repo" content="gastonstat/pca4ds" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.3 Beyond the First Factor | Principal Component Analysis for Data Science (pca4ds)" />
+  
+  <meta name="twitter:description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
+  
+
+<meta name="author" content="Tomas Aluja-Banet Alain Morineau Gaston Sanchez" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="projections-of-variables.html"/>
+<link rel="next" href="using-supplementary-elements.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./"><b>PCA for Data Science</b><br><small>T. Aluja, A. Morineau, G. Sanchez</small></a></li>
+
+<li class="divider"></li>
+<li class="part"><span><b>I Preface</b></span></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>PCA4DS</a></li>
+<li class="chapter" data-level="" data-path="from-lanalyse-des-données-to-data-science.html"><a href="from-lanalyse-des-données-to-data-science.html"><i class="fa fa-check"></i>From “L’Analyse des Données” to Data Science</a></li>
+<li class="chapter" data-level="" data-path="terminology.html"><a href="terminology.html"><i class="fa fa-check"></i>Terminology</a></li>
+<li class="part"><span><b>II Introduction</b></span></li>
+<li class="chapter" data-level="1" data-path="basic.html"><a href="basic.html"><i class="fa fa-check"></i><b>1</b> Basic Elements</a><ul>
+<li class="chapter" data-level="1.1" data-path="data-and-goals.html"><a href="data-and-goals.html"><i class="fa fa-check"></i><b>1.1</b> Data and Goals</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="data-and-goals.html"><a href="data-and-goals.html#active-variables"><i class="fa fa-check"></i><b>1.1.1</b> Active Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="analysis-of-distances.html"><a href="analysis-of-distances.html"><i class="fa fa-check"></i><b>1.2</b> Analysis of Distances</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="analysis-of-distances.html"><a href="analysis-of-distances.html#cloud-of-row-points"><i class="fa fa-check"></i><b>1.2.1</b> Cloud of Row-Points</a></li>
+<li class="chapter" data-level="1.2.2" data-path="analysis-of-distances.html"><a href="analysis-of-distances.html#cloud-of-column-points"><i class="fa fa-check"></i><b>1.2.2</b> Cloud of Column-Points</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html"><i class="fa fa-check"></i><b>1.3</b> How to see the distances between points</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#how-to-find-the-projection-planes"><i class="fa fa-check"></i><b>1.3.1</b> How to find the projection planes</a></li>
+<li class="chapter" data-level="1.3.2" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#how-to-take-into-account-the-importance-of-individuals"><i class="fa fa-check"></i><b>1.3.2</b> How to take into account the importance of individuals</a></li>
+<li class="chapter" data-level="1.3.3" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#inertia-decomposition"><i class="fa fa-check"></i><b>1.3.3</b> Inertia Decomposition</a></li>
+<li class="chapter" data-level="1.3.4" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#visualizing-association-between-variables."><i class="fa fa-check"></i><b>1.3.4</b> Visualizing association between variables.</a></li>
+<li class="chapter" data-level="1.3.5" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#normalized-pca-or-non-normalized-pca"><i class="fa fa-check"></i><b>1.3.5</b> Normalized PCA or non-normalized PCA?</a></li>
+<li class="chapter" data-level="1.3.6" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#distance-matrices"><i class="fa fa-check"></i><b>1.3.6</b> Distance Matrices</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>III Mechanics</b></span></li>
+<li class="chapter" data-level="2" data-path="mechanics.html"><a href="mechanics.html"><i class="fa fa-check"></i><b>2</b> How Does PCA Work?</a><ul>
+<li class="chapter" data-level="2.1" data-path="principal-components.html"><a href="principal-components.html"><i class="fa fa-check"></i><b>2.1</b> Principal Components</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="principal-components.html"><a href="principal-components.html#interpreting-the-inertia-proportions"><i class="fa fa-check"></i><b>2.1.1</b> Interpreting the Inertia Proportions</a></li>
+<li class="chapter" data-level="2.1.2" data-path="principal-components.html"><a href="principal-components.html#how-many-axes-to-retain"><i class="fa fa-check"></i><b>2.1.2</b> How many axes to retain?</a></li>
+<li class="chapter" data-level="2.1.3" data-path="principal-components.html"><a href="principal-components.html#coordinates-of-row-points"><i class="fa fa-check"></i><b>2.1.3</b> Coordinates of row-points</a></li>
+<li class="chapter" data-level="2.1.4" data-path="principal-components.html"><a href="principal-components.html#interpretation-tools"><i class="fa fa-check"></i><b>2.1.4</b> Interpretation Tools</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="projections-of-variables.html"><a href="projections-of-variables.html"><i class="fa fa-check"></i><b>2.2</b> Projections of Variables</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="projections-of-variables.html"><a href="projections-of-variables.html#size-effect"><i class="fa fa-check"></i><b>2.2.1</b> Size Effect</a></li>
+<li class="chapter" data-level="2.2.2" data-path="projections-of-variables.html"><a href="projections-of-variables.html#tools-for-interpreting-components"><i class="fa fa-check"></i><b>2.2.2</b> Tools for Interpreting Components</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="size-factor.html"><a href="size-factor.html"><i class="fa fa-check"></i><b>2.3</b> Beyond the First Factor</a></li>
+<li class="chapter" data-level="2.4" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html"><i class="fa fa-check"></i><b>2.4</b> Using Supplementary Elements</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html#continuous-supplementary-variables"><i class="fa fa-check"></i><b>2.4.1</b> Continuous Supplementary Variables</a></li>
+<li class="chapter" data-level="2.4.2" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html#nominal-supplementary-variables"><i class="fa fa-check"></i><b>2.4.2</b> Nominal Supplementary Variables</a></li>
+<li class="chapter" data-level="2.4.3" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html#profiling-with-v-test"><i class="fa fa-check"></i><b>2.4.3</b> Profiling with V-test</a></li>
+<li class="chapter" data-level="2.4.4" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html#axes-characterization-using-continuous-variables"><i class="fa fa-check"></i><b>2.4.4</b> Axes Characterization using Continuous Variables</a></li>
+<li class="chapter" data-level="2.4.5" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html#v-test-and-data-science"><i class="fa fa-check"></i><b>2.4.5</b> V-test and Data Science</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="simultaneous-representations.html"><a href="simultaneous-representations.html"><i class="fa fa-check"></i><b>2.5</b> Simultaneous Representations</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="simultaneous-representations.html"><a href="simultaneous-representations.html#old-unit-axes"><i class="fa fa-check"></i><b>2.5.1</b> Old Unit Axes</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV Practice</b></span></li>
+<li class="chapter" data-level="3" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>3</b> Analysis</a><ul>
+<li class="chapter" data-level="3.1" data-path="themescope.html"><a href="themescope.html"><i class="fa fa-check"></i><b>3.1</b> Themescope</a></li>
+<li class="chapter" data-level="3.2" data-path="conditions-of-application.html"><a href="conditions-of-application.html"><i class="fa fa-check"></i><b>3.2</b> Conditions of Application</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="conditions-of-application.html"><a href="conditions-of-application.html#linearity-and-symmetry"><i class="fa fa-check"></i><b>3.2.1</b> Linearity and Symmetry</a></li>
+<li class="chapter" data-level="3.2.2" data-path="conditions-of-application.html"><a href="conditions-of-application.html#balancing-the-content-of-active-variables"><i class="fa fa-check"></i><b>3.2.2</b> Balancing the content of active variables</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="validation-stability-and-significance.html"><a href="validation-stability-and-significance.html"><i class="fa fa-check"></i><b>3.3</b> Validation: stability and significance</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="validation-stability-and-significance.html"><a href="validation-stability-and-significance.html#how-many-axes-to-study-and-retain"><i class="fa fa-check"></i><b>3.3.1</b> How many axes to study and retain?</a></li>
+<li class="chapter" data-level="3.3.2" data-path="validation-stability-and-significance.html"><a href="validation-stability-and-significance.html#simulations-random-effects-on-individuals"><i class="fa fa-check"></i><b>3.3.2</b> Simulations, random effects on individuals</a></li>
+<li class="chapter" data-level="3.3.3" data-path="validation-stability-and-significance.html"><a href="validation-stability-and-significance.html#bootstrap-simulations"><i class="fa fa-check"></i><b>3.3.3</b> Bootstrap Simulations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="analysis-of-table-of-ranks.html"><a href="analysis-of-table-of-ranks.html"><i class="fa fa-check"></i><b>3.4</b> Analysis of Table of Ranks</a></li>
+<li class="chapter" data-level="3.5" data-path="optimal-reconstitution-of-data.html"><a href="optimal-reconstitution-of-data.html"><i class="fa fa-check"></i><b>3.5</b> Optimal Reconstitution of Data</a></li>
+<li class="chapter" data-level="3.6" data-path="synthetic-variables-and-indices.html"><a href="synthetic-variables-and-indices.html"><i class="fa fa-check"></i><b>3.6</b> Synthetic Variables and Indices</a></li>
+<li class="chapter" data-level="3.7" data-path="handling-missing-values.html"><a href="handling-missing-values.html"><i class="fa fa-check"></i><b>3.7</b> Handling Missing Values</a></li>
+<li class="chapter" data-level="3.8" data-path="pca-and-clustering.html"><a href="pca-and-clustering.html"><i class="fa fa-check"></i><b>3.8</b> PCA and Clustering</a><ul>
+<li class="chapter" data-level="3.8.1" data-path="pca-and-clustering.html"><a href="pca-and-clustering.html#real-groups-or-instrumental-groups"><i class="fa fa-check"></i><b>3.8.1</b> Real Groups or Instrumental Groups?</a></li>
+<li class="chapter" data-level="3.8.2" data-path="pca-and-clustering.html"><a href="pca-and-clustering.html#representants-of-groups"><i class="fa fa-check"></i><b>3.8.2</b> Representants of Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="data-weighing.html"><a href="data-weighing.html"><i class="fa fa-check"></i><b>3.9</b> Data Weighing</a></li>
+<li class="chapter" data-level="3.10" data-path="pca-as-an-intermediate-analytical-stage.html"><a href="pca-as-an-intermediate-analytical-stage.html"><i class="fa fa-check"></i><b>3.10</b> PCA as an Intermediate Analytical Stage</a></li>
+<li class="chapter" data-level="3.11" data-path="comparing-various-tables.html"><a href="comparing-various-tables.html"><i class="fa fa-check"></i><b>3.11</b> Comparing Various Tables</a></li>
+<li class="chapter" data-level="3.12" data-path="analysis-of-a-table-of-means.html"><a href="analysis-of-a-table-of-means.html"><i class="fa fa-check"></i><b>3.12</b> Analysis of a Table of Means</a></li>
+<li class="chapter" data-level="3.13" data-path="analysis-of-a-binary-table.html"><a href="analysis-of-a-binary-table.html"><i class="fa fa-check"></i><b>3.13</b> Analysis of a Binary Table</a></li>
+<li class="chapter" data-level="3.14" data-path="analysis-of-a-table-of-distances.html"><a href="analysis-of-a-table-of-distances.html"><i class="fa fa-check"></i><b>3.14</b> Analysis of a Table of Distances</a></li>
+<li class="chapter" data-level="3.15" data-path="conditional-pca.html"><a href="conditional-pca.html"><i class="fa fa-check"></i><b>3.15</b> Conditional PCA</a><ul>
+<li class="chapter" data-level="3.15.1" data-path="conditional-pca.html"><a href="conditional-pca.html#pca-on-model-residuals"><i class="fa fa-check"></i><b>3.15.1</b> PCA on Model Residuals</a></li>
+<li class="chapter" data-level="3.15.2" data-path="conditional-pca.html"><a href="conditional-pca.html#analysis-of-local-variation"><i class="fa fa-check"></i><b>3.15.2</b> Analysis of Local Variation</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>V Examples</b></span></li>
+<li class="chapter" data-level="4" data-path="application-examples.html"><a href="application-examples.html"><i class="fa fa-check"></i><b>4</b> Application Examples</a><ul>
+<li class="chapter" data-level="4.1" data-path="lascaux.html"><a href="lascaux.html"><i class="fa fa-check"></i><b>4.1</b> Lascaux Cave Temperatures</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="lascaux.html"><a href="lascaux.html#temperature-data"><i class="fa fa-check"></i><b>4.1.1</b> Temperature Data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="lascaux.html"><a href="lascaux.html#pca"><i class="fa fa-check"></i><b>4.1.2</b> PCA</a></li>
+<li class="chapter" data-level="4.1.3" data-path="lascaux.html"><a href="lascaux.html#seasonal-phenomenon"><i class="fa fa-check"></i><b>4.1.3</b> Seasonal Phenomenon</a></li>
+<li class="chapter" data-level="4.1.4" data-path="lascaux.html"><a href="lascaux.html#modeling-propagation-of-thermal-wave"><i class="fa fa-check"></i><b>4.1.4</b> Modeling Propagation of Thermal Wave</a></li>
+<li class="chapter" data-level="4.1.5" data-path="lascaux.html"><a href="lascaux.html#stability-of-the-axes"><i class="fa fa-check"></i><b>4.1.5</b> Stability of the Axes</a></li>
+<li class="chapter" data-level="4.1.6" data-path="lascaux.html"><a href="lascaux.html#selecting-best-temperature-reading-locations"><i class="fa fa-check"></i><b>4.1.6</b> Selecting Best Temperature Reading Locations</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="design-of-experiments-and-pca.html"><a href="design-of-experiments-and-pca.html"><i class="fa fa-check"></i><b>4.2</b> Design of Experiments and PCA</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="design-of-experiments-and-pca.html"><a href="design-of-experiments-and-pca.html#pca-1"><i class="fa fa-check"></i><b>4.2.1</b> PCA</a></li>
+<li class="chapter" data-level="4.2.2" data-path="design-of-experiments-and-pca.html"><a href="design-of-experiments-and-pca.html#evolution-of-factor-trajectories-over-time"><i class="fa fa-check"></i><b>4.2.2</b> Evolution of Factor Trajectories over Time</a></li>
+<li class="chapter" data-level="4.2.3" data-path="design-of-experiments-and-pca.html"><a href="design-of-experiments-and-pca.html#analysis-of-variance"><i class="fa fa-check"></i><b>4.2.3</b> Analysis of Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="defining-an-economic-capacity-index.html"><a href="defining-an-economic-capacity-index.html"><i class="fa fa-check"></i><b>4.3</b> Defining an Economic Capacity Index</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="defining-an-economic-capacity-index.html"><a href="defining-an-economic-capacity-index.html#analyzed-information"><i class="fa fa-check"></i><b>4.3.1</b> Analyzed Information</a></li>
+<li class="chapter" data-level="4.3.2" data-path="defining-an-economic-capacity-index.html"><a href="defining-an-economic-capacity-index.html#pca-2"><i class="fa fa-check"></i><b>4.3.2</b> PCA</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>VI Appendix</b></span></li>
+<li class="chapter" data-level="5" data-path="appendixa.html"><a href="appendixa.html"><i class="fa fa-check"></i><b>5</b> Appendix A: Fundamentals</a><ul>
+<li class="chapter" data-level="5.1" data-path="space-of-p-dimensions.html"><a href="space-of-p-dimensions.html"><i class="fa fa-check"></i><b>5.1</b> Space of p-Dimensions</a></li>
+<li class="chapter" data-level="5.2" data-path="distances-between-points.html"><a href="distances-between-points.html"><i class="fa fa-check"></i><b>5.2</b> Distances between points</a></li>
+<li class="chapter" data-level="5.3" data-path="center-of-gravity.html"><a href="center-of-gravity.html"><i class="fa fa-check"></i><b>5.3</b> Center of Gravity</a></li>
+<li class="chapter" data-level="5.4" data-path="inertia-of-a-cloud-of-points.html"><a href="inertia-of-a-cloud-of-points.html"><i class="fa fa-check"></i><b>5.4</b> Inertia of a cloud of points</a></li>
+<li class="chapter" data-level="5.5" data-path="projection-of-the-cloud-of-points-on-a-line.html"><a href="projection-of-the-cloud-of-points-on-a-line.html"><i class="fa fa-check"></i><b>5.5</b> Projection of the cloud of points on a line</a></li>
+<li class="chapter" data-level="5.6" data-path="centered-and-standardized-variable.html"><a href="centered-and-standardized-variable.html"><i class="fa fa-check"></i><b>5.6</b> Centered and Standardized Variable</a></li>
+<li class="chapter" data-level="5.7" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html"><i class="fa fa-check"></i><b>5.7</b> Correlation Coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="appendixb.html"><a href="appendixb.html"><i class="fa fa-check"></i><b>6</b> Appendix B: PCA Formulae</a><ul>
+<li class="chapter" data-level="6.1" data-path="general-analysis.html"><a href="general-analysis.html"><i class="fa fa-check"></i><b>6.1</b> General Analysis</a></li>
+<li class="chapter" data-level="6.2" data-path="formulas-for-pca.html"><a href="formulas-for-pca.html"><i class="fa fa-check"></i><b>6.2</b> Formulas for PCA</a></li>
+<li class="chapter" data-level="6.3" data-path="biplot-and-pca.html"><a href="biplot-and-pca.html"><i class="fa fa-check"></i><b>6.3</b> Biplot and PCA</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="appendixc.html"><a href="appendixc.html"><i class="fa fa-check"></i><b>7</b> Appendix C: Data Analysis Reminder</a><ul>
+<li class="chapter" data-level="7.1" data-path="normalized-principal-component-analysis.html"><a href="normalized-principal-component-analysis.html"><i class="fa fa-check"></i><b>7.1</b> Normalized Principal Component Analysis</a></li>
+<li class="chapter" data-level="7.2" data-path="non-normalized-principal-component-analysis.html"><a href="non-normalized-principal-component-analysis.html"><i class="fa fa-check"></i><b>7.2</b> Non-normalized Principal Component Analysis</a></li>
+<li class="chapter" data-level="7.3" data-path="simple-correpondence-analysis.html"><a href="simple-correpondence-analysis.html"><i class="fa fa-check"></i><b>7.3</b> Simple Correpondence Analysis</a></li>
+<li class="chapter" data-level="7.4" data-path="multiple-correspondence-analysis.html"><a href="multiple-correspondence-analysis.html"><i class="fa fa-check"></i><b>7.4</b> Multiple Correspondence Analysis</a></li>
+<li class="chapter" data-level="7.5" data-path="clustering-of-factors.html"><a href="clustering-of-factors.html"><i class="fa fa-check"></i><b>7.5</b> Clustering of Factors</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Principal Component Analysis for Data Science (pca4ds)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="size-factor" class="section level2">
+<h2><span class="header-section-number">2.3</span> Beyond the First Factor</h2>
+<p>The most striking fact from the results discussed so far is the so-called <em>size factor</em> (or size effect) which is extremely dominant in our working example. This size factor, reflected in the first principal component, exclusively shows the salary inequality among the cities. The rest of the factors are somewhat “squeezed” by the strength of this phenomenon in the data table.</p>
+<p>When a size factor dominates the analysis, it is interesting to rerun a Principal Component Analysis but controlling (eliminating) for the size effect. This involves taking into account the previous knowledge about the salaries in the cities in order to go beyond their salary inequality.</p>
+<p>A simple way to achieve this consists of dividing the salaries of each profession by the mean salary in each city, thus eliminating the aforementioned effect of salary inequality. The mean salary of a city can be obtained as the average of the salaries in that city. However, we have decided to obtain the mean salaries of cities in a slightly different form: as the product of the <em>net hourly salary</em> times the <em>number of hours worked per year</em> (i.e. the product of columns <code>net_hourly_salary</code> and <code>work_hours_year</code>).</p>
+<p>At the same time, we have decided to create two new artificial variables (for illustrative purposes). One indicates the “salary inequality” of each city: as the difference between its higher salary and its lower salary, with respect to mean salary of the city:</p>
+<p><span class="math display">\[
+\text{salary inequality} = \frac{\text{salary}_{max} - \text{salary}_{min}}{\text{mean salary of the city}}
+\]</span></p>
+<p>Another variable about the salary of the manual jobs with a certain qualification, is obtained as the mean salary of <code>mechanic</code> and <code>metalworker</code>:</p>
+<p><span class="math display">\[
+\text{qualified manual jobs} = \frac{\texttt{mechanic} + \texttt{metalworker}}{2 \times \text{mean salary of the city}}
+\]</span></p>
+<p>The new data table contains 12 new variables of salaries (quotient between the salary of a profession relative to the mean salary of the city). We can then perform a Principal Component Analysis on this new table. The table 2.5 contains the summary statistics of these new 12 active variables:</p>
+<table>
+<caption><span id="tab:table-2-5">Table 2.5: </span>Summary Statistics of the second analysis</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">weight</th>
+<th align="right">mean</th>
+<th align="right">stdev</th>
+<th align="right">min</th>
+<th align="right">max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>teacher2</td>
+<td align="right">51</td>
+<td align="right">1.19</td>
+<td align="right">0.37</td>
+<td align="right">0.37</td>
+<td align="right">2.07</td>
+</tr>
+<tr class="even">
+<td>bus_driver2</td>
+<td align="right">51</td>
+<td align="right">1.04</td>
+<td align="right">0.25</td>
+<td align="right">0.46</td>
+<td align="right">1.69</td>
+</tr>
+<tr class="odd">
+<td>mechanic2</td>
+<td align="right">51</td>
+<td align="right">0.96</td>
+<td align="right">0.24</td>
+<td align="right">0.14</td>
+<td align="right">1.47</td>
+</tr>
+<tr class="even">
+<td>construction_worker2</td>
+<td align="right">51</td>
+<td align="right">0.72</td>
+<td align="right">0.27</td>
+<td align="right">0.13</td>
+<td align="right">1.17</td>
+</tr>
+<tr class="odd">
+<td>metalworker2</td>
+<td align="right">51</td>
+<td align="right">1.17</td>
+<td align="right">0.22</td>
+<td align="right">0.50</td>
+<td align="right">1.88</td>
+</tr>
+<tr class="even">
+<td>cook_chef2</td>
+<td align="right">51</td>
+<td align="right">1.40</td>
+<td align="right">0.62</td>
+<td align="right">0.48</td>
+<td align="right">3.50</td>
+</tr>
+<tr class="odd">
+<td>factory_manager2</td>
+<td align="right">51</td>
+<td align="right">2.63</td>
+<td align="right">1.32</td>
+<td align="right">1.37</td>
+<td align="right">6.96</td>
+</tr>
+<tr class="even">
+<td>engineer2</td>
+<td align="right">51</td>
+<td align="right">2.12</td>
+<td align="right">0.76</td>
+<td align="right">1.14</td>
+<td align="right">4.37</td>
+</tr>
+<tr class="odd">
+<td>bank_clerk2</td>
+<td align="right">51</td>
+<td align="right">1.51</td>
+<td align="right">0.62</td>
+<td align="right">0.77</td>
+<td align="right">3.50</td>
+</tr>
+<tr class="even">
+<td>executive_secretary2</td>
+<td align="right">51</td>
+<td align="right">1.13</td>
+<td align="right">0.28</td>
+<td align="right">0.76</td>
+<td align="right">2.07</td>
+</tr>
+<tr class="odd">
+<td>salesperson2</td>
+<td align="right">51</td>
+<td align="right">0.76</td>
+<td align="right">0.16</td>
+<td align="right">0.37</td>
+<td align="right">1.13</td>
+</tr>
+<tr class="even">
+<td>textile_worker2</td>
+<td align="right">51</td>
+<td align="right">0.68</td>
+<td align="right">0.18</td>
+<td align="right">0.22</td>
+<td align="right">1.09</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>We can see that the best paid profession is <code>factory_manager</code> which, in average, is two and half times above the mean salary. In contrast, the worst paid profession if <code>textile_worker</code> with a salary of 2/3 the mean salary.</p>
+<p>When looking at the matrix of correlations (see table <a href="size-factor.html#tab:table-2-6">2.6</a>) we now have values that are very different from table <a href="how-to-see-the-distances-between-points.html#tab:table-1-3">1.1</a>. These new correlations are actually partial correlations, because we have removed the effect that is due to the salary level per city.</p>
+<table>
+<caption><span id="tab:table-2-6">Table 2.6: </span>Correlations</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">tea2</th>
+<th align="right">bus2</th>
+<th align="right">mec2</th>
+<th align="right">con2</th>
+<th align="right">met2</th>
+<th align="right">coo2</th>
+<th align="right">dep2</th>
+<th align="right">eng2</th>
+<th align="right">ban2</th>
+<th align="right">exe2</th>
+<th align="right">sal2</th>
+<th align="right">tex2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>tea2</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>bus2</td>
+<td align="right">0.38</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>mec2</td>
+<td align="right">-0.33</td>
+<td align="right">0.00</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>con2</td>
+<td align="right">0.24</td>
+<td align="right">0.34</td>
+<td align="right">0.31</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>met2</td>
+<td align="right">0.06</td>
+<td align="right">0.14</td>
+<td align="right">0.15</td>
+<td align="right">0.08</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>coo2</td>
+<td align="right">-0.12</td>
+<td align="right">-0.42</td>
+<td align="right">-0.26</td>
+<td align="right">-0.51</td>
+<td align="right">-0.38</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>dep2</td>
+<td align="right">-0.12</td>
+<td align="right">-0.24</td>
+<td align="right">-0.41</td>
+<td align="right">-0.63</td>
+<td align="right">-0.19</td>
+<td align="right">0.37</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>eng2</td>
+<td align="right">-0.15</td>
+<td align="right">-0.40</td>
+<td align="right">-0.35</td>
+<td align="right">-0.72</td>
+<td align="right">-0.16</td>
+<td align="right">0.52</td>
+<td align="right">0.57</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>ban2</td>
+<td align="right">-0.08</td>
+<td align="right">-0.16</td>
+<td align="right">-0.38</td>
+<td align="right">-0.37</td>
+<td align="right">-0.51</td>
+<td align="right">0.32</td>
+<td align="right">0.59</td>
+<td align="right">0.38</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>exe2</td>
+<td align="right">-0.39</td>
+<td align="right">-0.50</td>
+<td align="right">-0.37</td>
+<td align="right">-0.62</td>
+<td align="right">-0.33</td>
+<td align="right">0.48</td>
+<td align="right">0.38</td>
+<td align="right">0.54</td>
+<td align="right">0.42</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>sal2</td>
+<td align="right">-0.02</td>
+<td align="right">-0.07</td>
+<td align="right">-0.09</td>
+<td align="right">-0.16</td>
+<td align="right">-0.36</td>
+<td align="right">-0.03</td>
+<td align="right">0.06</td>
+<td align="right">0.19</td>
+<td align="right">0.10</td>
+<td align="right">0.12</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>tex2</td>
+<td align="right">0.25</td>
+<td align="right">0.38</td>
+<td align="right">-0.14</td>
+<td align="right">0.41</td>
+<td align="right">0.06</td>
+<td align="right">-0.51</td>
+<td align="right">-0.48</td>
+<td align="right">-0.31</td>
+<td align="right">-0.35</td>
+<td align="right">-0.26</td>
+<td align="right">0.05</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Observe that we now have negative correlations, indicating that when a profession is well paid in a given city, it is detrimental to other profession (values below 0.28 in absolute value, indicate correlations non-significantly different from zero).</p>
+<p>The diagonalization of the correlation matrix provides the eigenvalues displayed in table <a href="size-factor.html#tab:table-2-7">2.7</a>:</p>
+<table>
+<caption><span id="tab:table-2-7">Table 2.7: </span>Distribution of eigenvalues.</caption>
+<thead>
+<tr class="header">
+<th align="right">num</th>
+<th align="right">eigenvalues</th>
+<th align="right">percentage</th>
+<th align="right">cumulative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">4.4910</td>
+<td align="right">37.43</td>
+<td align="right">37.43</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">1.7148</td>
+<td align="right">14.29</td>
+<td align="right">51.72</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">1.2989</td>
+<td align="right">10.82</td>
+<td align="right">62.54</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">1.0396</td>
+<td align="right">8.66</td>
+<td align="right">71.20</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">0.8699</td>
+<td align="right">7.25</td>
+<td align="right">78.45</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">0.7831</td>
+<td align="right">6.53</td>
+<td align="right">84.98</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">0.5309</td>
+<td align="right">4.42</td>
+<td align="right">89.40</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">0.3874</td>
+<td align="right">3.23</td>
+<td align="right">92.63</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">0.3210</td>
+<td align="right">2.67</td>
+<td align="right">95.31</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">0.2561</td>
+<td align="right">2.13</td>
+<td align="right">97.44</td>
+</tr>
+<tr class="odd">
+<td align="right">11</td>
+<td align="right">0.2021</td>
+<td align="right">1.68</td>
+<td align="right">99.12</td>
+</tr>
+<tr class="even">
+<td align="right">12</td>
+<td align="right">0.1052</td>
+<td align="right">0.88</td>
+<td align="right">100.00</td>
+</tr>
+</tbody>
+</table>
+<p><img src="_main_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>The projection of the new (transformed) variables on the three axes obtained in the second analysis, are contained in the table <a href="size-factor.html#tab:table-2-8">2.8</a> shown below</p>
+<table>
+<caption><span id="tab:table-2-8">Table 2.8: </span>Results for the variables in the second analysis</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">coord1</th>
+<th align="right">coord2</th>
+<th align="right">coord3</th>
+<th align="right">cor1</th>
+<th align="right">cor2</th>
+<th align="right">cor3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>teacher2</td>
+<td align="right">-0.31</td>
+<td align="right">0.69</td>
+<td align="right">0.30</td>
+<td align="right">-0.31</td>
+<td align="right">0.69</td>
+<td align="right">0.30</td>
+</tr>
+<tr class="even">
+<td>bus_driver2</td>
+<td align="right">-0.56</td>
+<td align="right">0.47</td>
+<td align="right">0.13</td>
+<td align="right">-0.56</td>
+<td align="right">0.47</td>
+<td align="right">0.13</td>
+</tr>
+<tr class="odd">
+<td>mechanic2</td>
+<td align="right">-0.42</td>
+<td align="right">-0.72</td>
+<td align="right">-0.25</td>
+<td align="right">-0.42</td>
+<td align="right">-0.72</td>
+<td align="right">-0.25</td>
+</tr>
+<tr class="even">
+<td>construction_worker2</td>
+<td align="right">-0.81</td>
+<td align="right">0.04</td>
+<td align="right">-0.22</td>
+<td align="right">-0.81</td>
+<td align="right">0.04</td>
+<td align="right">-0.22</td>
+</tr>
+<tr class="odd">
+<td>metalworker2</td>
+<td align="right">-0.42</td>
+<td align="right">-0.31</td>
+<td align="right">0.69</td>
+<td align="right">-0.42</td>
+<td align="right">-0.31</td>
+<td align="right">0.69</td>
+</tr>
+<tr class="even">
+<td>cook_chef2</td>
+<td align="right">0.72</td>
+<td align="right">-0.08</td>
+<td align="right">0.06</td>
+<td align="right">0.72</td>
+<td align="right">-0.08</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="odd">
+<td>factory_manager2</td>
+<td align="right">0.75</td>
+<td align="right">0.17</td>
+<td align="right">0.28</td>
+<td align="right">0.75</td>
+<td align="right">0.17</td>
+<td align="right">0.28</td>
+</tr>
+<tr class="even">
+<td>engineer2</td>
+<td align="right">0.79</td>
+<td align="right">0.05</td>
+<td align="right">0.15</td>
+<td align="right">0.79</td>
+<td align="right">0.05</td>
+<td align="right">0.15</td>
+</tr>
+<tr class="odd">
+<td>bank_clerk2</td>
+<td align="right">0.66</td>
+<td align="right">0.33</td>
+<td align="right">-0.11</td>
+<td align="right">0.66</td>
+<td align="right">0.33</td>
+<td align="right">-0.11</td>
+</tr>
+<tr class="even">
+<td>executive_secretary2</td>
+<td align="right">0.77</td>
+<td align="right">-0.07</td>
+<td align="right">-0.14</td>
+<td align="right">0.77</td>
+<td align="right">-0.07</td>
+<td align="right">-0.14</td>
+</tr>
+<tr class="odd">
+<td>salesperson2</td>
+<td align="right">0.19</td>
+<td align="right">0.26</td>
+<td align="right">-0.66</td>
+<td align="right">0.19</td>
+<td align="right">0.26</td>
+<td align="right">-0.66</td>
+</tr>
+<tr class="even">
+<td>textile_worker2</td>
+<td align="right">-0.57</td>
+<td align="right">0.43</td>
+<td align="right">-0.19</td>
+<td align="right">-0.57</td>
+<td align="right">0.43</td>
+<td align="right">-0.19</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>The first component shows the opposition of <code>executive_secretary</code>, <code>factory_manager</code>, <code>engineer</code>, <code>cook_chef</code>, and <code>bank_clerk</code> against the rest of the professions, and in particular with <code>construction_worker</code>.</p>
+<p>The second axis is formed by the professions <code>mechanic</code>, and <code>metal_worker</code>, opposed to <code>teacher</code>, <code>bus_driver</code>, and <code>textile_worker</code>.</p>
+<p>Having eliminated the size factor in this second analysis, we can say that the first factorial plane provides the structure of association among the professions with a constant global salary, with respect to all the cities (see figure <a href="size-factor.html#fig:fig-2-9">2.9</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-9"></span>
+<img src="images/figure-2-9.png" alt="Circle of correlations on the first factorial plane of the second analysis" width="70%" />
+<p class="caption">
+Figure 2.9: Circle of correlations on the first factorial plane of the second analysis
+</p>
+</div>
+<p>The results regarding the cities are shown in table <a href="size-factor.html#tab:table-2-9">2.9</a></p>
+<table>
+<caption><span id="tab:table-2-9">Table 2.9: </span>Results for the cities in the second analysis</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="left">city</th>
+<th align="right">wgt</th>
+<th align="right">disto</th>
+<th align="right">coord1</th>
+<th align="right">coord2</th>
+<th align="right">contr1</th>
+<th align="right">contr2</th>
+<th align="right">cosqr1</th>
+<th align="right">cosqr2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td align="left">AbuDhabi</td>
+<td align="right">1.96</td>
+<td align="right">55.78</td>
+<td align="right">6.11</td>
+<td align="right">2.41</td>
+<td align="right">16.28</td>
+<td align="right">6.65</td>
+<td align="right">0.67</td>
+<td align="right">0.10</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td align="left">Amsterdam</td>
+<td align="right">1.96</td>
+<td align="right">6.40</td>
+<td align="right">-1.67</td>
+<td align="right">1.30</td>
+<td align="right">1.22</td>
+<td align="right">1.93</td>
+<td align="right">0.44</td>
+<td align="right">0.26</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td align="left">Athens</td>
+<td align="right">1.96</td>
+<td align="right">6.94</td>
+<td align="right">-1.62</td>
+<td align="right">0.77</td>
+<td align="right">1.15</td>
+<td align="right">0.68</td>
+<td align="right">0.38</td>
+<td align="right">0.09</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td align="left">Bangkok</td>
+<td align="right">1.96</td>
+<td align="right">36.42</td>
+<td align="right">4.45</td>
+<td align="right">-0.44</td>
+<td align="right">8.65</td>
+<td align="right">0.22</td>
+<td align="right">0.54</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td align="left">Bogota</td>
+<td align="right">1.96</td>
+<td align="right">19.81</td>
+<td align="right">2.85</td>
+<td align="right">-1.18</td>
+<td align="right">3.56</td>
+<td align="right">1.59</td>
+<td align="right">0.41</td>
+<td align="right">0.07</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td align="left">Mumbai</td>
+<td align="right">1.96</td>
+<td align="right">6.23</td>
+<td align="right">0.39</td>
+<td align="right">0.27</td>
+<td align="right">0.07</td>
+<td align="right">0.09</td>
+<td align="right">0.02</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td align="left">Brussels</td>
+<td align="right">1.96</td>
+<td align="right">2.32</td>
+<td align="right">-0.92</td>
+<td align="right">0.25</td>
+<td align="right">0.37</td>
+<td align="right">0.07</td>
+<td align="right">0.36</td>
+<td align="right">0.03</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td align="left">Budapest</td>
+<td align="right">1.96</td>
+<td align="right">2.73</td>
+<td align="right">-0.15</td>
+<td align="right">0.17</td>
+<td align="right">0.01</td>
+<td align="right">0.03</td>
+<td align="right">0.01</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td align="left">BuenosAires</td>
+<td align="right">1.96</td>
+<td align="right">38.32</td>
+<td align="right">4.21</td>
+<td align="right">-0.04</td>
+<td align="right">7.76</td>
+<td align="right">0.00</td>
+<td align="right">0.46</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td align="left">Caracas</td>
+<td align="right">1.96</td>
+<td align="right">37.27</td>
+<td align="right">4.46</td>
+<td align="right">-0.03</td>
+<td align="right">8.68</td>
+<td align="right">0.00</td>
+<td align="right">0.53</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td align="left">Chicago</td>
+<td align="right">1.96</td>
+<td align="right">12.31</td>
+<td align="right">-2.61</td>
+<td align="right">-0.86</td>
+<td align="right">2.98</td>
+<td align="right">0.85</td>
+<td align="right">0.55</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td align="left">Copenhagen</td>
+<td align="right">1.96</td>
+<td align="right">5.26</td>
+<td align="right">-1.53</td>
+<td align="right">-0.85</td>
+<td align="right">1.02</td>
+<td align="right">0.83</td>
+<td align="right">0.44</td>
+<td align="right">0.14</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td align="left">Dublin</td>
+<td align="right">1.96</td>
+<td align="right">3.58</td>
+<td align="right">-0.85</td>
+<td align="right">1.22</td>
+<td align="right">0.31</td>
+<td align="right">1.70</td>
+<td align="right">0.20</td>
+<td align="right">0.42</td>
+</tr>
+<tr class="even">
+<td>15</td>
+<td align="left">Dusseldorf</td>
+<td align="right">1.96</td>
+<td align="right">4.51</td>
+<td align="right">-0.99</td>
+<td align="right">1.60</td>
+<td align="right">0.42</td>
+<td align="right">2.93</td>
+<td align="right">0.22</td>
+<td align="right">0.57</td>
+</tr>
+<tr class="odd">
+<td>16</td>
+<td align="left">Frankfurt</td>
+<td align="right">1.96</td>
+<td align="right">3.19</td>
+<td align="right">-0.51</td>
+<td align="right">1.07</td>
+<td align="right">0.11</td>
+<td align="right">1.30</td>
+<td align="right">0.08</td>
+<td align="right">0.36</td>
+</tr>
+<tr class="even">
+<td>17</td>
+<td align="left">Geneva</td>
+<td align="right">1.96</td>
+<td align="right">4.86</td>
+<td align="right">-1.51</td>
+<td align="right">0.98</td>
+<td align="right">0.99</td>
+<td align="right">1.10</td>
+<td align="right">0.47</td>
+<td align="right">0.20</td>
+</tr>
+<tr class="odd">
+<td>18</td>
+<td align="left">Helsinki</td>
+<td align="right">1.96</td>
+<td align="right">3.53</td>
+<td align="right">-1.55</td>
+<td align="right">0.26</td>
+<td align="right">1.05</td>
+<td align="right">0.08</td>
+<td align="right">0.68</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td>19</td>
+<td align="left">Hongkong</td>
+<td align="right">1.96</td>
+<td align="right">28.00</td>
+<td align="right">0.64</td>
+<td align="right">3.40</td>
+<td align="right">0.18</td>
+<td align="right">13.18</td>
+<td align="right">0.01</td>
+<td align="right">0.41</td>
+</tr>
+<tr class="odd">
+<td>20</td>
+<td align="left">Houston</td>
+<td align="right">1.96</td>
+<td align="right">5.56</td>
+<td align="right">-1.59</td>
+<td align="right">-0.80</td>
+<td align="right">1.11</td>
+<td align="right">0.74</td>
+<td align="right">0.46</td>
+<td align="right">0.12</td>
+</tr>
+<tr class="even">
+<td>21</td>
+<td align="left">Jakarta</td>
+<td align="right">1.96</td>
+<td align="right">23.97</td>
+<td align="right">0.32</td>
+<td align="right">-4.12</td>
+<td align="right">0.05</td>
+<td align="right">19.36</td>
+<td align="right">0.00</td>
+<td align="right">0.71</td>
+</tr>
+<tr class="odd">
+<td>22</td>
+<td align="left">Johannesburg</td>
+<td align="right">1.96</td>
+<td align="right">8.74</td>
+<td align="right">0.07</td>
+<td align="right">-1.51</td>
+<td align="right">0.00</td>
+<td align="right">2.61</td>
+<td align="right">0.00</td>
+<td align="right">0.26</td>
+</tr>
+<tr class="even">
+<td>24</td>
+<td align="left">Lagos</td>
+<td align="right">1.96</td>
+<td align="right">11.51</td>
+<td align="right">-0.84</td>
+<td align="right">-1.86</td>
+<td align="right">0.31</td>
+<td align="right">3.95</td>
+<td align="right">0.06</td>
+<td align="right">0.30</td>
+</tr>
+<tr class="odd">
+<td>25</td>
+<td align="left">Lisbon</td>
+<td align="right">1.96</td>
+<td align="right">3.02</td>
+<td align="right">-0.65</td>
+<td align="right">0.31</td>
+<td align="right">0.19</td>
+<td align="right">0.11</td>
+<td align="right">0.14</td>
+<td align="right">0.03</td>
+</tr>
+<tr class="even">
+<td>26</td>
+<td align="left">London</td>
+<td align="right">1.96</td>
+<td align="right">5.22</td>
+<td align="right">-1.81</td>
+<td align="right">-0.28</td>
+<td align="right">1.44</td>
+<td align="right">0.09</td>
+<td align="right">0.63</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td>27</td>
+<td align="left">LosAngeles</td>
+<td align="right">1.96</td>
+<td align="right">14.72</td>
+<td align="right">-3.01</td>
+<td align="right">-0.24</td>
+<td align="right">3.95</td>
+<td align="right">0.07</td>
+<td align="right">0.61</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td>28</td>
+<td align="left">Luxembourg</td>
+<td align="right">1.96</td>
+<td align="right">15.85</td>
+<td align="right">-1.12</td>
+<td align="right">2.89</td>
+<td align="right">0.54</td>
+<td align="right">9.56</td>
+<td align="right">0.08</td>
+<td align="right">0.53</td>
+</tr>
+<tr class="odd">
+<td>29</td>
+<td align="left">Madrid</td>
+<td align="right">1.96</td>
+<td align="right">1.99</td>
+<td align="right">-0.07</td>
+<td align="right">0.05</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td>30</td>
+<td align="left">Manama</td>
+<td align="right">1.96</td>
+<td align="right">30.51</td>
+<td align="right">4.09</td>
+<td align="right">0.75</td>
+<td align="right">7.32</td>
+<td align="right">0.64</td>
+<td align="right">0.55</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td>31</td>
+<td align="left">Manila</td>
+<td align="right">1.96</td>
+<td align="right">7.96</td>
+<td align="right">1.95</td>
+<td align="right">0.35</td>
+<td align="right">1.65</td>
+<td align="right">0.14</td>
+<td align="right">0.48</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td>32</td>
+<td align="left">Mexico</td>
+<td align="right">1.96</td>
+<td align="right">17.53</td>
+<td align="right">0.42</td>
+<td align="right">-1.71</td>
+<td align="right">0.08</td>
+<td align="right">3.35</td>
+<td align="right">0.01</td>
+<td align="right">0.17</td>
+</tr>
+<tr class="odd">
+<td>33</td>
+<td align="left">Milan</td>
+<td align="right">1.96</td>
+<td align="right">4.62</td>
+<td align="right">-1.20</td>
+<td align="right">0.44</td>
+<td align="right">0.63</td>
+<td align="right">0.23</td>
+<td align="right">0.31</td>
+<td align="right">0.04</td>
+</tr>
+<tr class="even">
+<td>34</td>
+<td align="left">Montreal</td>
+<td align="right">1.96</td>
+<td align="right">4.21</td>
+<td align="right">-1.75</td>
+<td align="right">-0.39</td>
+<td align="right">1.34</td>
+<td align="right">0.17</td>
+<td align="right">0.73</td>
+<td align="right">0.04</td>
+</tr>
+<tr class="odd">
+<td>35</td>
+<td align="left">Nairobi</td>
+<td align="right">1.96</td>
+<td align="right">39.30</td>
+<td align="right">4.67</td>
+<td align="right">-2.27</td>
+<td align="right">9.50</td>
+<td align="right">5.89</td>
+<td align="right">0.55</td>
+<td align="right">0.13</td>
+</tr>
+<tr class="even">
+<td>36</td>
+<td align="left">NewYork</td>
+<td align="right">1.96</td>
+<td align="right">3.79</td>
+<td align="right">-1.51</td>
+<td align="right">-0.17</td>
+<td align="right">0.99</td>
+<td align="right">0.03</td>
+<td align="right">0.60</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td>37</td>
+<td align="left">Nicosia</td>
+<td align="right">1.96</td>
+<td align="right">5.49</td>
+<td align="right">-1.20</td>
+<td align="right">0.80</td>
+<td align="right">0.63</td>
+<td align="right">0.73</td>
+<td align="right">0.26</td>
+<td align="right">0.12</td>
+</tr>
+<tr class="even">
+<td>38</td>
+<td align="left">Oslo</td>
+<td align="right">1.96</td>
+<td align="right">4.79</td>
+<td align="right">-1.54</td>
+<td align="right">-0.14</td>
+<td align="right">1.04</td>
+<td align="right">0.02</td>
+<td align="right">0.50</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td>39</td>
+<td align="left">Panama</td>
+<td align="right">1.96</td>
+<td align="right">17.66</td>
+<td align="right">2.32</td>
+<td align="right">0.90</td>
+<td align="right">2.36</td>
+<td align="right">0.93</td>
+<td align="right">0.31</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="even">
+<td>40</td>
+<td align="left">Paris</td>
+<td align="right">1.96</td>
+<td align="right">5.14</td>
+<td align="right">0.81</td>
+<td align="right">1.28</td>
+<td align="right">0.29</td>
+<td align="right">1.86</td>
+<td align="right">0.13</td>
+<td align="right">0.32</td>
+</tr>
+<tr class="odd">
+<td>41</td>
+<td align="left">Prague</td>
+<td align="right">1.96</td>
+<td align="right">7.22</td>
+<td align="right">-0.60</td>
+<td align="right">-1.40</td>
+<td align="right">0.16</td>
+<td align="right">2.23</td>
+<td align="right">0.05</td>
+<td align="right">0.27</td>
+</tr>
+<tr class="even">
+<td>42</td>
+<td align="left">RiodeJaneiro</td>
+<td align="right">1.96</td>
+<td align="right">25.04</td>
+<td align="right">3.07</td>
+<td align="right">0.28</td>
+<td align="right">4.11</td>
+<td align="right">0.09</td>
+<td align="right">0.38</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td>43</td>
+<td align="left">SaoPaulo</td>
+<td align="right">1.96</td>
+<td align="right">9.06</td>
+<td align="right">0.95</td>
+<td align="right">-2.00</td>
+<td align="right">0.40</td>
+<td align="right">4.58</td>
+<td align="right">0.10</td>
+<td align="right">0.44</td>
+</tr>
+<tr class="even">
+<td>44</td>
+<td align="left">Seoul</td>
+<td align="right">1.96</td>
+<td align="right">2.24</td>
+<td align="right">-0.79</td>
+<td align="right">0.02</td>
+<td align="right">0.28</td>
+<td align="right">0.00</td>
+<td align="right">0.28</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td>45</td>
+<td align="left">Singapore</td>
+<td align="right">1.96</td>
+<td align="right">14.77</td>
+<td align="right">-0.28</td>
+<td align="right">-1.14</td>
+<td align="right">0.03</td>
+<td align="right">1.48</td>
+<td align="right">0.01</td>
+<td align="right">0.09</td>
+</tr>
+<tr class="even">
+<td>46</td>
+<td align="left">Stockholm</td>
+<td align="right">1.96</td>
+<td align="right">8.11</td>
+<td align="right">-1.90</td>
+<td align="right">0.29</td>
+<td align="right">1.57</td>
+<td align="right">0.10</td>
+<td align="right">0.44</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td>47</td>
+<td align="left">Sidney</td>
+<td align="right">1.96</td>
+<td align="right">3.59</td>
+<td align="right">-0.66</td>
+<td align="right">0.40</td>
+<td align="right">0.19</td>
+<td align="right">0.19</td>
+<td align="right">0.12</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="even">
+<td>48</td>
+<td align="left">Taipei</td>
+<td align="right">1.96</td>
+<td align="right">7.90</td>
+<td align="right">-1.40</td>
+<td align="right">-1.13</td>
+<td align="right">0.86</td>
+<td align="right">1.46</td>
+<td align="right">0.25</td>
+<td align="right">0.16</td>
+</tr>
+<tr class="odd">
+<td>49</td>
+<td align="left">Tel-Aviv</td>
+<td align="right">1.96</td>
+<td align="right">6.51</td>
+<td align="right">-0.28</td>
+<td align="right">-1.53</td>
+<td align="right">0.03</td>
+<td align="right">2.68</td>
+<td align="right">0.01</td>
+<td align="right">0.36</td>
+</tr>
+<tr class="even">
+<td>50</td>
+<td align="left">Tokyo</td>
+<td align="right">1.96</td>
+<td align="right">2.50</td>
+<td align="right">-0.84</td>
+<td align="right">0.38</td>
+<td align="right">0.31</td>
+<td align="right">0.17</td>
+<td align="right">0.28</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="odd">
+<td>51</td>
+<td align="left">Toronto</td>
+<td align="right">1.96</td>
+<td align="right">7.00</td>
+<td align="right">-2.38</td>
+<td align="right">-0.24</td>
+<td align="right">2.47</td>
+<td align="right">0.06</td>
+<td align="right">0.81</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td>52</td>
+<td align="left">Vienna</td>
+<td align="right">1.96</td>
+<td align="right">1.93</td>
+<td align="right">-1.02</td>
+<td align="right">-0.21</td>
+<td align="right">0.45</td>
+<td align="right">0.05</td>
+<td align="right">0.54</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td>53</td>
+<td align="left">Zurich</td>
+<td align="right">1.96</td>
+<td align="right">7.08</td>
+<td align="right">-1.46</td>
+<td align="right">1.68</td>
+<td align="right">0.92</td>
+<td align="right">3.21</td>
+<td align="right">0.30</td>
+<td align="right">0.40</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>There are few cities farther apart from the center of gravity: Abu Dhabi, Nairobi, and Buenos Aires. Figure <a href="size-factor.html#fig:fig-2-10">2.10</a> shows the factorial plane. On the right side we find the cities with salaries of “managerial” professions <em>relatively</em> higher. To the left of the graph we find cities that could be labeled as more “egalitarian” (in terms of their salaries).</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-10"></span>
+<img src="images/figure-2-10.png" alt="Projection of the individuals in the first factorial plane" width="80%" />
+<p class="caption">
+Figure 2.10: Projection of the individuals in the first factorial plane
+</p>
+</div>
+<p>In the lower half of the graph we find cities that provide more value to the qualified manual jobs, whereas the upper half of the graph contains cities that tend to provide more value to the public service types of jobs.</p>
+<p>All these results suggest that the salaries can be explained from the level of salaries of each city (first factor from first analysis), the degree of “egalitarianism” between professions and the orientation of the types of jobs (manual jobs versus service jobs).</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="projections-of-variables.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="using-supplementary-elements.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

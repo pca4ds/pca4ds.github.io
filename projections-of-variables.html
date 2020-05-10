@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Terminology | Principal Component Analysis for Data Science (pca4ds)</title>
+  <title>2.2 Projections of Variables | Principal Component Analysis for Data Science (pca4ds)</title>
   <meta name="description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Terminology | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta property="og:title" content="2.2 Projections of Variables | Principal Component Analysis for Data Science (pca4ds)" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="gastonstat/pca4ds" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Terminology | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta name="twitter:title" content="2.2 Projections of Variables | Principal Component Analysis for Data Science (pca4ds)" />
   
   <meta name="twitter:description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="from-lanalyse-des-données-to-data-science.html"/>
-<link rel="next" href="basic.html"/>
+<link rel="prev" href="principal-components.html"/>
+<link rel="next" href="size-factor.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -207,47 +207,466 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="terminology" class="section level1 unnumbered">
-<h1>Terminology</h1>
-<p>This section will briefly introduce you to the terms that we will use
-throughout this book.</p>
-<ul>
-<li><p><strong>Data table</strong>: rectangular array formed by rows and columns. In each of
-the table entries (i.e. intersection of one row and one column), we find a
-datum, typically codified in numeric form. We also use the term <em>data matrix</em>
-as a synonym term. We represent the data table with upper case bold letters
-e.g. <span class="math inline">\(\mathbf{X}\)</span>, with <span class="math inline">\(n\)</span> rows and <span class="math inline">\(p\)</span> columns.</p></li>
-<li><p><strong>Individual</strong>: an individual is a row of the data table. The word individual
-refers to any type of object: person, animal, country, company, planet, etc.</p></li>
-<li><p><strong>Variable</strong>: we use the word “variable” to refer to any column in the data table. For each individual, we observe the same aggregate, the same measure, the same question, etc. Instead of variable we can also talk about “measure”, attribute, characteristic, property, etc.</p></li>
-<li><p><strong>Continuous Variable</strong>: we talk about continuous variable when the measurement is quantitative. To be more precise, a variable is continuous when calculating the mean (or average) makes sense.</p></li>
-<li><p><strong>Nominal Variable</strong>: we talk about a nominal variable when its values are names of categories (or qualities). Examples of nominal variables are <em>civil status</em> (e.g. single, married, divorced, widowed), <em>geographc region</em> (e.g. north, south, west, etc). We also use the terms categorical or qualitative variable as synonyms of nominal.</p></li>
-<li><p><strong>Modality</strong>: the modalities or categories are the values taken by a nominal variable. For example the variable <em>gender</em> (typical) has two modalities: male and female. A modalitiy is also known as group, class, or category.</p></li>
-<li><p><strong>Cloud of Points</strong>: on a plane or in a three-dimensional space, the notion of “cloud of points” has to do with how the points are positioned according to a series of coordinates, which are based on a set of orthogonal axes. Given the coordinates of the points, it is easy to calculate distance between them. When we have more than three axes, even though the cloud of points exist, we cannot visualize them.</p></li>
-<li><p><strong>Distance</strong>: the distance between two points in a given cloud coincides with the usual notion of distance (which can be calculated based on the coordinates of the points via the famous Pythogorean theorem).</p></li>
-<li><p><strong>Inertia</strong>: inertia is a borrowed term from Mechanics (in Physics) which is entirely equivalent to the statistical concept of variance. The inertia gives an idea of the spread in a cloud of weighted points. If the individuals have the same weight (same importance), the direction with the larger inertia of the cloud is the direction of its major axis.</p></li>
-<li><p><strong>Center of Gravity</strong>: this is the average point (or central point) in a cloud of weighted points. Therefore, there is an equivalence between the mechanical notion of center of gravity and the statistical notion of average point.</p></li>
-<li><p><strong>Factorial Analysis</strong>: optimal visualization (in a certain sense) of a cloud of points in some multidimensional space.</p></li>
-<li><p><strong>Factorial Axes</strong>: these are the axes, sorted by importance, which we use to visualize the cloud of points in a factorial analysis. They are defined by the directions of larger stretching (inertia) of the cloud of poitns.</p></li>
-<li><p><strong>PCA</strong>: Principal Component(s) Analysis.</p></li>
-<li><p><strong>Active Variables</strong>: set of variables that are used in the computation of the axes for the factorial planes.</p></li>
-<li><p><strong>Supplementary Variables</strong>: set of variables that are NOT used in the computation of the factorial axes, but that can be used as aid in the interpretation of results.</p></li>
-<li><p><strong>Contribution</strong>: measures the participation of an element (e.g. category, variable, frequency, or individual) in the construction of a factorial axis.</p></li>
-<li><p><strong>Squared Cosine</strong>: measures the quality of the projection of an element (e.g. category, variable, frequency, or individual) along a factorial axis.</p></li>
-<li><p><strong>V-test</strong>: measures, in number of standard deviations, the distance between an observed value and its theoretical value under a null hypothesis. This test is used to characterize the axes, the categories, the classes, etc.</p></li>
-</ul>
-
+<div id="projections-of-variables" class="section level2">
+<h2><span class="header-section-number">2.2</span> Projections of Variables</h2>
+<p>Just like row-points can be represented on a low-dimensional factorial space that preserves as much as possible the original distances, we can do the same with the column-points (i.e. the variables).</p>
+<p>Mathematically, working with the column-points implies diagonalizing the cross-product matrix <span class="math inline">\(\mathbf{X X^\mathsf{T}}\)</span>.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-6"></span>
+<img src="images/figure-2-6.png" alt="Matrices to be diagonalized depending on the type of points" width="75%" />
+<p class="caption">
+Figure 2.6: Matrices to be diagonalized depending on the type of points
+</p>
 </div>
-
-
-
+<p>Analogously to the row-points, we can obtain the decomposition of the inertia depending on the directions defined by the eigenvalues of the matrix <span class="math inline">\(\mathbf{X X^\mathsf{T}}\)</span>. The projected inertia on each direction is equal to its associated eigenvalue.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-7"></span>
+<img src="images/figure-2-7.png" alt="Cloud of variables and factorial axes in the space of individuals" width="70%" />
+<p class="caption">
+Figure 2.7: Cloud of variables and factorial axes in the space of individuals
+</p>
+</div>
+<p>The line of maximum inertia is given by the eigenvector <span class="math inline">\(\mathbf{v}\)</span> (defining the direction <span class="math inline">\(F_1\)</span>), associated to the largest eigenvalue. The plane of maximum inertia is formed by adding the line that defines the direction <span class="math inline">\(F_2\)</span>. This second direction corresponds to the eigenvector associated to the second largest eigenvalue, and so on.</p>
+<p>The representation of the variables on an axis is obtained by projecting the variable-points onto a unit vector <span class="math inline">\(\mathbf{v}\)</span> that defines the direction of the axis.</p>
+<p>Let <span class="math inline">\(\varphi_{j \alpha}\)</span> be the coordinate of the <span class="math inline">\(j\)</span> variable on the axis <span class="math inline">\(\alpha\)</span></p>
+<p><span class="math display" id="eq:2-8">\[
+\varphi_{j \alpha} = \sum_{i=1}^{n} \frac{x_{ij} - \bar{x}_j}{s_j} \hspace{1mm} v_{i \alpha}
+\tag{2.8}
+\]</span></p>
+<p>where <span class="math inline">\(\bar{x}_j\)</span> is the mean of the <span class="math inline">\(j\)</span>-th variable.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-8"></span>
+<img src="images/figure-2-8.png" alt="Projection of the variables on the first factorial plane" width="85%" />
+<p class="caption">
+Figure 2.8: Projection of the variables on the first factorial plane
+</p>
+</div>
+<p>The inertia on an axis is given by the sum of the inertias of each variable-point projected onto the axis. In PCA there is not an explicit weight for the variable-points. However, each variable can play a role more or less important by changing the unit of measurement, which in turn will increase (or decrease) its variance in a non-normalized PCA.</p>
+<p><span class="math display" id="eq:2-9">\[
+\sum_{j=1}^{p} \varphi^{2}_{j \alpha} = \lambda_{\alpha}
+\tag{2.9}
+\]</span></p>
+<p>Notice that the inertia of the variable-points that are projected onto an axis is the same as the inertia of the row-points projected on the axis of same rank.</p>
+<p>Among the factorial axes of both clouds of points, the factorial axes in one space are related to the factorial axes in the other space. These relationships allow us to obtain the directions of one space taking into account the directions of the other space. Such relationships are known as <em>transition relationships</em>.</p>
+<p>By using the transition relationships, we just need to perform a PCA on one of the spaces (e.g. the rows), and then use these results to derive the results of the other space (e.g. the columns), without having to diagonalize two different cross-products.</p>
+<p>In general, we perform the analysis on the cross-product with the smaller dimensions. Usually, this involves working with the matrix <span class="math inline">\(\mathbf{X^\mathsf{T} X}\)</span>, assuming that the data matrix has more rows than columns: <span class="math inline">\(n &gt; p\)</span>. In this scenario, we obtain the projection of the row-points given in equation <a href="principal-components.html#eq:2-1">(2.1)</a>. The projection of the variables is then calculated from the directions <span class="math inline">\(\mathbf{u}\)</span>, which define the factorial axes of the cloud of row-points.</p>
+<p><span class="math display" id="eq:2-10">\[
+\varphi_{j \alpha} = \sqrt{\lambda_{\alpha}} \hspace{1mm} u_{j \alpha}
+\tag{2.10}
+\]</span></p>
+<p>The above formula allows us to interpret the simultaneous representation of both the cities and the professions.</p>
+<p>In our working example, the results about the variables are displayed in table 2.3</p>
+<table>
+<caption><span id="tab:table-2-3">Table 2.3: </span>Results of the variables</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">coord1</th>
+<th align="right">coord2</th>
+<th align="right">coord3</th>
+<th align="right">cor1</th>
+<th align="right">cor2</th>
+<th align="right">cor3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>teacher</td>
+<td align="right">0.94</td>
+<td align="right">-0.04</td>
+<td align="right">-0.21</td>
+<td align="right">0.94</td>
+<td align="right">-0.04</td>
+<td align="right">-0.21</td>
+</tr>
+<tr class="even">
+<td>bus_driver</td>
+<td align="right">0.96</td>
+<td align="right">-0.13</td>
+<td align="right">-0.15</td>
+<td align="right">0.96</td>
+<td align="right">-0.13</td>
+<td align="right">-0.15</td>
+</tr>
+<tr class="odd">
+<td>mechanic</td>
+<td align="right">0.92</td>
+<td align="right">-0.27</td>
+<td align="right">0.19</td>
+<td align="right">0.92</td>
+<td align="right">-0.27</td>
+<td align="right">0.19</td>
+</tr>
+<tr class="even">
+<td>construction_worker</td>
+<td align="right">0.90</td>
+<td align="right">-0.37</td>
+<td align="right">0.11</td>
+<td align="right">0.90</td>
+<td align="right">-0.37</td>
+<td align="right">0.11</td>
+</tr>
+<tr class="odd">
+<td>metalworker</td>
+<td align="right">0.95</td>
+<td align="right">-0.24</td>
+<td align="right">-0.02</td>
+<td align="right">0.95</td>
+<td align="right">-0.24</td>
+<td align="right">-0.02</td>
+</tr>
+<tr class="even">
+<td>cook_chef</td>
+<td align="right">0.87</td>
+<td align="right">0.24</td>
+<td align="right">0.40</td>
+<td align="right">0.87</td>
+<td align="right">0.24</td>
+<td align="right">0.40</td>
+</tr>
+<tr class="odd">
+<td>factory_manager</td>
+<td align="right">0.84</td>
+<td align="right">0.49</td>
+<td align="right">-0.01</td>
+<td align="right">0.84</td>
+<td align="right">0.49</td>
+<td align="right">-0.01</td>
+</tr>
+<tr class="even">
+<td>engineer</td>
+<td align="right">0.90</td>
+<td align="right">0.27</td>
+<td align="right">-0.03</td>
+<td align="right">0.90</td>
+<td align="right">0.27</td>
+<td align="right">-0.03</td>
+</tr>
+<tr class="odd">
+<td>bank_clerk</td>
+<td align="right">0.88</td>
+<td align="right">0.38</td>
+<td align="right">-0.13</td>
+<td align="right">0.88</td>
+<td align="right">0.38</td>
+<td align="right">-0.13</td>
+</tr>
+<tr class="even">
+<td>executive_secretary</td>
+<td align="right">0.97</td>
+<td align="right">0.00</td>
+<td align="right">-0.10</td>
+<td align="right">0.97</td>
+<td align="right">0.00</td>
+<td align="right">-0.10</td>
+</tr>
+<tr class="odd">
+<td>salesperson</td>
+<td align="right">0.96</td>
+<td align="right">0.01</td>
+<td align="right">0.08</td>
+<td align="right">0.96</td>
+<td align="right">0.01</td>
+<td align="right">0.08</td>
+</tr>
+<tr class="even">
+<td>textile_worker</td>
+<td align="right">0.94</td>
+<td align="right">-0.25</td>
+<td align="right">-0.10</td>
+<td align="right">0.94</td>
+<td align="right">-0.25</td>
+<td align="right">-0.10</td>
+</tr>
+</tbody>
+</table>
+<p>The coordinates of all the variables in the first axis have the same sign, which indicates that the cloud of points is not centered.</p>
+<p>Notice also that, in the case of normalized analysis, the coordinate coincides with the correlation of a variable and the principal component (projection of the points onto the factorial axis of same rank):</p>
+<p><span class="math display" id="eq:2-11">\[
+\varphi_{j \alpha} = cor(\mathbf{x_j}, \boldsymbol{\psi_{\alpha}})
+\tag{2.11}
+\]</span></p>
+<p>This formula plays an important role in the interpretation of the results because it connects the representation of the row-points with the representation of the column-points.</p>
+<p>A high correlation implies that the configuration of the individuals on a factorial axis resembles the positions of the individuals on that variable (a unit correlation would indicate that the principal component is a linear function of the variable). A correlation close to zero indicates that there is no <em>linear</em> association between the principal component and the variable.</p>
+<div id="size-effect" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Size Effect</h3>
+<p>As we’ve described it, the first principal component arises from the high correlation that exists among all the variables, which geometrically forms a very homogeneous array of vectors. This first component approximately corresponds to the bisector of this array of vectors, and will therefore be highly correlated to the original variables.</p>
+<p>How can we interpret this phenomenon? Broadly speaking, for any city, if a salary is high in a given profession, then this is also true for the set of professions in that city. This general phenomenon is actually present in the entire data table as a structural pattern, which generates the first factor. And it is for this reason that we call the first component the <strong>size factor</strong> or <strong>size effect</strong>.</p>
+<table>
+<caption><span id="tab:table-2-4">Table 2.4: </span>Correlation matrix ordered based on the size factor</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">exe</th>
+<th align="right">sal</th>
+<th align="right">bus</th>
+<th align="right">met</th>
+<th align="right">tea</th>
+<th align="right">tex</th>
+<th align="right">mec</th>
+<th align="right">eng</th>
+<th align="right">con</th>
+<th align="right">ban</th>
+<th align="right">coo</th>
+<th align="right">dep</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>exe</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>sal</td>
+<td align="right">0.94</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>bus</td>
+<td align="right">0.93</td>
+<td align="right">0.89</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>met</td>
+<td align="right">0.92</td>
+<td align="right">0.88</td>
+<td align="right">0.94</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>tea</td>
+<td align="right">0.92</td>
+<td align="right">0.88</td>
+<td align="right">0.96</td>
+<td align="right">0.91</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>tex</td>
+<td align="right">0.93</td>
+<td align="right">0.89</td>
+<td align="right">0.92</td>
+<td align="right">0.94</td>
+<td align="right">0.88</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>mec</td>
+<td align="right">0.88</td>
+<td align="right">0.89</td>
+<td align="right">0.89</td>
+<td align="right">0.93</td>
+<td align="right">0.84</td>
+<td align="right">0.89</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>eng</td>
+<td align="right">0.87</td>
+<td align="right">0.85</td>
+<td align="right">0.82</td>
+<td align="right">0.80</td>
+<td align="right">0.81</td>
+<td align="right">0.81</td>
+<td align="right">0.74</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>con</td>
+<td align="right">0.86</td>
+<td align="right">0.86</td>
+<td align="right">0.88</td>
+<td align="right">0.93</td>
+<td align="right">0.83</td>
+<td align="right">0.92</td>
+<td align="right">0.95</td>
+<td align="right">0.70</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>ban</td>
+<td align="right">0.87</td>
+<td align="right">0.85</td>
+<td align="right">0.80</td>
+<td align="right">0.72</td>
+<td align="right">0.82</td>
+<td align="right">0.73</td>
+<td align="right">0.70</td>
+<td align="right">0.85</td>
+<td align="right">0.64</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>coo</td>
+<td align="right">0.80</td>
+<td align="right">0.85</td>
+<td align="right">0.76</td>
+<td align="right">0.76</td>
+<td align="right">0.75</td>
+<td align="right">0.71</td>
+<td align="right">0.80</td>
+<td align="right">0.82</td>
+<td align="right">0.72</td>
+<td align="right">0.79</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>dep</td>
+<td align="right">0.80</td>
+<td align="right">0.79</td>
+<td align="right">0.74</td>
+<td align="right">0.69</td>
+<td align="right">0.78</td>
+<td align="right">0.65</td>
+<td align="right">0.64</td>
+<td align="right">0.87</td>
+<td align="right">0.59</td>
+<td align="right">0.89</td>
+<td align="right">0.82</td>
+<td align="right"></td>
+</tr>
+</tbody>
+</table>
+<p>Having a first principal component that captures the <em>size effect</em> is a common phenomenon in PCA. A distinctive trait is that the matrix of correlations between the variables can be arranged based on the correlations with the first principal component. As we can tell from table 2.4, there are high correlations close to the diagonal, and then they decrease as one moves away from this diagonal.</p>
+<div id="interpretation-of-the-axes" class="section level4 unnumbered">
+<h4>Interpretation of the Axes</h4>
+<p>To better interpret a factorial axis we should take into account the variables that have a relative high correlation with the axis.</p>
+<p>We have seen that the first axis is interpreted as a factor of size: differentiating cities according to their overall salary levels. The subsequent principal components comprise factors that are orthogonal to the first one.</p>
+<p>The first principal component (projection of the cities onto the first direction of the cloud of row-points) provides an ordination of the cities depending on their salary levels. This first component opposes Swiss cities (Zurich and Geneva) and Tokyo to cities like Mumbai, Manila and Nairobi.</p>
+<p>The second factorial axis, showing lower correlations with the original variables, opposes the professions <code>factory_manager</code>, <code>engineer</code>, <code>bank_clerk</code>, and <code>cook_chef</code> to <code>textile_worker</code>, <code>construction_worker</code>, <code>mechanic</code>, and <code>metalworker</code>. In other words, the second axis has to do with the fact that, independently from the salaries of a city, certain professions have a higher salaries than others.</p>
+<p>The projection onto the second axis allows to distinguish cities with similar overall level of salaries: certain cities tend to value the <em>managerial</em> jobs, whereas other cities tend to value the professions less socially appreciated.</p>
+</div>
+</div>
+<div id="tools-for-interpreting-components" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Tools for Interpreting Components</h3>
+<div id="cosine-squares" class="section level4 unnumbered">
+<h4>Cosine Squares</h4>
+<p>In a similar fashion to the analysis of the individuals (i.e. the cities), we can also define a set of coefficients, squared cosines, and contributions, that will help us in the interpretation of results in the analysis of the variables.</p>
+<p>The squared cosines are defined as the quotient between the projected squared distance on an axis and the squared distance to the origin.</p>
+<p>We know that the squared distance of a variable to the origin is equal to its variance:</p>
+<p><span class="math display" id="eq:2-12">\[
+COS^2(j, \alpha) = \frac{\varphi^{2}_{j \alpha}}{var(j)}
+\tag{2.12}
+\]</span></p>
+<p>The sum of the squared cosines over all the axes is always equal to one:</p>
+<p><span class="math display" id="eq:2-13">\[
+\sum_{\alpha = 1}^{p} COS^2(j, \alpha) = 1
+\tag{2.13}
+\]</span></p>
+<p>In the normalized PCA, the variances are equal to one; thus the squared cosines will be squared of the coordinates of the variables:</p>
+<p><span class="math display">\[
+COS^2(j, \alpha) = \varphi_{j \alpha}^{2} \qquad \text{in normalized PCA}
+\]</span></p>
+<p>In general, we have that:</p>
+<p><span class="math display">\[
+COS^2(j, \alpha) = CORR^2(\text{variable}, \text{factor})
+\]</span></p>
+</div>
+<div id="contributions-1" class="section level4 unnumbered">
+<h4>Contributions</h4>
+<p>The contribution of each variable to the inertia of an axis is the part of the inertia accounted for the variable. The inertia of an axis (see eq <a href="projections-of-variables.html#eq:2-9">(2.9)</a>) is expressed as:</p>
+<p><span class="math display">\[
+\lambda_{\alpha} = \sum_{j=1}^{p} \varphi_{j \alpha}^{2}
+\]</span></p>
+<p>The contribution of a variable to the construction of an axis is:</p>
+<p><span class="math display" id="eq:2-14">\[
+CTR(j, \alpha) = \frac{\varphi_{j \alpha}^{2}}{\lambda_{\alpha}} = \frac{(\sqrt{\lambda_{\alpha}} \hspace{1mm} u_{j \alpha})^2}{\lambda_{\alpha}} = u_{j \alpha}^{2}
+\tag{2.14}
+\]</span></p>
+<p>where <span class="math inline">\(u_{j \alpha}^{2}\)</span> is the coordinate of the former unit axis associated to the variable <span class="math inline">\(j\)</span>, projected on the axis <span class="math inline">\(\alpha\)</span>.</p>
+<p>We have the following result:</p>
+<p><span class="math display">\[
+CTR(j, \alpha) = (\text{former unit axis})^2
+\]</span></p>
+<p>To find how much a variable contributes to the construction of an axis, it suffices to square each component of the vector <span class="math inline">\(\mathbf{u}\)</span>. These contributions indicate which variables are responsible for the construction of each axis. The sum of all the contributions to an axis is equal to 1 (or 100 in percentage).</p>
+<p><span class="math display" id="eq:2-15">\[
+\sum_{j=1}^{p} CTR(j, \alpha) = 100
+\tag{2.15}
+\]</span></p>
+<p>The elements of <span class="math inline">\(\mathbf{u}\)</span> define the linear combinations of the original variables, orthogonal among each other, and of maximum variance (i.e. the principal components). For example, the linear combination of the first component is:</p>
+<p><span class="math display">\[
+\boldsymbol{\psi_1} = 0.30 \texttt{ teacher} + 0.30 \texttt{ bus_driver} + 0.29 \texttt{ mechanic} \\
++ 0.28 \texttt{ construction_worker} + 0.30 \texttt{ metalworker} + 0.27 \texttt{ cook_chef} + \\
++0.26 \texttt{ factory_manager} + 0.28 \texttt{ engineer} + 0.28 \texttt{ bank_clerk} + \\
++ 0.31 \texttt{ executive_secretary} + 0.30 \texttt{ salesperson} + 0.29 \texttt{ textile_worker}
+\]</span></p>
+<p>where each variable has been mean-centered and standardized (because we have performed a normalized PCA).</p>
+<p>The first component is therefore defined by a set of coefficients, very similar to each other. In this particular case, the first component is not that different from the average of all the profession salaries.</p>
+<p>The set of components <span class="math inline">\(u_{j \alpha}\)</span> also define the projection of the former unit axes onto the new factorial axes.</p>
+</div>
+</div>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="from-lanalyse-des-données-to-data-science.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="basic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="principal-components.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="size-factor.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

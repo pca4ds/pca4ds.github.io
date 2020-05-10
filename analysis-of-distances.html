@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Terminology | Principal Component Analysis for Data Science (pca4ds)</title>
+  <title>1.2 Analysis of Distances | Principal Component Analysis for Data Science (pca4ds)</title>
   <meta name="description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Terminology | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta property="og:title" content="1.2 Analysis of Distances | Principal Component Analysis for Data Science (pca4ds)" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="gastonstat/pca4ds" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Terminology | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta name="twitter:title" content="1.2 Analysis of Distances | Principal Component Analysis for Data Science (pca4ds)" />
   
   <meta name="twitter:description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="from-lanalyse-des-données-to-data-science.html"/>
-<link rel="next" href="basic.html"/>
+<link rel="prev" href="data-and-goals.html"/>
+<link rel="next" href="how-to-see-the-distances-between-points.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -207,47 +207,85 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="terminology" class="section level1 unnumbered">
-<h1>Terminology</h1>
-<p>This section will briefly introduce you to the terms that we will use
-throughout this book.</p>
-<ul>
-<li><p><strong>Data table</strong>: rectangular array formed by rows and columns. In each of
-the table entries (i.e. intersection of one row and one column), we find a
-datum, typically codified in numeric form. We also use the term <em>data matrix</em>
-as a synonym term. We represent the data table with upper case bold letters
-e.g. <span class="math inline">\(\mathbf{X}\)</span>, with <span class="math inline">\(n\)</span> rows and <span class="math inline">\(p\)</span> columns.</p></li>
-<li><p><strong>Individual</strong>: an individual is a row of the data table. The word individual
-refers to any type of object: person, animal, country, company, planet, etc.</p></li>
-<li><p><strong>Variable</strong>: we use the word “variable” to refer to any column in the data table. For each individual, we observe the same aggregate, the same measure, the same question, etc. Instead of variable we can also talk about “measure”, attribute, characteristic, property, etc.</p></li>
-<li><p><strong>Continuous Variable</strong>: we talk about continuous variable when the measurement is quantitative. To be more precise, a variable is continuous when calculating the mean (or average) makes sense.</p></li>
-<li><p><strong>Nominal Variable</strong>: we talk about a nominal variable when its values are names of categories (or qualities). Examples of nominal variables are <em>civil status</em> (e.g. single, married, divorced, widowed), <em>geographc region</em> (e.g. north, south, west, etc). We also use the terms categorical or qualitative variable as synonyms of nominal.</p></li>
-<li><p><strong>Modality</strong>: the modalities or categories are the values taken by a nominal variable. For example the variable <em>gender</em> (typical) has two modalities: male and female. A modalitiy is also known as group, class, or category.</p></li>
-<li><p><strong>Cloud of Points</strong>: on a plane or in a three-dimensional space, the notion of “cloud of points” has to do with how the points are positioned according to a series of coordinates, which are based on a set of orthogonal axes. Given the coordinates of the points, it is easy to calculate distance between them. When we have more than three axes, even though the cloud of points exist, we cannot visualize them.</p></li>
-<li><p><strong>Distance</strong>: the distance between two points in a given cloud coincides with the usual notion of distance (which can be calculated based on the coordinates of the points via the famous Pythogorean theorem).</p></li>
-<li><p><strong>Inertia</strong>: inertia is a borrowed term from Mechanics (in Physics) which is entirely equivalent to the statistical concept of variance. The inertia gives an idea of the spread in a cloud of weighted points. If the individuals have the same weight (same importance), the direction with the larger inertia of the cloud is the direction of its major axis.</p></li>
-<li><p><strong>Center of Gravity</strong>: this is the average point (or central point) in a cloud of weighted points. Therefore, there is an equivalence between the mechanical notion of center of gravity and the statistical notion of average point.</p></li>
-<li><p><strong>Factorial Analysis</strong>: optimal visualization (in a certain sense) of a cloud of points in some multidimensional space.</p></li>
-<li><p><strong>Factorial Axes</strong>: these are the axes, sorted by importance, which we use to visualize the cloud of points in a factorial analysis. They are defined by the directions of larger stretching (inertia) of the cloud of poitns.</p></li>
-<li><p><strong>PCA</strong>: Principal Component(s) Analysis.</p></li>
-<li><p><strong>Active Variables</strong>: set of variables that are used in the computation of the axes for the factorial planes.</p></li>
-<li><p><strong>Supplementary Variables</strong>: set of variables that are NOT used in the computation of the factorial axes, but that can be used as aid in the interpretation of results.</p></li>
-<li><p><strong>Contribution</strong>: measures the participation of an element (e.g. category, variable, frequency, or individual) in the construction of a factorial axis.</p></li>
-<li><p><strong>Squared Cosine</strong>: measures the quality of the projection of an element (e.g. category, variable, frequency, or individual) along a factorial axis.</p></li>
-<li><p><strong>V-test</strong>: measures, in number of standard deviations, the distance between an observed value and its theoretical value under a null hypothesis. This test is used to characterize the axes, the categories, the classes, etc.</p></li>
-</ul>
-
+<div id="analysis-of-distances" class="section level2">
+<h2><span class="header-section-number">1.2</span> Analysis of Distances</h2>
+<p>The results obtained in a PCA will allows us to get a visualization of the
+differences among the 51 cities, according to the net salaries of the
+chosen professions, as well as a visualization of the global association
+among such professions.</p>
+<p>To get such visual displays, we utilize a geometric approximation that is
+fairly simple and intuitive. As a matter of fact, this type of approximation is
+the foundation of all component-based exploratory methods, which consists of
+regarding a data matrix from the dual point of view of rows and columns.
+Each perspective involves considering a <em>cloud of points</em>, one for the rows,
+and one for the variables.</p>
+<div id="cloud-of-row-points" class="section level3">
+<h3><span class="header-section-number">1.2.1</span> Cloud of Row-Points</h3>
+<p>We can regard each row of the data table (each city) as one point with 12
+coordinates. Each coordinate corresponding to each of the 12 professions.</p>
+<p>If we had only recorded three professions, the values taken by each city would
+be located in a three dimensional space, defining a cloud of 51 city-points.
+We can generalize this idea to any number of professions. If we consider our
+12 selected professions, then the cloud of points will be located in a
+12-dimensional space.</p>
+<p>In general, the rows of a data matrix will form a cloud of <span class="math inline">\(n\)</span> points in a
+<span class="math inline">\(p\)</span>-dimensional space (as many dimensions as active variables). We call
+this cloud the <em>cloud of row-points</em> or simply the <em>cloud of individuals</em>.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-1-3"></span>
+<img src="images/figure-1-3.png" alt="Cloud of n Row-points" width="484" />
+<p class="caption">
+Figure 1.3: Cloud of n Row-points
+</p>
 </div>
-
-
-
+<p>In this cloud, two points that are close to each other will indicate two cities
+with similar values in each of the 12 professions. In contrast, two points that
+are further apart will indicate two cities with distinct salary levels.</p>
+<p>To measure the notion of <em>proximity</em> between row-points (the cities) we need
+to define a measure of distance. The most intuitive distance measure is the
+<strong>euclidean</strong> distance between two points given by:</p>
+<p><span class="math display" id="eq:1">\[
+d^2(i, i&#39;) = \sum_{j=1}^{p} (x_{ij} - x_{i&#39;j})^2
+\tag{1.1}
+\]</span></p>
+<p>The main problem with visualizing the distance among the points, resides in
+the high dimensionality of the cloud of points (12 dimensions in our example)
+which makes it impossible to our human vision to visualize.</p>
+</div>
+<div id="cloud-of-column-points" class="section level3">
+<h3><span class="header-section-number">1.2.2</span> Cloud of Column-Points</h3>
+<p>In a similar way to the cloud of row-points, we can geometrically represent
+the <span class="math inline">\(p\)</span> columns of the data matrix in an <span class="math inline">\(n\)</span>-dimensional space (one dimension
+for each individual). The <span class="math inline">\(n\)</span> coordinates of a column-point are given by the
+<span class="math inline">\(n\)</span> values of the corresponding variable in the data table.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-1-4"></span>
+<img src="images/figure-1-4.png" alt="Cloud of p Column-points" width="484" />
+<p class="caption">
+Figure 1.4: Cloud of p Column-points
+</p>
+</div>
+<p>The interesting part of this cloud of variable-points lies in the fact that
+it is a representation of the associations between the variables. Each of them
+measures an observed characteristic on the cities. Consequently, we can see
+which variables measure similar things among the cities. Analogous to the
+distance between cities, we need to define a distance between the variable-points
+that captures the intensity and the nature of the association between the
+variables.</p>
+<p>Two variable-points that are close to each other, will indicate two variables
+that take related values in the entire set of cities: if we know the values
+of one variable, we can know the values of the other one.</p>
+<p>A very common measure to quantify the association between variables is the
+<strong>linear correlation coefficient</strong>. If we used this coefficient as a distance,
+then the visualization of the variables becomes a visual display of the
+matrix of correlations among variables.</p>
+</div>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="from-lanalyse-des-données-to-data-science.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="basic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="data-and-goals.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="how-to-see-the-distances-between-points.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

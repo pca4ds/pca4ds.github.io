@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Terminology | Principal Component Analysis for Data Science (pca4ds)</title>
+  <title>2.5 Simultaneous Representations | Principal Component Analysis for Data Science (pca4ds)</title>
   <meta name="description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Terminology | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta property="og:title" content="2.5 Simultaneous Representations | Principal Component Analysis for Data Science (pca4ds)" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="gastonstat/pca4ds" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Terminology | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta name="twitter:title" content="2.5 Simultaneous Representations | Principal Component Analysis for Data Science (pca4ds)" />
   
   <meta name="twitter:description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="from-lanalyse-des-données-to-data-science.html"/>
-<link rel="next" href="basic.html"/>
+<link rel="prev" href="using-supplementary-elements.html"/>
+<link rel="next" href="analysis.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -207,37 +207,83 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="terminology" class="section level1 unnumbered">
-<h1>Terminology</h1>
-<p>This section will briefly introduce you to the terms that we will use
-throughout this book.</p>
-<ul>
-<li><p><strong>Data table</strong>: rectangular array formed by rows and columns. In each of
-the table entries (i.e. intersection of one row and one column), we find a
-datum, typically codified in numeric form. We also use the term <em>data matrix</em>
-as a synonym term. We represent the data table with upper case bold letters
-e.g. <span class="math inline">\(\mathbf{X}\)</span>, with <span class="math inline">\(n\)</span> rows and <span class="math inline">\(p\)</span> columns.</p></li>
-<li><p><strong>Individual</strong>: an individual is a row of the data table. The word individual
-refers to any type of object: person, animal, country, company, planet, etc.</p></li>
-<li><p><strong>Variable</strong>: we use the word “variable” to refer to any column in the data table. For each individual, we observe the same aggregate, the same measure, the same question, etc. Instead of variable we can also talk about “measure”, attribute, characteristic, property, etc.</p></li>
-<li><p><strong>Continuous Variable</strong>: we talk about continuous variable when the measurement is quantitative. To be more precise, a variable is continuous when calculating the mean (or average) makes sense.</p></li>
-<li><p><strong>Nominal Variable</strong>: we talk about a nominal variable when its values are names of categories (or qualities). Examples of nominal variables are <em>civil status</em> (e.g. single, married, divorced, widowed), <em>geographc region</em> (e.g. north, south, west, etc). We also use the terms categorical or qualitative variable as synonyms of nominal.</p></li>
-<li><p><strong>Modality</strong>: the modalities or categories are the values taken by a nominal variable. For example the variable <em>gender</em> (typical) has two modalities: male and female. A modalitiy is also known as group, class, or category.</p></li>
-<li><p><strong>Cloud of Points</strong>: on a plane or in a three-dimensional space, the notion of “cloud of points” has to do with how the points are positioned according to a series of coordinates, which are based on a set of orthogonal axes. Given the coordinates of the points, it is easy to calculate distance between them. When we have more than three axes, even though the cloud of points exist, we cannot visualize them.</p></li>
-<li><p><strong>Distance</strong>: the distance between two points in a given cloud coincides with the usual notion of distance (which can be calculated based on the coordinates of the points via the famous Pythogorean theorem).</p></li>
-<li><p><strong>Inertia</strong>: inertia is a borrowed term from Mechanics (in Physics) which is entirely equivalent to the statistical concept of variance. The inertia gives an idea of the spread in a cloud of weighted points. If the individuals have the same weight (same importance), the direction with the larger inertia of the cloud is the direction of its major axis.</p></li>
-<li><p><strong>Center of Gravity</strong>: this is the average point (or central point) in a cloud of weighted points. Therefore, there is an equivalence between the mechanical notion of center of gravity and the statistical notion of average point.</p></li>
-<li><p><strong>Factorial Analysis</strong>: optimal visualization (in a certain sense) of a cloud of points in some multidimensional space.</p></li>
-<li><p><strong>Factorial Axes</strong>: these are the axes, sorted by importance, which we use to visualize the cloud of points in a factorial analysis. They are defined by the directions of larger stretching (inertia) of the cloud of poitns.</p></li>
-<li><p><strong>PCA</strong>: Principal Component(s) Analysis.</p></li>
-<li><p><strong>Active Variables</strong>: set of variables that are used in the computation of the axes for the factorial planes.</p></li>
-<li><p><strong>Supplementary Variables</strong>: set of variables that are NOT used in the computation of the factorial axes, but that can be used as aid in the interpretation of results.</p></li>
-<li><p><strong>Contribution</strong>: measures the participation of an element (e.g. category, variable, frequency, or individual) in the construction of a factorial axis.</p></li>
-<li><p><strong>Squared Cosine</strong>: measures the quality of the projection of an element (e.g. category, variable, frequency, or individual) along a factorial axis.</p></li>
-<li><p><strong>V-test</strong>: measures, in number of standard deviations, the distance between an observed value and its theoretical value under a null hypothesis. This test is used to characterize the axes, the categories, the classes, etc.</p></li>
-</ul>
+<div id="simultaneous-representations" class="section level2">
+<h2><span class="header-section-number">2.5</span> Simultaneous Representations</h2>
+<div id="old-unit-axes" class="section level3">
+<h3><span class="header-section-number">2.5.1</span> Old Unit Axes</h3>
+<p>In a Principal Component Analysis the cloud of individuals as well as the cloud of variables are defined in different spaces, with distinct origins and distinct vector basis.</p>
+<p>For the cloud of row-points, the origin corresponds to the center of gravity of the individuals. This space is of <span class="math inline">\(p\)</span> dimensions and we denote <span class="math inline">\(\mathbf{u}_{\alpha}\)</span> the corresponding base.</p>
+<p>In turn, for the cloud of column-points the origin is the point zero. This space is of <span class="math inline">\(n\)</span> dimensions (although the active variables define a subspace of <span class="math inline">\(p\)</span> dimensions) and denote the factorial axes as <span class="math inline">\(\mathbf{v}_{\alpha}\)</span>.</p>
+<p>Because the row-points and the column-points are therefore in different spaces it is impossible to simultaneously visualize them in the same space, in such a way that the inner proximities are respected (without deformations).</p>
+<p>However, it is possible to represent the directions defined by each active variable over the base of factorial axes <span class="math inline">\(\mathbf{u}_{\alpha}\)</span>.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-20"></span>
+<img src="images/figure-2-20.png" alt="Old base in original p-dimensional space, and the new based formed by the factorial axes." width="70%" />
+<p class="caption">
+Figure 2.20: Old base in original p-dimensional space, and the new based formed by the factorial axes.
+</p>
+</div>
+<p>The vectors that define the directions of the original variables are the vectors <span class="math inline">\((1,0,0, \dots)\)</span>, <span class="math inline">\((0,1,0,\dots)\)</span>, <span class="math inline">\((0,0,1,0,\dots)\)</span>, etc.</p>
+<p>Let <span class="math inline">\(\mathbf{e_j}\)</span> be the <span class="math inline">\(j\)</span>-th vector of this basis. Its projection on the basis determined by the vector <span class="math inline">\(\mathbf{u}_{\alpha}\)</span> is defined by the scalar product of the vectors:</p>
+<p><span class="math display" id="eq:2-19">\[
+\mathbf{e_j}^\mathsf{T} \mathbf{u}_{\alpha} = u_{j\alpha}
+\tag{2.19}
+\]</span></p>
+<p>The element <span class="math inline">\(u_{j\alpha}\)</span> is the <span class="math inline">\(j\)</span>-th component of the vector <span class="math inline">\(\mathbf{u}_{\alpha}\)</span>.</p>
+<p>The projection of the old axes, defining the directions of the active variables, over a new factorial basis, is given by the components of the eigenvectors <span class="math inline">\(\mathbf{u}_{\alpha}\)</span> from the analysis of row-points.</p>
+<p>We can considered an old axis <span class="math inline">\(j\)</span>—direction of the <span class="math inline">\(j\)</span>-th variable—as an artificial “individual” in the space of the individuals. This “individual” has a coordinate 1 in the <span class="math inline">\(j\)</span>-th axis and 0 in the rest of the axes. In this way, the variable-point <span class="math inline">\(j\)</span> can be located in the core of the cloud of row-points of the factorial plane. Its interpretation in straightforward: this point <span class="math inline">\(j\)</span> is the extreme of the unit vector that defines the direction of growth of variable <span class="math inline">\(j\)</span> in the cloud of individuals.</p>
+<p>Interestingly, the <span class="math inline">\(p\)</span> variables can be regarded as <span class="math inline">\(p\)</span> unit vectors located in the core of the cloud of row-points. This involves a translation of the original basis to the average point of individuals. Obviously, these <span class="math inline">\(p\)</span> points are on a hypersphere of unit radius.</p>
+<p>In the first factorial plane of the cloud of individuals, these <span class="math inline">\(p\)</span> unit vectors will be located inside a circle of unit radius as projected on the orthonormal basis of the active variables.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-21"></span>
+<img src="images/figure-2-21.png" alt="Projection of the original axes on the factorial plane with the cloud of row-points." width="70%" />
+<p class="caption">
+Figure 2.21: Projection of the original axes on the factorial plane with the cloud of row-points.
+</p>
+</div>
+<p>Notice that there is no common unit between the length 1 of the unit vector defined by the <span class="math inline">\(j\)</span>-th variable and the values of the coordinates of the individuals over an axis. Because only the direction is what matters, we can strettch these unit vectors in such a way that the directions defined by them are clearly “readable” in the cloud of row-points.</p>
+<p>In our working example, figure <a href="simultaneous-representations.html#fig:fig-2-22">2.22</a> shows the simultaneous representation of the cities and the active variables.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-22"></span>
+<img src="images/figure-2-22.png" alt="Row-points with directions of growth of the variables (old unit-vector axes)." width="75%" />
+<p class="caption">
+Figure 2.22: Row-points with directions of growth of the variables (old unit-vector axes).
+</p>
+</div>
+<p>This configuration of variable-points differs from the configuration obtained in section 2.2. Before, the angle between two variables <span class="math inline">\(j\)</span> and <span class="math inline">\(j&#39;\)</span> was a measure of correlation between them. Now, all the angles are square angles; we only observe the projection of these square angles on the factorial plane.</p>
+<p>If the arrowhead of the vector representing a variable-point is close to the circumference of radius 1, this means that the direction of growth of this variable is well defined in the factorial plane. Likewise, the individuals that are near the center take values that are close to the average of the variable. In contrast, the individuals that are further from the center, following the direction of growth of a variable, have large values for such variable.</p>
+<p>Notice that, if in this simultaneous representation, all the unit vectors form an narrow array around the first factorial axis. This inidicates a <em>size factor</em>. All the variales increase—and decrease—simultaneously in the direction of the first axis.</p>
+<div id="about-the-representation-of-variable-points" class="section level4 unnumbered">
+<h4>About the representation of variable-points</h4>
+<p>The coordinate of the variable <span class="math inline">\(j\)</span> on the axis <span class="math inline">\(\alpha\)</span> is (see formula <a href="projections-of-variables.html#eq:2-10">(2.10)</a>):</p>
+<p><span class="math display">\[
+\sqrt{\lambda_{\alpha}} \hspace{1mm} u_{j \alpha}
+\]</span></p>
+<p>The coordinate of the unit vector representing the direction of growth of variable <span class="math inline">\(j\)</span> on the axis <span class="math inline">\(\alpha\)</span>—in the simultaneous representation graph—is:</p>
+<p><span class="math display">\[
+u_{j \alpha}
+\]</span></p>
+<p>The similarity between these two formulas implies that their respective graphic displays are also similar. The only difference is a scaling factor of <span class="math inline">\(\sqrt{\lambda_{\alpha}}\)</span>, which is visually reflected as a stretching effect.</p>
+<p>For example, the comparison of both clouds of old and new unitary axes is shown in figure <a href="simultaneous-representations.html#fig:fig-2-23">2.23</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-23"></span>
+<img src="images/figure-2-23.png" alt="Representation of the variable-points (top) and the old axes (bottom)." width="50%" />
+<p class="caption">
+Figure 2.23: Representation of the variable-points (top) and the old axes (bottom).
+</p>
+</div>
+<p>This graphical similarity leads to abuse of language in interpretating simultaneous representation (mixing analysis of angles and analysis of growth directions).</p>
+<p>Notice that it is not possible to directly display at the same time the supplementary variables in a simultaneous PCA plot of variables-individuals. The supplementary variables do not participate in the definition of the original basis for the cloud of row-points.</p>
+</div>
+<div id="in-summary" class="section level4 unnumbered">
+<h4>In Summary …</h4>
+<p>In every PCA we have two available representations of the variables:</p>
+<ol style="list-style-type: decimal">
+<li><p>The representation of the cloud of variable-points: each variable is a vector (unit vector if we perform a normalized PCA), and we study the angles between these vectors.</p></li>
+<li><p>The simultaneous representation of individuals and active variables: the variable-points are the ends of the orthogonal unit vectors indicating the directions of growth of the variables.</p></li>
+</ol>
+<p>We should say that these two representations of the variables can be regarded as two extreme situations of a more general representation system introduced by Gabriel (1971). Under this system, commonly known as <strong>biplot</strong>, the data table is decomposed as the product of two matrices: one matrix represents the rows, and the other matrix represents the columns. The biplot involves the joint representation of both elements (rows and columns) in one graphic.</p>
 
 </div>
+</div>
+</div>
+<!-- </div> -->
 
 
 
@@ -246,8 +292,8 @@ refers to any type of object: person, animal, country, company, planet, etc.</p>
           </div>
         </div>
       </div>
-<a href="from-lanalyse-des-données-to-data-science.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="basic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="using-supplementary-elements.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

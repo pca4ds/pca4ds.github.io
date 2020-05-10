@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4.1 Lascaux Cave Temperatures | Principal Component Analysis for Data Science (pca4ds)</title>
+  <meta name="description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4.1 Lascaux Cave Temperatures | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
+  <meta name="github-repo" content="gastonstat/pca4ds" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4.1 Lascaux Cave Temperatures | Principal Component Analysis for Data Science (pca4ds)" />
+  
+  <meta name="twitter:description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
+  
+
+<meta name="author" content="Tomas Aluja-Banet Alain Morineau Gaston Sanchez" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="application-examples.html"/>
+<link rel="next" href="design-of-experiments-and-pca.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./"><b>PCA for Data Science</b><br><small>T. Aluja, A. Morineau, G. Sanchez</small></a></li>
+
+<li class="divider"></li>
+<li class="part"><span><b>I Preface</b></span></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>PCA4DS</a></li>
+<li class="chapter" data-level="" data-path="from-lanalyse-des-données-to-data-science.html"><a href="from-lanalyse-des-données-to-data-science.html"><i class="fa fa-check"></i>From “L’Analyse des Données” to Data Science</a></li>
+<li class="chapter" data-level="" data-path="terminology.html"><a href="terminology.html"><i class="fa fa-check"></i>Terminology</a></li>
+<li class="part"><span><b>II Introduction</b></span></li>
+<li class="chapter" data-level="1" data-path="basic.html"><a href="basic.html"><i class="fa fa-check"></i><b>1</b> Basic Elements</a><ul>
+<li class="chapter" data-level="1.1" data-path="data-and-goals.html"><a href="data-and-goals.html"><i class="fa fa-check"></i><b>1.1</b> Data and Goals</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="data-and-goals.html"><a href="data-and-goals.html#active-variables"><i class="fa fa-check"></i><b>1.1.1</b> Active Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="analysis-of-distances.html"><a href="analysis-of-distances.html"><i class="fa fa-check"></i><b>1.2</b> Analysis of Distances</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="analysis-of-distances.html"><a href="analysis-of-distances.html#cloud-of-row-points"><i class="fa fa-check"></i><b>1.2.1</b> Cloud of Row-Points</a></li>
+<li class="chapter" data-level="1.2.2" data-path="analysis-of-distances.html"><a href="analysis-of-distances.html#cloud-of-column-points"><i class="fa fa-check"></i><b>1.2.2</b> Cloud of Column-Points</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html"><i class="fa fa-check"></i><b>1.3</b> How to see the distances between points</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#how-to-find-the-projection-planes"><i class="fa fa-check"></i><b>1.3.1</b> How to find the projection planes</a></li>
+<li class="chapter" data-level="1.3.2" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#how-to-take-into-account-the-importance-of-individuals"><i class="fa fa-check"></i><b>1.3.2</b> How to take into account the importance of individuals</a></li>
+<li class="chapter" data-level="1.3.3" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#inertia-decomposition"><i class="fa fa-check"></i><b>1.3.3</b> Inertia Decomposition</a></li>
+<li class="chapter" data-level="1.3.4" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#visualizing-association-between-variables."><i class="fa fa-check"></i><b>1.3.4</b> Visualizing association between variables.</a></li>
+<li class="chapter" data-level="1.3.5" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#normalized-pca-or-non-normalized-pca"><i class="fa fa-check"></i><b>1.3.5</b> Normalized PCA or non-normalized PCA?</a></li>
+<li class="chapter" data-level="1.3.6" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#distance-matrices"><i class="fa fa-check"></i><b>1.3.6</b> Distance Matrices</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>III Mechanics</b></span></li>
+<li class="chapter" data-level="2" data-path="mechanics.html"><a href="mechanics.html"><i class="fa fa-check"></i><b>2</b> How Does PCA Work?</a><ul>
+<li class="chapter" data-level="2.1" data-path="principal-components.html"><a href="principal-components.html"><i class="fa fa-check"></i><b>2.1</b> Principal Components</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="principal-components.html"><a href="principal-components.html#interpreting-the-inertia-proportions"><i class="fa fa-check"></i><b>2.1.1</b> Interpreting the Inertia Proportions</a></li>
+<li class="chapter" data-level="2.1.2" data-path="principal-components.html"><a href="principal-components.html#how-many-axes-to-retain"><i class="fa fa-check"></i><b>2.1.2</b> How many axes to retain?</a></li>
+<li class="chapter" data-level="2.1.3" data-path="principal-components.html"><a href="principal-components.html#coordinates-of-row-points"><i class="fa fa-check"></i><b>2.1.3</b> Coordinates of row-points</a></li>
+<li class="chapter" data-level="2.1.4" data-path="principal-components.html"><a href="principal-components.html#interpretation-tools"><i class="fa fa-check"></i><b>2.1.4</b> Interpretation Tools</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="projections-of-variables.html"><a href="projections-of-variables.html"><i class="fa fa-check"></i><b>2.2</b> Projections of Variables</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="projections-of-variables.html"><a href="projections-of-variables.html#size-effect"><i class="fa fa-check"></i><b>2.2.1</b> Size Effect</a></li>
+<li class="chapter" data-level="2.2.2" data-path="projections-of-variables.html"><a href="projections-of-variables.html#tools-for-interpreting-components"><i class="fa fa-check"></i><b>2.2.2</b> Tools for Interpreting Components</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="size-factor.html"><a href="size-factor.html"><i class="fa fa-check"></i><b>2.3</b> Beyond the First Factor</a></li>
+<li class="chapter" data-level="2.4" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html"><i class="fa fa-check"></i><b>2.4</b> Using Supplementary Elements</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html#continuous-supplementary-variables"><i class="fa fa-check"></i><b>2.4.1</b> Continuous Supplementary Variables</a></li>
+<li class="chapter" data-level="2.4.2" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html#nominal-supplementary-variables"><i class="fa fa-check"></i><b>2.4.2</b> Nominal Supplementary Variables</a></li>
+<li class="chapter" data-level="2.4.3" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html#profiling-with-v-test"><i class="fa fa-check"></i><b>2.4.3</b> Profiling with V-test</a></li>
+<li class="chapter" data-level="2.4.4" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html#axes-characterization-using-continuous-variables"><i class="fa fa-check"></i><b>2.4.4</b> Axes Characterization using Continuous Variables</a></li>
+<li class="chapter" data-level="2.4.5" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html#v-test-and-data-science"><i class="fa fa-check"></i><b>2.4.5</b> V-test and Data Science</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="simultaneous-representations.html"><a href="simultaneous-representations.html"><i class="fa fa-check"></i><b>2.5</b> Simultaneous Representations</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="simultaneous-representations.html"><a href="simultaneous-representations.html#old-unit-axes"><i class="fa fa-check"></i><b>2.5.1</b> Old Unit Axes</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV Practice</b></span></li>
+<li class="chapter" data-level="3" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>3</b> Analysis</a><ul>
+<li class="chapter" data-level="3.1" data-path="themescope.html"><a href="themescope.html"><i class="fa fa-check"></i><b>3.1</b> Themescope</a></li>
+<li class="chapter" data-level="3.2" data-path="conditions-of-application.html"><a href="conditions-of-application.html"><i class="fa fa-check"></i><b>3.2</b> Conditions of Application</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="conditions-of-application.html"><a href="conditions-of-application.html#linearity-and-symmetry"><i class="fa fa-check"></i><b>3.2.1</b> Linearity and Symmetry</a></li>
+<li class="chapter" data-level="3.2.2" data-path="conditions-of-application.html"><a href="conditions-of-application.html#balancing-the-content-of-active-variables"><i class="fa fa-check"></i><b>3.2.2</b> Balancing the content of active variables</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="validation-stability-and-significance.html"><a href="validation-stability-and-significance.html"><i class="fa fa-check"></i><b>3.3</b> Validation: stability and significance</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="validation-stability-and-significance.html"><a href="validation-stability-and-significance.html#how-many-axes-to-study-and-retain"><i class="fa fa-check"></i><b>3.3.1</b> How many axes to study and retain?</a></li>
+<li class="chapter" data-level="3.3.2" data-path="validation-stability-and-significance.html"><a href="validation-stability-and-significance.html#simulations-random-effects-on-individuals"><i class="fa fa-check"></i><b>3.3.2</b> Simulations, random effects on individuals</a></li>
+<li class="chapter" data-level="3.3.3" data-path="validation-stability-and-significance.html"><a href="validation-stability-and-significance.html#bootstrap-simulations"><i class="fa fa-check"></i><b>3.3.3</b> Bootstrap Simulations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="analysis-of-table-of-ranks.html"><a href="analysis-of-table-of-ranks.html"><i class="fa fa-check"></i><b>3.4</b> Analysis of Table of Ranks</a></li>
+<li class="chapter" data-level="3.5" data-path="optimal-reconstitution-of-data.html"><a href="optimal-reconstitution-of-data.html"><i class="fa fa-check"></i><b>3.5</b> Optimal Reconstitution of Data</a></li>
+<li class="chapter" data-level="3.6" data-path="synthetic-variables-and-indices.html"><a href="synthetic-variables-and-indices.html"><i class="fa fa-check"></i><b>3.6</b> Synthetic Variables and Indices</a></li>
+<li class="chapter" data-level="3.7" data-path="handling-missing-values.html"><a href="handling-missing-values.html"><i class="fa fa-check"></i><b>3.7</b> Handling Missing Values</a></li>
+<li class="chapter" data-level="3.8" data-path="pca-and-clustering.html"><a href="pca-and-clustering.html"><i class="fa fa-check"></i><b>3.8</b> PCA and Clustering</a><ul>
+<li class="chapter" data-level="3.8.1" data-path="pca-and-clustering.html"><a href="pca-and-clustering.html#real-groups-or-instrumental-groups"><i class="fa fa-check"></i><b>3.8.1</b> Real Groups or Instrumental Groups?</a></li>
+<li class="chapter" data-level="3.8.2" data-path="pca-and-clustering.html"><a href="pca-and-clustering.html#representants-of-groups"><i class="fa fa-check"></i><b>3.8.2</b> Representants of Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="data-weighing.html"><a href="data-weighing.html"><i class="fa fa-check"></i><b>3.9</b> Data Weighing</a></li>
+<li class="chapter" data-level="3.10" data-path="pca-as-an-intermediate-analytical-stage.html"><a href="pca-as-an-intermediate-analytical-stage.html"><i class="fa fa-check"></i><b>3.10</b> PCA as an Intermediate Analytical Stage</a></li>
+<li class="chapter" data-level="3.11" data-path="comparing-various-tables.html"><a href="comparing-various-tables.html"><i class="fa fa-check"></i><b>3.11</b> Comparing Various Tables</a></li>
+<li class="chapter" data-level="3.12" data-path="analysis-of-a-table-of-means.html"><a href="analysis-of-a-table-of-means.html"><i class="fa fa-check"></i><b>3.12</b> Analysis of a Table of Means</a></li>
+<li class="chapter" data-level="3.13" data-path="analysis-of-a-binary-table.html"><a href="analysis-of-a-binary-table.html"><i class="fa fa-check"></i><b>3.13</b> Analysis of a Binary Table</a></li>
+<li class="chapter" data-level="3.14" data-path="analysis-of-a-table-of-distances.html"><a href="analysis-of-a-table-of-distances.html"><i class="fa fa-check"></i><b>3.14</b> Analysis of a Table of Distances</a></li>
+<li class="chapter" data-level="3.15" data-path="conditional-pca.html"><a href="conditional-pca.html"><i class="fa fa-check"></i><b>3.15</b> Conditional PCA</a><ul>
+<li class="chapter" data-level="3.15.1" data-path="conditional-pca.html"><a href="conditional-pca.html#pca-on-model-residuals"><i class="fa fa-check"></i><b>3.15.1</b> PCA on Model Residuals</a></li>
+<li class="chapter" data-level="3.15.2" data-path="conditional-pca.html"><a href="conditional-pca.html#analysis-of-local-variation"><i class="fa fa-check"></i><b>3.15.2</b> Analysis of Local Variation</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>V Examples</b></span></li>
+<li class="chapter" data-level="4" data-path="application-examples.html"><a href="application-examples.html"><i class="fa fa-check"></i><b>4</b> Application Examples</a><ul>
+<li class="chapter" data-level="4.1" data-path="lascaux.html"><a href="lascaux.html"><i class="fa fa-check"></i><b>4.1</b> Lascaux Cave Temperatures</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="lascaux.html"><a href="lascaux.html#temperature-data"><i class="fa fa-check"></i><b>4.1.1</b> Temperature Data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="lascaux.html"><a href="lascaux.html#pca"><i class="fa fa-check"></i><b>4.1.2</b> PCA</a></li>
+<li class="chapter" data-level="4.1.3" data-path="lascaux.html"><a href="lascaux.html#seasonal-phenomenon"><i class="fa fa-check"></i><b>4.1.3</b> Seasonal Phenomenon</a></li>
+<li class="chapter" data-level="4.1.4" data-path="lascaux.html"><a href="lascaux.html#modeling-propagation-of-thermal-wave"><i class="fa fa-check"></i><b>4.1.4</b> Modeling Propagation of Thermal Wave</a></li>
+<li class="chapter" data-level="4.1.5" data-path="lascaux.html"><a href="lascaux.html#stability-of-the-axes"><i class="fa fa-check"></i><b>4.1.5</b> Stability of the Axes</a></li>
+<li class="chapter" data-level="4.1.6" data-path="lascaux.html"><a href="lascaux.html#selecting-best-temperature-reading-locations"><i class="fa fa-check"></i><b>4.1.6</b> Selecting Best Temperature Reading Locations</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="design-of-experiments-and-pca.html"><a href="design-of-experiments-and-pca.html"><i class="fa fa-check"></i><b>4.2</b> Design of Experiments and PCA</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="design-of-experiments-and-pca.html"><a href="design-of-experiments-and-pca.html#pca-1"><i class="fa fa-check"></i><b>4.2.1</b> PCA</a></li>
+<li class="chapter" data-level="4.2.2" data-path="design-of-experiments-and-pca.html"><a href="design-of-experiments-and-pca.html#evolution-of-factor-trajectories-over-time"><i class="fa fa-check"></i><b>4.2.2</b> Evolution of Factor Trajectories over Time</a></li>
+<li class="chapter" data-level="4.2.3" data-path="design-of-experiments-and-pca.html"><a href="design-of-experiments-and-pca.html#analysis-of-variance"><i class="fa fa-check"></i><b>4.2.3</b> Analysis of Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="defining-an-economic-capacity-index.html"><a href="defining-an-economic-capacity-index.html"><i class="fa fa-check"></i><b>4.3</b> Defining an Economic Capacity Index</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="defining-an-economic-capacity-index.html"><a href="defining-an-economic-capacity-index.html#analyzed-information"><i class="fa fa-check"></i><b>4.3.1</b> Analyzed Information</a></li>
+<li class="chapter" data-level="4.3.2" data-path="defining-an-economic-capacity-index.html"><a href="defining-an-economic-capacity-index.html#pca-2"><i class="fa fa-check"></i><b>4.3.2</b> PCA</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>VI Appendix</b></span></li>
+<li class="chapter" data-level="5" data-path="appendixa.html"><a href="appendixa.html"><i class="fa fa-check"></i><b>5</b> Appendix A: Fundamentals</a><ul>
+<li class="chapter" data-level="5.1" data-path="space-of-p-dimensions.html"><a href="space-of-p-dimensions.html"><i class="fa fa-check"></i><b>5.1</b> Space of p-Dimensions</a></li>
+<li class="chapter" data-level="5.2" data-path="distances-between-points.html"><a href="distances-between-points.html"><i class="fa fa-check"></i><b>5.2</b> Distances between points</a></li>
+<li class="chapter" data-level="5.3" data-path="center-of-gravity.html"><a href="center-of-gravity.html"><i class="fa fa-check"></i><b>5.3</b> Center of Gravity</a></li>
+<li class="chapter" data-level="5.4" data-path="inertia-of-a-cloud-of-points.html"><a href="inertia-of-a-cloud-of-points.html"><i class="fa fa-check"></i><b>5.4</b> Inertia of a cloud of points</a></li>
+<li class="chapter" data-level="5.5" data-path="projection-of-the-cloud-of-points-on-a-line.html"><a href="projection-of-the-cloud-of-points-on-a-line.html"><i class="fa fa-check"></i><b>5.5</b> Projection of the cloud of points on a line</a></li>
+<li class="chapter" data-level="5.6" data-path="centered-and-standardized-variable.html"><a href="centered-and-standardized-variable.html"><i class="fa fa-check"></i><b>5.6</b> Centered and Standardized Variable</a></li>
+<li class="chapter" data-level="5.7" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html"><i class="fa fa-check"></i><b>5.7</b> Correlation Coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="appendixb.html"><a href="appendixb.html"><i class="fa fa-check"></i><b>6</b> Appendix B: PCA Formulae</a><ul>
+<li class="chapter" data-level="6.1" data-path="general-analysis.html"><a href="general-analysis.html"><i class="fa fa-check"></i><b>6.1</b> General Analysis</a></li>
+<li class="chapter" data-level="6.2" data-path="formulas-for-pca.html"><a href="formulas-for-pca.html"><i class="fa fa-check"></i><b>6.2</b> Formulas for PCA</a></li>
+<li class="chapter" data-level="6.3" data-path="biplot-and-pca.html"><a href="biplot-and-pca.html"><i class="fa fa-check"></i><b>6.3</b> Biplot and PCA</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="appendixc.html"><a href="appendixc.html"><i class="fa fa-check"></i><b>7</b> Appendix C: Data Analysis Reminder</a><ul>
+<li class="chapter" data-level="7.1" data-path="normalized-principal-component-analysis.html"><a href="normalized-principal-component-analysis.html"><i class="fa fa-check"></i><b>7.1</b> Normalized Principal Component Analysis</a></li>
+<li class="chapter" data-level="7.2" data-path="non-normalized-principal-component-analysis.html"><a href="non-normalized-principal-component-analysis.html"><i class="fa fa-check"></i><b>7.2</b> Non-normalized Principal Component Analysis</a></li>
+<li class="chapter" data-level="7.3" data-path="simple-correpondence-analysis.html"><a href="simple-correpondence-analysis.html"><i class="fa fa-check"></i><b>7.3</b> Simple Correpondence Analysis</a></li>
+<li class="chapter" data-level="7.4" data-path="multiple-correspondence-analysis.html"><a href="multiple-correspondence-analysis.html"><i class="fa fa-check"></i><b>7.4</b> Multiple Correspondence Analysis</a></li>
+<li class="chapter" data-level="7.5" data-path="clustering-of-factors.html"><a href="clustering-of-factors.html"><i class="fa fa-check"></i><b>7.5</b> Clustering of Factors</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Principal Component Analysis for Data Science (pca4ds)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="lascaux" class="section level2">
+<h2><span class="header-section-number">4.1</span> Lascaux Cave Temperatures</h2>
+<p>Our first example has to do with temperatures in the famous
+<a href="https://en.wikipedia.org/wiki/Lascaux" target="_blank">Lascaux Cave</a>.
+This grotto is a complex of caves located in the department of Dordogne in
+southwestern France. The cave contains over 600 parietal wall paintings,
+depicting large animals (e.g. bulls, bisons, ibexes, rhinoceros) from the Upper
+Paleolithic time period.</p>
+<p>The control of environmental variables (e.g. temperatures measured in distinct
+places, hydrometry measurements, etc.) in Lascaux cave was done in a manual
+fashion decades ago. The measurements involved daily readings of 77 different
+locations in the cave. From these readings, a technical operator in charge
+of the machines installed in the cave, controled the settings in order to
+guarantee adequate environmental conditions for the conservation of the paintings.</p>
+<p>In the late 1970s, it was acknowledged that a less manual and time consuming work
+for controling the environment conditions in the cave had to be implemented.
+The institution responsible to develop an automatic temperature controling
+system was the <em>Laboratoire de Recherche des Monuments Historiques</em> LRMH
+(research laboratory of historical momuments). One of the stages in this
+research project involved deciding whether to locate the sensors for reading
+temperatures along the cave.</p>
+<p>We use a temperature data set that was part of this reserach project. The
+purpose is to see in what way PCA can be applied in order to describe the
+evolution of the cave temperatures, in terms of the reading positions, and
+the date of such readings. We seek to obtain a description that allows us
+to better understand the environment conditions of the cave. As part of this
+analysis, we’ll see how looking for optimal regressions enable us to select a
+minimum number of temperature points that capture as much of the
+information as possible needed to control the temperature conditions of the cave.</p>
+<div id="temperature-data" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Temperature Data</h3>
+<p>The data of this section have to do with temperatures collected in 30 different
+locations along the cave, observed over 482 days, between February 1981 and
+December 1982. The following diagram shows the location of the measurements
+inside the cave. Each label involves a thermometer, installed either on the rock,
+or outside.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-4-1"></span>
+<img src="images/figure-4-1.png" alt="Location of reading temperature sensors" width="80%" />
+<p class="caption">
+Figure 4.1: Location of reading temperature sensors
+</p>
+</div>
+<p>The following table lists the 30 active variables used in the analysis
+(continuous variables, representing temperature measurements in Celsius degrees).</p>
+<table>
+<caption><span id="tab:table-4-1">Table 4.1: </span>Active variables of temperature in Lascaux Cave.</caption>
+<thead>
+<tr class="header">
+<th align="right">Num</th>
+<th align="left">Variable</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">7</td>
+<td align="left">temi</td>
+<td align="left">Minimum outside temperature</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="left">tema</td>
+<td align="left">Maximum outside temperature</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="left">t11r</td>
+<td align="left">SAS1 left 1 - rock</td>
+</tr>
+<tr class="even">
+<td align="right">12</td>
+<td align="left">t1ha</td>
+<td align="left">SAS1 left 3 up - air</td>
+</tr>
+<tr class="odd">
+<td align="right">13</td>
+<td align="left">t1hr</td>
+<td align="left">SAS1 left 3 up - rock</td>
+</tr>
+<tr class="even">
+<td align="right">14</td>
+<td align="left">t1vr</td>
+<td align="left">SAS1 under dome 3 - rock</td>
+</tr>
+<tr class="odd">
+<td align="right">15</td>
+<td align="left">tmpa</td>
+<td align="left">Machine room left wall - air</td>
+</tr>
+<tr class="even">
+<td align="right">16</td>
+<td align="left">tmpt</td>
+<td align="left">Machine room left wall - rock</td>
+</tr>
+<tr class="odd">
+<td align="right">17</td>
+<td align="left">tmvr</td>
+<td align="left">Machine room, left dome - rock</td>
+</tr>
+<tr class="even">
+<td align="right">18</td>
+<td align="left">tmha</td>
+<td align="left">Machine room top wall left - air</td>
+</tr>
+<tr class="odd">
+<td align="right">19</td>
+<td align="left">tmba</td>
+<td align="left">Machine room bottom wall left - air</td>
+</tr>
+<tr class="even">
+<td align="right">20</td>
+<td align="left">t2pa</td>
+<td align="left">SAS2 right wall - air</td>
+</tr>
+<tr class="odd">
+<td align="right">21</td>
+<td align="left">t2pr</td>
+<td align="left">SAS2 right wall - rock</td>
+</tr>
+<tr class="even">
+<td align="right">22</td>
+<td align="left">t2ma</td>
+<td align="left">SAS2 dome - air</td>
+</tr>
+<tr class="odd">
+<td align="right">23</td>
+<td align="left">t2da</td>
+<td align="left">SAS2 ground right - air</td>
+</tr>
+<tr class="even">
+<td align="right">24</td>
+<td align="left">t2ga</td>
+<td align="left">SAS2 ground left - air</td>
+</tr>
+<tr class="odd">
+<td align="right">28</td>
+<td align="left">ttda</td>
+<td align="left">Hall of the Bulls right wall - air</td>
+</tr>
+<tr class="even">
+<td align="right">29</td>
+<td align="left">ttdr</td>
+<td align="left">Hall of the Bulls right wall - rock</td>
+</tr>
+<tr class="odd">
+<td align="right">30</td>
+<td align="left">ttsa</td>
+<td align="left">Hall of the Bulls ground - air</td>
+</tr>
+<tr class="even">
+<td align="right">31</td>
+<td align="left">ttsr</td>
+<td align="left">Hall of the Bulls ground - rock</td>
+</tr>
+<tr class="odd">
+<td align="right">32</td>
+<td align="left">ttga</td>
+<td align="left">Hall of the Bulls left wall - air</td>
+</tr>
+<tr class="even">
+<td align="right">33</td>
+<td align="left">ttsr</td>
+<td align="left">Hall of the Bulls left wall - rock</td>
+</tr>
+<tr class="odd">
+<td align="right">34</td>
+<td align="left">tdra</td>
+<td align="left">Axial Gallery narrow dome - air</td>
+</tr>
+<tr class="even">
+<td align="right">35</td>
+<td align="left">tdrr</td>
+<td align="left">Axial Gallery narrow dome - rock</td>
+</tr>
+<tr class="odd">
+<td align="right">36</td>
+<td align="left">tdvf</td>
+<td align="left">Axial Gallery end dome - air</td>
+</tr>
+<tr class="even">
+<td align="right">37</td>
+<td align="left">tnca</td>
+<td align="left">Nave of Deer - air</td>
+</tr>
+<tr class="odd">
+<td align="right">38</td>
+<td align="left">tncr</td>
+<td align="left">Nave of Deer - rock</td>
+</tr>
+<tr class="even">
+<td align="right">39</td>
+<td align="left">tnba</td>
+<td align="left">Nave of Bisons - air</td>
+</tr>
+<tr class="odd">
+<td align="right">40</td>
+<td align="left">tnbr</td>
+<td align="left">Nave of Bisons - rock</td>
+</tr>
+<tr class="even">
+<td align="right">41</td>
+<td align="left">tpmr</td>
+<td align="left">Shaft edge - rock</td>
+</tr>
+</tbody>
+</table>
+<p>Looking at the diagram of the cave in figure <a href="lascaux.html#fig:fig-4-1">4.1</a>, the entrance
+is on the right side of the figure. The machine room is located below the first
+entrance. Then comes the Hall of the Bulls. Ahead this hall, there is the
+Axial Gallery. To the right of the hall, there is the passageway. As you can
+tell from the table of variables, all temperature readings are recorded
+“in the air” as well as “on the rock”.</p>
+</div>
+<div id="pca" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> PCA</h3>
+<p>We perform a first normalized Principal Component Analysis on the table of
+temperatures. In this analysis, we don’t take into account the time component
+of the measurements. In other words, we don’t take into account the date in
+which the readings were made. However, we do consider the time related variables
+(month, and year) as supplementary variables.</p>
+<p>Looking at the table of eigenvalues in <a href="lascaux.html#tab:table-4-2">4.2</a>, we clearly detect
+two dominant axes <strong>(see table 4.2)</strong>. About 50% of the variability in the
+first axis, and 30% of the variability in the second one. The remaining 28 axes
+account for the less than 20% of the total inertia. Therefore, we are confident
+that the first factorial plane depicts a stable configuration of associations.</p>
+<table>
+<caption><span id="tab:table-4-2">Table 4.2: </span>Table of eigenvalues from PCA on 30 temperature variables.</caption>
+<thead>
+<tr class="header">
+<th align="right">num</th>
+<th align="right">eigenvalue</th>
+<th align="right">percentage</th>
+<th align="right">cumulative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">14.8677</td>
+<td align="right">49.57</td>
+<td align="right">49.57</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">9.0366</td>
+<td align="right">30.13</td>
+<td align="right">79.69</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">1.8428</td>
+<td align="right">6.14</td>
+<td align="right">85.84</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">1.3074</td>
+<td align="right">4.36</td>
+<td align="right">90.20</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">0.9548</td>
+<td align="right">3.18</td>
+<td align="right">93.38</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">0.4578</td>
+<td align="right">1.53</td>
+<td align="right">94.91</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">0.3835</td>
+<td align="right">1.28</td>
+<td align="right">96.19</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">0.2860</td>
+<td align="right">0.95</td>
+<td align="right">97.14</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">0.1900</td>
+<td align="right">0.63</td>
+<td align="right">97.77</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">0.1010</td>
+<td align="right">0.34</td>
+<td align="right">98.11</td>
+</tr>
+<tr class="odd">
+<td align="right">11</td>
+<td align="right">0.0855</td>
+<td align="right">0.29</td>
+<td align="right">98.39</td>
+</tr>
+<tr class="even">
+<td align="right">12</td>
+<td align="right">0.0706</td>
+<td align="right">0.24</td>
+<td align="right">98.63</td>
+</tr>
+<tr class="odd">
+<td align="right">13</td>
+<td align="right">0.0656</td>
+<td align="right">0.22</td>
+<td align="right">98.85</td>
+</tr>
+<tr class="even">
+<td align="right">14</td>
+<td align="right">0.0564</td>
+<td align="right">0.19</td>
+<td align="right">99.04</td>
+</tr>
+<tr class="odd">
+<td align="right">15</td>
+<td align="right">0.0468</td>
+<td align="right">0.16</td>
+<td align="right">99.19</td>
+</tr>
+<tr class="even">
+<td align="right">16</td>
+<td align="right">0.0397</td>
+<td align="right">0.13</td>
+<td align="right">99.32</td>
+</tr>
+<tr class="odd">
+<td align="right">17</td>
+<td align="right">0.0353</td>
+<td align="right">0.12</td>
+<td align="right">99.44</td>
+</tr>
+<tr class="even">
+<td align="right">18</td>
+<td align="right">0.0314</td>
+<td align="right">0.10</td>
+<td align="right">99.55</td>
+</tr>
+<tr class="odd">
+<td align="right">19</td>
+<td align="right">0.0269</td>
+<td align="right">0.09</td>
+<td align="right">99.64</td>
+</tr>
+<tr class="even">
+<td align="right">20</td>
+<td align="right">0.0215</td>
+<td align="right">0.07</td>
+<td align="right">99.71</td>
+</tr>
+<tr class="odd">
+<td align="right">21</td>
+<td align="right">0.0143</td>
+<td align="right">0.05</td>
+<td align="right">99.76</td>
+</tr>
+<tr class="even">
+<td align="right">22</td>
+<td align="right">0.0140</td>
+<td align="right">0.05</td>
+<td align="right">99.80</td>
+</tr>
+<tr class="odd">
+<td align="right">23</td>
+<td align="right">0.0121</td>
+<td align="right">0.04</td>
+<td align="right">99.84</td>
+</tr>
+<tr class="even">
+<td align="right">24</td>
+<td align="right">0.0110</td>
+<td align="right">0.04</td>
+<td align="right">99.88</td>
+</tr>
+<tr class="odd">
+<td align="right">25</td>
+<td align="right">0.0097</td>
+<td align="right">0.03</td>
+<td align="right">99.91</td>
+</tr>
+<tr class="even">
+<td align="right">26</td>
+<td align="right">0.0070</td>
+<td align="right">0.02</td>
+<td align="right">99.94</td>
+</tr>
+<tr class="odd">
+<td align="right">27</td>
+<td align="right">0.0063</td>
+<td align="right">0.02</td>
+<td align="right">99.96</td>
+</tr>
+<tr class="even">
+<td align="right">28</td>
+<td align="right">0.0053</td>
+<td align="right">0.02</td>
+<td align="right">99.97</td>
+</tr>
+<tr class="odd">
+<td align="right">29</td>
+<td align="right">0.0045</td>
+<td align="right">0.02</td>
+<td align="right">99.99</td>
+</tr>
+<tr class="even">
+<td align="right">30</td>
+<td align="right">0.0033</td>
+<td align="right">0.01</td>
+<td align="right">100.00</td>
+</tr>
+</tbody>
+</table>
+<div id="configuration-of-temperature-points" class="section level4 unnumbered">
+<h4>Configuration of Temperature-Points</h4>
+<p>The configuration of the temperatures (active variables) in the first factorial
+plane, see figure <a href="lascaux.html#fig:fig-4-2">4.2</a>, shows a regular pattern, with arrows
+close to the circumference of radius one. This means that the position of the
+variables on the first plane provides a good approximation of the correlations
+between the measurement points. This is less true for the exterior temperatures
+(<code>temi</code> and <code>tema</code>) and for those observed in the machine room, which show a
+less regular evolution, as well as a less direct association with the internal
+temperatures of the cave. Notice the central position of the arrow corresponding
+to the temperature near the shaft (<code>tpmr</code>).</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-4-2"></span>
+<img src="images/figure-4-2.png" alt="Circle of correlations." width="70%" />
+<p class="caption">
+Figure 4.2: Circle of correlations.
+</p>
+</div>
+<p>We also see that those observation points that are physically close to each
+other inside the cave, are also close on the factorial plane. Which is a
+translation of the fact that closer readings, measure similar things (this is
+particularly seen among the temperatures “in the air” that always appear next
+to the temperatures “on the rock”).</p>
+<p>Likewise, we observe that temperatures are scattered all around the
+circumference in a counterclockwise direction: starting from the variables
+that have to do with the external temperature (<code>temi</code> and <code>tema</code>), and then
+moving “upward” with the variables corresponding to the readings of the
+entrance in the cave, followed by the readings from the Hall of the Bulls
+which are in an opposite direction to the external temperatures. Finally, we
+observe the readings from the axial gallery, and then the readings from the
+nave and the shaft.</p>
+<p><img src="images/figure-4-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>This configuration reflects the effect of “distance from the cave’s entrance”.
+The farther from the entrance, the less the correlation of a given reading and
+the reading from the external temperature, except with the readings in the
+Hall of the Bulls that are negatively correlated with the external temperature.</p>
+<p>Those readings from locations near the entrance are the ones that have the most
+variability. This is due to the fact that they are more influenced by the
+external temperature, but also because their proximity to the machine room.
+Beyond the second entrance, the associations between the temperatures become
+more stable and clearly reflect the geographic proximity and distance to the
+entrance. Notice that the reading of point <code>tdvf</code>, located at the end of the
+axial gallery, behaves in a similar fashion as those readings located in the
+nave.</p>
+<p>The only exception to the previous pattern is the temperature of the shaft.
+According to the experts, the system of temperatures in this location is
+independent from what happens in the rest of the cave, because of the presence
+of carbonic gas under the surface. The temperatures of the machine
+room seem to be relatively far from the circumference, which is explained by
+the closeness of the sensors to the machines.</p>
+</div>
+</div>
+<div id="seasonal-phenomenon" class="section level3">
+<h3><span class="header-section-number">4.1.3</span> Seasonal Phenomenon</h3>
+<p>As we previously mentioned, the data collected in the Lascaux Cave involves
+temperatures measured in 30 different locations along the cave, observed over
+482 days, between February 1981 and December 1982.</p>
+<p>So far, we have presented the results of the variables, that is, the results
+from analyzing the 30 temperature readings. However, we also have the 482 days
+that correspond to the rows of the data table (i.e. the individuals). In other
+words, we also have the 482 points that correspond to the cloud of row-points.</p>
+<p>As we know, two days will appear close to each other if their 30 temperatures
+are similar. Conversely, if two days have very different temperatures, they
+will appear far from each other (the more different their profiles, the farther
+they will be). In order to better visualize the scatterplot of the
+cloud of points, we calculate the monthly averages, obtaining 23 points,
+from February 1981 to December 1982 (see figure <a href="lascaux.html#fig:fig-4-3">4.3</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-4-3"></span>
+<img src="images/figure-4-3.png" alt="Average monthly temperature values in Lascaux Cave" width="80%" />
+<p class="caption">
+Figure 4.3: Average monthly temperature values in Lascaux Cave
+</p>
+</div>
+<p>As you can tell from this scatterplot, we have connected all consecutive
+months with a dotted line, starting in Feb-1981, and following the direction
+of the arrows till the last point in Dec-1982. It is interesting to see that
+the connected points form two loops. One loop for points of 1981, which is
+the outer loop; and another loop for points of 1982, which is narrower and
+offset to the left from the center of the plane.</p>
+<p>It seems that the factorial plane describe the transition of the year seasons,
+in a counterclockwise manner. The first axis opposes Summer months to Winter
+months. In turn, the second axis opposes Spring months to Fall months.</p>
+<p>In addition, we observe that, from the interior of the cave, the years 1981 and
+1982 are not that similar with respect to the monthly temperatures. 1981 seems
+to have a hotter Summer and colder Winter, whereas in 1982 the seasons are
+less different, and overall, less cold. This has been confirmed by checking
+the records from local weather stations.</p>
+<div id="thermal-wave-penetration" class="section level4 unnumbered">
+<h4>Thermal Wave Penetration</h4>
+<p>We can now take a look at both graphs (<a href="lascaux.html#fig:fig-4-2">4.2</a> and <a href="lascaux.html#fig:fig-4-3">4.3</a>)
+and enrich the interpretation of results. The configuration of the temperatures
+in the circle of correlations, and the pattern of the monthly temperatures,
+reveal the penetration of the thermal wave inside the cave.</p>
+<p>We are able to observe how temperature changes and moves inside the cave.
+The high temperatures of July and August, move from the exterior towards the
+first entrance during the months of September and October. By Fall, the maximum
+recorded temperatures occur in the second entrance (October and December).
+Then, in Winter (January, February, and March) the maximum temperatures are
+recorded in the Hall of the Bulls. The further we go into the cave, the more
+we advance in time (from the thermal point of view). The factorial plane allows
+us to visualize the average time that the thermal wave takes to reach every
+recording location in the cave.</p>
+</div>
+</div>
+<div id="modeling-propagation-of-thermal-wave" class="section level3">
+<h3><span class="header-section-number">4.1.4</span> Modeling Propagation of Thermal Wave</h3>
+<p>The discovered patterns of variability in the cave’s temperature and the
+thermal wave, suggests us a modeling approach based on two aspects: 1) the
+factorial plane shows that each month corresponds to an almost
+constant rotation; 2) on the circle of correlations, the variables are
+positioned in terms of their distance from the entrance to the cave.</p>
+<p>Let’s consider the variation of the temperature to be modeled with a sine curve.
+The penetration of the thermal wave in the cave is a function of the distance
+between two reading-temperature locations. Let <span class="math inline">\(i\)</span> be the day, and let <span class="math inline">\(j\)</span> be
+the distance to the entrance. Also, the amplitude of variation varies according
+to the year (coefficients <span class="math inline">\(\alpha_1\)</span> and <span class="math inline">\(\alpha_2\)</span>), as well as the average
+annual temperature (<span class="math inline">\(\mu_1\)</span> and <span class="math inline">\(\mu_2\)</span>).</p>
+<p>We model the temperature of the first year, in day <span class="math inline">\(i\)</span>, and with a distance
+<span class="math inline">\(j\)</span> to the entrance, with the following equation:</p>
+<p><span class="math display">\[
+T_1(i,j) = \alpha_1 \sin \big( 2\pi (i+j) \big) + \mu_1
+\]</span></p>
+<p>Analogously, the equation for the second year is:</p>
+<p><span class="math display">\[
+T_2(i,j) = \alpha_2 \sin \big( 2\pi (i+j) \big) + \mu_2
+\]</span></p>
+<p>It can be shown that, in a data table that has these relationships, the
+following properties are verified:</p>
+<ol style="list-style-type: decimal">
+<li><p>If the amplitudes and the annual means are equal, we obtain two non-null
+identical eigenvalues. The temperatures are ordered by a subindex on the
+circle of correlations, and the months progress in chronological order,
+confounded for both years on the same circumference
+(see diagram A in figure <a href="lascaux.html#fig:fig-4-4">4.4</a>).</p></li>
+<li><p>If there is a difference between the annual temperature means
+(<span class="math inline">\(\mu_1\)</span> and <span class="math inline">\(\mu_2\)</span>), the clouds of 1981 and 1982 become separated. If the
+difference is not too large, then the two first eigenvalues are similar,
+whereas the third eigenvalue is much more small. In turn, the months will be
+arranged in an elliptical way, with two off-centered ellipses
+(see diagram B in figure <a href="lascaux.html#fig:fig-4-4">4.4</a>). If the difference between the
+annual means is more substantial, the first axis will be a function of this
+difference (see diagram C in figure <a href="lascaux.html#fig:fig-4-4">4.4</a>), while in the second
+and third axes, the annual circumferences that are identical will be
+displayed.</p></li>
+<li><p>If additionally, there is a difference of annual amplitude
+(<span class="math inline">\(\alpha_1\)</span> and <span class="math inline">\(\alpha_2\)</span>), then the size of the ellipses is modified.</p></li>
+</ol>
+<div class="figure" style="text-align: center"><span id="fig:fig-4-4"></span>
+<img src="images/figure-4-4.png" alt="Three shape patterns of month-points" width="85%" />
+<p class="caption">
+Figure 4.4: Three shape patterns of month-points
+</p>
+</div>
+<div id="reconstitution-of-the-data" class="section level4 unnumbered">
+<h4>Reconstitution of the Data</h4>
+<p>Without loss of generality, let us simplify things a bit by assuming that the
+data table has weekly observations, instead of daily observations. The year 1981
+involves weeks <span class="math inline">\(i = 1, 2, \dots, 52\)</span>, and year 1982 involves weeks
+<span class="math inline">\(i = 53, 54, \dots, 104\)</span>. Based on the original data, we take
+<span class="math inline">\(\mu_1 - \mu_2 = 0.7\)</span>, and set amplitudes to <span class="math inline">\(\alpha_1 = 1\)</span> and <span class="math inline">\(\alpha_2 = 1.5\)</span>.
+For the <span class="math inline">\(j\)</span>-th variable, we define the distance between reading points according
+to their groupings in the cave, except for the first 8 reading locations for
+which we introduce a variable distance (see table below) that corresponds to
+the sepration of the reading points in the entrances and the machine room.</p>
+<table>
+<caption><span id="tab:table-4-3">Table 4.3: </span>Modeling weekly-lag data</caption>
+<thead>
+<tr class="header">
+<th align="left">j</th>
+<th align="left">d</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">week</td>
+<td align="left">distance</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[
+\begin{array}{c|c}
+j &amp; \text{distance} \\
+\hline \text{1 to 8} &amp; 2\pi (j - 8) / 21 \\
+\text{9 to 15} &amp; \pi / 3 \\
+\text{16 to 25} &amp; \pi / 2 \\
+\text{26 to 30} &amp; \pi
+\end{array}
+\]</span></p>
+<p>Analyzing the weekly data table previously described, we obtain a configuration
+of points very similar to the one obtained with the original data. There is a
+big loop for 1981, and a smaller loop for 1982, off-centered and overlaping with
+the big loop in the winter zone. The inertia percentages of the first three
+axes are: 59%, 31%, and 14%, very similar to the original inertias. This
+indicates that the chosen model is acceptable.</p>
+</div>
+</div>
+<div id="stability-of-the-axes" class="section level3">
+<h3><span class="header-section-number">4.1.5</span> Stability of the Axes</h3>
+<p>The histogram of eigenvalues suggests a good stability of the first two axes.
+This is due to the existance of the seasonal phenomenon.</p>
+<p>To determine the number of stable axes, we add random noise to the data.
+The “important” axes must remain (for the most part) unchanged by the added
+noise, as long as they convey the structural relationships between data points.</p>
+<p>As an illustration, let’s review how a large random noise (of up to 50% of
+the variability in the series) is not enough to destroy the seasonal structure
+in data, while remaining stable in the first two axes.</p>
+<p>The way we add random noise to data is by adding a random amount generated from a
+Normal distribution, using mean zero, and standard deviation of 1/4 the standard
+deviation of the annual temperatures in a given reading location. We perform
+PCA on this modified data set, examining the obtained principal components,
+as well as the circle of correlations between the original components and the
+ones obtained from the data with random noise (see table below).</p>
+<table>
+<caption><span id="tab:table-4-4">Table 4.4: </span>Stability analysis of first 5 axes</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">random1</th>
+<th align="right">random2</th>
+<th align="right">random3</th>
+<th align="right">random4</th>
+<th align="right">random5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>original1</td>
+<td align="right">0.996</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>original2</td>
+<td align="right">0.019</td>
+<td align="right">0.994</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>original3</td>
+<td align="right">0.000</td>
+<td align="right">0.013</td>
+<td align="right">0.974</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>original4</td>
+<td align="right">0.002</td>
+<td align="right">0.000</td>
+<td align="right">0.027</td>
+<td align="right">0.921</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>original5</td>
+<td align="right">0.003</td>
+<td align="right">0.006</td>
+<td align="right">0.006</td>
+<td align="right">0.043</td>
+<td align="right">0.92</td>
+</tr>
+</tbody>
+</table>
+<p>It turns out that with this added random noise, the first five axes remain
+stable.</p>
+<p>Next, we repeat the same procedure, but this time adding a larger
+amount of random noise: half of the standard deviation of each variable
+(see results in table below).</p>
+<table>
+<caption><span id="tab:table-4-5">Table 4.5: </span>Stability analysis of first 5 axes (continued)</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">random1</th>
+<th align="right">random2</th>
+<th align="right">random3</th>
+<th align="right">random4</th>
+<th align="right">random5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>original1</td>
+<td align="right">0.986</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>original2</td>
+<td align="right">0.039</td>
+<td align="right">0.975</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>original3</td>
+<td align="right">0.000</td>
+<td align="right">0.025</td>
+<td align="right">0.908</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>original4</td>
+<td align="right">0.003</td>
+<td align="right">0.000</td>
+<td align="right">0.057</td>
+<td align="right">0.761</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>original5</td>
+<td align="right">0.005</td>
+<td align="right">0.011</td>
+<td align="right">0.016</td>
+<td align="right">0.064</td>
+<td align="right">0.751</td>
+</tr>
+</tbody>
+</table>
+<p>Despite the larger amount of introduced random noise, the first three axes
+still remain mostly unchanged, whereas the fourth and the fifth axes have
+been slightly modified.</p>
+</div>
+<div id="selecting-best-temperature-reading-locations" class="section level3">
+<h3><span class="header-section-number">4.1.6</span> Selecting Best Temperature Reading Locations</h3>
+<p>As we mentioned in the introduction of this chapter, one of the stages of the
+Lascaux Cave research project involved deciding whether to locate the sensors
+for reading temperatures along the cave.</p>
+<p>We seek to obtain a small subset of reading locations, such that they provide
+essential information for the totality of the observations. Simply put, we
+seek to conserve the stable factorial directions.</p>
+<p>The first decision that we made was to retain just one of the measurements
+for every pair of temperature “rock/air”; this reduced the number of readings
+from 30 to 15 temperature variables.</p>
+<p>We provide only the sketch idea used to find the solution. The methodology
+consists of eliminating, step by step, the more redundant variables. We use the
+correlation between the new computed factorial axes (PCA on retained temperature
+reading locations) and the original factorial axes (PCA on all variables).
+To be more precise, we calculate the sum of squared correlations between
+homologous axes (diagonal of the correlation matrix). Finally, we obtain a
+subset of 8 variables that adequately reconstitute the subspace of the first
+three initial factorial axes (with correlations of 0.986, 0.980, and 0.865, like
+in the table <a href="lascaux.html#tab:table-4-6">4.6</a> below).</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-4-5"></span>
+<img src="images/figure-4-5.png" alt="Location of best 8 reading temperature sensors" width="80%" />
+<p class="caption">
+Figure 4.5: Location of best 8 reading temperature sensors
+</p>
+</div>
+<table>
+<caption><span id="tab:table-4-6">Table 4.6: </span>Reconstitution of 3 first factorial axes with 8 temperature readings</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">random1</th>
+<th align="right">random2</th>
+<th align="right">random3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>original1</td>
+<td align="right">0.986</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>original2</td>
+<td align="right">0.162</td>
+<td align="right">0.980</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>original3</td>
+<td align="right">0.046</td>
+<td align="right">0.008</td>
+<td align="right">0.865</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="application-examples.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="design-of-experiments-and-pca.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

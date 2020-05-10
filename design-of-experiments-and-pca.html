@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Terminology | Principal Component Analysis for Data Science (pca4ds)</title>
+  <title>4.2 Design of Experiments and PCA | Principal Component Analysis for Data Science (pca4ds)</title>
   <meta name="description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Terminology | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta property="og:title" content="4.2 Design of Experiments and PCA | Principal Component Analysis for Data Science (pca4ds)" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="gastonstat/pca4ds" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Terminology | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta name="twitter:title" content="4.2 Design of Experiments and PCA | Principal Component Analysis for Data Science (pca4ds)" />
   
   <meta name="twitter:description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="from-lanalyse-des-données-to-data-science.html"/>
-<link rel="next" href="basic.html"/>
+<link rel="prev" href="lascaux.html"/>
+<link rel="next" href="defining-an-economic-capacity-index.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -207,47 +207,514 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="terminology" class="section level1 unnumbered">
-<h1>Terminology</h1>
-<p>This section will briefly introduce you to the terms that we will use
-throughout this book.</p>
-<ul>
-<li><p><strong>Data table</strong>: rectangular array formed by rows and columns. In each of
-the table entries (i.e. intersection of one row and one column), we find a
-datum, typically codified in numeric form. We also use the term <em>data matrix</em>
-as a synonym term. We represent the data table with upper case bold letters
-e.g. <span class="math inline">\(\mathbf{X}\)</span>, with <span class="math inline">\(n\)</span> rows and <span class="math inline">\(p\)</span> columns.</p></li>
-<li><p><strong>Individual</strong>: an individual is a row of the data table. The word individual
-refers to any type of object: person, animal, country, company, planet, etc.</p></li>
-<li><p><strong>Variable</strong>: we use the word “variable” to refer to any column in the data table. For each individual, we observe the same aggregate, the same measure, the same question, etc. Instead of variable we can also talk about “measure”, attribute, characteristic, property, etc.</p></li>
-<li><p><strong>Continuous Variable</strong>: we talk about continuous variable when the measurement is quantitative. To be more precise, a variable is continuous when calculating the mean (or average) makes sense.</p></li>
-<li><p><strong>Nominal Variable</strong>: we talk about a nominal variable when its values are names of categories (or qualities). Examples of nominal variables are <em>civil status</em> (e.g. single, married, divorced, widowed), <em>geographc region</em> (e.g. north, south, west, etc). We also use the terms categorical or qualitative variable as synonyms of nominal.</p></li>
-<li><p><strong>Modality</strong>: the modalities or categories are the values taken by a nominal variable. For example the variable <em>gender</em> (typical) has two modalities: male and female. A modalitiy is also known as group, class, or category.</p></li>
-<li><p><strong>Cloud of Points</strong>: on a plane or in a three-dimensional space, the notion of “cloud of points” has to do with how the points are positioned according to a series of coordinates, which are based on a set of orthogonal axes. Given the coordinates of the points, it is easy to calculate distance between them. When we have more than three axes, even though the cloud of points exist, we cannot visualize them.</p></li>
-<li><p><strong>Distance</strong>: the distance between two points in a given cloud coincides with the usual notion of distance (which can be calculated based on the coordinates of the points via the famous Pythogorean theorem).</p></li>
-<li><p><strong>Inertia</strong>: inertia is a borrowed term from Mechanics (in Physics) which is entirely equivalent to the statistical concept of variance. The inertia gives an idea of the spread in a cloud of weighted points. If the individuals have the same weight (same importance), the direction with the larger inertia of the cloud is the direction of its major axis.</p></li>
-<li><p><strong>Center of Gravity</strong>: this is the average point (or central point) in a cloud of weighted points. Therefore, there is an equivalence between the mechanical notion of center of gravity and the statistical notion of average point.</p></li>
-<li><p><strong>Factorial Analysis</strong>: optimal visualization (in a certain sense) of a cloud of points in some multidimensional space.</p></li>
-<li><p><strong>Factorial Axes</strong>: these are the axes, sorted by importance, which we use to visualize the cloud of points in a factorial analysis. They are defined by the directions of larger stretching (inertia) of the cloud of poitns.</p></li>
-<li><p><strong>PCA</strong>: Principal Component(s) Analysis.</p></li>
-<li><p><strong>Active Variables</strong>: set of variables that are used in the computation of the axes for the factorial planes.</p></li>
-<li><p><strong>Supplementary Variables</strong>: set of variables that are NOT used in the computation of the factorial axes, but that can be used as aid in the interpretation of results.</p></li>
-<li><p><strong>Contribution</strong>: measures the participation of an element (e.g. category, variable, frequency, or individual) in the construction of a factorial axis.</p></li>
-<li><p><strong>Squared Cosine</strong>: measures the quality of the projection of an element (e.g. category, variable, frequency, or individual) along a factorial axis.</p></li>
-<li><p><strong>V-test</strong>: measures, in number of standard deviations, the distance between an observed value and its theoretical value under a null hypothesis. This test is used to characterize the axes, the categories, the classes, etc.</p></li>
-</ul>
-
+<div id="design-of-experiments-and-pca" class="section level2">
+<h2><span class="header-section-number">4.2</span> Design of Experiments and PCA</h2>
+<p>Our second example has to do with material coatings degrading over time that
+need to be replaced with protection coverings, paint, or chemical filters.
+We are interested in studying the effect of three factors associated with
+the aging of material coatings. To do this, an experimental design is carried
+out with the following factors:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Factor</th>
+<th align="left">Levels</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Radiation type</td>
+<td align="left">Radiation V</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Radiation W</td>
+</tr>
+<tr class="odd">
+<td align="left">Radiation intensity</td>
+<td align="left">1/2 dose</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">2 dose</td>
+</tr>
+<tr class="odd">
+<td align="left">Chemical protection filter</td>
+<td align="left">Filter A</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Filter B</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Filter C</td>
+</tr>
+</tbody>
+</table>
+<p>The material coatings go through an artifical aging process. Several parameters
+are measured that have to do with the apparent degradation of the surface.
+The experiment involves five series of measurements obtained in different times:
+<span class="math inline">\(\mathsf{T}_0, \mathsf{T}_1, \mathsf{T}_2, \mathsf{T}_3\)</span> and <span class="math inline">\(\mathsf{T}_4\)</span>.
+The duration of the tests is of one year. In addition, we also have a series of
+coatings with no protection, which have been subjected to radiations in order
+to establish comparisons, whereas the other coatings are used as “control”
+units without being exposed to any radiation (only measuring their natural aging).</p>
+<p>The observed aging parameters have been: <em>color</em>, <em>thickness</em>, <em>lackluster</em>,
+<em>wrinkles</em>, and <em>cracks</em>. We also have available an assessment of the overall
+aging aspect, as well as other “non controlled” variables, all of them
+observed as continuous variables.</p>
+<div id="pca-1" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> PCA</h3>
+<p>Principal Component Analysis has been performed on a data set containing the
+five time periods of tests <span class="math inline">\(\mathsf{T}_0\)</span>, <span class="math inline">\(\mathsf{T}_1\)</span>, <span class="math inline">\(\mathsf{T}_2\)</span>,
+<span class="math inline">\(\mathsf{T}_3\)</span>, and <span class="math inline">\(\mathsf{T}_4\)</span> (i.e. each coating is repeated 5 times).
+The table also contains, as nominal variables, the variable that indicates
+the period and the interactions with the factors of interest (radiation type,
+radiation dose, and type of chemical filter). The active variables are the
+5 aging measurement parameters. All of the variables are listed in the following
+table:</p>
+<table>
+<caption><span id="tab:table-4-7">Table 4.7: </span>Table of Active and Supplementary Variables</caption>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Type</th>
+<th align="left">Scale</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Radiation type</td>
+<td align="left">supplementary nominal</td>
+<td align="left">6 categories</td>
+</tr>
+<tr class="even">
+<td align="left">Radiation dose</td>
+<td align="left">supplementary nominal</td>
+<td align="left">4 categories</td>
+</tr>
+<tr class="odd">
+<td align="left">Protection filter</td>
+<td align="left">supplementary nominal</td>
+<td align="left">6 categories</td>
+</tr>
+<tr class="even">
+<td align="left">Time period</td>
+<td align="left">supplementary nominal</td>
+<td align="left">5 categories</td>
+</tr>
+<tr class="odd">
+<td align="left">Color</td>
+<td align="left">active continuous</td>
+<td align="left">continuous</td>
+</tr>
+<tr class="even">
+<td align="left">Lackluster</td>
+<td align="left">active continuous</td>
+<td align="left">continuous</td>
+</tr>
+<tr class="odd">
+<td align="left">Cracks</td>
+<td align="left">active continuous</td>
+<td align="left">continuous</td>
+</tr>
+<tr class="even">
+<td align="left">Thickness</td>
+<td align="left">active continuous</td>
+<td align="left">continuous</td>
+</tr>
+<tr class="odd">
+<td align="left">Wrinkles</td>
+<td align="left">active continuous</td>
+<td align="left">continuous</td>
+</tr>
+<tr class="even">
+<td align="left">Assessment</td>
+<td align="left">supplementary continuous</td>
+<td align="left">continuous</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Likewise, the table below shows the correlations among the active variables:</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">color</th>
+<th align="right">lackluster</th>
+<th align="right">cracks</th>
+<th align="right">thickness</th>
+<th align="right">wrinkles</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>color</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>lackluster</td>
+<td align="right">0.45</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>cracks</td>
+<td align="right">0.24</td>
+<td align="right">0.74</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>thickness</td>
+<td align="right">0.88</td>
+<td align="right">0.48</td>
+<td align="right">0.35</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>wrinkles</td>
+<td align="right">0.60</td>
+<td align="right">0.64</td>
+<td align="right">0.57</td>
+<td align="right">0.65</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p>As you can tell, all correlations are positive. This will produce a first
+factor with the so-called <em>size effect</em>, opposing the more deteriorated coatings
+against those that are in better shape (in the sample of size 830, we consider
+a non-null correlation to be 0.07, with a significance level <span class="math inline">\(\alpha = 0.05\)</span>).</p>
+<p>The table <a href="design-of-experiments-and-pca.html#tab:table-4-8">4.8</a> shows the distribution of eigenvalues from the
+principal component analysis on the five aging parameters.</p>
+<table>
+<caption><span id="tab:table-4-8">Table 4.8: </span>Table of eigenvalues from PCA on 5 aging parameters.</caption>
+<thead>
+<tr class="header">
+<th align="right">num</th>
+<th align="right">eigenvalue</th>
+<th align="right">percentage</th>
+<th align="right">cumulative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">3.2531</td>
+<td align="right">65.06</td>
+<td align="right">65.06</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">1.0675</td>
+<td align="right">21.35</td>
+<td align="right">86.41</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">0.3284</td>
+<td align="right">6.57</td>
+<td align="right">92.98</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">0.2424</td>
+<td align="right">4.85</td>
+<td align="right">97.83</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">0.1085</td>
+<td align="right">2.17</td>
+<td align="right">100.00</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>In the figure below (circle of correlations), look at the correlation between
+the supplementary variable “overall assessment” and the first factor. This
+indicates that the first axis opposes the more degradated coatings to the less
+deteriorated. In turn, the second factor opposes the degradation due to
+lackluster and cracks, versus the degradation in color and thickness. Wrinkles
+are located in an intermediate position, very correlated with the overall
+assessment. These two factors account for 86% of the total inertia.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-4-6"></span>
+<img src="images/figure-4-6.png" alt="Circle of correlations for aging parameters" width="60%" />
+<p class="caption">
+Figure 4.6: Circle of correlations for aging parameters
+</p>
 </div>
-
-
-
+</div>
+<div id="evolution-of-factor-trajectories-over-time" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Evolution of Factor Trajectories over Time</h3>
+<p>To gain insight into the relationship between the extracted dimensions and the
+active variables, we project, as supplementary points, the different explanatory
+factors crossed with the five time periods. This operation defines trajectories
+in the factorial plane that help us understand the aging phenomenon under study.</p>
+<p>We first project the different types of filters per time period, which produces
+trajectories fA, fB and fC in figure <a href="design-of-experiments-and-pca.html#fig:fig-4-7">4.7</a>. We also project the
+non-treated coatings that have been subjected to radiation, as well as those
+that have not been subjected to any radiation. The latter show natural againg
+of the material coatings. Recall that these non-treated samples are used as
+control units to which we compare the different filters.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-4-7"></span>
+<img src="images/figure-4-7.png" alt="Average aging of filters per period" width="85%" />
+<p class="caption">
+Figure 4.7: Average aging of filters per period
+</p>
+</div>
+<p>We observe that filter B quickly degrades coatings, especially on cracks and
+lackluster. In contrast, filter C has a trajectory quite close to the
+“non-treated” and the two time periods, close to the control samples. Then,
+the degradation increases, mostly in color and thickness (compare the direction
+of this trajectory with that of figure <a href="design-of-experiments-and-pca.html#fig:fig-4-6">4.6</a>). With respect to
+filter A, this is located in an intermediate position between filters B and C.</p>
+<p>Actually, figure <a href="design-of-experiments-and-pca.html#fig:fig-4-7">4.7</a> shows the average evolutions per filter,
+independently of the radiation type and dose.</p>
+<p>It is interesting to project the interactions between filter type, radiation
+type, and radiation dose (which are the cells of the experimental design) onto
+the first factorial plane. Because of the large number of points to be
+plotted, we have divided them in two graphs. One plot contains the points
+for filters B and C, and the “non-treated” (figure <a href="design-of-experiments-and-pca.html#fig:fig-4-8">4.8</a>); the
+other plot (see figure <a href="design-of-experiments-and-pca.html#fig:fig-4-9">4.9</a>) contains the observations for filter
+A for which two types of radiation have been used: normal (1/2 dose) and high
+dose (2 dose).</p>
+<p>The graph in figure <a href="design-of-experiments-and-pca.html#fig:fig-4-8">4.8</a> distinguishes two types of trajectories.
+We have a set of trajectories going from the right side of the plane to the
+top left corner: filter C and “non-treated”, with degradation in color and
+thickness. The other set of trajectories are in the left bottom part of the
+plane: filter B, with degradation in cracks and lackluster.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-4-8"></span>
+<img src="images/figure-4-8.png" alt="Evolution of filters B and C, according to type and dose of radiation " width="85%" />
+<p class="caption">
+Figure 4.8: Evolution of filters B and C, according to type and dose of radiation
+</p>
+</div>
+<p>Note that for both, filter C and “non-treated”, there is a small divergence
+depending on the type of radiation, V or W. Moreover, the type of radiation W
+is more degradating. Likewise, filter B strongly degrades the material coating.
+The degradation is stronger between <span class="math inline">\(\mathsf{T}_0\)</span> and <span class="math inline">\(\mathsf{T}_1\)</span>, and
+then it keeps going on but at a slower pace. Here again, the radiation W appears
+to be more dominant in cracks and lackluster.</p>
+<p>With respect to filter A, we distinguish two levels of radiation intensity
+(dose 1/2 and 2), as well as the 2 types of radiation (V and W), shown in
+figure <a href="design-of-experiments-and-pca.html#fig:fig-4-9">4.9</a>. We find that trajectory of filter A and V1/2 has
+a small degradation effect. In contrast, the trajectory of filter A and
+radiation type W behaves a lot like that of filter C and non-treated. When we
+move to the high dose (dose 2), the degradation of radiation V is accentuated
+with respect to the level that it has with lower dose (dose 1/2). However,
+this degradation is less than the one shown in filter B in a central position.
+In contrast, when we use radiation W with a dose equal to 2, then filter A
+behaves like filter B with the same radiation, but dose 1/2.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-4-9"></span>
+<img src="images/figure-4-9.png" alt="Evolution of filters A, according to type and dose of radiation " width="85%" />
+<p class="caption">
+Figure 4.9: Evolution of filters A, according to type and dose of radiation
+</p>
+</div>
+</div>
+<div id="analysis-of-variance" class="section level3">
+<h3><span class="header-section-number">4.2.3</span> Analysis of Variance</h3>
+<p>We want to study how the aging of the coating surface is related with time and
+group. Time is expressed by the period of measurement, and the groups are
+defined by the combination of factors in the experimental design (interaction
+of filter, radiation type, and radiation dose).</p>
+<p>We perform an analysis of variance (anova) using variable “overall assessment”
+as the response variable, and using period (4 dates) and group (12 combinations)
+as anova factors. The obtained results are displayed in table <a href="design-of-experiments-and-pca.html#tab:table-4-9">4.9</a>.
+This table contains the model’s summary statistics, and the table with the
+decomposition of variance.</p>
+<table>
+<caption><span id="tab:table-4-9">Table 4.9: </span>Analysis of Variance.</caption>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">coefficient</th>
+<th align="right">stdev</th>
+<th align="right">t_stat</th>
+<th align="right">p_val</th>
+<th align="right">v_test</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">period T0</td>
+<td align="right">-4.5940</td>
+<td align="right">0.138</td>
+<td align="right">33.262</td>
+<td align="right">0.000</td>
+<td align="right">-26.42</td>
+</tr>
+<tr class="even">
+<td align="left">period T1</td>
+<td align="right">-2.1695</td>
+<td align="right">0.138</td>
+<td align="right">15.671</td>
+<td align="right">0.000</td>
+<td align="right">-14.65</td>
+</tr>
+<tr class="odd">
+<td align="left">period T2</td>
+<td align="right">-0.3717</td>
+<td align="right">0.140</td>
+<td align="right">2.665</td>
+<td align="right">0.008</td>
+<td align="right">-2.66</td>
+</tr>
+<tr class="even">
+<td align="left">period T3</td>
+<td align="right">2.4890</td>
+<td align="right">0.142</td>
+<td align="right">17.551</td>
+<td align="right">0.000</td>
+<td align="right">16.16</td>
+</tr>
+<tr class="odd">
+<td align="left">period T4</td>
+<td align="right">4.6463</td>
+<td align="right">0.145</td>
+<td align="right">32.000</td>
+<td align="right">0.000</td>
+<td align="right">25.74</td>
+</tr>
+<tr class="even">
+<td align="left">rad. V 1/2 non-treated</td>
+<td align="right">-0.5353</td>
+<td align="right">0.232</td>
+<td align="right">2.311</td>
+<td align="right">0.021</td>
+<td align="right">-2.31</td>
+</tr>
+<tr class="odd">
+<td align="left">rad. V 1/2 filter A</td>
+<td align="right">-0.7255</td>
+<td align="right">0.252</td>
+<td align="right">2.878</td>
+<td align="right">0.004</td>
+<td align="right">-2.87</td>
+</tr>
+<tr class="even">
+<td align="left">rad. V 1/2 filter B</td>
+<td align="right">3.1480</td>
+<td align="right">0.232</td>
+<td align="right">13.587</td>
+<td align="right">0.000</td>
+<td align="right">12.90</td>
+</tr>
+<tr class="odd">
+<td align="left">rad. V 1/2 filter C</td>
+<td align="right">-0.2815</td>
+<td align="right">0.234</td>
+<td align="right">1.205</td>
+<td align="right">0.228</td>
+<td align="right">-1.20</td>
+</tr>
+<tr class="even">
+<td align="left">rad. V 2 filter A</td>
+<td align="right">0.8372</td>
+<td align="right">0.234</td>
+<td align="right">3.585</td>
+<td align="right">0.000</td>
+<td align="right">3.57</td>
+</tr>
+<tr class="odd">
+<td align="left">rad. W 1/2 non-treated</td>
+<td align="right">-0.5601</td>
+<td align="right">0.208</td>
+<td align="right">2.696</td>
+<td align="right">0.007</td>
+<td align="right">-2.69</td>
+</tr>
+<tr class="even">
+<td align="left">rad. W 1/2 filter A</td>
+<td align="right">-0.0464</td>
+<td align="right">0.207</td>
+<td align="right">0.225</td>
+<td align="right">0.822</td>
+<td align="right">-0.22</td>
+</tr>
+<tr class="odd">
+<td align="left">rad. W 1/2 filter B</td>
+<td align="right">3.6387</td>
+<td align="right">0.210</td>
+<td align="right">17.299</td>
+<td align="right">0.000</td>
+<td align="right">15.96</td>
+</tr>
+<tr class="even">
+<td align="left">rad. W 1/2 filter C</td>
+<td align="right">0.3510</td>
+<td align="right">0.207</td>
+<td align="right">1.699</td>
+<td align="right">0.090</td>
+<td align="right">1.70</td>
+</tr>
+<tr class="odd">
+<td align="left">rad. W 2 filter A</td>
+<td align="right">4.1088</td>
+<td align="right">0.270</td>
+<td align="right">15.233</td>
+<td align="right">0.000</td>
+<td align="right">14.28</td>
+</tr>
+<tr class="even">
+<td align="left">control</td>
+<td align="right">-1.5533</td>
+<td align="right">0.235</td>
+<td align="right">6.597</td>
+<td align="right">0.000</td>
+<td align="right">-6.51</td>
+</tr>
+<tr class="odd">
+<td align="left">not applicable</td>
+<td align="right">-8.3816</td>
+<td align="right">0.464</td>
+<td align="right">18.065</td>
+<td align="right">0.000</td>
+<td align="right">-16.56</td>
+</tr>
+<tr class="even">
+<td align="left">constant</td>
+<td align="right">8.8687</td>
+<td align="right">0.077</td>
+<td align="right">114.840</td>
+<td align="right">0.000</td>
+<td align="right">48.11</td>
+</tr>
+</tbody>
+</table>
+<pre><code>Residual standard error: 3260.0056 on 15 degrees of freedom
+Multiple R-squared: 0.7780
+F-statistic: 190.134 on 15 and 814
+p-value: 0.0000
+          Df    Sum Sq  F-value  Pr(&gt;F)  v-test
+Periods:   8  8574.453  535.245   0.000   32.08
+Groups:   14  2886.327   88.217   0.000   42.29</code></pre>
+<p>We observe that both factors, time period and group, are clearly significant.
+The coefficients of each period are arranged in a similar fashion to the way
+they appear in the fatorial planes. The only positive coefficients for groups
+(indicating a greater degradation) are for filter B with any type of radiation,
+and for filter A with radiation W and dose 2.</p>
+</div>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="from-lanalyse-des-données-to-data-science.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="basic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="lascaux.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="defining-an-economic-capacity-index.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

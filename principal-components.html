@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.1 Principal Components | Principal Component Analysis for Data Science (pca4ds)</title>
+  <meta name="description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.1 Principal Components | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
+  <meta name="github-repo" content="gastonstat/pca4ds" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.1 Principal Components | Principal Component Analysis for Data Science (pca4ds)" />
+  
+  <meta name="twitter:description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
+  
+
+<meta name="author" content="Tomas Aluja-Banet Alain Morineau Gaston Sanchez" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="mechanics.html"/>
+<link rel="next" href="projections-of-variables.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./"><b>PCA for Data Science</b><br><small>T. Aluja, A. Morineau, G. Sanchez</small></a></li>
+
+<li class="divider"></li>
+<li class="part"><span><b>I Preface</b></span></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>PCA4DS</a></li>
+<li class="chapter" data-level="" data-path="from-lanalyse-des-données-to-data-science.html"><a href="from-lanalyse-des-données-to-data-science.html"><i class="fa fa-check"></i>From “L’Analyse des Données” to Data Science</a></li>
+<li class="chapter" data-level="" data-path="terminology.html"><a href="terminology.html"><i class="fa fa-check"></i>Terminology</a></li>
+<li class="part"><span><b>II Introduction</b></span></li>
+<li class="chapter" data-level="1" data-path="basic.html"><a href="basic.html"><i class="fa fa-check"></i><b>1</b> Basic Elements</a><ul>
+<li class="chapter" data-level="1.1" data-path="data-and-goals.html"><a href="data-and-goals.html"><i class="fa fa-check"></i><b>1.1</b> Data and Goals</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="data-and-goals.html"><a href="data-and-goals.html#active-variables"><i class="fa fa-check"></i><b>1.1.1</b> Active Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="analysis-of-distances.html"><a href="analysis-of-distances.html"><i class="fa fa-check"></i><b>1.2</b> Analysis of Distances</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="analysis-of-distances.html"><a href="analysis-of-distances.html#cloud-of-row-points"><i class="fa fa-check"></i><b>1.2.1</b> Cloud of Row-Points</a></li>
+<li class="chapter" data-level="1.2.2" data-path="analysis-of-distances.html"><a href="analysis-of-distances.html#cloud-of-column-points"><i class="fa fa-check"></i><b>1.2.2</b> Cloud of Column-Points</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html"><i class="fa fa-check"></i><b>1.3</b> How to see the distances between points</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#how-to-find-the-projection-planes"><i class="fa fa-check"></i><b>1.3.1</b> How to find the projection planes</a></li>
+<li class="chapter" data-level="1.3.2" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#how-to-take-into-account-the-importance-of-individuals"><i class="fa fa-check"></i><b>1.3.2</b> How to take into account the importance of individuals</a></li>
+<li class="chapter" data-level="1.3.3" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#inertia-decomposition"><i class="fa fa-check"></i><b>1.3.3</b> Inertia Decomposition</a></li>
+<li class="chapter" data-level="1.3.4" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#visualizing-association-between-variables."><i class="fa fa-check"></i><b>1.3.4</b> Visualizing association between variables.</a></li>
+<li class="chapter" data-level="1.3.5" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#normalized-pca-or-non-normalized-pca"><i class="fa fa-check"></i><b>1.3.5</b> Normalized PCA or non-normalized PCA?</a></li>
+<li class="chapter" data-level="1.3.6" data-path="how-to-see-the-distances-between-points.html"><a href="how-to-see-the-distances-between-points.html#distance-matrices"><i class="fa fa-check"></i><b>1.3.6</b> Distance Matrices</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>III Mechanics</b></span></li>
+<li class="chapter" data-level="2" data-path="mechanics.html"><a href="mechanics.html"><i class="fa fa-check"></i><b>2</b> How Does PCA Work?</a><ul>
+<li class="chapter" data-level="2.1" data-path="principal-components.html"><a href="principal-components.html"><i class="fa fa-check"></i><b>2.1</b> Principal Components</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="principal-components.html"><a href="principal-components.html#interpreting-the-inertia-proportions"><i class="fa fa-check"></i><b>2.1.1</b> Interpreting the Inertia Proportions</a></li>
+<li class="chapter" data-level="2.1.2" data-path="principal-components.html"><a href="principal-components.html#how-many-axes-to-retain"><i class="fa fa-check"></i><b>2.1.2</b> How many axes to retain?</a></li>
+<li class="chapter" data-level="2.1.3" data-path="principal-components.html"><a href="principal-components.html#coordinates-of-row-points"><i class="fa fa-check"></i><b>2.1.3</b> Coordinates of row-points</a></li>
+<li class="chapter" data-level="2.1.4" data-path="principal-components.html"><a href="principal-components.html#interpretation-tools"><i class="fa fa-check"></i><b>2.1.4</b> Interpretation Tools</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="projections-of-variables.html"><a href="projections-of-variables.html"><i class="fa fa-check"></i><b>2.2</b> Projections of Variables</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="projections-of-variables.html"><a href="projections-of-variables.html#size-effect"><i class="fa fa-check"></i><b>2.2.1</b> Size Effect</a></li>
+<li class="chapter" data-level="2.2.2" data-path="projections-of-variables.html"><a href="projections-of-variables.html#tools-for-interpreting-components"><i class="fa fa-check"></i><b>2.2.2</b> Tools for Interpreting Components</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="size-factor.html"><a href="size-factor.html"><i class="fa fa-check"></i><b>2.3</b> Beyond the First Factor</a></li>
+<li class="chapter" data-level="2.4" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html"><i class="fa fa-check"></i><b>2.4</b> Using Supplementary Elements</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html#continuous-supplementary-variables"><i class="fa fa-check"></i><b>2.4.1</b> Continuous Supplementary Variables</a></li>
+<li class="chapter" data-level="2.4.2" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html#nominal-supplementary-variables"><i class="fa fa-check"></i><b>2.4.2</b> Nominal Supplementary Variables</a></li>
+<li class="chapter" data-level="2.4.3" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html#profiling-with-v-test"><i class="fa fa-check"></i><b>2.4.3</b> Profiling with V-test</a></li>
+<li class="chapter" data-level="2.4.4" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html#axes-characterization-using-continuous-variables"><i class="fa fa-check"></i><b>2.4.4</b> Axes Characterization using Continuous Variables</a></li>
+<li class="chapter" data-level="2.4.5" data-path="using-supplementary-elements.html"><a href="using-supplementary-elements.html#v-test-and-data-science"><i class="fa fa-check"></i><b>2.4.5</b> V-test and Data Science</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="simultaneous-representations.html"><a href="simultaneous-representations.html"><i class="fa fa-check"></i><b>2.5</b> Simultaneous Representations</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="simultaneous-representations.html"><a href="simultaneous-representations.html#old-unit-axes"><i class="fa fa-check"></i><b>2.5.1</b> Old Unit Axes</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV Practice</b></span></li>
+<li class="chapter" data-level="3" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>3</b> Analysis</a><ul>
+<li class="chapter" data-level="3.1" data-path="themescope.html"><a href="themescope.html"><i class="fa fa-check"></i><b>3.1</b> Themescope</a></li>
+<li class="chapter" data-level="3.2" data-path="conditions-of-application.html"><a href="conditions-of-application.html"><i class="fa fa-check"></i><b>3.2</b> Conditions of Application</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="conditions-of-application.html"><a href="conditions-of-application.html#linearity-and-symmetry"><i class="fa fa-check"></i><b>3.2.1</b> Linearity and Symmetry</a></li>
+<li class="chapter" data-level="3.2.2" data-path="conditions-of-application.html"><a href="conditions-of-application.html#balancing-the-content-of-active-variables"><i class="fa fa-check"></i><b>3.2.2</b> Balancing the content of active variables</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="validation-stability-and-significance.html"><a href="validation-stability-and-significance.html"><i class="fa fa-check"></i><b>3.3</b> Validation: stability and significance</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="validation-stability-and-significance.html"><a href="validation-stability-and-significance.html#how-many-axes-to-study-and-retain"><i class="fa fa-check"></i><b>3.3.1</b> How many axes to study and retain?</a></li>
+<li class="chapter" data-level="3.3.2" data-path="validation-stability-and-significance.html"><a href="validation-stability-and-significance.html#simulations-random-effects-on-individuals"><i class="fa fa-check"></i><b>3.3.2</b> Simulations, random effects on individuals</a></li>
+<li class="chapter" data-level="3.3.3" data-path="validation-stability-and-significance.html"><a href="validation-stability-and-significance.html#bootstrap-simulations"><i class="fa fa-check"></i><b>3.3.3</b> Bootstrap Simulations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="analysis-of-table-of-ranks.html"><a href="analysis-of-table-of-ranks.html"><i class="fa fa-check"></i><b>3.4</b> Analysis of Table of Ranks</a></li>
+<li class="chapter" data-level="3.5" data-path="optimal-reconstitution-of-data.html"><a href="optimal-reconstitution-of-data.html"><i class="fa fa-check"></i><b>3.5</b> Optimal Reconstitution of Data</a></li>
+<li class="chapter" data-level="3.6" data-path="synthetic-variables-and-indices.html"><a href="synthetic-variables-and-indices.html"><i class="fa fa-check"></i><b>3.6</b> Synthetic Variables and Indices</a></li>
+<li class="chapter" data-level="3.7" data-path="handling-missing-values.html"><a href="handling-missing-values.html"><i class="fa fa-check"></i><b>3.7</b> Handling Missing Values</a></li>
+<li class="chapter" data-level="3.8" data-path="pca-and-clustering.html"><a href="pca-and-clustering.html"><i class="fa fa-check"></i><b>3.8</b> PCA and Clustering</a><ul>
+<li class="chapter" data-level="3.8.1" data-path="pca-and-clustering.html"><a href="pca-and-clustering.html#real-groups-or-instrumental-groups"><i class="fa fa-check"></i><b>3.8.1</b> Real Groups or Instrumental Groups?</a></li>
+<li class="chapter" data-level="3.8.2" data-path="pca-and-clustering.html"><a href="pca-and-clustering.html#representants-of-groups"><i class="fa fa-check"></i><b>3.8.2</b> Representants of Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="data-weighing.html"><a href="data-weighing.html"><i class="fa fa-check"></i><b>3.9</b> Data Weighing</a></li>
+<li class="chapter" data-level="3.10" data-path="pca-as-an-intermediate-analytical-stage.html"><a href="pca-as-an-intermediate-analytical-stage.html"><i class="fa fa-check"></i><b>3.10</b> PCA as an Intermediate Analytical Stage</a></li>
+<li class="chapter" data-level="3.11" data-path="comparing-various-tables.html"><a href="comparing-various-tables.html"><i class="fa fa-check"></i><b>3.11</b> Comparing Various Tables</a></li>
+<li class="chapter" data-level="3.12" data-path="analysis-of-a-table-of-means.html"><a href="analysis-of-a-table-of-means.html"><i class="fa fa-check"></i><b>3.12</b> Analysis of a Table of Means</a></li>
+<li class="chapter" data-level="3.13" data-path="analysis-of-a-binary-table.html"><a href="analysis-of-a-binary-table.html"><i class="fa fa-check"></i><b>3.13</b> Analysis of a Binary Table</a></li>
+<li class="chapter" data-level="3.14" data-path="analysis-of-a-table-of-distances.html"><a href="analysis-of-a-table-of-distances.html"><i class="fa fa-check"></i><b>3.14</b> Analysis of a Table of Distances</a></li>
+<li class="chapter" data-level="3.15" data-path="conditional-pca.html"><a href="conditional-pca.html"><i class="fa fa-check"></i><b>3.15</b> Conditional PCA</a><ul>
+<li class="chapter" data-level="3.15.1" data-path="conditional-pca.html"><a href="conditional-pca.html#pca-on-model-residuals"><i class="fa fa-check"></i><b>3.15.1</b> PCA on Model Residuals</a></li>
+<li class="chapter" data-level="3.15.2" data-path="conditional-pca.html"><a href="conditional-pca.html#analysis-of-local-variation"><i class="fa fa-check"></i><b>3.15.2</b> Analysis of Local Variation</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>V Examples</b></span></li>
+<li class="chapter" data-level="4" data-path="application-examples.html"><a href="application-examples.html"><i class="fa fa-check"></i><b>4</b> Application Examples</a><ul>
+<li class="chapter" data-level="4.1" data-path="lascaux.html"><a href="lascaux.html"><i class="fa fa-check"></i><b>4.1</b> Lascaux Cave Temperatures</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="lascaux.html"><a href="lascaux.html#temperature-data"><i class="fa fa-check"></i><b>4.1.1</b> Temperature Data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="lascaux.html"><a href="lascaux.html#pca"><i class="fa fa-check"></i><b>4.1.2</b> PCA</a></li>
+<li class="chapter" data-level="4.1.3" data-path="lascaux.html"><a href="lascaux.html#seasonal-phenomenon"><i class="fa fa-check"></i><b>4.1.3</b> Seasonal Phenomenon</a></li>
+<li class="chapter" data-level="4.1.4" data-path="lascaux.html"><a href="lascaux.html#modeling-propagation-of-thermal-wave"><i class="fa fa-check"></i><b>4.1.4</b> Modeling Propagation of Thermal Wave</a></li>
+<li class="chapter" data-level="4.1.5" data-path="lascaux.html"><a href="lascaux.html#stability-of-the-axes"><i class="fa fa-check"></i><b>4.1.5</b> Stability of the Axes</a></li>
+<li class="chapter" data-level="4.1.6" data-path="lascaux.html"><a href="lascaux.html#selecting-best-temperature-reading-locations"><i class="fa fa-check"></i><b>4.1.6</b> Selecting Best Temperature Reading Locations</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="design-of-experiments-and-pca.html"><a href="design-of-experiments-and-pca.html"><i class="fa fa-check"></i><b>4.2</b> Design of Experiments and PCA</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="design-of-experiments-and-pca.html"><a href="design-of-experiments-and-pca.html#pca-1"><i class="fa fa-check"></i><b>4.2.1</b> PCA</a></li>
+<li class="chapter" data-level="4.2.2" data-path="design-of-experiments-and-pca.html"><a href="design-of-experiments-and-pca.html#evolution-of-factor-trajectories-over-time"><i class="fa fa-check"></i><b>4.2.2</b> Evolution of Factor Trajectories over Time</a></li>
+<li class="chapter" data-level="4.2.3" data-path="design-of-experiments-and-pca.html"><a href="design-of-experiments-and-pca.html#analysis-of-variance"><i class="fa fa-check"></i><b>4.2.3</b> Analysis of Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="defining-an-economic-capacity-index.html"><a href="defining-an-economic-capacity-index.html"><i class="fa fa-check"></i><b>4.3</b> Defining an Economic Capacity Index</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="defining-an-economic-capacity-index.html"><a href="defining-an-economic-capacity-index.html#analyzed-information"><i class="fa fa-check"></i><b>4.3.1</b> Analyzed Information</a></li>
+<li class="chapter" data-level="4.3.2" data-path="defining-an-economic-capacity-index.html"><a href="defining-an-economic-capacity-index.html#pca-2"><i class="fa fa-check"></i><b>4.3.2</b> PCA</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>VI Appendix</b></span></li>
+<li class="chapter" data-level="5" data-path="appendixa.html"><a href="appendixa.html"><i class="fa fa-check"></i><b>5</b> Appendix A: Fundamentals</a><ul>
+<li class="chapter" data-level="5.1" data-path="space-of-p-dimensions.html"><a href="space-of-p-dimensions.html"><i class="fa fa-check"></i><b>5.1</b> Space of p-Dimensions</a></li>
+<li class="chapter" data-level="5.2" data-path="distances-between-points.html"><a href="distances-between-points.html"><i class="fa fa-check"></i><b>5.2</b> Distances between points</a></li>
+<li class="chapter" data-level="5.3" data-path="center-of-gravity.html"><a href="center-of-gravity.html"><i class="fa fa-check"></i><b>5.3</b> Center of Gravity</a></li>
+<li class="chapter" data-level="5.4" data-path="inertia-of-a-cloud-of-points.html"><a href="inertia-of-a-cloud-of-points.html"><i class="fa fa-check"></i><b>5.4</b> Inertia of a cloud of points</a></li>
+<li class="chapter" data-level="5.5" data-path="projection-of-the-cloud-of-points-on-a-line.html"><a href="projection-of-the-cloud-of-points-on-a-line.html"><i class="fa fa-check"></i><b>5.5</b> Projection of the cloud of points on a line</a></li>
+<li class="chapter" data-level="5.6" data-path="centered-and-standardized-variable.html"><a href="centered-and-standardized-variable.html"><i class="fa fa-check"></i><b>5.6</b> Centered and Standardized Variable</a></li>
+<li class="chapter" data-level="5.7" data-path="correlation-coefficient.html"><a href="correlation-coefficient.html"><i class="fa fa-check"></i><b>5.7</b> Correlation Coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="appendixb.html"><a href="appendixb.html"><i class="fa fa-check"></i><b>6</b> Appendix B: PCA Formulae</a><ul>
+<li class="chapter" data-level="6.1" data-path="general-analysis.html"><a href="general-analysis.html"><i class="fa fa-check"></i><b>6.1</b> General Analysis</a></li>
+<li class="chapter" data-level="6.2" data-path="formulas-for-pca.html"><a href="formulas-for-pca.html"><i class="fa fa-check"></i><b>6.2</b> Formulas for PCA</a></li>
+<li class="chapter" data-level="6.3" data-path="biplot-and-pca.html"><a href="biplot-and-pca.html"><i class="fa fa-check"></i><b>6.3</b> Biplot and PCA</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="appendixc.html"><a href="appendixc.html"><i class="fa fa-check"></i><b>7</b> Appendix C: Data Analysis Reminder</a><ul>
+<li class="chapter" data-level="7.1" data-path="normalized-principal-component-analysis.html"><a href="normalized-principal-component-analysis.html"><i class="fa fa-check"></i><b>7.1</b> Normalized Principal Component Analysis</a></li>
+<li class="chapter" data-level="7.2" data-path="non-normalized-principal-component-analysis.html"><a href="non-normalized-principal-component-analysis.html"><i class="fa fa-check"></i><b>7.2</b> Non-normalized Principal Component Analysis</a></li>
+<li class="chapter" data-level="7.3" data-path="simple-correpondence-analysis.html"><a href="simple-correpondence-analysis.html"><i class="fa fa-check"></i><b>7.3</b> Simple Correpondence Analysis</a></li>
+<li class="chapter" data-level="7.4" data-path="multiple-correspondence-analysis.html"><a href="multiple-correspondence-analysis.html"><i class="fa fa-check"></i><b>7.4</b> Multiple Correspondence Analysis</a></li>
+<li class="chapter" data-level="7.5" data-path="clustering-of-factors.html"><a href="clustering-of-factors.html"><i class="fa fa-check"></i><b>7.5</b> Clustering of Factors</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Principal Component Analysis for Data Science (pca4ds)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="principal-components" class="section level2">
+<h2><span class="header-section-number">2.1</span> Principal Components</h2>
+<p>Let’s consider the cloud of row-points, also known as the cloud of individuals. As we’ve mentioned, we are interested in decomposing the inertia (i.e. the spread) of this cloud in terms of a series of orthogonal directions.</p>
+<p>The first step consists of looking for the most basic type of subspace, namely, a line. Geometrically, a line can be defined by a vector <span class="math inline">\(\mathbf{u}\)</span> of unit norm. Based on the discusion from the previous chapter, we will attempt to define <span class="math inline">\(\mathbf{u}\)</span> in such a way that the projected points on this direction have maximum inertia (see figure <a href="principal-components.html#fig:fig-2-1">2.1</a>). In other words, <span class="math inline">\(\mathbf{u}\)</span> will be defined such that the distances between pairs of projected points are as close as possible to the original distances.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-1"></span>
+<img src="images/figure-2-1.png" alt="Projection of a row-point on the direction defined by a unit vector" width="75%" />
+<p class="caption">
+Figure 2.1: Projection of a row-point on the direction defined by a unit vector
+</p>
+</div>
+<p>The projection (or coordinate) of a row-point on the direction defined by <span class="math inline">\(\mathbf{u}\)</span> is given by:</p>
+<p><span class="math display" id="eq:2-1">\[
+\psi_i = \sum_{j=1}^{p} (x_{ij} - \bar{x}_j) u_j
+\tag{2.1}
+\]</span></p>
+<p>The inertia (or variance) of all the projected points on <span class="math inline">\(\mathbf{u}\)</span> is then:</p>
+<p><span class="math display" id="eq:2-2">\[
+\sum_{i=1}^{n} = p_i \hspace{1mm} \psi_{i}^{2} = \lambda
+\tag{2.2}
+\]</span></p>
+<p>The goal is to look for a line <span class="math inline">\(\mathbf{u}\)</span> that maximizes the value <span class="math inline">\(\lambda\)</span>.</p>
+<p>Let <span class="math inline">\(\mathbf{X}\)</span> be the mean-centered data matrix. Obtaining <span class="math inline">\(\mathbf{u}\)</span> implies diagonalizing the cross-product matrix <span class="math inline">\(\mathbf{X^\mathsf{T} X}\)</span>. This matrix is the correlation matrix in a normalized PCA, whereas in a non-normalized PCA this matrix becomes the covariance matrix.</p>
+<p>It turns out that the unit vector <span class="math inline">\(\mathbf{u}\)</span> is the eigenvector associated to the largest eigenvalue from diagonalizing <span class="math inline">\(\mathbf{X^\mathsf{T} X}\)</span>.</p>
+<p>Analogously, the orthogonal direction to <span class="math inline">\(\mathbf{u}\)</span> that maximizes the projected inertia in this new direction corresponds to the eigenvector associated to the second largest eigenvalue from diagonalizing <span class="math inline">\(\mathbf{X^\mathsf{T} X}\)</span>. This maximized inertia is equal to the second eigenvalue, so on and so forth.</p>
+<p>The eigenvalues provide the projected inertias on each of the desired directions. Moreover, the sum of the eigenvalues is the sum of the inertias on the orthogonal directions, and this sum is equal to the global inertia of the cloud of points.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Eigenvalues</th>
+<th align="center">Eigenvectors</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(\lambda_1\)</span></td>
+<td align="center"><span class="math inline">\(\mathbf{u_1}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(\lambda_2\)</span></td>
+<td align="center"><span class="math inline">\(\mathbf{u_2}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(\dots\)</span></td>
+<td align="center"><span class="math inline">\(\dots\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(\lambda_p\)</span></td>
+<td align="center"><span class="math inline">\(\mathbf{u_p}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display" id="eq:2-3">\[
+I_T = \lambda_1 + \lambda_2 + \dots + \lambda_p = \begin{cases}
+  p &amp; \text{in normalized PCA} \\
+  &amp; \\
+  \sum_{j=1}^{p} var(j) &amp; \text{in non-normalized PCA}
+\end{cases}
+\tag{2.3}
+\]</span></p>
+<p>The eigenvectors give the directions of maximum inertia and we call them
+factorial axes.</p>
+<p>On these directions we project the individuals, obtaining what is called the
+<strong>principal components</strong> (see formula <a href="principal-components.html#eq:2-1">(2.1)</a>). As we can tell, each
+component is obtained as a linear combination of the original variables:</p>
+<p><span class="math display">\[
+\boldsymbol{\psi}_{\alpha} = u_1 \mathbf{x_1} + \dots + u_p \mathbf{x_p}
+\]</span></p>
+<p>Likewise, each component has a variance equal to its associated eigenvalue:</p>
+<p><span class="math display">\[
+var(\boldsymbol{\psi}_{\alpha}) = \lambda_\alpha
+\]</span></p>
+<p>In summary, a Principal Component Analysis can be seen as a technique in which we go from <span class="math inline">\(p\)</span> original variables <span class="math inline">\(\mathbf{x_j}\)</span>, each having an importance given by its variance, into <span class="math inline">\(p\)</span> new variables <span class="math inline">\(\boldsymbol{\psi}_{\alpha}\)</span>. These new variables are linear combination of the original variables, and have an importance given by their variance which turns out to be their eigenvalues (see figure <a href="principal-components.html#fig:fig-2-2">2.2</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-2"></span>
+<img src="images/figure-2-2.png" alt="Change of basis and dimension reduction" width="75%" />
+<p class="caption">
+Figure 2.2: Change of basis and dimension reduction
+</p>
+</div>
+<div id="interpreting-the-inertia-proportions" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> Interpreting the Inertia Proportions</h3>
+<p>In our working example with the data about the cities, we obtain the following
+12 eigenvalues:</p>
+<table>
+<caption><span id="tab:table-2-1">Table 2.1: </span>Distribution of eigenvalues.</caption>
+<thead>
+<tr class="header">
+<th align="right">num</th>
+<th align="right">eigenvalues</th>
+<th align="right">percentage</th>
+<th align="right">cumulative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">10.1390</td>
+<td align="right">84.49</td>
+<td align="right">84.49</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">0.8612</td>
+<td align="right">7.18</td>
+<td align="right">91.67</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">0.3248</td>
+<td align="right">2.71</td>
+<td align="right">94.37</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">0.1715</td>
+<td align="right">1.43</td>
+<td align="right">95.80</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">0.1484</td>
+<td align="right">1.24</td>
+<td align="right">97.04</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">0.0973</td>
+<td align="right">0.81</td>
+<td align="right">97.85</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">0.0682</td>
+<td align="right">0.57</td>
+<td align="right">98.42</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">0.0525</td>
+<td align="right">0.44</td>
+<td align="right">98.86</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">0.0505</td>
+<td align="right">0.42</td>
+<td align="right">99.28</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">0.0332</td>
+<td align="right">0.28</td>
+<td align="right">99.55</td>
+</tr>
+<tr class="odd">
+<td align="right">11</td>
+<td align="right">0.0309</td>
+<td align="right">0.26</td>
+<td align="right">99.81</td>
+</tr>
+<tr class="even">
+<td align="right">12</td>
+<td align="right">0.0226</td>
+<td align="right">0.19</td>
+<td align="right">100.00</td>
+</tr>
+</tbody>
+</table>
+<p>Notice that we obtain a first principal component that stands out from the rest.</p>
+<p>The column <code>eigenvalue</code> provides the explained inertia for each direction. The sum of all of the inertias corresponds to the global inertia of the cloud of cities. Observe that this global inertia is equal to 12, which is the number of variables. Recall that this is property from a normalized PCA.</p>
+<p>The column <code>percentage</code>, in turn, expresses the porpotion of the explained inertia by each axis. As we can tell from the table, the first direction explains about 85% of the global inertia, which is contained in a 12-dimensional space. Because of the very large value of this principal component, one could be tempted to neglect the rest of the components. However, we’ll see that such an attitude is not excempt of risks. This does not imply that the rest of the components are useless or uninteresting. Quite the opposite, they may help reveal systematic patterns of variation in the data.</p>
+<p>The last column of table <a href="principal-components.html#tab:table-2-1">2.1</a> provides the cumulative percentage of inertia. With the first three factorial axes we summarize about 95% of the inertia (or spread) of the cloud of points.</p>
+</div>
+<div id="how-many-axes-to-retain" class="section level3">
+<h3><span class="header-section-number">2.1.2</span> How many axes to retain?</h3>
+<p>From the previous results, we’ve seen that with the first principal components, we get to recover or capture most of the spread in the cloud of points. A natural question arises: How many axes should we keep?</p>
+<p>This is actually not an easy question, and the truth is that there is no definitive answer. In order to attempt answering this question, we have to consider another inquiry: What will the axes be used for? Let’s see some examples.</p>
+<p><strong>Example 1.</strong> One possibility involves using the axes to obtain a simple graphic representation of the data. In this case, the conventional number of axes to retain is 2, which are used to graph a scatter diagram: say we call these axes <span class="math inline">\(F_1\)</span> and <span class="math inline">\(F_2\)</span>. With a third axis, we could even try to get a three-dimensional representation (<span class="math inline">\(F_1\)</span>, <span class="math inline">\(F_2\)</span>, and <span class="math inline">\(F_3\)</span>). Beyond three dimensions, we can’t get any visual representations.</p>
+<p>Optionally, we could try to look at partial displays of the <span class="math inline">\(p\)</span>-dimensional space. For instance, we can get a scatterplot with <span class="math inline">\(F_2\)</span> and <span class="math inline">\(F_3\)</span>, and then another scatterplot with <span class="math inline">\(F_1\)</span> and <span class="math inline">\(F_4\)</span>. Keep in mind that all these partial views require a considerable “intelectual” effort. Why? Because of the fact that in any of these partial configurations, the distances between points come from compressed spaces in which some directions have dissapeared. If the goal is to simply obtain a two-dimensional visualization, it usually suffices with looking at the first factorial plane (<span class="math inline">\(F_1\)</span> and <span class="math inline">\(F_2\)</span>). To look “beyond” this plane, we will use outputs from clustering methods.</p>
+<p><strong>Example 2.</strong> If the purpose is to keep the factorial axes as an intermediate stage of a clustering procedure, then this changes things drastically. In this situation, we want to retain several axes (so that we get to keep as much of the spread of the original variables). Usually we would discard those directions associated to the smallest eigenvalues. The reason to do this is because such directions typically reflect random fluctuations—“noise”—and not really a signal in the data.</p>
+<p><strong>Example 3.</strong> If the goal is to use the factorial axes as explanatory variables in a regression model or in a classification model, we will try to keep a reduced number of axes, although not necessarily the first ones. It is certainly possible to find discriminant directions among axes that are not in the first positions.</p>
+<p>As you can tell, deciding on the number of axes to retain is not that simple. This is a decision that is also linked to the stability of results.</p>
+<p>We recommend not to blindly trust in automatic rules of thumb for deciding the number of directions to be kept. Our experience tells us that it is possible to find stable factorial axes with relatively small eigenvalue.</p>
+<p><em>Note:</em> To decrease the percentage of inertia of each axis, one can add new uncorrelated variables to the data table (i.e. white noise). Doing so should not have an effect on the first factorial axes, which should still be able to capture most of the summarized “information”.</p>
+</div>
+<div id="coordinates-of-row-points" class="section level3">
+<h3><span class="header-section-number">2.1.3</span> Coordinates of row-points</h3>
+<p>The table below contains the results about the cities with respect to the first
+two factorial axes:</p>
+<table>
+<caption><span id="tab:table-2-2">Table 2.2: </span>Results of the individuals</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="left">city</th>
+<th align="right">wgt</th>
+<th align="right">disto</th>
+<th align="right">coord1</th>
+<th align="right">coord2</th>
+<th align="right">contr1</th>
+<th align="right">contr2</th>
+<th align="right">cosqr1</th>
+<th align="right">cosqr2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td align="left">AbuDhabi</td>
+<td align="right">1.96</td>
+<td align="right">27.16</td>
+<td align="right">2.17</td>
+<td align="right">4.61</td>
+<td align="right">0.91</td>
+<td align="right">48.42</td>
+<td align="right">0.17</td>
+<td align="right">0.78</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td align="left">Amsterdam</td>
+<td align="right">1.96</td>
+<td align="right">3.22</td>
+<td align="right">1.58</td>
+<td align="right">-0.36</td>
+<td align="right">0.48</td>
+<td align="right">0.29</td>
+<td align="right">0.77</td>
+<td align="right">0.04</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td align="left">Athens</td>
+<td align="right">1.96</td>
+<td align="right">4.24</td>
+<td align="right">-1.91</td>
+<td align="right">-0.51</td>
+<td align="right">0.71</td>
+<td align="right">0.58</td>
+<td align="right">0.86</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td align="left">Bangkok</td>
+<td align="right">1.96</td>
+<td align="right">9.87</td>
+<td align="right">-2.97</td>
+<td align="right">0.82</td>
+<td align="right">1.71</td>
+<td align="right">1.53</td>
+<td align="right">0.89</td>
+<td align="right">0.07</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td align="left">Bogota</td>
+<td align="right">1.96</td>
+<td align="right">7.14</td>
+<td align="right">-2.47</td>
+<td align="right">0.66</td>
+<td align="right">1.18</td>
+<td align="right">0.99</td>
+<td align="right">0.86</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td align="left">Mumbai</td>
+<td align="right">1.96</td>
+<td align="right">21.11</td>
+<td align="right">-4.56</td>
+<td align="right">-0.31</td>
+<td align="right">4.03</td>
+<td align="right">0.22</td>
+<td align="right">0.99</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td align="left">Brussels</td>
+<td align="right">1.96</td>
+<td align="right">0.74</td>
+<td align="right">0.61</td>
+<td align="right">-0.17</td>
+<td align="right">0.07</td>
+<td align="right">0.07</td>
+<td align="right">0.50</td>
+<td align="right">0.04</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td align="left">Budapest</td>
+<td align="right">1.96</td>
+<td align="right">17.74</td>
+<td align="right">-4.19</td>
+<td align="right">-0.24</td>
+<td align="right">3.39</td>
+<td align="right">0.13</td>
+<td align="right">0.99</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td align="left">BuenosAires</td>
+<td align="right">1.96</td>
+<td align="right">5.39</td>
+<td align="right">-0.89</td>
+<td align="right">1.23</td>
+<td align="right">0.15</td>
+<td align="right">3.43</td>
+<td align="right">0.15</td>
+<td align="right">0.28</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td align="left">Caracas</td>
+<td align="right">1.96</td>
+<td align="right">18.07</td>
+<td align="right">-4.24</td>
+<td align="right">-0.06</td>
+<td align="right">3.48</td>
+<td align="right">0.01</td>
+<td align="right">1.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td align="left">Chicago</td>
+<td align="right">1.96</td>
+<td align="right">23.64</td>
+<td align="right">4.42</td>
+<td align="right">-1.25</td>
+<td align="right">3.77</td>
+<td align="right">3.55</td>
+<td align="right">0.82</td>
+<td align="right">0.07</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td align="left">Copenhagen</td>
+<td align="right">1.96</td>
+<td align="right">7.43</td>
+<td align="right">2.37</td>
+<td align="right">-0.83</td>
+<td align="right">1.09</td>
+<td align="right">1.58</td>
+<td align="right">0.76</td>
+<td align="right">0.09</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td align="left">Dublin</td>
+<td align="right">1.96</td>
+<td align="right">0.79</td>
+<td align="right">-0.27</td>
+<td align="right">-0.19</td>
+<td align="right">0.01</td>
+<td align="right">0.08</td>
+<td align="right">0.10</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="even">
+<td>15</td>
+<td align="left">Dusseldorf</td>
+<td align="right">1.96</td>
+<td align="right">8.32</td>
+<td align="right">2.72</td>
+<td align="right">0.24</td>
+<td align="right">1.43</td>
+<td align="right">0.13</td>
+<td align="right">0.89</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td>16</td>
+<td align="left">Frankfurt</td>
+<td align="right">1.96</td>
+<td align="right">10.12</td>
+<td align="right">3.05</td>
+<td align="right">0.63</td>
+<td align="right">1.80</td>
+<td align="right">0.90</td>
+<td align="right">0.92</td>
+<td align="right">0.04</td>
+</tr>
+<tr class="even">
+<td>17</td>
+<td align="left">Geneva</td>
+<td align="right">1.96</td>
+<td align="right">42.20</td>
+<td align="right">6.36</td>
+<td align="right">-0.30</td>
+<td align="right">7.82</td>
+<td align="right">0.21</td>
+<td align="right">0.96</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td>18</td>
+<td align="left">Helsinki</td>
+<td align="right">1.96</td>
+<td align="right">0.49</td>
+<td align="right">0.03</td>
+<td align="right">-0.51</td>
+<td align="right">0.00</td>
+<td align="right">0.60</td>
+<td align="right">0.00</td>
+<td align="right">0.53</td>
+</tr>
+<tr class="even">
+<td>19</td>
+<td align="left">Hongkong</td>
+<td align="right">1.96</td>
+<td align="right">3.61</td>
+<td align="right">-1.03</td>
+<td align="right">0.54</td>
+<td align="right">0.21</td>
+<td align="right">0.66</td>
+<td align="right">0.30</td>
+<td align="right">0.08</td>
+</tr>
+<tr class="odd">
+<td>20</td>
+<td align="left">Houston</td>
+<td align="right">1.96</td>
+<td align="right">15.21</td>
+<td align="right">3.45</td>
+<td align="right">-0.78</td>
+<td align="right">2.30</td>
+<td align="right">1.37</td>
+<td align="right">0.78</td>
+<td align="right">0.04</td>
+</tr>
+<tr class="even">
+<td>21</td>
+<td align="left">Jakarta</td>
+<td align="right">1.96</td>
+<td align="right">16.92</td>
+<td align="right">-4.08</td>
+<td align="right">-0.20</td>
+<td align="right">3.22</td>
+<td align="right">0.09</td>
+<td align="right">0.98</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td>22</td>
+<td align="left">Johannesburg</td>
+<td align="right">1.96</td>
+<td align="right">4.88</td>
+<td align="right">-2.08</td>
+<td align="right">-0.02</td>
+<td align="right">0.84</td>
+<td align="right">0.00</td>
+<td align="right">0.88</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td>24</td>
+<td align="left">Lagos</td>
+<td align="right">1.96</td>
+<td align="right">23.54</td>
+<td align="right">-4.81</td>
+<td align="right">-0.43</td>
+<td align="right">4.47</td>
+<td align="right">0.42</td>
+<td align="right">0.98</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td>25</td>
+<td align="left">Lisbon</td>
+<td align="right">1.96</td>
+<td align="right">5.00</td>
+<td align="right">-2.17</td>
+<td align="right">-0.28</td>
+<td align="right">0.91</td>
+<td align="right">0.18</td>
+<td align="right">0.94</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td>26</td>
+<td align="left">London</td>
+<td align="right">1.96</td>
+<td align="right">0.76</td>
+<td align="right">-0.02</td>
+<td align="right">-0.63</td>
+<td align="right">0.00</td>
+<td align="right">0.91</td>
+<td align="right">0.00</td>
+<td align="right">0.52</td>
+</tr>
+<tr class="odd">
+<td>27</td>
+<td align="left">LosAngeles</td>
+<td align="right">1.96</td>
+<td align="right">18.89</td>
+<td align="right">3.64</td>
+<td align="right">-1.80</td>
+<td align="right">2.57</td>
+<td align="right">7.39</td>
+<td align="right">0.70</td>
+<td align="right">0.17</td>
+</tr>
+<tr class="even">
+<td>28</td>
+<td align="left">Luxembourg</td>
+<td align="right">1.96</td>
+<td align="right">32.79</td>
+<td align="right">5.24</td>
+<td align="right">0.69</td>
+<td align="right">5.30</td>
+<td align="right">1.07</td>
+<td align="right">0.84</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td>29</td>
+<td align="left">Madrid</td>
+<td align="right">1.96</td>
+<td align="right">0.89</td>
+<td align="right">-0.06</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td>30</td>
+<td align="left">Manama</td>
+<td align="right">1.96</td>
+<td align="right">7.17</td>
+<td align="right">-0.82</td>
+<td align="right">2.05</td>
+<td align="right">0.13</td>
+<td align="right">9.60</td>
+<td align="right">0.09</td>
+<td align="right">0.59</td>
+</tr>
+<tr class="odd">
+<td>31</td>
+<td align="left">Manila</td>
+<td align="right">1.96</td>
+<td align="right">16.51</td>
+<td align="right">-4.05</td>
+<td align="right">-0.03</td>
+<td align="right">3.17</td>
+<td align="right">0.00</td>
+<td align="right">0.99</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td>32</td>
+<td align="left">Mexico</td>
+<td align="right">1.96</td>
+<td align="right">8.63</td>
+<td align="right">-2.83</td>
+<td align="right">-0.07</td>
+<td align="right">1.55</td>
+<td align="right">0.01</td>
+<td align="right">0.93</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td>33</td>
+<td align="left">Milan</td>
+<td align="right">1.96</td>
+<td align="right">0.69</td>
+<td align="right">0.02</td>
+<td align="right">-0.34</td>
+<td align="right">0.00</td>
+<td align="right">0.26</td>
+<td align="right">0.00</td>
+<td align="right">0.17</td>
+</tr>
+<tr class="even">
+<td>34</td>
+<td align="left">Montreal</td>
+<td align="right">1.96</td>
+<td align="right">5.68</td>
+<td align="right">2.17</td>
+<td align="right">-0.77</td>
+<td align="right">0.91</td>
+<td align="right">1.34</td>
+<td align="right">0.83</td>
+<td align="right">0.10</td>
+</tr>
+<tr class="odd">
+<td>35</td>
+<td align="left">Nairobi</td>
+<td align="right">1.96</td>
+<td align="right">23.45</td>
+<td align="right">-4.82</td>
+<td align="right">-0.26</td>
+<td align="right">4.50</td>
+<td align="right">0.15</td>
+<td align="right">0.99</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td>36</td>
+<td align="left">NewYork</td>
+<td align="right">1.96</td>
+<td align="right">23.01</td>
+<td align="right">4.60</td>
+<td align="right">-0.30</td>
+<td align="right">4.09</td>
+<td align="right">0.20</td>
+<td align="right">0.92</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td>37</td>
+<td align="left">Nicosia</td>
+<td align="right">1.96</td>
+<td align="right">3.56</td>
+<td align="right">-1.78</td>
+<td align="right">-0.27</td>
+<td align="right">0.61</td>
+<td align="right">0.16</td>
+<td align="right">0.89</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="even">
+<td>38</td>
+<td align="left">Oslo</td>
+<td align="right">1.96</td>
+<td align="right">3.98</td>
+<td align="right">1.66</td>
+<td align="right">-0.73</td>
+<td align="right">0.53</td>
+<td align="right">1.21</td>
+<td align="right">0.69</td>
+<td align="right">0.13</td>
+</tr>
+<tr class="odd">
+<td>39</td>
+<td align="left">Panama</td>
+<td align="right">1.96</td>
+<td align="right">5.97</td>
+<td align="right">-2.22</td>
+<td align="right">0.62</td>
+<td align="right">0.96</td>
+<td align="right">0.88</td>
+<td align="right">0.83</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="even">
+<td>40</td>
+<td align="left">Paris</td>
+<td align="right">1.96</td>
+<td align="right">5.31</td>
+<td align="right">1.65</td>
+<td align="right">1.41</td>
+<td align="right">0.53</td>
+<td align="right">4.50</td>
+<td align="right">0.51</td>
+<td align="right">0.37</td>
+</tr>
+<tr class="odd">
+<td>41</td>
+<td align="left">Prague</td>
+<td align="right">1.96</td>
+<td align="right">18.69</td>
+<td align="right">-4.29</td>
+<td align="right">-0.31</td>
+<td align="right">3.56</td>
+<td align="right">0.22</td>
+<td align="right">0.98</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td>42</td>
+<td align="left">RiodeJaneiro</td>
+<td align="right">1.96</td>
+<td align="right">12.22</td>
+<td align="right">-3.40</td>
+<td align="right">0.28</td>
+<td align="right">2.24</td>
+<td align="right">0.18</td>
+<td align="right">0.95</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td>43</td>
+<td align="left">SaoPaulo</td>
+<td align="right">1.96</td>
+<td align="right">10.33</td>
+<td align="right">-3.18</td>
+<td align="right">-0.01</td>
+<td align="right">1.96</td>
+<td align="right">0.00</td>
+<td align="right">0.98</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td>44</td>
+<td align="left">Seoul</td>
+<td align="right">1.96</td>
+<td align="right">0.69</td>
+<td align="right">-0.61</td>
+<td align="right">-0.04</td>
+<td align="right">0.07</td>
+<td align="right">0.00</td>
+<td align="right">0.54</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td>45</td>
+<td align="left">Singapore</td>
+<td align="right">1.96</td>
+<td align="right">2.64</td>
+<td align="right">-1.16</td>
+<td align="right">-0.16</td>
+<td align="right">0.26</td>
+<td align="right">0.06</td>
+<td align="right">0.51</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="even">
+<td>46</td>
+<td align="left">Stockholm</td>
+<td align="right">1.96</td>
+<td align="right">2.16</td>
+<td align="right">0.67</td>
+<td align="right">-0.98</td>
+<td align="right">0.09</td>
+<td align="right">2.20</td>
+<td align="right">0.21</td>
+<td align="right">0.45</td>
+</tr>
+<tr class="odd">
+<td>47</td>
+<td align="left">Sidney</td>
+<td align="right">1.96</td>
+<td align="right">0.62</td>
+<td align="right">0.03</td>
+<td align="right">-0.21</td>
+<td align="right">0.00</td>
+<td align="right">0.10</td>
+<td align="right">0.00</td>
+<td align="right">0.07</td>
+</tr>
+<tr class="even">
+<td>48</td>
+<td align="left">Taipei</td>
+<td align="right">1.96</td>
+<td align="right">6.07</td>
+<td align="right">1.64</td>
+<td align="right">-0.27</td>
+<td align="right">0.52</td>
+<td align="right">0.17</td>
+<td align="right">0.45</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td>49</td>
+<td align="left">Tel-Aviv</td>
+<td align="right">1.96</td>
+<td align="right">3.35</td>
+<td align="right">-1.41</td>
+<td align="right">0.00</td>
+<td align="right">0.38</td>
+<td align="right">0.00</td>
+<td align="right">0.59</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td>50</td>
+<td align="left">Tokyo</td>
+<td align="right">1.96</td>
+<td align="right">46.73</td>
+<td align="right">6.72</td>
+<td align="right">0.72</td>
+<td align="right">8.72</td>
+<td align="right">1.18</td>
+<td align="right">0.97</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td>51</td>
+<td align="left">Toronto</td>
+<td align="right">1.96</td>
+<td align="right">4.86</td>
+<td align="right">1.77</td>
+<td align="right">-1.06</td>
+<td align="right">0.60</td>
+<td align="right">2.53</td>
+<td align="right">0.64</td>
+<td align="right">0.23</td>
+</tr>
+<tr class="even">
+<td>52</td>
+<td align="left">Vienna</td>
+<td align="right">1.96</td>
+<td align="right">4.07</td>
+<td align="right">1.86</td>
+<td align="right">-0.11</td>
+<td align="right">0.67</td>
+<td align="right">0.03</td>
+<td align="right">0.85</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td>53</td>
+<td align="left">Zurich</td>
+<td align="right">1.96</td>
+<td align="right">65.45</td>
+<td align="right">7.90</td>
+<td align="right">0.29</td>
+<td align="right">12.08</td>
+<td align="right">0.20</td>
+<td align="right">0.95</td>
+<td align="right">0.00</td>
+</tr>
+</tbody>
+</table>
+<p>The column <code>wgt</code> indicates the weight of each city, which in this case is a
+uniform weight of 100 / 51 = 1.96.</p>
+<p>The column <code>disto</code> provides the squared distance of each city to the center of
+gravity. This column allows us to find which cities are the <em>typical</em> cities
+(i.e. the closest ones to the center of gravity), such as Helsinki. Likewise,
+it allows us to identify the <em>unusual</em> or <em>unique</em> cities (i.e. those that have
+a large distance to the center of gravity) like Zurich or Tokyo. In general,
+the distance to the center of gravity is a criterion of the <em>singularity</em> of
+each city.</p>
+<p>The third and fourth columns correspond to the coordinates obtained from
+projecting the cities onto the first two factorial axes. The representation on
+the first factorial plane is obtained with these coordinateas (<span class="math inline">\(F_1\)</span> and <span class="math inline">\(F_2\)</span>),
+given in figure <a href="how-to-see-the-distances-between-points.html#fig:fig-1-9">1.9</a>.</p>
+<p>It is important to mention that the orientation of a factorial axis is arbitrary:
+the important trait is the direction. We could change the orientation of an axis
+by changing the sign of the coordinates on this axis. Graphically, this means
+that all symmetries are possible. The user has to make the decision of which
+orientation is the most convenient.</p>
+</div>
+<div id="interpretation-tools" class="section level3">
+<h3><span class="header-section-number">2.1.4</span> Interpretation Tools</h3>
+<div id="contributions" class="section level4 unnumbered">
+<h4>Contributions</h4>
+<p>The next two columns, <code>contr1</code> and <code>contr2</code>, provide the <em>contributions</em> (in percentages) of the cities to the explained inertia by each axis. The inertia of an axis is obtained via formula <a href="principal-components.html#eq:2-2">(2.2)</a>. Thus, we can measure the part of an axis’ inertia that is due to a given row-point by means of the quotient:</p>
+<p><span class="math display" id="eq:2-4">\[
+CTR(i, \alpha) = \frac{p_i \psi^{2}_{i \alpha}}{\lambda_{\alpha}} \times 100
+\tag{2.4}
+\]</span></p>
+<p>The above quotient is the contribution of a point <span class="math inline">\(i\)</span> to the construction of
+axis <span class="math inline">\(\alpha\)</span>.</p>
+<p>We can use the contributions to identify the cities that contribute the most to
+the construction of the factorial axes.</p>
+<p>If all cities had the same contribution, this would have a value of about 2%
+(100/51). Consequently, all those cities with contributions greater than 2% can
+be considered to have influence above the average.</p>
+<p><em>When is a contribution considered to be “high”?</em></p>
+<p>The answer to this question is not straightforward. A contribution will be
+considered “high” when, compared to the rest of contributions, it has an unusual
+large value.</p>
+<p>For example, the city that contributes the most to the second axis is Abu Dhabi (48%). Almost half of the inertia of this axis is due to this city alone. Abu Dhabi is clearly very influent in the construction of this axis. We can actually ask about the stability of this axis, meaning, how much the result would change if Abu Dhabi were to be eliminated?</p>
+<p>The next figure <a href="principal-components.html#fig:fig-2-3">2.3</a> shows the cities with a size proportional to their contributions on the first factorial plane (sum of the contributions of the first two axes).</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-3"></span>
+<img src="images/figure-2-3.png" alt="Contributions of the cities in the first factorial plane" width="80%" />
+<p class="caption">
+Figure 2.3: Contributions of the cities in the first factorial plane
+</p>
+</div>
+<p>All the active points play a role in the construction of an axis. We can check that the sum of all the contributions in an axis add up to 100.</p>
+<p><span class="math display" id="eq:2-5">\[
+\sum_{i=1}^{n} CTR(i, \alpha) = 100
+\tag{2.5}
+\]</span></p>
+</div>
+<div id="squared-cosines" class="section level4 unnumbered">
+<h4>Squared Cosines</h4>
+<p>The last columns of the table of results, <code>cosqr1</code> and <code>cosqr2</code>, contain the values of the <strong>squared cosines</strong>. These are used to assess the quality of the obtained factorial configuration when compared to the original configuration of the row-points.</p>
+<p>Because the obtained representations are an approximation of the real distances between points, it is expected that some distances between pairs of points will be better represented whereas other distances will not reliably reflect the real distance between two points.</p>
+<p>The goal is to have a good idea of how close is a point with respect to the factorial plane. If two points are close to the factorial plane, then the projected distance will be a good approximation to the actual distance in the original space. However, if at least one point is further away from the projection plane, then the real distance can be very different from that represented in the factorial plane.</p>
+<p>This proximity to the factorial plane is measured with the squared cosine of each point to the factorial axes.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-4"></span>
+<img src="images/figure-2-4.png" alt="The squared cosine as a measure of proximity" width="60%" />
+<p class="caption">
+Figure 2.4: The squared cosine as a measure of proximity
+</p>
+</div>
+<p>The figure <a href="principal-components.html#fig:fig-2-4">2.4</a> illustrates the definition given in equation <a href="principal-components.html#eq:2-6">(2.6)</a></p>
+<p><span class="math display" id="eq:2-6">\[
+COS^2(i, \alpha) = \frac{\psi^{2}_{i \alpha}}{d^2(i, G)}
+\tag{2.6}
+\]</span></p>
+<p>A squared cosine of 1 means that the city is on the factorial axis (i.e. the
+angle <span class="math inline">\(\omega\)</span> is zero), whereas a squared cosine of 0 indicates that the city
+is on an orthogonal direction to the axis.</p>
+<p>Notice that the sum of the squared cosines over all <span class="math inline">\(p\)</span> factorial axes is equal
+to 1. This has to do with fact that all axes are needed in order to have the
+exact position of a point in the entire space.</p>
+<p><span class="math display" id="eq:2-7">\[
+\sum_{\alpha = 1}^{p} COS^2(i, \alpha) = 1
+\tag{2.7}
+\]</span></p>
+<p>Interestingly, the sum of the squared cosines of a given point over the first axes provides, in percentage, the “quality” of representation of the point in the subspace defined by these axes.</p>
+<p><em>What value of a squared cosine indicates that a point is “well represented” on a factorial plane?</em></p>
+<p>Similar to the contributions, the answer to the above question is not straightforward. A squared cosine (or the sum on the first two axes of the factorial plane) has to be compared with the rest of the squared cosines in order to determine if it is large or small.</p>
+<p>In our working example, the cities are in general well represented on the first factorial plane. The sum of the squared cosines over the first two axes is close to 1. However, cities such as Dublin, Madrid, Sidney or Milan, which are close to the center, are not well represented. In contrast, Mumbai or Caracas are perfectly represented. Figure <a href="principal-components.html#fig:fig-2-5">2.5</a> shows the cities with a size proportional to their squared cosine on the first factorial plane.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-2-5"></span>
+<img src="images/figure-2-5.png" alt="Squared cosines of the cities on the first factorial plane" width="80%" />
+<p class="caption">
+Figure 2.5: Squared cosines of the cities on the first factorial plane
+</p>
+</div>
+<p>The cities that are deficiently represented in this plane are the “average” cities. We can only interpret the proximity between cities if they are well represented on the factorial plane.</p>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="mechanics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="projections-of-variables.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

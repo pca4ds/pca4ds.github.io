@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Terminology | Principal Component Analysis for Data Science (pca4ds)</title>
+  <title>3.4 Analysis of Table of Ranks | Principal Component Analysis for Data Science (pca4ds)</title>
   <meta name="description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Terminology | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta property="og:title" content="3.4 Analysis of Table of Ranks | Principal Component Analysis for Data Science (pca4ds)" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="gastonstat/pca4ds" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Terminology | Principal Component Analysis for Data Science (pca4ds)" />
+  <meta name="twitter:title" content="3.4 Analysis of Table of Ranks | Principal Component Analysis for Data Science (pca4ds)" />
   
   <meta name="twitter:description" content="This book will teach you what is Principal Component Analysis and how you can use it for a variety of data analysis purposes: description, exploration, visualization, pre-modeling, dimension reduction, and data compression." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="from-lanalyse-des-données-to-data-science.html"/>
-<link rel="next" href="basic.html"/>
+<link rel="prev" href="validation-stability-and-significance.html"/>
+<link rel="next" href="optimal-reconstitution-of-data.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -207,47 +207,452 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="terminology" class="section level1 unnumbered">
-<h1>Terminology</h1>
-<p>This section will briefly introduce you to the terms that we will use
-throughout this book.</p>
-<ul>
-<li><p><strong>Data table</strong>: rectangular array formed by rows and columns. In each of
-the table entries (i.e. intersection of one row and one column), we find a
-datum, typically codified in numeric form. We also use the term <em>data matrix</em>
-as a synonym term. We represent the data table with upper case bold letters
-e.g. <span class="math inline">\(\mathbf{X}\)</span>, with <span class="math inline">\(n\)</span> rows and <span class="math inline">\(p\)</span> columns.</p></li>
-<li><p><strong>Individual</strong>: an individual is a row of the data table. The word individual
-refers to any type of object: person, animal, country, company, planet, etc.</p></li>
-<li><p><strong>Variable</strong>: we use the word “variable” to refer to any column in the data table. For each individual, we observe the same aggregate, the same measure, the same question, etc. Instead of variable we can also talk about “measure”, attribute, characteristic, property, etc.</p></li>
-<li><p><strong>Continuous Variable</strong>: we talk about continuous variable when the measurement is quantitative. To be more precise, a variable is continuous when calculating the mean (or average) makes sense.</p></li>
-<li><p><strong>Nominal Variable</strong>: we talk about a nominal variable when its values are names of categories (or qualities). Examples of nominal variables are <em>civil status</em> (e.g. single, married, divorced, widowed), <em>geographc region</em> (e.g. north, south, west, etc). We also use the terms categorical or qualitative variable as synonyms of nominal.</p></li>
-<li><p><strong>Modality</strong>: the modalities or categories are the values taken by a nominal variable. For example the variable <em>gender</em> (typical) has two modalities: male and female. A modalitiy is also known as group, class, or category.</p></li>
-<li><p><strong>Cloud of Points</strong>: on a plane or in a three-dimensional space, the notion of “cloud of points” has to do with how the points are positioned according to a series of coordinates, which are based on a set of orthogonal axes. Given the coordinates of the points, it is easy to calculate distance between them. When we have more than three axes, even though the cloud of points exist, we cannot visualize them.</p></li>
-<li><p><strong>Distance</strong>: the distance between two points in a given cloud coincides with the usual notion of distance (which can be calculated based on the coordinates of the points via the famous Pythogorean theorem).</p></li>
-<li><p><strong>Inertia</strong>: inertia is a borrowed term from Mechanics (in Physics) which is entirely equivalent to the statistical concept of variance. The inertia gives an idea of the spread in a cloud of weighted points. If the individuals have the same weight (same importance), the direction with the larger inertia of the cloud is the direction of its major axis.</p></li>
-<li><p><strong>Center of Gravity</strong>: this is the average point (or central point) in a cloud of weighted points. Therefore, there is an equivalence between the mechanical notion of center of gravity and the statistical notion of average point.</p></li>
-<li><p><strong>Factorial Analysis</strong>: optimal visualization (in a certain sense) of a cloud of points in some multidimensional space.</p></li>
-<li><p><strong>Factorial Axes</strong>: these are the axes, sorted by importance, which we use to visualize the cloud of points in a factorial analysis. They are defined by the directions of larger stretching (inertia) of the cloud of poitns.</p></li>
-<li><p><strong>PCA</strong>: Principal Component(s) Analysis.</p></li>
-<li><p><strong>Active Variables</strong>: set of variables that are used in the computation of the axes for the factorial planes.</p></li>
-<li><p><strong>Supplementary Variables</strong>: set of variables that are NOT used in the computation of the factorial axes, but that can be used as aid in the interpretation of results.</p></li>
-<li><p><strong>Contribution</strong>: measures the participation of an element (e.g. category, variable, frequency, or individual) in the construction of a factorial axis.</p></li>
-<li><p><strong>Squared Cosine</strong>: measures the quality of the projection of an element (e.g. category, variable, frequency, or individual) along a factorial axis.</p></li>
-<li><p><strong>V-test</strong>: measures, in number of standard deviations, the distance between an observed value and its theoretical value under a null hypothesis. This test is used to characterize the axes, the categories, the classes, etc.</p></li>
-</ul>
-
+<div id="analysis-of-table-of-ranks" class="section level2">
+<h2><span class="header-section-number">3.4</span> Analysis of Table of Ranks</h2>
+<p>In PCA, it is assumed that the variables are measured on a continuous scale. When applying a normalized PCA, the results will depend on the matrix of correlations between variables. Such results can be affected by the presence of outliers or atypical observations.</p>
+<p>One approach to make the results independent from the scale of measurement and monotone transformations, consists of working with the <em>ranks</em> of the variables and not with the actual observed values.</p>
+<p>To do that, we substitute each value by its rank in increasing order, depending on the considered variable. By doing this, the active table becomes a table of ranks, and consequently, the PCA is performed on a correlation matrix of ranks. This is a remarkable feature of PCA: it is a general methodology that can be applied on any correlation matrix defined by the analyst.</p>
+<p>One interesting transformation involves working with the Spearman’s correlation coefficients. This coefficient measures the monotone dependency between the rank values of two variables according to the following formula:</p>
+<p><span class="math display" id="eq:34">\[
+r_s (j, j&#39;) = 1 - \frac{6 \sum_{i}^{n} (x_{ij} - x_{ij&#39;})^2}{n (n^2 - 1)}
+\tag{3.4}
+\]</span></p>
+<p>where the quantities <span class="math inline">\(x_{ij}\)</span> represent the rank of the individual <span class="math inline">\(i\)</span> of the <span class="math inline">\(j\)</span> variable. The advantage of the Spearman’s correlation coefficient is that it coincides with the Pearson’s coeffcient (usual correlation coefficient) when applied to a matrix of ranks.</p>
+<p>In the case of the international cities, the Spearman’s correlations are given in table <a href="analysis-of-table-of-ranks.html#tab:table-3-6">3.6</a> (compare these with table <a href="size-factor.html#tab:table-2-6">2.6</a>).</p>
+<table>
+<caption><span id="tab:table-3-6">Table 3.6: </span>Spearman’s Rank Correlation Matrix (variables from 2nd analysis)</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">tea2</th>
+<th align="right">bus2</th>
+<th align="right">mec2</th>
+<th align="right">con2</th>
+<th align="right">met2</th>
+<th align="right">coo2</th>
+<th align="right">dep2</th>
+<th align="right">eng2</th>
+<th align="right">ban2</th>
+<th align="right">exe2</th>
+<th align="right">sal2</th>
+<th align="right">tex2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>tea2</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>bus2</td>
+<td align="right">0.22</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>mec2</td>
+<td align="right">-0.24</td>
+<td align="right">0.03</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>con2</td>
+<td align="right">0.27</td>
+<td align="right">0.28</td>
+<td align="right">0.31</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>met2</td>
+<td align="right">0.16</td>
+<td align="right">0.03</td>
+<td align="right">0.19</td>
+<td align="right">0.11</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>coo2</td>
+<td align="right">-0.24</td>
+<td align="right">-0.21</td>
+<td align="right">-0.20</td>
+<td align="right">-0.43</td>
+<td align="right">-0.33</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>dep2</td>
+<td align="right">-0.10</td>
+<td align="right">-0.14</td>
+<td align="right">-0.42</td>
+<td align="right">-0.61</td>
+<td align="right">0.03</td>
+<td align="right">0.24</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>eng2</td>
+<td align="right">-0.15</td>
+<td align="right">-0.33</td>
+<td align="right">-0.38</td>
+<td align="right">-0.68</td>
+<td align="right">0.02</td>
+<td align="right">0.28</td>
+<td align="right">0.49</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>ban2</td>
+<td align="right">0.03</td>
+<td align="right">0.01</td>
+<td align="right">-0.46</td>
+<td align="right">-0.37</td>
+<td align="right">-0.37</td>
+<td align="right">0.24</td>
+<td align="right">0.46</td>
+<td align="right">0.26</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>exe2</td>
+<td align="right">-0.22</td>
+<td align="right">-0.28</td>
+<td align="right">-0.59</td>
+<td align="right">-0.60</td>
+<td align="right">-0.36</td>
+<td align="right">0.19</td>
+<td align="right">0.41</td>
+<td align="right">0.49</td>
+<td align="right">0.37</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td>sal2</td>
+<td align="right">0.02</td>
+<td align="right">-0.07</td>
+<td align="right">-0.07</td>
+<td align="right">-0.13</td>
+<td align="right">-0.17</td>
+<td align="right">-0.04</td>
+<td align="right">0.01</td>
+<td align="right">0.09</td>
+<td align="right">-0.05</td>
+<td align="right">0.13</td>
+<td align="right">1.00</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>tex2</td>
+<td align="right">0.16</td>
+<td align="right">0.27</td>
+<td align="right">-0.04</td>
+<td align="right">0.41</td>
+<td align="right">0.02</td>
+<td align="right">-0.42</td>
+<td align="right">-0.32</td>
+<td align="right">-0.25</td>
+<td align="right">-0.30</td>
+<td align="right">-0.04</td>
+<td align="right">0.06</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>We apply a PCA on the matrix of Spearman’s correlations. The eigenvalues are depicted in table <a href="analysis-of-table-of-ranks.html#tab:table-3-7">3.7</a> which can be compared to those of table <a href="size-factor.html#tab:table-2-7">2.7</a>.</p>
+<table>
+<caption><span id="tab:table-3-7">Table 3.7: </span>Distribution of eigenvalues (from table of ranks).</caption>
+<thead>
+<tr class="header">
+<th align="right">num</th>
+<th align="right">eigenvalue</th>
+<th align="right">percentage</th>
+<th align="right">cumulative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">3.8758</td>
+<td align="right">32.30</td>
+<td align="right">32.30</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">1.6301</td>
+<td align="right">13.58</td>
+<td align="right">45.88</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">1.3199</td>
+<td align="right">11.00</td>
+<td align="right">56.88</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">1.2365</td>
+<td align="right">10.30</td>
+<td align="right">67.19</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">0.9125</td>
+<td align="right">7.60</td>
+<td align="right">74.79</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">0.8049</td>
+<td align="right">6.71</td>
+<td align="right">81.50</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">0.6575</td>
+<td align="right">5.48</td>
+<td align="right">86.98</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">0.4481</td>
+<td align="right">3.73</td>
+<td align="right">90.71</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">0.3752</td>
+<td align="right">3.13</td>
+<td align="right">93.84</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">0.3372</td>
+<td align="right">2.81</td>
+<td align="right">96.65</td>
+</tr>
+<tr class="odd">
+<td align="right">11</td>
+<td align="right">0.2662</td>
+<td align="right">2.22</td>
+<td align="right">98.87</td>
+</tr>
+<tr class="even">
+<td align="right">12</td>
+<td align="right">0.1360</td>
+<td align="right">1.13</td>
+<td align="right">100.00</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Likewise, table <a href="analysis-of-table-of-ranks.html#tab:table-3-8">3.8</a> displays the results obtained for the ranks of the active variables.</p>
+<table>
+<caption><span id="tab:table-3-8">Table 3.8: </span>PCA results of table of ranks</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">coord1</th>
+<th align="right">coord2</th>
+<th align="right">coord3</th>
+<th align="right">cor1</th>
+<th align="right">cor2</th>
+<th align="right">cor3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>teacher2</td>
+<td align="right">-0.27</td>
+<td align="right">0.59</td>
+<td align="right">0.37</td>
+<td align="right">-0.27</td>
+<td align="right">0.59</td>
+<td align="right">0.37</td>
+</tr>
+<tr class="even">
+<td>bus_driver2</td>
+<td align="right">-0.39</td>
+<td align="right">0.45</td>
+<td align="right">0.00</td>
+<td align="right">-0.39</td>
+<td align="right">0.45</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td>mechanic2</td>
+<td align="right">-0.58</td>
+<td align="right">-0.65</td>
+<td align="right">-0.11</td>
+<td align="right">-0.58</td>
+<td align="right">-0.65</td>
+<td align="right">-0.11</td>
+</tr>
+<tr class="even">
+<td>construction_worker2</td>
+<td align="right">-0.85</td>
+<td align="right">0.16</td>
+<td align="right">-0.14</td>
+<td align="right">-0.85</td>
+<td align="right">0.16</td>
+<td align="right">-0.14</td>
+</tr>
+<tr class="odd">
+<td>metalworker2</td>
+<td align="right">-0.32</td>
+<td align="right">-0.22</td>
+<td align="right">0.84</td>
+<td align="right">-0.32</td>
+<td align="right">-0.22</td>
+<td align="right">0.84</td>
+</tr>
+<tr class="even">
+<td>cook_chef2</td>
+<td align="right">0.55</td>
+<td align="right">-0.30</td>
+<td align="right">-0.30</td>
+<td align="right">0.55</td>
+<td align="right">-0.30</td>
+<td align="right">-0.30</td>
+</tr>
+<tr class="odd">
+<td>factory_manager2</td>
+<td align="right">0.71</td>
+<td align="right">0.07</td>
+<td align="right">0.38</td>
+<td align="right">0.71</td>
+<td align="right">0.07</td>
+<td align="right">0.38</td>
+</tr>
+<tr class="even">
+<td>engineer2</td>
+<td align="right">0.73</td>
+<td align="right">-0.08</td>
+<td align="right">0.31</td>
+<td align="right">0.73</td>
+<td align="right">-0.08</td>
+<td align="right">0.31</td>
+</tr>
+<tr class="odd">
+<td>bank_clerk2</td>
+<td align="right">0.60</td>
+<td align="right">0.35</td>
+<td align="right">-0.09</td>
+<td align="right">0.60</td>
+<td align="right">0.35</td>
+<td align="right">-0.09</td>
+</tr>
+<tr class="even">
+<td>executive_secretary2</td>
+<td align="right">0.75</td>
+<td align="right">0.27</td>
+<td align="right">-0.16</td>
+<td align="right">0.75</td>
+<td align="right">0.27</td>
+<td align="right">-0.16</td>
+</tr>
+<tr class="odd">
+<td>salesperson2</td>
+<td align="right">0.11</td>
+<td align="right">0.15</td>
+<td align="right">-0.26</td>
+<td align="right">0.11</td>
+<td align="right">0.15</td>
+<td align="right">-0.26</td>
+</tr>
+<tr class="even">
+<td>textile_worker2</td>
+<td align="right">-0.46</td>
+<td align="right">0.51</td>
+<td align="right">-0.11</td>
+<td align="right">-0.46</td>
+<td align="right">0.51</td>
+<td align="right">-0.11</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>The cloud of points is depicted in figure <a href="analysis-of-table-of-ranks.html#fig:fig-3-2">3.2</a>. The configuration of this cloud is similar to the initial cloud displayed in figure <a href="size-factor.html#fig:fig-2-9">2.9</a>. The similarity of the results obtained with the table of ratios confirms the good quality of the performed analysis. Also, this similarity shows that the essential information is contained in the rank of the values, and not so much in the observed values.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig-3-2"></span>
+<img src="images/figure-3-2.png" alt="Circle of correlations on the first factorial plane of the second analysis" width="70%" />
+<p class="caption">
+Figure 3.2: Circle of correlations on the first factorial plane of the second analysis
+</p>
 </div>
-
-
-
+<p>The fact that the cloud of points in figure <a href="analysis-of-table-of-ranks.html#fig:fig-3-2">3.2</a> is similar to the graph <a href="size-factor.html#fig:fig-2-9">2.9</a>, indicates that the visual displays do not depend on: the units of measurement, monotone transformations, or possible existance of outliers. Hence, we can say that the observed configurations are <em>robusts</em>.</p>
+<p>In the absence of robust configurations, we can suggest positioning the elements of the original table as supplementary elements in the analysis of ranks, in order to detect whether there are sensible elements.</p>
+<p>Sometimes it is convenient to work with variables that have distributions close to a normal distribution. In this case, each variables con be handled as having a normal distribution with expected value equal to the observation of rank <span class="math inline">\(k\)</span>, instead of working directly with the ranks (Lebart et al, 1977).</p>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="from-lanalyse-des-données-to-data-science.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="basic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="validation-stability-and-significance.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="optimal-reconstitution-of-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
