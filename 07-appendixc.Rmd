@@ -43,7 +43,7 @@ $$
 d^2(j,l) = var(j) + var(h) - 2 cov(j,h)
 $$
 
-- _Distance between individuals_: classic (squared) euclidean distance (sus of the squares of the differences with centered data).
+- _Distance between individuals_: classic (squared) euclidean distance (sum of the squares of the differences with centered data).
 
 
 #### Interpretation {-}
@@ -103,11 +103,11 @@ In both cases (rows and columns) the utilized distance is the _chi-squared_ dist
 
 Besides a dilation coefficient:
 
-- an individual is the average point of its caegories.
+- an individual is the average point of its categories.
 
 - a category is an average point of the individuals that have chosen such category.
 
-- the global center of gravity is also the center of gravity of al the categories.
+- the global center of gravity is also the center of gravity of all the categories.
 
 - the part of the inertia due to a given category growths when its effective decreases.
 
@@ -116,7 +116,7 @@ Besides a dilation coefficient:
 - the inertia due to a variable growths when the number of its categories grows (it is recommended to balance the number of categories in the variables).
 
 - in the peryphery of the cloud, two categories appear close to each other 
-if the individuals with such categories have answered in a similar the set of active variables.
+if the individuals with such categories have answered in a similar way the set of active variables.
 
 - a factorial plane is interpreted in terms of how close or how far the projected categories are. The interpretation should be supported by looking at the v-test, the contributions to the axes, the cosine squares, etc.
 
