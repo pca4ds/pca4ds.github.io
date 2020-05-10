@@ -537,7 +537,7 @@ $$
 
 We should mention that the use of Normalized PCA is not always justified. For example, if a PCA is performed by an analyst working for a bank, if may be more interesting to assign a larger weight to the products that contribute to the volume of the deposits. That is, the importance given to different variables should be done by taking into account the goal of the analysis.
 
-If we use the _raw_ data (i.e. mean-centered only, no scaling by the standard deviation), we could see what the contribution of each variable is to the total inertia. The squared distance of one variable to the origin is given by:
+If we use the _raw_ data (i.e. mean-centered only, no scaling by the standard deviation), the squared distance of one variable to the origin is given by:
 
 $$
 d^2(j,O) = \sum_{j=1}^{n} \frac{1}{n} (x_{ij} - \bar{x}_j)^2 = var(j)
@@ -682,4 +682,5 @@ d^2(j,j') = <z_j, z_{j'}> + <z_j, z_{j'}> - 2<z_j, z_{j'}>
 (\#eq:25)
 $$
 
-which coincides with \@ref(eq:17) when using mean-centered data and standardized (normalized PCA), or with \@ref(eq:16) when using non-centenred data (non-normalized PCA).
+which coincides with \@ref(eq:17) when using mean-centered data and standardized (normalized PCA), or with \@ref(eq:16) when using non-centenred data 
+(non-normalized PCA; \@ref(eq:11) and \@ref(eq:21)).
